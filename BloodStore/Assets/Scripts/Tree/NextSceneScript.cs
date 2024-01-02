@@ -11,7 +11,7 @@ public class NextSceneScript : MonoBehaviour
     {
         Debug.Log("Start NextSceneScript");
         // 게임 매니저에서 선택된 카드 데이터 가져오기
-        Card card = cardData.cards[GameManager.Instance.GetSelectedCard()];
+        Card card = cardData.cards[IndexManger.Instance.GetSelectedCard()];
 
         // Card를 Node로 변환하여 NodeSO의 리스트에 추가
         Node newNode = ConvertCardToNode(card);

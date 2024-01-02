@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class IndexManger : MonoBehaviour
 {
-    private static GameManager instance;
+    private static IndexManger instance;
 
     // 현재 선택된 카드 데이터를 저장할 변수
     private int idx;
 
-    public static GameManager Instance
+    public static IndexManger Instance
     {
         get
         {
             if (instance == null)
             {
-                GameObject go = new GameObject("GameManager");
-                instance = go.AddComponent<GameManager>();
+                GameObject go = new GameObject("IndexManger");
+                instance = go.AddComponent<IndexManger>();
                 DontDestroyOnLoad(go);
             }
             return instance;
