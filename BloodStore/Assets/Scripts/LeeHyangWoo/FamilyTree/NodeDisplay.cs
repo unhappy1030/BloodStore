@@ -6,7 +6,6 @@ using UnityEngine.UIElements;
 
 public class NodeDisplay : MonoBehaviour
 {
-    public GameObject moveCamera;
     public PairSO pairData;
     public GameObject nodePrefab;
     public GameObject emptyPrefab;
@@ -33,13 +32,18 @@ public class NodeDisplay : MonoBehaviour
                 
                 if(pair.parent != null){
                     if(pair.isParent){
-                        pair.DestroyDP(pair);
-
+                        pair.DestroyAll();
                         pair.parent.SetData(nodePrefab, emptyPrefab);
+                        pair.parent.SetParentUp();
+                        pair.parent.SetChildrenUp();
                     }
-                    pair.parent.DestroyDP(pair);
-                    pair.SetDataView(nodePrefab,emptyPrefab);
-                    pair.SetChildren();
+                    else{
+                        pair.parent.DestroyDP(pair);
+                        pair.SetDataView(nodePrefab,emptyPrefab);
+                        pair.SetChildren();
+                        pair.isParent = true;
+                    }
+
                 }
             }
         }

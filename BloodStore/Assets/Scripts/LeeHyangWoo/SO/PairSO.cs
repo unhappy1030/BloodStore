@@ -42,7 +42,7 @@ public class Pair
             int n = childNum;
             for (int i = 0; i < n; i++){
                 // Debug.Log(childNum);
-                SetObjectView(children[i], nodePrefab, emptyPrefab);
+                SetObject(children[i], nodePrefab, emptyPrefab);
             }
         }
     }
@@ -80,35 +80,6 @@ public class Pair
             emptyNodeDisplay.SetNodeData(pair);
         }
     }
-    void SetObjectView(Pair pair, GameObject nodePrefab, GameObject emptyPrefab)
-    {
-        // Debug.Log("야이병신아");
-        if (pair.male.empty == false)
-        {
-            pair.maleDP = UnityEngine.Object.Instantiate(nodePrefab, pair.parent.centerPos - new Vector2(0,halfY * 1.3f), Quaternion.identity);
-            NodeDisplay nodeDisplay = pair.maleDP.GetComponent<NodeDisplay>();
-            nodeDisplay.SetNodeData(pair, pair.male);
-        }
-        else
-        {
-            pair.maleDP = UnityEngine.Object.Instantiate(emptyPrefab, pair.parent.centerPos - new Vector2(0,halfY * 1.3f), Quaternion.identity);
-            EmptyNodeDisplay emptyNodeDisplay = pair.maleDP.GetComponent<EmptyNodeDisplay>();
-            emptyNodeDisplay.SetNodeData(pair);
-        }
-
-        if (pair.female.empty == false)
-        {
-            pair.femaleDP = UnityEngine.Object.Instantiate(nodePrefab, pair.parent.centerPos - new Vector2(0,halfY * 1.3f), Quaternion.identity);
-            NodeDisplay nodeDisplay = pair.femaleDP.GetComponent<NodeDisplay>();
-            nodeDisplay.SetNodeData(pair, pair.female);
-        }
-        else
-        {
-            pair.femaleDP = UnityEngine.Object.Instantiate(emptyPrefab, pair.parent.centerPos - new Vector2(0,halfY * 1.3f), Quaternion.identity);
-            EmptyNodeDisplay emptyNodeDisplay = pair.femaleDP.GetComponent<EmptyNodeDisplay>();
-            emptyNodeDisplay.SetNodeData(pair);
-        }
-    }
     public void SetParent()
     {
         this.isParent = true;
@@ -120,7 +91,24 @@ public class Pair
             int idx = 0;
             for (float i = (((float)childNum * 5 / 2) - 2.5f) * -1; i <= (((float)childNum * 5 / 2) - 2.5f); i += 5)
             {
+                children[idx].isParent = false;
                 PlaceChild(children[idx], i);
+                idx++;
+            }
+        }
+    }
+    public void SetParentUp(){
+        this.isParent = true;
+        PlaceParentUp();
+    }
+    public void SetChildrenUp(){
+        if (childNum != 0)
+        {
+            int idx = 0;
+            for (float i = (((float)childNum * 5 / 2) - 2.5f) * -1; i <= (((float)childNum * 5 / 2) - 2.5f); i += 5)
+            {
+                children[idx].isParent = false;
+                PlaceChildUp(children[idx], i);
                 idx++;
             }
         }
@@ -141,19 +129,36 @@ public class Pair
         Vector2 femalePos = pair.centerPos + new Vector2(halfX * 1.1f, 0);
         pair.maleDP.transform.position = malePos;
         pair.femaleDP.transform.position = femalePos;
-
+    }
+    public void PlaceParentUp(){
+        Vector2 malePos = centerPos - new Vector2(halfX * 1.1f, 0);
+        Vector2 femalePos = centerPos + new Vector2(halfX * 1.1f, 0);
+        maleDP.transform.position = malePos;
+        femaleDP.transform.position = femalePos;
+    }
+    public void PlaceChildUp(Pair pair, float x){
+        Vector2 malePos = pair.centerPos - new Vector2(halfX * 1.1f, 0);
+        Vector2 femalePos = pair.centerPos + new Vector2(halfX * 1.1f, 0);
+        pair.maleDP.transform.position = malePos;
+        pair.femaleDP.transform.position = femalePos;
+    }
+    public void DestroyAll(){
+        this.DestroyPair();
+        foreach(Pair nowPair in children){
+             nowPair.DestroyPair();
+        }
     }
     public void DestroyDP(Pair pair) {
         if(pair != this){
             this.DestroyPair();
             this.isPair = false;
         }
+        else{
+            this.isPair = true;
+        }
         foreach(Pair nowPair in children){
             if(pair != nowPair){
                 nowPair.DestroyPair();
-            }
-            else{
-                nowPair.isParent = true;
             }
         }
     }

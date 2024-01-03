@@ -14,130 +14,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pairs:
   - male:
-      name: Bob
+      name: Charlie
       sex: Male
       bloodType:
-      - B
+      - AB
       - +
-      - BB
-      hp: 92
-      age: 41
+      - AB
+      hp: 68
+      age: 46
       isDead: 0
       empty: 0
     female:
-      name: Bob
-      sex: Female
-      bloodType:
-      - A
-      - +
-      - AA
-      hp: 73
-      age: 34
+      name: 
+      sex: 
+      bloodType: []
+      hp: 0
+      age: 0
       isDead: 0
-      empty: 0
-    isPair: 1
-    childNum: 4
-    children:
-    - male:
-        name: Frank
-        sex: Male
-        bloodType:
-        - AB
-        - +
-        - AB
-        hp: 73
-        age: 46
-        isDead: 0
-        empty: 0
-      female:
-        name: 
-        sex: 
-        bloodType: []
-        hp: 0
-        age: 0
-        isDead: 0
-        empty: 1
-      isPair: 0
-      childNum: 0
-      children: []
-      centerPos: {x: -18.75, y: -4.5499997}
-      maleDP: {fileID: 0}
-      femaleDP: {fileID: 0}
-    - male:
-        name: 
-        sex: 
-        bloodType: []
-        hp: 0
-        age: 0
-        isDead: 0
-        empty: 1
-      female:
-        name: Grace
-        sex: Female
-        bloodType:
-        - AB
-        - +
-        - AB
-        hp: 62
-        age: 20
-        isDead: 0
-        empty: 0
-      isPair: 0
-      childNum: 0
-      children: []
-      centerPos: {x: -6.25, y: -4.5499997}
-      maleDP: {fileID: 0}
-      femaleDP: {fileID: 0}
-    - male:
-        name: David
-        sex: Male
-        bloodType:
-        - AB
-        - +
-        - AB
-        hp: 75
-        age: 21
-        isDead: 0
-        empty: 0
-      female:
-        name: 
-        sex: 
-        bloodType: []
-        hp: 0
-        age: 0
-        isDead: 0
-        empty: 1
-      isPair: 0
-      childNum: 0
-      children: []
-      centerPos: {x: 6.25, y: -4.5499997}
-      maleDP: {fileID: 0}
-      femaleDP: {fileID: 0}
-    - male:
-        name: David
-        sex: Male
-        bloodType:
-        - AB
-        - +
-        - AB
-        hp: 57
-        age: 32
-        isDead: 0
-        empty: 0
-      female:
-        name: 
-        sex: 
-        bloodType: []
-        hp: 0
-        age: 0
-        isDead: 0
-        empty: 1
-      isPair: 0
-      childNum: 0
-      children: []
-      centerPos: {x: 18.75, y: -4.5499997}
-      maleDP: {fileID: 0}
-      femaleDP: {fileID: 0}
-    centerPos: {x: 0, y: 4.5499997}
+      empty: 1
+    isPair: 0
+    childNum: 0
+    children: []
+    centerPos: {x: 0, y: 0}
     maleDP: {fileID: 0}
     femaleDP: {fileID: 0}
+    isParent: 0
