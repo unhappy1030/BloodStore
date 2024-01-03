@@ -15,6 +15,166 @@ public class Pair
     public bool isPair;
     public int childNum;
     public List<Pair> children;
+    public Vector2 centerPos;
+    public GameObject maleDP;
+    public GameObject femaleDP;
+    private float halfX, halfY;
+
+    public void SetData(GameObject nodePrefab, GameObject emptyPrefab)
+    {
+        SetPrefabSize(nodePrefab);
+        SetObject(this, nodePrefab, emptyPrefab);
+        if(childNum != 0)
+        {
+            int n = childNum;
+            for (int i = 0; i < n; i++){
+                Debug.Log(childNum);
+                SetObject(children[i], nodePrefab, emptyPrefab);
+            }
+        }
+    }
+    public void SetDataView(GameObject nodePrefab, GameObject emptyPrefab)
+    {
+        SetPrefabSize(nodePrefab);
+        if(childNum != 0)
+        {
+            int n = childNum;
+            for (int i = 0; i < n; i++){
+                Debug.Log(childNum);
+                SetObjectView(children[i], nodePrefab, emptyPrefab);
+            }
+        }
+    }
+    public void SetPrefabSize(GameObject prefab)
+    {
+        halfX = prefab.GetComponent<SpriteRenderer>().bounds.extents.x;
+        halfY = prefab.GetComponent<SpriteRenderer>().bounds.extents.y;
+    }
+    void SetObject(Pair pair, GameObject nodePrefab, GameObject emptyPrefab)
+    {
+        // Debug.Log("야이병신아");
+        if (pair.male.empty == false)
+        {
+            pair.maleDP = UnityEngine.Object.Instantiate(nodePrefab, new Vector2(0, 0), Quaternion.identity);
+            NodeDisplay nodeDisplay = pair.maleDP.GetComponent<NodeDisplay>();
+            nodeDisplay.SetNodeData(pair, pair.male);
+        }
+        else
+        {
+            pair.maleDP = UnityEngine.Object.Instantiate(emptyPrefab, new Vector2(0, 0), Quaternion.identity);
+            EmptyNodeDisplay emptyNodeDisplay = pair.maleDP.GetComponent<EmptyNodeDisplay>();
+            emptyNodeDisplay.SetNodeData(pair);
+        }
+
+        if (pair.female.empty == false)
+        {
+            pair.femaleDP = UnityEngine.Object.Instantiate(nodePrefab, new Vector2(0, 0), Quaternion.identity);
+            NodeDisplay nodeDisplay = pair.femaleDP.GetComponent<NodeDisplay>();
+            nodeDisplay.SetNodeData(pair, pair.female);
+        }
+        else
+        {
+            pair.femaleDP = UnityEngine.Object.Instantiate(emptyPrefab, new Vector2(0, 0), Quaternion.identity);
+            EmptyNodeDisplay emptyNodeDisplay = pair.femaleDP.GetComponent<EmptyNodeDisplay>();
+            emptyNodeDisplay.SetNodeData(pair);
+        }
+    }
+    void SetObjectView(Pair pair, GameObject nodePrefab, GameObject emptyPrefab)
+    {
+        // Debug.Log("야이병신아");
+        if (pair.male.empty == false)
+        {
+            pair.maleDP = UnityEngine.Object.Instantiate(nodePrefab, pair.parent.centerPos - new Vector2(0,halfY * 1.3f), Quaternion.identity);
+            NodeDisplay nodeDisplay = pair.maleDP.GetComponent<NodeDisplay>();
+            nodeDisplay.SetNodeData(pair, pair.male);
+        }
+        else
+        {
+            pair.maleDP = UnityEngine.Object.Instantiate(emptyPrefab, pair.parent.centerPos - new Vector2(0,halfY * 1.3f), Quaternion.identity);
+            EmptyNodeDisplay emptyNodeDisplay = pair.maleDP.GetComponent<EmptyNodeDisplay>();
+            emptyNodeDisplay.SetNodeData(pair);
+        }
+
+        if (pair.female.empty == false)
+        {
+            pair.femaleDP = UnityEngine.Object.Instantiate(nodePrefab, pair.parent.centerPos - new Vector2(0,halfY * 1.3f), Quaternion.identity);
+            NodeDisplay nodeDisplay = pair.femaleDP.GetComponent<NodeDisplay>();
+            nodeDisplay.SetNodeData(pair, pair.female);
+        }
+        else
+        {
+            pair.femaleDP = UnityEngine.Object.Instantiate(emptyPrefab, pair.parent.centerPos - new Vector2(0,halfY * 1.3f), Quaternion.identity);
+            EmptyNodeDisplay emptyNodeDisplay = pair.femaleDP.GetComponent<EmptyNodeDisplay>();
+            emptyNodeDisplay.SetNodeData(pair);
+        }
+    }
+    public void SetParent()
+    {
+        PlaceParent();
+    }
+
+    public void SetChildren()
+    {
+        if (childNum != 0)
+        {
+            int idx = 0;
+            for (float i = (((float)childNum * 5 / 2) - 2.5f) * -1; i <= (((float)childNum * 5 / 2) - 2.5f); i += 5)
+            {
+                PlaceChild(children[idx], i);
+                idx++;
+            }
+        }
+    }
+    public void SetChildrenView(){
+        if (childNum != 0)
+        {
+            int idx = 0;
+            for (float i = (((float)childNum * 5 / 2) - 2.5f) * -1; i <= (((float)childNum * 5 / 2) - 2.5f); i += 5)
+            {
+                PlaceChildView(children[idx], i);
+                idx++;
+            }
+        }
+    }
+    void PlaceParent()
+    {
+        this.centerPos = new Vector2(0, halfY * 1.3f);
+        Vector2 malePos = centerPos - new Vector2(halfX * 1.1f, 0);
+        Vector2 femalePos = centerPos + new Vector2(halfX * 1.1f, 0);
+        maleDP.transform.position = malePos;
+        femaleDP.transform.position = femalePos;
+    }
+
+    void PlaceChild(Pair pair, float x)
+    {
+        pair.centerPos = new Vector2(x * halfX, -1 * halfY * 1.3f);
+        Vector2 malePos = pair.centerPos - new Vector2(halfX * 1.1f, 0);
+        Vector2 femalePos = pair.centerPos + new Vector2(halfX * 1.1f, 0);
+        pair.maleDP.transform.position = malePos;
+        pair.femaleDP.transform.position = femalePos;
+    }
+    void PlaceChildView(Pair pair, float x)
+    {
+        pair.centerPos = new Vector2(x * halfX, -1 * halfY * 1.3f);
+        Vector2 malePos = pair.centerPos - new Vector2(halfX * 1.1f, 0);
+        Vector2 femalePos = pair.centerPos + new Vector2(halfX * 1.1f, 0);
+        pair.maleDP.transform.position = pair.parent.centerPos - new Vector2(0,halfY * 1.3f) + malePos;
+        pair.femaleDP.transform.position = pair.parent.centerPos - new Vector2(0,halfY * 1.3f) + femalePos;
+    }
+    public void DestroyDP(Pair pair) {
+        if(pair != this){
+            this.DestroyPair();
+        }
+        foreach(Pair nowPair in children){
+            if(pair != nowPair){
+                nowPair.DestroyPair();
+            }
+        }
+    }
+    void DestroyPair(){
+        UnityEngine.Object.Destroy(maleDP);
+        UnityEngine.Object.Destroy(femaleDP);
+    }
     public string BlankNodeCheck(){
         return  male.empty == true ? "Male" : "Female";
     }
@@ -25,7 +185,7 @@ public class Pair
         }
     }
     public void AddChild(){
-        if(isPair == true){
+        if(isPair == true && childNum == 0){
             childNum = Random.Range(1,5);
             for(int i = 0; i < childNum; i++){
                 Node node = new Node();
@@ -53,28 +213,12 @@ public class Pair
                 }
             }
         }
-    }
-    public void AddRandomChild(){
-        Node node = new Node();
-        node.SetAllRandom();
-        if(node.sex == "Male"){
-            Pair child = new Pair
-            {
-                parent = this,
-                male = node,
-                isPair = false,
-            };
-            children.Add(child);
+        if(childNum != 0){
+            foreach(Pair pair in children){
+                pair.AddChild();
+            }
         }
-        else{
-            Pair child = new Pair
-            {
-                parent = this,
-                female = node,
-                isPair = false,
-            };
-            children.Add(child);
-        }
+
     }
     private Node SetByParent(){
         Node node = new Node{
@@ -127,24 +271,6 @@ public class Pair
         }
         return newGeno;
     }
-    // public void MakePair(Node node){
-    //     if(node.sex == "Male"){
-    //         Pair child = new Pair
-    //         {
-    //             male = node,
-    //             childNum = 0,
-    //             isPair = false,
-    //         };
-    //     }
-    //     else{
-    //         Pair child = new Pair
-    //         {
-    //             female = node,
-    //             childNum = 0,
-    //             isPair = false,
-    //         };
-    //     }
-    // }
 }
 
 [CreateAssetMenu(fileName = "PairSo", menuName = "Scriptable Object/PairSo")]

@@ -12,14 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc0ba15c8b481754f9d10b2e973d28b1, type: 3}
   m_Name: NodeSo
   m_EditorClassIdentifier: 
-  nodes:
-  - name: Alice
-    sex: Male
-    bloodType:
-    - A
-    - '-'
-    - AA
-    hp: 75
-    age: 41
-    isDead: 0
-    empty: 0
+  nodes: []
