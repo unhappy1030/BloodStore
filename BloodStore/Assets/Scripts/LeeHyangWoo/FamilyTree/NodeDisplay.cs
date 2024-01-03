@@ -9,9 +9,8 @@ public class NodeDisplay : MonoBehaviour
     public GameObject moveCamera;
     public PairSO pairData;
     public GameObject nodePrefab;
-    public GameObject EmptyPrefab;
+    public GameObject emptyPrefab;
     private Pair pair;
-    private PosTree posTree;
     public TextMeshPro nameLabel;
     public TextMeshPro sexLabel;
     public TextMeshPro bloodTypeLabel;
@@ -31,10 +30,16 @@ public class NodeDisplay : MonoBehaviour
             // collider가 있다면 클릭된 것으로 간주
             if (hitCollider != null && hitCollider.gameObject == gameObject)
             {
+                
                 if(pair.parent != null){
+                    if(pair.isParent){
+                        pair.DestroyDP(pair);
+
+                        pair.parent.SetData(nodePrefab, emptyPrefab);
+                    }
                     pair.parent.DestroyDP(pair);
-                    pair.SetDataView(nodePrefab,EmptyPrefab);
-                    pair.SetChildrenView();
+                    pair.SetDataView(nodePrefab,emptyPrefab);
+                    pair.SetChildren();
                 }
             }
         }
