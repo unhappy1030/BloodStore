@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 
 public class NodeDisplay : MonoBehaviour
 {
+    public GameObject moveCamera;
     public PairSO pairData;
     public GameObject nodePrefab;
     public GameObject EmptyPrefab;
@@ -33,7 +34,7 @@ public class NodeDisplay : MonoBehaviour
                 if(pair.parent != null){
                     pair.parent.DestroyDP(pair);
                     pair.SetDataView(nodePrefab,EmptyPrefab);
-                    pair.SetChildren();
+                    pair.SetChildrenView();
                 }
             }
         }

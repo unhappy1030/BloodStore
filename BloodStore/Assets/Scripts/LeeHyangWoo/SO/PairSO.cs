@@ -28,7 +28,7 @@ public class Pair
         {
             int n = childNum;
             for (int i = 0; i < n; i++){
-                Debug.Log(childNum);
+                // Debug.Log(childNum);
                 SetObject(children[i], nodePrefab, emptyPrefab);
             }
         }
@@ -40,7 +40,7 @@ public class Pair
         {
             int n = childNum;
             for (int i = 0; i < n; i++){
-                Debug.Log(childNum);
+                // Debug.Log(childNum);
                 SetObjectView(children[i], nodePrefab, emptyPrefab);
             }
         }
@@ -155,11 +155,13 @@ public class Pair
     }
     void PlaceChildView(Pair pair, float x)
     {
-        pair.centerPos = new Vector2(x * halfX, -1 * halfY * 1.3f);
+        Debug.Log("PlaceChild Pos: (" + pair.parent.centerPos.x.ToString() + ", " + pair.parent.centerPos.y.ToString());
+        pair.centerPos = pair.parent.centerPos - new Vector2(0,halfY * 1.3f) + new Vector2(x * halfX, -1 * halfY * 1.3f);
         Vector2 malePos = pair.centerPos - new Vector2(halfX * 1.1f, 0);
         Vector2 femalePos = pair.centerPos + new Vector2(halfX * 1.1f, 0);
-        pair.maleDP.transform.position = pair.parent.centerPos - new Vector2(0,halfY * 1.3f) + malePos;
-        pair.femaleDP.transform.position = pair.parent.centerPos - new Vector2(0,halfY * 1.3f) + femalePos;
+        pair.maleDP.transform.position = malePos;
+        pair.femaleDP.transform.position = femalePos;
+
     }
     public void DestroyDP(Pair pair) {
         if(pair != this){

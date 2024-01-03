@@ -132,7 +132,6 @@ public class TreeManager : MonoBehaviour
             AddFirstNode(node);
         }
         //현재 PairSO에 들어있는 값 위에서 1개의 Family출력
-        pairData.pairs[0].AddChild();
         pairData.pairs[0].SetData(nodePrefab, EmptyPrefab);
         pairData.pairs[0].SetParent();
         pairData.pairs[0].SetChildren();
