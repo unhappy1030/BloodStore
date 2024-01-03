@@ -6,6 +6,7 @@ using UnityEngine;
 // [System.Serializable]
 public class PosTree
 {
+    public Vector2 centerPos;
     public PosTree parent;
     public GameObject male;
     public GameObject female;
@@ -19,7 +20,7 @@ public class PosTree
         SetPrefabSize(nodePrefab);
         Pair nowPair = pairData.pairs[0];
         SetObject(nowPair, nodePrefab, emptyPrefab, this);
-        if (nowPair.childNum != 0)
+        if(nowPair.childNum != 0)
         {
             int n = nowPair.childNum;
             for (int i = 0; i < n; i++){
@@ -82,11 +83,9 @@ public class PosTree
             }
         }
     }
-
-
     void PlaceParent()
     {
-        Vector2 centerPos = new Vector2(0, halfY * 1.3f);
+        this.centerPos = new Vector2(0, halfY * 1.3f);
         Vector2 malePos = centerPos - new Vector2(halfX * 1.1f, 0);
         Vector2 femalePos = centerPos + new Vector2(halfX * 1.1f, 0);
         male.transform.position = malePos;
@@ -95,9 +94,9 @@ public class PosTree
 
     void PlaceChild(PosTree posTree, float x)
     {
-        Vector2 centerPos = new Vector2(x * halfX, -1 * halfY * 1.3f);
-        Vector2 malePos = centerPos - new Vector2(halfX * 1.1f, 0);
-        Vector2 femalePos = centerPos + new Vector2(halfX * 1.1f, 0);
+        posTree.centerPos = new Vector2(x * halfX, -1 * halfY * 1.3f);
+        Vector2 malePos = posTree.centerPos - new Vector2(halfX * 1.1f, 0);
+        Vector2 femalePos = posTree.centerPos + new Vector2(halfX * 1.1f, 0);
         posTree.male.transform.position = malePos;
         posTree.female.transform.position = femalePos;
     }
@@ -133,11 +132,9 @@ public class TreeManager : MonoBehaviour
             AddFirstNode(node);
         }
         //현재 PairSO에 들어있는 값 위에서 1개의 Family출력
-        pairData.pairs[0].AddChild();
-        posTree = new PosTree();
-        posTree.setData(pairData, nodePrefab, EmptyPrefab);
-        posTree.SetParent();
-        posTree.SetChildren();
+        pairData.pairs[0].SetData(nodePrefab, EmptyPrefab);
+        pairData.pairs[0].SetParent();
+        pairData.pairs[0].SetChildren();
     }
     public void AddFirstNode(Node node)
     {
@@ -145,6 +142,7 @@ public class TreeManager : MonoBehaviour
         {
             Pair first = new Pair
             {
+                parent = null,
                 male = node,
                 female = new Node(),
                 isPair = false,
@@ -155,6 +153,7 @@ public class TreeManager : MonoBehaviour
         {
             Pair first = new Pair
             {
+                parent = null,
                 male = new Node(),
                 female = node,
                 isPair = false,

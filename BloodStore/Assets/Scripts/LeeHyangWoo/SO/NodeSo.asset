@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodes:
   - name: Alice
-    sex: Male
+    sex: Female
     bloodType:
-    - A
-    - '-'
-    - AA
-    hp: 75
-    age: 41
+    - O
+    - +
+    - OO
+    hp: 97
+    age: 42
     isDead: 0
     empty: 0
