@@ -8,7 +8,6 @@ public class EmptyNodeDisplay : MonoBehaviour
 {
     public NodeSO nodeData;
     private Pair pair;
-    private PosTree posTree;
     void Update()
     {
         // 마우스 왼쪽 버튼이 클릭되었을 때
@@ -40,7 +39,7 @@ public class EmptyNodeDisplay : MonoBehaviour
     void MakePair(){
         Node node = new Node();
         node = nodeData.nodes[nodeData.nodes.Count - 1];
-        pair.IsMarried(node);
+        pair.MakePair(node);
         nodeData.nodes.RemoveAt(nodeData.nodes.Count - 1);
         pair.isPair = true;
     }
