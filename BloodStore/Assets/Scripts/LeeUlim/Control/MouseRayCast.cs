@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class MouseRayCast : MonoBehaviour
 {
     // 주의 : 버튼을 제외한 모든 상호작용 물체는 Collider를 가지고 있어야 한다
-
     public GameObject moveTarget;
     CameraControl cameraControl;
 

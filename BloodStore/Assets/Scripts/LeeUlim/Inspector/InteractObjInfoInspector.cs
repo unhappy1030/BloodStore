@@ -9,8 +9,6 @@ public class InteractObjInfoInspctor : Editor
 {
     public override void OnInspectorGUI()
     {
-        base.OnInspectorGUI();
-
         serializedObject.Update();
 
         var interactType = (InteractType)serializedObject.FindProperty("_interactType").enumValueIndex;
@@ -59,30 +57,21 @@ public class InteractObjInfoInspctor : Editor
         switch (cameraMovementType)
         {
             case CameraControlType.ChangeCam:
-                var changingCam = serializedObject.FindProperty("_changeVertualCam");
-                bool isExist;
+                var useCurrnetCamAsStart = serializedObject.FindProperty("_useCurrentCamAsStart");
+                var startCam = serializedObject.FindProperty("_startCam");
+                var subCamList = serializedObject.FindProperty("_changingCamList");
 
                 GUILayout.Label("Change Camera");
-                EditorGUILayout.PropertyField(changingCam);
 
-                isExist = (changingCam.objectReferenceValue != null);
+                EditorGUILayout.PropertyField(useCurrnetCamAsStart);
 
-                EditorGUI.BeginDisabledGroup(isExist);
-                EditorGUI.indentLevel++;
-                GUILayout.Label("Testing...");
-                EditorGUI.indentLevel++;
-                EditorGUILayout.PropertyField(changingCam);
-                EditorGUI.EndDisabledGroup();
+                if(!useCurrnetCamAsStart.boolValue)
+                    EditorGUILayout.PropertyField(startCam);
+                
+                EditorGUILayout.PropertyField(subCamList, true);
+                
 
                 break;
-                /*
-                            case ChagingCameraType.BlendListCamera:
-                                var subCamList = serializedObject.FindProperty("_subCamList");
-
-                                GUILayout.Label("Blend List Camera");
-                                EditorGUILayout.PropertyField(subCamList, true);
-                                break;
-                */
         }
     }
 }

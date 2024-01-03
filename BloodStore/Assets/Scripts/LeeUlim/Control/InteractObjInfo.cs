@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using Cinemachine;
 
-// ¸¶¿ì½º »óÈ£ÀÛ¿ë ¸ðÀ½
+// ï¿½ï¿½ï¿½ì½º ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½
 public enum InteractType
 {
     None,
@@ -15,24 +15,30 @@ public enum InteractType
 
 public enum CameraControlType
 {
-    ChangeCam,
-    // BlendListCamera,
+    ChangeCam
+}
+
+[System.Serializable]
+public class ChangingCameraInfo{
+    public GameObject target;
+    public float backCamHold;
+    public CinemachineBlendDefinition.Style blendIn;
+    public float blendTime;
 }
 
 public class InteractObjInfo : MonoBehaviour
 {
-    [HideInInspector] [SerializeField] public InteractType _interactType;
+    [SerializeField] public InteractType _interactType;
 
-    // CameraType
-    [HideInInspector] [SerializeField] public CameraControlType _cameraMovementType;
+    // CameraContorlType
+    [SerializeField] public CameraControlType _cameraMovementType;
 
-    // - Vertual
-    [HideInInspector] [SerializeField] public GameObject _changeVertualCam;
-
-    // - BlendList
-    // [HideInInspector] [SerializeField] public List<GameObject> _subCamList;
+    // - ChangeCam
+    [SerializeField] public bool _useCurrentCamAsStart;
+    [SerializeField] public GameObject _startCam;
+    [SerializeField] public List<ChangingCameraInfo> _changingCamList;
 
     // SceneLoad
-    [HideInInspector] [SerializeField] public bool _isFade;
-    [HideInInspector] [SerializeField] public string _sceneName;
+    [SerializeField] public bool _isFade;
+    [SerializeField] public string _sceneName;
 }
