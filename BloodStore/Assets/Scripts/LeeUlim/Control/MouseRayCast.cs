@@ -12,7 +12,8 @@ public class MouseRayCast : MonoBehaviour
     private void Start()
     {
         // *** 카메라는 MainCamera 태그를 가지고 있어야 함
-        cameraControl = GameObject.FindWithTag("MainCamera").GetComponent<CameraControl>();
+        cameraControl = GameObject.FindWithTag("CameraControl").GetComponent<CameraControl>();
+        
     }
 
     private void Update()
@@ -39,7 +40,7 @@ public class MouseRayCast : MonoBehaviour
         //  - 카메라 이동
         if (interactObjInfo._interactType == InteractType.CameraControl)
         {
-            
+            cameraControl.ChangeBlendListCamSetting(interactObjInfo);
         }
 
         // - 씬 이동
