@@ -18,6 +18,7 @@ public class Pair
     public Vector2 centerPos;
     public GameObject maleDP;
     public GameObject femaleDP;
+    public bool isParent;
     private float halfX, halfY;
 
     public void SetData(GameObject nodePrefab, GameObject emptyPrefab)
@@ -110,28 +111,16 @@ public class Pair
     }
     public void SetParent()
     {
+        this.isParent = true;
         PlaceParent();
     }
-
-    public void SetChildren()
-    {
+    public void SetChildren(){
         if (childNum != 0)
         {
             int idx = 0;
             for (float i = (((float)childNum * 5 / 2) - 2.5f) * -1; i <= (((float)childNum * 5 / 2) - 2.5f); i += 5)
             {
                 PlaceChild(children[idx], i);
-                idx++;
-            }
-        }
-    }
-    public void SetChildrenView(){
-        if (childNum != 0)
-        {
-            int idx = 0;
-            for (float i = (((float)childNum * 5 / 2) - 2.5f) * -1; i <= (((float)childNum * 5 / 2) - 2.5f); i += 5)
-            {
-                PlaceChildView(children[idx], i);
                 idx++;
             }
         }
@@ -144,16 +133,7 @@ public class Pair
         maleDP.transform.position = malePos;
         femaleDP.transform.position = femalePos;
     }
-
     void PlaceChild(Pair pair, float x)
-    {
-        pair.centerPos = new Vector2(x * halfX, -1 * halfY * 1.3f);
-        Vector2 malePos = pair.centerPos - new Vector2(halfX * 1.1f, 0);
-        Vector2 femalePos = pair.centerPos + new Vector2(halfX * 1.1f, 0);
-        pair.maleDP.transform.position = malePos;
-        pair.femaleDP.transform.position = femalePos;
-    }
-    void PlaceChildView(Pair pair, float x)
     {
         Debug.Log("PlaceChild Pos: (" + pair.parent.centerPos.x.ToString() + ", " + pair.parent.centerPos.y.ToString());
         pair.centerPos = pair.parent.centerPos - new Vector2(0,halfY * 1.3f) + new Vector2(x * halfX, -1 * halfY * 1.3f);
@@ -166,10 +146,14 @@ public class Pair
     public void DestroyDP(Pair pair) {
         if(pair != this){
             this.DestroyPair();
+            this.isPair = false;
         }
         foreach(Pair nowPair in children){
             if(pair != nowPair){
                 nowPair.DestroyPair();
+            }
+            else{
+                nowPair.isParent = true;
             }
         }
     }
@@ -180,14 +164,14 @@ public class Pair
     public string BlankNodeCheck(){
         return  male.empty == true ? "Male" : "Female";
     }
-    public void IsMarried(Node node){
+    public void MakePair(Node node){
         if(male.empty == true) male = node;
         else{
             female = node;
         }
     }
     public void AddChild(){
-        if(isPair == true && childNum == 0){
+        if(isPair == true && childNum == 0){ //테스트용 조건문
             childNum = Random.Range(1,5);
             for(int i = 0; i < childNum; i++){
                 Node node = new Node();
