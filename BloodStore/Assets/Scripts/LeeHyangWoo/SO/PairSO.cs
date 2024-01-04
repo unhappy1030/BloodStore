@@ -57,9 +57,9 @@ public class Pair
         {
             pair.maleDP = Object.Instantiate(nodePrefab, new Vector2(0, 0), Quaternion.identity);
             NodeDisplay nodeDisplay = pair.maleDP.GetComponent<NodeDisplay>();
-            Debug.Log(  "<pair.male>\n" +
-                        "name : " + pair.male.name + "\n" +
-                        "sex : " + pair.male.sex);
+            // Debug.Log(  "<pair.male>\n" +
+            //             "name : " + pair.male.name + "\n" +
+            //             "sex : " + pair.male.sex);
             nodeDisplay.SetNodeData(pair, pair.male);
         }
         else
@@ -73,9 +73,9 @@ public class Pair
         {
             pair.femaleDP = Object.Instantiate(nodePrefab, new Vector2(0, 0), Quaternion.identity);
             NodeDisplay nodeDisplay = pair.femaleDP.GetComponent<NodeDisplay>();
-            Debug.Log(  "<pair.female>\n" +
-                        "name : " + pair.female.name + "\n" +
-                        "sex : " + pair.female.sex);
+            // Debug.Log(  "<pair.female>\n" +
+            //             "name : " + pair.female.name + "\n" +
+            //             "sex : " + pair.female.sex);
             nodeDisplay.SetNodeData(pair, pair.female);
         }
         else
@@ -87,7 +87,7 @@ public class Pair
     }
     public void SetParent()
     {
-        this.isParent = true;
+        isParent = true;
         PlaceParent();
     }
     public void SetChildren(){
@@ -97,27 +97,27 @@ public class Pair
             for (float i = (((float)childNum * 5 / 2) - 2.5f) * -1; i <= (((float)childNum * 5 / 2) - 2.5f); i += 5)
             {
                 children[idx].isParent = false;
-                PlaceChild(this.children[idx], i);
+                PlaceChild(children[idx], i);
                 idx++;
             }
         }
     }
     public void SetActiveParent(){
-        this.isParent = true;
-        this.ActivePair();
+        isParent = true;
+        ActivePair();
     }
     public void SetActivehildren(){
         if (childNum != 0)
         {
             for(int i = 0; i < childNum; i++){
-                this.children[i].isParent = false;
-                this.children[i].ActivePair();
+                children[i].isParent = false;
+                children[i].ActivePair();
             }
         }
     }
     void PlaceParent()
     {
-        this.centerPos = new Vector2(0, halfY * 1.3f);
+        centerPos = new Vector2(0, halfY * 1.3f);
         Vector2 malePos = centerPos - new Vector2(halfX * 1.1f, 0);
         Vector2 femalePos = centerPos + new Vector2(halfX * 1.1f, 0);
         maleDP.transform.position = malePos;
@@ -137,28 +137,25 @@ public class Pair
         maleDP.SetActive(true);
         femaleDP.SetActive(true);
     }
-    public void DeActiveAll(){
-        this.DeActivePair();
-        if(childNum != 0){
-            foreach(Pair nowPair in children){
-                nowPair.DeActivePair();
+    public void DeActive(){
+        if(isParent){
+            isParent = false;
+            if(childNum != 0){
+                foreach(Pair nowPair in children){
+                    nowPair.DeActivePair();
+                }
+            }
+        }
+        else{
+            parentPair.isParent = false;
+            parentPair.DeActivePair();
+            foreach(Pair nowPair in parentPair.children){
+                if(this != nowPair){
+                    nowPair.DeActivePair();
+                }
             }
         }
 
-    }
-    public void DeActiveDP(Pair pair) {
-        if(pair != this){
-            this.DeActivePair();
-            this.isPair = false;
-        }
-        else{
-            this.isPair = true;
-        }
-        foreach(Pair nowPair in children){
-            if(pair != nowPair){
-                nowPair.DeActivePair();
-            }
-        }
     }
     void DeActivePair(){
         maleDP.SetActive(false);
