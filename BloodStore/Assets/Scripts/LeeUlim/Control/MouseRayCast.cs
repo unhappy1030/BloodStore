@@ -6,14 +6,14 @@ using UnityEngine.SceneManagement;
 public class MouseRayCast : MonoBehaviour
 {
     // 주의 : 버튼을 제외한 모든 상호작용 물체는 Collider를 가지고 있어야 한다
-
     public GameObject moveTarget;
     CameraControl cameraControl;
 
     private void Start()
     {
         // *** 카메라는 MainCamera 태그를 가지고 있어야 함
-        cameraControl = GameObject.FindWithTag("MainCamera").GetComponent<CameraControl>();
+        cameraControl = GameObject.FindWithTag("CameraControl").GetComponent<CameraControl>();
+        
     }
 
     private void Update()
@@ -40,7 +40,7 @@ public class MouseRayCast : MonoBehaviour
         //  - 카메라 이동
         if (interactObjInfo._interactType == InteractType.CameraControl)
         {
-            
+            cameraControl.ChangeBlendListCamSetting(interactObjInfo);
         }
 
         // - 씬 이동
