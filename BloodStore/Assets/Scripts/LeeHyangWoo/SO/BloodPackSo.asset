@@ -9,17 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc0ba15c8b481754f9d10b2e973d28b1, type: 3}
-  m_Name: NodeSo
+  m_Script: {fileID: 11500000, guid: 96d449cc0fc34dd439010185d318bb8c, type: 3}
+  m_Name: BloodPackSo
   m_EditorClassIdentifier: 
-  nodes:
-  - name: Hank
-    sex: Male
-    bloodType:
-    - AB
-    - +
-    - AB
-    hp: 71
-    age: 59
-    isDead: 0
-    empty: 0
+  bloodPacks: []
