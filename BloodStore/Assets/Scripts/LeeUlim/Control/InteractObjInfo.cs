@@ -52,7 +52,6 @@ public class BlendListSubCameraInfo{
     public CameraType cameraType;
     public VirtualCameraInfo virtualCam;
     public TargetGroupCameraInfo targetGroupCam;
-    public BlendInfo blendInfo;
 }
 
 [System.Serializable]
