@@ -8,6 +8,7 @@ public class IndexManger : MonoBehaviour
 
     // 현재 선택된 카드 데이터를 저장할 변수
     private int idx;
+    private int dayCount;
 
     public static IndexManger Instance
     {
@@ -33,5 +34,11 @@ public class IndexManger : MonoBehaviour
     public int GetSelectedCard()
     {
         return idx;
+    }
+    public void DayCountUpdate(){
+        dayCount++;
+    }
+    public int GetDayCount(){
+        return dayCount;
     }
 }

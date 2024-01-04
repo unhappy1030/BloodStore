@@ -14,7 +14,6 @@ public class Node
     public bool isDead;
     public Dictionary<string, string>[] type;
     public bool empty;
-    public Node Nullnode = null;
     public Node(){
         empty = true;
     }

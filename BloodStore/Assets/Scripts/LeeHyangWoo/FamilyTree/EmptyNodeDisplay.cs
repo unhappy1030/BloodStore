@@ -25,6 +25,7 @@ public class EmptyNodeDisplay : MonoBehaviour
                 if(pair.BlankNodeCheck() == nodeData.nodes[nodeData.nodes.Count - 1].sex){
                     MakePair();
                     pair.AddChild();
+                    IndexManger.Instance.DayCountUpdate();
                 }
                 else{
                     DeleteNode();
