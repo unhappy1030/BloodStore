@@ -48,16 +48,16 @@ public class TargetGroupCameraInfo{
 }
 
 [System.Serializable]
-public class BlendListCameraInfo{
-    public List<BlendListSubCameraInfo> subCams;
+public class BlendListSubCameraInfo{
+    public CameraType cameraType;
+    public VirtualCameraInfo virtualCam;
+    public TargetGroupCameraInfo targetGroupCam;
     public BlendInfo blendInfo;
 }
 
 [System.Serializable]
-public class BlendListSubCameraInfo{
-    public CameraType cameraType;
-    public VirtualCameraInfo vertualCam;
-    public TargetGroupCameraInfo targetGroupCam;
+public class BlendListCameraInfo{
+    public List<BlendListSubCameraInfo> subCams;
     public BlendInfo blendInfo;
 }
 

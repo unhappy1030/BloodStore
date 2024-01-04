@@ -5,20 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class MouseRayCast : MonoBehaviour
 {
-    // ÁÖÀÇ : ¹öÆ°À» Á¦¿ÜÇÑ ¸ðµç »óÈ£ÀÛ¿ë ¹°Ã¼´Â Collider¸¦ °¡Áö°í ÀÖ¾î¾ß ÇÑ´Ù
+    // ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ Colliderï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½Ñ´ï¿½
     public GameObject moveTarget;
     CameraControl cameraControl;
 
     private void Start()
     {
-        // *** Ä«¸Þ¶ó´Â MainCamera ÅÂ±×¸¦ °¡Áö°í ÀÖ¾î¾ß ÇÔ
+        // *** Ä«ï¿½Þ¶ï¿½ï¿½ MainCamera ï¿½Â±×¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½ï¿½
         cameraControl = GameObject.FindWithTag("CameraControl").GetComponent<CameraControl>();
         
     }
 
     private void Update()
     {
-        // ¸¶¿ì½º ÀÔ·Â Ã³¸®
+        // ï¿½ï¿½ï¿½ì½º ï¿½Ô·ï¿½ Ã³ï¿½ï¿½
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -29,7 +29,7 @@ public class MouseRayCast : MonoBehaviour
         }
     }
 
-    // [¸¶¿ì½º »óÈ£ÀÛ¿ë Ã³¸®]
+    // [ï¿½ï¿½ï¿½ì½º ï¿½ï¿½È£ï¿½Û¿ï¿½ Ã³ï¿½ï¿½]
     void MouseInteract(GameObject gameObject)
     {
         InteractObjInfo interactObjInfo = gameObject.GetComponent<InteractObjInfo>();
@@ -37,13 +37,13 @@ public class MouseRayCast : MonoBehaviour
         if (interactObjInfo == null)
             return;
 
-        //  - Ä«¸Þ¶ó ÀÌµ¿
+        //  - Ä«ï¿½Þ¶ï¿½ ï¿½Ìµï¿½
         if (interactObjInfo._interactType == InteractType.CameraControl)
         {
-            cameraControl.ChangeBlendListCamSetting(interactObjInfo);
+            cameraControl.ChangeCam(interactObjInfo);
         }
 
-        // - ¾À ÀÌµ¿
+        // - ï¿½ï¿½ ï¿½Ìµï¿½
         if (interactObjInfo._interactType == InteractType.SceneLoad)
         {
             GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(interactObjInfo._sceneName, 0.05f));
