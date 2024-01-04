@@ -30,20 +30,22 @@ public class NodeDisplay : MonoBehaviour
             if (hitCollider != null && hitCollider.gameObject == gameObject)
             {
                 
-                if(pair.parent != null){
+                if(pair.parentPair != null){
                     if(pair.isParent){
-                        pair.DestroyAll();
-                        pair.parent.SetData(nodePrefab, emptyPrefab);
-                        pair.parent.SetParentUp();
-                        pair.parent.SetChildrenUp();
+                        pair.DeActiveAll();
+                        pair.parentPair.SetActiveParent();
+                        pair.parentPair.SetActivehildren();
                     }
                     else{
-                        pair.parent.DestroyDP(pair);
+                        pair.parentPair.DeActiveDP(pair);
                         pair.SetDataView(nodePrefab,emptyPrefab);
                         pair.SetChildren();
                         pair.isParent = true;
                     }
 
+                }
+                else{
+                    Debug.Log("pair.parentPair == NULL");
                 }
             }
         }
@@ -52,6 +54,7 @@ public class NodeDisplay : MonoBehaviour
     {
         this.pair = pair;
         nameLabel.text = "Name: " + node.name;
+        nameLabel.gameObject.SetActive(true);
         sexLabel.text = "Sex: " + node.sex;
         bloodTypeLabel.text = "Blood Type: " + node.bloodType[0];
         hpLabel.text = "HP: " + node.hp.ToString();

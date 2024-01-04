@@ -319,7 +319,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d570cd4a9757c8840bab5719bc71f12f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
   nodeData: {fileID: 11400000, guid: fa128063b10c6c0499750c3ad2ce886c, type: 2}
   pairData: {fileID: 11400000, guid: a594d54955c75be468d43d8515178ef5, type: 2}
   nodePrefab: {fileID: 6760261051291835718, guid: d2072b4a70e599849bb7d21195f029bb, type: 3}

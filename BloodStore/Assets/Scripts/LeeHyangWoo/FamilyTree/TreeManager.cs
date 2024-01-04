@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class TreeManager : MonoBehaviour
 {
-    public CardSO cardData;
     public NodeSO nodeData;
     public PairSO pairData;
     public GameObject nodePrefab;
@@ -43,7 +42,7 @@ public class TreeManager : MonoBehaviour
         {
             Pair first = new Pair
             {
-                parent = null,
+                parentPair = null,
                 male = node,
                 female = new Node(),
                 isPair = false,
@@ -54,7 +53,7 @@ public class TreeManager : MonoBehaviour
         {
             Pair first = new Pair
             {
-                parent = null,
+                parentPair = null,
                 male = new Node(),
                 female = node,
                 isPair = false,
