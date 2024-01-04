@@ -16,15 +16,49 @@ public enum InteractType
 
 public enum CameraControlType
 {
-    ChangeCam
+    ChangeCamera,
+    CameraEffect
+}
+
+public enum CameraType
+{
+    VirtualCamera,
+    TargetGroupCamera,
+    BlendListCamera
 }
 
 [System.Serializable]
-public class ChangingCameraInfo{
-    public GameObject target;
-    public float backCamHold;
+public class BlendInfo
+{
+    public float hold;
     public CinemachineBlendDefinition.Style blendIn;
     public float blendTime;
+}
+
+[System.Serializable]
+public class VirtualCameraInfo{
+    public GameObject target;
+    public BlendInfo blendInfo;
+}
+
+[System.Serializable]
+public class TargetGroupCameraInfo{
+    public List<GameObject> targets;
+    public BlendInfo blendInfo;
+}
+
+[System.Serializable]
+public class BlendListCameraInfo{
+    public List<BlendListSubCameraInfo> subCams;
+    public BlendInfo blendInfo;
+}
+
+[System.Serializable]
+public class BlendListSubCameraInfo{
+    public CameraType cameraType;
+    public VirtualCameraInfo vertualCam;
+    public TargetGroupCameraInfo targetGroupCam;
+    public BlendInfo blendInfo;
 }
 
 public class InteractObjInfo : MonoBehaviour
@@ -35,9 +69,12 @@ public class InteractObjInfo : MonoBehaviour
     [SerializeField] public CameraControlType _cameraMovementType;
 
     // - ChangeCam
-    [SerializeField] public bool _useCurrentCamAsStart;
-    [SerializeField] public GameObject _startCam;
-    [SerializeField] public List<ChangingCameraInfo> _changingCamList;
+    [SerializeField] public CameraType _cameraType;
+
+    //      : Virtual Camera
+    [SerializeField] public VirtualCameraInfo _vertualCam;
+    [SerializeField]public TargetGroupCameraInfo _targetGroupCam;
+    [SerializeField]public BlendListCameraInfo _blendListCam;
 
     // SceneLoad
     [SerializeField] public bool _isFade;

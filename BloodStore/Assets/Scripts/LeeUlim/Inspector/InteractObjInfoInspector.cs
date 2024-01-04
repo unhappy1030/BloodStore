@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -56,21 +58,21 @@ public class InteractObjInfoInspctor : Editor
         GUILayout.Space(10);
         switch (cameraMovementType)
         {
-            case CameraControlType.ChangeCam:
-                var useCurrnetCamAsStart = serializedObject.FindProperty("_useCurrentCamAsStart");
-                var startCam = serializedObject.FindProperty("_startCam");
-                var subCamList = serializedObject.FindProperty("_changingCamList");
+            case CameraControlType.ChangeCamera:
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("_cameraType"));
+                var cameraType = (CameraType)serializedObject.FindProperty("_cameraType").enumValueIndex;
 
-                GUILayout.Label("Change Camera");
-
-                EditorGUILayout.PropertyField(useCurrnetCamAsStart);
-
-                if(!useCurrnetCamAsStart.boolValue)
-                    EditorGUILayout.PropertyField(startCam);
-                
-                EditorGUILayout.PropertyField(subCamList, true);
-                
-
+                switch(cameraType){
+                    case CameraType.VirtualCamera:
+                        EditorGUILayout.PropertyField(serializedObject.FindProperty("_vertualCam"), true);
+                        break;
+                    case CameraType.TargetGroupCamera:
+                        EditorGUILayout.PropertyField(serializedObject.FindProperty("_targetGroupCam"), true);
+                        break;
+                    case CameraType.BlendListCamera:
+                        EditorGUILayout.PropertyField(serializedObject.FindProperty("_blendListCam"), true);
+                        break;
+                }
                 break;
         }
     }

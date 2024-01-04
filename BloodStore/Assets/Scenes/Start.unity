@@ -1014,9 +1014,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactType: 2
   _cameraMovementType: 0
-  _useCurrentCamAsStart: 0
-  _startCam: {fileID: 0}
-  _changingCamList: []
+  _cameraType: 0
+  _vertualCam:
+    target: {fileID: 0}
+    blendInfo:
+      hold: 0
+      blendIn: 0
+      blendTime: 0
+  _targetGroupCam:
+    targets: []
+    blendInfo:
+      hold: 0
+      blendIn: 0
+      blendTime: 0
+  _blendListCam:
+    subCams: []
+    blendInfo:
+      hold: 0
+      blendIn: 0
+      blendTime: 0
   _isFade: 1
   _sceneName: StartEdit
 --- !u!1 &557011573
@@ -1453,7 +1469,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blendListCam: {fileID: 1837509293}
   subCam: {fileID: 282462392}
-  currentCam: {fileID: 0}
 --- !u!1 &714005071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1599,29 +1614,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactType: 1
   _cameraMovementType: 0
-  _useCurrentCamAsStart: 1
-  _startCam: {fileID: 0}
-  _changingCamList:
-  - target: {fileID: 1848342418}
-    backCamHold: 1
-    blendIn: 1
-    blendTime: 3
-  - target: {fileID: 1848342418}
-    backCamHold: 1
-    blendIn: 1
-    blendTime: 3
-  - target: {fileID: 1848342418}
-    backCamHold: 1
-    blendIn: 1
-    blendTime: 3
-  - target: {fileID: 1848342418}
-    backCamHold: 1
-    blendIn: 1
-    blendTime: 3
-  - target: {fileID: 1848342418}
-    backCamHold: 1
-    blendIn: 1
-    blendTime: 3
+  _cameraType: 1
+  _vertualCam:
+    target: {fileID: 0}
+    blendInfo:
+      hold: 0
+      blendIn: 0
+      blendTime: 0
+  _targetGroupCam:
+    targets:
+    - {fileID: 714005071}
+    - {fileID: 1541206966}
+    - {fileID: 1866468853}
+    blendInfo:
+      hold: 1
+      blendIn: 0
+      blendTime: 2
+  _blendListCam:
+    subCams:
+    - cameraType: 2
+      vertualCam:
+        target: {fileID: 0}
+        blendInfo:
+          hold: 0
+          blendIn: 0
+          blendTime: 0
+      targetGroupCam:
+        targets: []
+        blendInfo:
+          hold: 0
+          blendIn: 0
+          blendTime: 0
+      blendInfo:
+        hold: 0
+        blendIn: 0
+        blendTime: 0
+    blendInfo:
+      hold: 0
+      blendIn: 0
+      blendTime: 0
   _isFade: 0
   _sceneName: StartEdit
 --- !u!1 &714638829
@@ -2303,9 +2334,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactType: 2
   _cameraMovementType: 0
-  _useCurrentCamAsStart: 0
-  _startCam: {fileID: 0}
-  _changingCamList: []
+  _cameraType: 0
+  _vertualCam:
+    target: {fileID: 0}
+    blendInfo:
+      hold: 0
+      blendIn: 0
+      blendTime: 0
+  _targetGroupCam:
+    targets: []
+    blendInfo:
+      hold: 0
+      blendIn: 0
+      blendTime: 0
+  _blendListCam:
+    subCams: []
+    blendInfo:
+      hold: 0
+      blendIn: 0
+      blendTime: 0
   _isFade: 1
   _sceneName: StartStore
 --- !u!1 &1147904460
@@ -2860,9 +2907,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactType: 3
   _cameraMovementType: 0
-  _useCurrentCamAsStart: 0
-  _startCam: {fileID: 0}
-  _changingCamList: []
+  _cameraType: 0
+  _vertualCam:
+    target: {fileID: 0}
+    blendInfo:
+      hold: 0
+      blendIn: 0
+      blendTime: 0
+  _targetGroupCam:
+    targets: []
+    blendInfo:
+      hold: 0
+      blendIn: 0
+      blendTime: 0
+  _blendListCam:
+    subCams: []
+    blendInfo:
+      hold: 0
+      blendIn: 0
+      blendTime: 0
   _isFade: 0
   _sceneName: StartEdit
 --- !u!1 &1544021528
@@ -4177,17 +4240,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactType: 1
   _cameraMovementType: 0
-  _useCurrentCamAsStart: 1
-  _startCam: {fileID: 0}
-  _changingCamList:
-  - target: {fileID: 714005071}
-    backCamHold: 1
-    blendIn: 1
-    blendTime: 3
-  - target: {fileID: 1113732295}
-    backCamHold: 1
-    blendIn: 1
-    blendTime: 3
+  _cameraType: 0
+  _vertualCam:
+    target: {fileID: 988220463}
+    blendInfo:
+      hold: 1
+      blendIn: 1
+      blendTime: 2
+  _targetGroupCam:
+    targets: []
+    blendInfo:
+      hold: 0
+      blendIn: 0
+      blendTime: 0
+  _blendListCam:
+    subCams: []
+    blendInfo:
+      hold: 0
+      blendIn: 0
+      blendTime: 0
   _isFade: 0
   _sceneName: Start
 --- !u!1 &1913117716
