@@ -1,0 +1,143 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2ade79a5230c9a4392643f4baa07d9c, type: 3}
+  m_Name: PairSo
+  m_EditorClassIdentifier: 
+  pairs:
+  - male:
+      name: Bob
+      sex: Male
+      bloodType:
+      - B
+      - +
+      - BB
+      hp: 92
+      age: 41
+      isDead: 0
+      empty: 0
+    female:
+      name: Bob
+      sex: Female
+      bloodType:
+      - A
+      - +
+      - AA
+      hp: 73
+      age: 34
+      isDead: 0
+      empty: 0
+    isPair: 1
+    childNum: 4
+    children:
+    - male:
+        name: Frank
+        sex: Male
+        bloodType:
+        - AB
+        - +
+        - AB
+        hp: 73
+        age: 46
+        isDead: 0
+        empty: 0
+      female:
+        name: 
+        sex: 
+        bloodType: []
+        hp: 0
+        age: 0
+        isDead: 0
+        empty: 1
+      isPair: 0
+      childNum: 0
+      children: []
+      centerPos: {x: -18.75, y: -4.5499997}
+      maleDP: {fileID: 0}
+      femaleDP: {fileID: 0}
+    - male:
+        name: 
+        sex: 
+        bloodType: []
+        hp: 0
+        age: 0
+        isDead: 0
+        empty: 1
+      female:
+        name: Grace
+        sex: Female
+        bloodType:
+        - AB
+        - +
+        - AB
+        hp: 62
+        age: 20
+        isDead: 0
+        empty: 0
+      isPair: 0
+      childNum: 0
+      children: []
+      centerPos: {x: -6.25, y: -4.5499997}
+      maleDP: {fileID: 0}
+      femaleDP: {fileID: 0}
+    - male:
+        name: David
+        sex: Male
+        bloodType:
+        - AB
+        - +
+        - AB
+        hp: 75
+        age: 21
+        isDead: 0
+        empty: 0
+      female:
+        name: 
+        sex: 
+        bloodType: []
+        hp: 0
+        age: 0
+        isDead: 0
+        empty: 1
+      isPair: 0
+      childNum: 0
+      children: []
+      centerPos: {x: 6.25, y: -4.5499997}
+      maleDP: {fileID: 0}
+      femaleDP: {fileID: 0}
+    - male:
+        name: David
+        sex: Male
+        bloodType:
+        - AB
+        - +
+        - AB
+        hp: 57
+        age: 32
+        isDead: 0
+        empty: 0
+      female:
+        name: 
+        sex: 
+        bloodType: []
+        hp: 0
+        age: 0
+        isDead: 0
+        empty: 1
+      isPair: 0
+      childNum: 0
+      children: []
+      centerPos: {x: 18.75, y: -4.5499997}
+      maleDP: {fileID: 0}
+      femaleDP: {fileID: 0}
+    centerPos: {x: 0, y: 4.5499997}
+    maleDP: {fileID: 0}
+    femaleDP: {fileID: 0}

@@ -26,7 +26,7 @@ public class CardDisplay : MonoBehaviour
             if (hitCollider != null && hitCollider.gameObject == gameObject)
             {
                 // 현재 선택된 카드를 게임 매니저에 저장
-                GameManager.Instance.SetSelectedCard(idx);
+                IndexManger.Instance.SetSelectedCard(idx);
 
                 // 다음 씬으로 이동
                 SceneManager.LoadScene("FamilyTree");

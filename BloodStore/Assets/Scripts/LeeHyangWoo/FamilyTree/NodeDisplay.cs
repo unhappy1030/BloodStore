@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class NodeDisplay : MonoBehaviour
 {
+    public GameObject moveCamera;
+    public PairSO pairData;
+    public GameObject nodePrefab;
+    public GameObject emptyPrefab;
     private Pair pair;
-    private PosTree posTree;
     public TextMeshPro nameLabel;
     public TextMeshPro sexLabel;
     public TextMeshPro bloodTypeLabel;
@@ -27,11 +31,22 @@ public class NodeDisplay : MonoBehaviour
             if (hitCollider != null && hitCollider.gameObject == gameObject)
             {
                 
+                if(pair.parent != null){
+                    if(pair.isParent){
+                        pair.DestroyDP(pair);
+
+                        pair.parent.SetData(nodePrefab, emptyPrefab);
+                    }
+                    pair.parent.DestroyDP(pair);
+                    pair.SetDataView(nodePrefab,emptyPrefab);
+                    pair.SetChildren();
+                }
             }
         }
     }
     public void SetNodeData(Pair pair, Node node)
     {
+        this.pair = pair;
         nameLabel.text = "Name: " + node.name;
         sexLabel.text = "Sex: " + node.sex;
         bloodTypeLabel.text = "Blood Type: " + node.bloodType[0];
