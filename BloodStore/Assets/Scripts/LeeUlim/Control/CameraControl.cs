@@ -9,7 +9,6 @@ public class CameraControl : MonoBehaviour
 {
     public CinemachineBlendListCamera blendListCam;
     public CinemachineVirtualCamera subCam;
-    public CinemachineVirtualCameraBase currentCam;
 
     CinemachineBrain mainCam;
     
@@ -20,23 +19,11 @@ public class CameraControl : MonoBehaviour
         mainCam = Camera.main.GetComponent<CinemachineBrain>();
     }
 
-    
-    private void Update()
-    {
-        currentCam = mainCam.ActiveVirtualCamera as CinemachineVirtualCameraBase;
-        CinemachineBlendListCamera blendCam = currentCam.GetComponent<CinemachineBlendListCamera>();
-
-        if(blendCam != null){
-        }
-        
-    }
-
     public void ChangeBlendListCamSetting(InteractObjInfo interObj)
     {
-        blendListCam.m_Instructions[0].m_VirtualCamera = (interObj._useCurrentCamAsStart) ? currentCam : 
-            interObj._startCam.GetComponent<CinemachineVirtualCameraBase>();
-        
         int index = 1;
+        List<CinemachineBlendListCamera.Instruction> newList = new();
+        blendListCam.m_Instructions = newList.ToArray<CinemachineBlendListCamera.Instruction>();
         
         // set other subCams
         for(int i=0; i<interObj._changingCamList.Count; i++){
