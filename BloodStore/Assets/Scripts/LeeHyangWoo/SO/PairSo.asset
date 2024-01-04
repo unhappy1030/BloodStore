@@ -14,25 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pairs:
   - male:
-      name: Charlie
+      name: Eve
       sex: Male
       bloodType:
-      - AB
-      - '-'
-      - AB
-      hp: 58
-      age: 49
+      - O
+      - +
+      - OO
+      hp: 57
+      age: 43
       isDead: 0
       empty: 0
     female:
-      name: Grace
+      name: Charlie
       sex: Female
       bloodType:
-      - A
-      - +
-      - AA
-      hp: 74
-      age: 57
+      - O
+      - '-'
+      - OO
+      hp: 95
+      age: 39
       isDead: 0
       empty: 0
     isPair: 0
@@ -42,64 +42,53 @@ MonoBehaviour:
         name: David
         sex: Male
         bloodType:
-        - A
-        - +
-        - AA
-        hp: 100
-        age: 36
-        isDead: 0
-        empty: 0
-      female:
-        name: Alice
-        sex: Female
-        bloodType:
-        - A
-        - +
-        - AA
-        hp: 52
+        - AB
+        - '-'
+        - AB
+        hp: 72
         age: 27
         isDead: 0
         empty: 0
+      female:
+        name: Grace
+        sex: Female
+        bloodType:
+        - O
+        - +
+        - OO
+        hp: 71
+        age: 40
+        isDead: 0
+        empty: 0
       isPair: 0
-      childNum: 3
+      childNum: 2
       children:
       - male:
-          name: Alice
+          name: Charlie
           sex: Male
-          bloodType:
-          - B
-          - '-'
-          - BB
-          hp: 96
-          age: 37
-          isDead: 0
-          empty: 0
-        female:
-          name: Alice
-          sex: Female
           bloodType:
           - A
           - +
-          - AA
-          hp: 60
-          age: 59
+          - AO
+          hp: 51
+          age: 31
+          isDead: 0
+          empty: 0
+        female:
+          name: Bob
+          sex: Female
+          bloodType:
+          - AB
+          - '-'
+          - AB
+          hp: 89
+          age: 46
           isDead: 0
           empty: 0
         isPair: 1
         childNum: 2
         children:
         - male:
-            name: Frank
-            sex: Male
-            bloodType:
-            - AB
-            - +
-            - AB
-            hp: 91
-            age: 46
-            isDead: 0
-            empty: 0
-          female:
             name: 
             sex: 
             bloodType: []
@@ -107,25 +96,25 @@ MonoBehaviour:
             age: 0
             isDead: 0
             empty: 1
+          female:
+            name: Eve
+            sex: Female
+            bloodType:
+            - B
+            - +
+            - BO
+            hp: 69
+            age: 29
+            isDead: 0
+            empty: 0
           isPair: 0
           childNum: 0
           children: []
-          centerPos: {x: -18.75, y: -22.749998}
+          centerPos: {x: -12.5, y: -22.749998}
           maleDP: {fileID: 0}
           femaleDP: {fileID: 0}
           isParent: 0
         - male:
-            name: Eve
-            sex: Male
-            bloodType:
-            - AB
-            - '-'
-            - AB
-            hp: 85
-            age: 49
-            isDead: 0
-            empty: 0
-          female:
             name: 
             sex: 
             bloodType: []
@@ -133,54 +122,54 @@ MonoBehaviour:
             age: 0
             isDead: 0
             empty: 1
+          female:
+            name: Grace
+            sex: Female
+            bloodType:
+            - A
+            - '-'
+            - AO
+            hp: 56
+            age: 20
+            isDead: 0
+            empty: 0
           isPair: 0
           childNum: 0
           children: []
-          centerPos: {x: -6.25, y: -22.749998}
+          centerPos: {x: 0, y: -22.749998}
           maleDP: {fileID: 0}
           femaleDP: {fileID: 0}
           isParent: 0
-        centerPos: {x: -12.5, y: -13.65}
+        centerPos: {x: -6.25, y: -13.65}
         maleDP: {fileID: 0}
         femaleDP: {fileID: 0}
-        isParent: 1
+        isParent: 0
       - male:
-          name: Frank
+          name: David
           sex: Male
           bloodType:
           - A
-          - +
-          - AA
-          hp: 50
-          age: 59
+          - '-'
+          - AO
+          hp: 98
+          age: 33
           isDead: 0
           empty: 0
         female:
-          name: Charlie
+          name: Alice
           sex: Female
           bloodType:
-          - A
+          - B
           - +
-          - AA
-          hp: 91
-          age: 39
+          - BB
+          hp: 95
+          age: 37
           isDead: 0
           empty: 0
         isPair: 1
         childNum: 3
         children:
         - male:
-            name: Eve
-            sex: Male
-            bloodType:
-            - A
-            - +
-            - AA
-            hp: 68
-            age: 37
-            isDead: 0
-            empty: 0
-          female:
             name: 
             sex: 
             bloodType: []
@@ -188,32 +177,17 @@ MonoBehaviour:
             age: 0
             isDead: 0
             empty: 1
-          isPair: 0
-          childNum: 0
-          children: []
-          centerPos: {x: 0, y: 0}
-          maleDP: {fileID: 0}
-          femaleDP: {fileID: 0}
-          isParent: 0
-        - male:
-            name: Charlie
-            sex: Male
+          female:
+            name: Hank
+            sex: Female
             bloodType:
-            - A
+            - B
             - +
-            - AA
-            hp: 54
-            age: 27
+            - BO
+            hp: 67
+            age: 53
             isDead: 0
             empty: 0
-          female:
-            name: 
-            sex: 
-            bloodType: []
-            hp: 0
-            age: 0
-            isDead: 0
-            empty: 1
           isPair: 0
           childNum: 0
           children: []
@@ -233,11 +207,11 @@ MonoBehaviour:
             name: Bob
             sex: Female
             bloodType:
-            - A
+            - B
             - +
-            - AA
-            hp: 78
-            age: 31
+            - BO
+            hp: 72
+            age: 38
             isDead: 0
             empty: 0
           isPair: 0
@@ -247,36 +221,18 @@ MonoBehaviour:
           maleDP: {fileID: 0}
           femaleDP: {fileID: 0}
           isParent: 0
-        centerPos: {x: 0, y: -13.65}
-        maleDP: {fileID: 0}
-        femaleDP: {fileID: 0}
-        isParent: 0
-      - male:
-          name: Bob
-          sex: Male
-          bloodType:
-          - O
-          - '-'
-          - OO
-          hp: 94
-          age: 52
-          isDead: 0
-          empty: 0
-        female:
-          name: Eve
-          sex: Female
-          bloodType:
-          - A
-          - +
-          - AA
-          hp: 88
-          age: 50
-          isDead: 0
-          empty: 0
-        isPair: 1
-        childNum: 1
-        children:
         - male:
+            name: Hank
+            sex: Male
+            bloodType:
+            - AB
+            - +
+            - AB
+            hp: 100
+            age: 41
+            isDead: 0
+            empty: 0
+          female:
             name: 
             sex: 
             bloodType: []
@@ -284,32 +240,21 @@ MonoBehaviour:
             age: 0
             isDead: 0
             empty: 1
-          female:
-            name: Bob
-            sex: Female
-            bloodType:
-            - A
-            - '-'
-            - AO
-            hp: 73
-            age: 27
-            isDead: 0
-            empty: 0
           isPair: 0
           childNum: 0
           children: []
-          centerPos: {x: 12.5, y: -22.749998}
+          centerPos: {x: 0, y: 0}
           maleDP: {fileID: 0}
           femaleDP: {fileID: 0}
           isParent: 0
-        centerPos: {x: 12.5, y: -13.65}
+        centerPos: {x: 6.25, y: -13.65}
         maleDP: {fileID: 0}
         femaleDP: {fileID: 0}
         isParent: 0
       centerPos: {x: 0, y: -4.5499997}
       maleDP: {fileID: 0}
       femaleDP: {fileID: 0}
-      isParent: 1
+      isParent: 0
     centerPos: {x: 0, y: 4.5499997}
     maleDP: {fileID: 0}
     femaleDP: {fileID: 0}

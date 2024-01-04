@@ -4,16 +4,16 @@ using System.Runtime.InteropServices;
 using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.Animations;
-//안녕 클래오파트라
+
 [System.Serializable]
 
 public class Pair
 {
-    public Pair parent;
     public Node male;
     public Node female;
     public bool isPair;
     public int childNum;
+    [System.NonSerialized]public Pair parentPair;
     public List<Pair> children;
     public Vector2 centerPos;
     public GameObject maleDP;
@@ -29,7 +29,7 @@ public class Pair
         {
             int n = childNum;
             for (int i = 0; i < n; i++){
-                // Debug.Log(childNum);
+                children[i].parentPair = this;
                 SetObject(children[i], nodePrefab, emptyPrefab);
             }
         }
@@ -41,7 +41,7 @@ public class Pair
         {
             int n = childNum;
             for (int i = 0; i < n; i++){
-                // Debug.Log(childNum);
+                children[i].parentPair = this;
                 SetObject(children[i], nodePrefab, emptyPrefab);
             }
         }
@@ -53,29 +53,34 @@ public class Pair
     }
     void SetObject(Pair pair, GameObject nodePrefab, GameObject emptyPrefab)
     {
-        // Debug.Log("야이병신아");
         if (pair.male.empty == false)
         {
-            pair.maleDP = UnityEngine.Object.Instantiate(nodePrefab, new Vector2(0, 0), Quaternion.identity);
+            pair.maleDP = Object.Instantiate(nodePrefab, new Vector2(0, 0), Quaternion.identity);
             NodeDisplay nodeDisplay = pair.maleDP.GetComponent<NodeDisplay>();
+            Debug.Log(  "<pair.male>\n" +
+                        "name : " + pair.male.name + "\n" +
+                        "sex : " + pair.male.sex);
             nodeDisplay.SetNodeData(pair, pair.male);
         }
         else
         {
-            pair.maleDP = UnityEngine.Object.Instantiate(emptyPrefab, new Vector2(0, 0), Quaternion.identity);
+            pair.maleDP = Object.Instantiate(emptyPrefab, new Vector2(0, 0), Quaternion.identity);
             EmptyNodeDisplay emptyNodeDisplay = pair.maleDP.GetComponent<EmptyNodeDisplay>();
             emptyNodeDisplay.SetNodeData(pair);
         }
 
         if (pair.female.empty == false)
         {
-            pair.femaleDP = UnityEngine.Object.Instantiate(nodePrefab, new Vector2(0, 0), Quaternion.identity);
+            pair.femaleDP = Object.Instantiate(nodePrefab, new Vector2(0, 0), Quaternion.identity);
             NodeDisplay nodeDisplay = pair.femaleDP.GetComponent<NodeDisplay>();
+            Debug.Log(  "<pair.female>\n" +
+                        "name : " + pair.female.name + "\n" +
+                        "sex : " + pair.female.sex);
             nodeDisplay.SetNodeData(pair, pair.female);
         }
         else
         {
-            pair.femaleDP = UnityEngine.Object.Instantiate(emptyPrefab, new Vector2(0, 0), Quaternion.identity);
+            pair.femaleDP = Object.Instantiate(emptyPrefab, new Vector2(0, 0), Quaternion.identity);
             EmptyNodeDisplay emptyNodeDisplay = pair.femaleDP.GetComponent<EmptyNodeDisplay>();
             emptyNodeDisplay.SetNodeData(pair);
         }
@@ -92,24 +97,21 @@ public class Pair
             for (float i = (((float)childNum * 5 / 2) - 2.5f) * -1; i <= (((float)childNum * 5 / 2) - 2.5f); i += 5)
             {
                 children[idx].isParent = false;
-                PlaceChild(children[idx], i);
+                PlaceChild(this.children[idx], i);
                 idx++;
             }
         }
     }
-    public void SetParentUp(){
+    public void SetActiveParent(){
         this.isParent = true;
-        PlaceParentUp();
+        this.ActivePair();
     }
-    public void SetChildrenUp(){
+    public void SetActivehildren(){
         if (childNum != 0)
         {
-            int idx = 0;
-            for (float i = (((float)childNum * 5 / 2) - 2.5f) * -1; i <= (((float)childNum * 5 / 2) - 2.5f); i += 5)
-            {
-                children[idx].isParent = false;
-                PlaceChildUp(children[idx], i);
-                idx++;
+            for(int i = 0; i < childNum; i++){
+                this.children[i].isParent = false;
+                this.children[i].ActivePair();
             }
         }
     }
@@ -123,34 +125,30 @@ public class Pair
     }
     void PlaceChild(Pair pair, float x)
     {
-        Debug.Log("PlaceChild Pos: (" + pair.parent.centerPos.x.ToString() + ", " + pair.parent.centerPos.y.ToString());
-        pair.centerPos = pair.parent.centerPos - new Vector2(0,halfY * 1.3f) + new Vector2(x * halfX, -1 * halfY * 1.3f);
+        // Debug.Log("PlaceChild Pos: (" + pair.parent.centerPos.x.ToString() + ", " + pair.parent.centerPos.y.ToString());
+        // Debug.Log( "pair.parentPair : "+ (pair.parentPair == null ? "Null" : "Not Null"));
+        pair.centerPos = pair.parentPair.centerPos - new Vector2(0,halfY * 1.3f) + new Vector2(x * halfX, -1 * halfY * 1.3f);
         Vector2 malePos = pair.centerPos - new Vector2(halfX * 1.1f, 0);
         Vector2 femalePos = pair.centerPos + new Vector2(halfX * 1.1f, 0);
         pair.maleDP.transform.position = malePos;
         pair.femaleDP.transform.position = femalePos;
     }
-    public void PlaceParentUp(){
-        Vector2 malePos = centerPos - new Vector2(halfX * 1.1f, 0);
-        Vector2 femalePos = centerPos + new Vector2(halfX * 1.1f, 0);
-        maleDP.transform.position = malePos;
-        femaleDP.transform.position = femalePos;
+    private void ActivePair(){
+        maleDP.SetActive(true);
+        femaleDP.SetActive(true);
     }
-    public void PlaceChildUp(Pair pair, float x){
-        Vector2 malePos = pair.centerPos - new Vector2(halfX * 1.1f, 0);
-        Vector2 femalePos = pair.centerPos + new Vector2(halfX * 1.1f, 0);
-        pair.maleDP.transform.position = malePos;
-        pair.femaleDP.transform.position = femalePos;
-    }
-    public void DestroyAll(){
-        this.DestroyPair();
-        foreach(Pair nowPair in children){
-             nowPair.DestroyPair();
+    public void DeActiveAll(){
+        this.DeActivePair();
+        if(childNum != 0){
+            foreach(Pair nowPair in children){
+                nowPair.DeActivePair();
+            }
         }
+
     }
-    public void DestroyDP(Pair pair) {
+    public void DeActiveDP(Pair pair) {
         if(pair != this){
-            this.DestroyPair();
+            this.DeActivePair();
             this.isPair = false;
         }
         else{
@@ -158,13 +156,13 @@ public class Pair
         }
         foreach(Pair nowPair in children){
             if(pair != nowPair){
-                nowPair.DestroyPair();
+                nowPair.DeActivePair();
             }
         }
     }
-    void DestroyPair(){
-        UnityEngine.Object.Destroy(maleDP);
-        UnityEngine.Object.Destroy(femaleDP);
+    void DeActivePair(){
+        maleDP.SetActive(false);
+        femaleDP.SetActive(false);
     }
     public string BlankNodeCheck(){
         return  male.empty == true ? "Male" : "Female";
@@ -185,7 +183,7 @@ public class Pair
                 if(node.sex == "Male"){
                     Pair child = new Pair
                     {
-                        parent = this,
+                        parentPair = this,
                         male = node,
                         female = new Node(),
                         isPair = false,
@@ -195,7 +193,7 @@ public class Pair
                 else{
                     Pair child = new Pair
                     {
-                        parent = this,
+                        parentPair = this,
                         male = new Node(),
                         female = node,
                         isPair = false,
