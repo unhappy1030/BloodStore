@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.Animations;
-
+//안녕 클래오파트라
 [System.Serializable]
 
 public class Pair
