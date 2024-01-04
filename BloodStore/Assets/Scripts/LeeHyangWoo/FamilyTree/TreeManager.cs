@@ -17,11 +17,6 @@ public class TreeManager : MonoBehaviour
         LoadTree();
     }
 
-    // Update is called once per frame
-    // void Update()
-    // {
-
-    // }
     void LoadTree()
     {
         // Debug.Log(pairData.pairs.Count);

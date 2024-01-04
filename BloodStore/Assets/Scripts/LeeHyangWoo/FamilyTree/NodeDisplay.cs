@@ -32,12 +32,12 @@ public class NodeDisplay : MonoBehaviour
                 
                 if(pair.parentPair != null){
                     if(pair.isParent){
-                        pair.DeActiveAll();
+                        pair.DeActive();
                         pair.parentPair.SetActiveParent();
                         pair.parentPair.SetActivehildren();
                     }
                     else{
-                        pair.parentPair.DeActiveDP(pair);
+                        pair.DeActive();
                         pair.SetDataView(nodePrefab,emptyPrefab);
                         pair.SetChildren();
                         pair.isParent = true;
