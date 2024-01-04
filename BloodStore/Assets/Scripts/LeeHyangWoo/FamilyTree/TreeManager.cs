@@ -10,7 +10,7 @@ public class TreeManager : MonoBehaviour
     public NodeSO nodeData;
     public PairSO pairData;
     public GameObject nodePrefab;
-    public GameObject EmptyPrefab;
+    public GameObject emptyPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +33,7 @@ public class TreeManager : MonoBehaviour
             AddFirstNode(node);
         }
         //현재 PairSO에 들어있는 값 위에서 1개의 Family출력
-        pairData.pairs[0].SetData(nodePrefab, EmptyPrefab);
+        pairData.pairs[0].SetData(nodePrefab, emptyPrefab);
         pairData.pairs[0].SetParent();
         pairData.pairs[0].SetChildren();
     }

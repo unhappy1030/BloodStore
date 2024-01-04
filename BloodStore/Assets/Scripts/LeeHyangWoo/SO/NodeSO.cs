@@ -58,15 +58,3 @@ public class NodeSO : ScriptableObject
 {
     public List<Node> nodes;
 }
-
-// public class NodeManager : MonoBehaviour
-// {
-//     public NodeSO nodeData;
-//     void Start()
-//     {
-//         // 동적으로 노드 추가 예시
-//         Node newNode = new Node();
-//         newNode.SetAllRandom();
-//         nodeData.nodes.Add(newNode);
-//     }
-// }

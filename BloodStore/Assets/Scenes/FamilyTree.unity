@@ -323,7 +323,7 @@ MonoBehaviour:
   nodeData: {fileID: 11400000, guid: fa128063b10c6c0499750c3ad2ce886c, type: 2}
   pairData: {fileID: 11400000, guid: a594d54955c75be468d43d8515178ef5, type: 2}
   nodePrefab: {fileID: 6760261051291835718, guid: d2072b4a70e599849bb7d21195f029bb, type: 3}
-  EmptyPrefab: {fileID: 1446904127552790029, guid: 49ce4c4a768573249a7e521ad26add58, type: 3}
+  emptyPrefab: {fileID: 1446904127552790029, guid: 49ce4c4a768573249a7e521ad26add58, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
