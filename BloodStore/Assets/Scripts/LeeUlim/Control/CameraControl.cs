@@ -19,117 +19,148 @@ public class CameraControl : MonoBehaviour
     public void ChangeCam(InteractObjInfo interObj)
     {
         // create new object for main Camera and set this as Parent
-        GameObject temp = new("CreatedCam"+camCount);
-        temp.SetActive(false);
-        temp.transform.SetParent(transform);
-        temp.transform.SetAsFirstSibling();
+        GameObject newCamera = new("CreatedCam"+camCount);
+        newCamera.SetActive(false);
+        newCamera.transform.SetParent(transform);
+        newCamera.transform.SetAsFirstSibling();
 
         switch(interObj._cameraType){
             case CameraType.VirtualCamera:
-                // add Cinemachine component to new object
-                CinemachineVirtualCamera newVirtualCam = temp.AddComponent<CinemachineVirtualCamera>(); // new Camera Info
-                VirtualCameraInfo virtualCam = interObj._vertualCam; // Camera Info in Inspector
-                
-                newVirtualCam.m_Follow = virtualCam.target.transform;
-                newVirtualCam.m_Lens.OrthographicSize = virtualCam.lensOthoSize;
-                newVirtualCam.AddCinemachineComponent<CinemachineFramingTransposer>();
-
-                mainCam.m_DefaultBlend.m_Time = virtualCam.blendInfo.blendTime;
-                mainCam.m_DefaultBlend.m_Style = virtualCam.blendInfo.blendIn;
-
-                // hold in Main Camera == coroutine delay time
-                StartCoroutine(MoveTopOfCam(temp.GetComponent<CinemachineVirtualCameraBase>(), virtualCam.blendInfo.hold));
+                VirtualCameraCase(newCamera, interObj);
                 break;
 
             case CameraType.TargetGroupCamera:
-                // add Cinemachine component to new object
-                CinemachineVirtualCamera newTargetCam = temp.AddComponent<CinemachineVirtualCamera>(); // new Camera Info
-                TargetGroupCameraInfo targetCam = interObj._targetGroupCam; // Camera Info in Inspector
-                
-                // create Target Group for Camera
-                GameObject group = new("TargetGroup");
-                CinemachineTargetGroup targetGroup = group.AddComponent<CinemachineTargetGroup>();
-                
-                // add targetgroup member and apply features
-                for(int i=0; i<targetCam.targets.Count(); i++) 
-                    targetGroup.AddMember(targetCam.targets[i].transform, 1, 1);
-
-                newTargetCam.m_Follow = group.transform;
-                newTargetCam.AddCinemachineComponent<CinemachineFramingTransposer>();
-                
-                mainCam.m_DefaultBlend.m_Time = targetCam.blendInfo.blendTime;
-                mainCam.m_DefaultBlend.m_Style = targetCam.blendInfo.blendIn;
-
-                // hold in Main Camera == coroutine delay time
-                StartCoroutine(MoveTopOfCam(temp.GetComponent<CinemachineVirtualCameraBase>(), targetCam.blendInfo.hold));
+                TargetGroupCameraCase(newCamera, interObj);
                 break;
 
             case CameraType.BlendListCamera:
-                // add Cinemachine component to new object
-                CinemachineBlendListCamera newBlendCam = temp.AddComponent<CinemachineBlendListCamera>(); // new Top Camera Info
-                BlendListCameraInfo blendCam = interObj._blendListCam; // Top Camera Info in Inspector
-                
-                // create List for 'newBlendCam.m_Instructions' -> apply by ToArray()
-                List<CinemachineBlendListCamera.Instruction> tempList = new();
-
-                // add member of List(SubCams)
-                for(int i=0; i<blendCam.subCams.Count(); i++){
-                    // create new sub Camera
-                    GameObject newSubCam = new("CrearedSubCam"+i);
-                    CinemachineVirtualCamera newSubVirtualCam = newSubCam.AddComponent<CinemachineVirtualCamera>(); // new Sub Camera Info
-                    newSubCam.transform.SetParent(newBlendCam.transform);
-                    newSubCam.transform.SetAsLastSibling();
-                    
-                    // create new List member
-                    CinemachineBlendListCamera.Instruction instruction = new();
-                    
-                    switch(blendCam.subCams[i].cameraType){
-                        case CameraType.VirtualCamera:
-                            newSubVirtualCam.m_Follow = blendCam.subCams[i].virtualCam.target.transform;
-                            newSubVirtualCam.m_Lens.OrthographicSize = blendCam.subCams[i].virtualCam.lensOthoSize;
-                            newSubVirtualCam.AddCinemachineComponent<CinemachineFramingTransposer>();
-
-                            // set new sub Camera as camera of new List member feature
-                            instruction.m_VirtualCamera = newSubVirtualCam;
-                            // set feature of new List member
-                            if(i != 0){
-                                instruction.m_Hold = blendCam.subCams[i].virtualCam.blendInfo.hold;
-                                instruction.m_Blend.m_Style = blendCam.subCams[i].virtualCam.blendInfo.blendIn;
-                                instruction.m_Blend.m_Time = blendCam.subCams[i].virtualCam.blendInfo.blendTime;
-                            }
-
-                            break;
-                        case CameraType.TargetGroupCamera:
-                            GameObject newtargetGroupObj = new("TargetGroup");
-                            CinemachineTargetGroup newTargetGroup = newtargetGroupObj.AddComponent<CinemachineTargetGroup>();
-
-                            for(int k=0; k<blendCam.subCams[i].targetGroupCam.targets.Count(); k++) 
-                                newTargetGroup.AddMember(blendCam.subCams[i].targetGroupCam.targets[k].transform, 1, 1);
-
-                            newSubVirtualCam.m_Follow = newtargetGroupObj.transform;
-                            newSubVirtualCam.AddCinemachineComponent<CinemachineFramingTransposer>();
-
-                            instruction.m_VirtualCamera = newSubVirtualCam;
-                            if(i != 0){
-                                instruction.m_Hold = blendCam.subCams[i].virtualCam.blendInfo.hold;
-                                instruction.m_Blend.m_Style = blendCam.subCams[i].virtualCam.blendInfo.blendIn;
-                                instruction.m_Blend.m_Time = blendCam.subCams[i].virtualCam.blendInfo.blendTime;
-                            }
-                            
-                            break;
-                    }
-                    tempList.Add(instruction);
-                }
-
-                newBlendCam.m_Instructions = tempList.ToArray();
-
-                mainCam.m_DefaultBlend.m_Time = blendCam.blendInfo.blendTime;
-                mainCam.m_DefaultBlend.m_Style = blendCam.blendInfo.blendIn;
-
-                StartCoroutine(MoveTopOfCam(temp.GetComponent<CinemachineVirtualCameraBase>(), blendCam.blendInfo.hold));
+                BlendListCameraCase(newCamera, interObj);
                 break;
         }
         camCount++;
+    }
+
+    void VirtualCameraCase(GameObject newCamera, InteractObjInfo interObj){
+        // add Cinemachine component to new Camera
+        CinemachineVirtualCamera newVirtualCam = newCamera.AddComponent<CinemachineVirtualCamera>(); // new Camera Info
+        // get Information in Inspector for new Camera
+        VirtualCameraInfo virtualCamInfo = interObj._vertualCam;
+        
+        newVirtualCam.m_Follow = virtualCamInfo.target.transform;
+        newVirtualCam.m_Lens.OrthographicSize = virtualCamInfo.lensOthoSize;
+        newVirtualCam.AddCinemachineComponent<CinemachineFramingTransposer>();
+        
+        if(virtualCamInfo.doseUseBound && virtualCamInfo.bound != null){
+            CinemachineConfiner2D bound = newCamera.AddComponent<CinemachineConfiner2D>();
+            bound.m_BoundingShape2D = virtualCamInfo.bound;
+        }
+        
+        mainCam.m_DefaultBlend.m_Time = virtualCamInfo.blendInfo.blendTime;
+        mainCam.m_DefaultBlend.m_Style = virtualCamInfo.blendInfo.blendIn;
+
+        // hold in Main Camera == coroutine delay time
+        StartCoroutine(MoveTopOfCam(newCamera.GetComponent<CinemachineVirtualCameraBase>(), virtualCamInfo.blendInfo.hold));
+    }
+
+    void TargetGroupCameraCase(GameObject newCamera, InteractObjInfo interObj){
+        // add Cinemachine component to new Camera
+        CinemachineVirtualCamera newTargetCam = newCamera.AddComponent<CinemachineVirtualCamera>(); // new Camera Info
+        // get Information in Inspector for new Camera
+        TargetGroupCameraInfo targetCamInfo = interObj._targetGroupCam;
+        
+        // create Target Group for Camera
+        GameObject group = new("TargetGroup");
+        group.transform.SetParent(newCamera.transform);
+        CinemachineTargetGroup targetGroup = group.AddComponent<CinemachineTargetGroup>();
+        
+        // add targetgroup member and apply features
+        for(int i=0; i<targetCamInfo.targets.Count(); i++) 
+            targetGroup.AddMember(targetCamInfo.targets[i].transform, 1, 1);
+
+        // set group as Follow
+        newTargetCam.m_Follow = group.transform;
+        newTargetCam.AddCinemachineComponent<CinemachineFramingTransposer>();
+        
+        if(targetCamInfo.doseUseBound && targetCamInfo.bound != null){
+            CinemachineConfiner2D bound = newCamera.AddComponent<CinemachineConfiner2D>();
+            bound.m_BoundingShape2D = targetCamInfo.bound;
+        }
+        
+        mainCam.m_DefaultBlend.m_Time = targetCamInfo.blendInfo.blendTime;
+        mainCam.m_DefaultBlend.m_Style = targetCamInfo.blendInfo.blendIn;
+
+        // hold in Main Camera == coroutine delay time
+        StartCoroutine(MoveTopOfCam(newCamera.GetComponent<CinemachineVirtualCameraBase>(), targetCamInfo.blendInfo.hold));
+    }
+
+    void BlendListCameraCase(GameObject newCamera, InteractObjInfo interObj){
+        // add Cinemachine component to new Camera
+        CinemachineBlendListCamera newBlendCam = newCamera.AddComponent<CinemachineBlendListCamera>(); // new Top Camera Info
+        // get Information in Inspector for new Camera
+        BlendListCameraInfo blendCamInfo = interObj._blendListCam;
+        
+        // create List for 'newBlendCam.m_Instructions' -> apply by ToArray()
+        List<CinemachineBlendListCamera.Instruction> tempList = new();
+
+        // add member of List(SubCams)
+        for(int i=0; i<blendCamInfo.subCams.Count(); i++){
+            // get  Information for sub Camera and instruction
+            BlendListSubCameraInfo subCamInfo = blendCamInfo.subCams[i];
+
+            // create new instruction
+            CinemachineBlendListCamera.Instruction instruction = new();
+            
+            // create new sub Camera for instructions.m_VirtualCamera
+            GameObject newSubCam = new("CreatedSubCam"+i);
+            newSubCam.transform.SetParent(newBlendCam.transform);
+            newSubCam.transform.SetAsLastSibling();
+            // add Cinemachine component to new Sub Camera
+            CinemachineVirtualCamera newSubVirtualCam = newSubCam.AddComponent<CinemachineVirtualCamera>();
+            
+            // set sub Camera Information
+            switch(subCamInfo.cameraType){
+                case CameraType.VirtualCamera:
+                    newSubVirtualCam.m_Follow = subCamInfo.virtualCam.target.transform;
+                    newSubVirtualCam.m_Lens.OrthographicSize = subCamInfo.virtualCam.lensOthoSize;
+                    break;
+
+                case CameraType.TargetGroupCamera:
+                    GameObject newtargetGroupObj = new("TargetGroup");
+                    newtargetGroupObj.transform.SetParent(newSubCam.transform);
+                    CinemachineTargetGroup newTargetGroup = newtargetGroupObj.AddComponent<CinemachineTargetGroup>();
+
+                    for(int k=0; k<subCamInfo.targetGroupCam.targets.Count(); k++) 
+                        newTargetGroup.AddMember(subCamInfo.targetGroupCam.targets[k].transform, 1, 1);
+
+                    newSubVirtualCam.m_Follow = newtargetGroupObj.transform;
+                    break;
+            }
+            
+            newSubVirtualCam.AddCinemachineComponent<CinemachineFramingTransposer>();
+
+            // set instruction features
+            instruction.m_VirtualCamera = newSubVirtualCam;
+            
+            if(i != 0){
+                instruction.m_Hold = subCamInfo.virtualCam.blendInfo.hold;
+                instruction.m_Blend.m_Style = subCamInfo.virtualCam.blendInfo.blendIn;
+                instruction.m_Blend.m_Time = subCamInfo.virtualCam.blendInfo.blendTime;
+            }
+        
+            tempList.Add(instruction);
+        }
+
+        newBlendCam.m_Instructions = tempList.ToArray();
+        
+        if(blendCamInfo.doseUseBound && blendCamInfo.bound != null){
+            CinemachineConfiner2D bound = newCamera.AddComponent<CinemachineConfiner2D>();
+            bound.m_BoundingShape2D = blendCamInfo.bound;
+        }
+
+        mainCam.m_DefaultBlend.m_Time = blendCamInfo.blendInfo.blendTime;
+        mainCam.m_DefaultBlend.m_Style = blendCamInfo.blendInfo.blendIn;
+
+        StartCoroutine(MoveTopOfCam(newCamera.GetComponent<CinemachineVirtualCameraBase>(), blendCamInfo.blendInfo.hold));
     }
 
     IEnumerator MoveTopOfCam(CinemachineVirtualCameraBase cam, float hold){

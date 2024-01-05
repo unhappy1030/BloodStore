@@ -17,9 +17,11 @@ public class MouseRayCast : MonoBehaviour
     {
         // find CameraContorl object
         GameObject cameraControlObj = GameObject.FindWithTag("CameraControl");
-        if(cameraControlObj != null){
+        if(cameraControlObj != null)
             cameraControl = cameraControlObj.GetComponent<CameraControl>();
-        }else{
+        
+        else
+        {
             cameraControlObj = new("CameraContorl");
             cameraControl = cameraControlObj.AddComponent<CameraControl>();
         }

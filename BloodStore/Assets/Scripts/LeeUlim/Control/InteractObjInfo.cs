@@ -38,6 +38,8 @@ public class BlendInfo
 [System.Serializable]
 public class VirtualCameraInfo{
     public GameObject target;
+    public bool doseUseBound;
+    public Collider2D bound;
     public float lensOthoSize;
     public BlendInfo blendInfo;
 }
@@ -45,6 +47,8 @@ public class VirtualCameraInfo{
 [System.Serializable]
 public class TargetGroupCameraInfo{
     public List<GameObject> targets;
+    public bool doseUseBound;
+    public Collider2D bound;
     public BlendInfo blendInfo;
 }
 
@@ -58,6 +62,8 @@ public class BlendListSubCameraInfo{
 [System.Serializable]
 public class BlendListCameraInfo{
     public List<BlendListSubCameraInfo> subCams;
+    public bool doseUseBound;
+    public Collider2D bound;
     public BlendInfo blendInfo;
 }
 
@@ -71,7 +77,6 @@ public class InteractObjInfo : MonoBehaviour
     // - ChangeCam
     [SerializeField] public CameraType _cameraType;
 
-    //      : Virtual Camera
     [SerializeField] public VirtualCameraInfo _vertualCam;
     [SerializeField]public TargetGroupCameraInfo _targetGroupCam;
     [SerializeField]public BlendListCameraInfo _blendListCam;
