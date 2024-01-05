@@ -5,20 +5,34 @@ using UnityEngine.SceneManagement;
 
 public class MouseRayCast : MonoBehaviour
 {
-    // ���� : ��ư�� ������ ��� ��ȣ�ۿ� ��ü�� Collider�� ������ �־�� �Ѵ�
     public GameObject moveTarget;
-    CameraControl cameraControl;
+    CameraControl cameraControl; // *** warning : must be in Scene and set "CameraControl" tag
 
-    private void Start()
+    private void OnEnable()
     {
-        // *** ī�޶�� MainCamera �±׸� ������ �־�� ��
-        cameraControl = GameObject.FindWithTag("CameraControl").GetComponent<CameraControl>();
-        
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // find CameraContorl object
+        GameObject cameraControlObj = GameObject.FindWithTag("CameraControl");
+        if(cameraControlObj != null){
+            cameraControl = cameraControlObj.GetComponent<CameraControl>();
+        }else{
+            cameraControlObj = new("CameraContorl");
+            cameraControl = cameraControlObj.AddComponent<CameraControl>();
+        }
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
 
     private void Update()
     {
-        // ���콺 �Է� ó��
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -29,7 +43,6 @@ public class MouseRayCast : MonoBehaviour
         }
     }
 
-    // [���콺 ��ȣ�ۿ� ó��]
     void MouseInteract(GameObject gameObject)
     {
         InteractObjInfo interactObjInfo = gameObject.GetComponent<InteractObjInfo>();
@@ -37,13 +50,11 @@ public class MouseRayCast : MonoBehaviour
         if (interactObjInfo == null)
             return;
 
-        //  - ī�޶� �̵�
         if (interactObjInfo._interactType == InteractType.CameraControl)
         {
             cameraControl.ChangeCam(interactObjInfo);
         }
 
-        // - �� �̵�
         if (interactObjInfo._interactType == InteractType.SceneLoad)
         {
             GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(interactObjInfo._sceneName, 0.05f));

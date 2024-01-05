@@ -38,6 +38,7 @@ public class BlendInfo
 [System.Serializable]
 public class VirtualCameraInfo{
     public GameObject target;
+    public float lensOthoSize;
     public BlendInfo blendInfo;
 }
 
