@@ -826,18 +826,10 @@ MonoBehaviour:
   _cameraMovementType: 0
   _cameraType: 0
   _vertualCam:
-    target: {fileID: 0}
-    doseUseBound: 0
-    bound: {fileID: 0}
-    lensOthoSize: 0
-    blendInfo:
-      hold: 0
-      blendIn: 0
-      blendTime: 0
-  _targetGroupCam:
     targets: []
     doseUseBound: 0
     bound: {fileID: 0}
+    lensOthoSize: 0
     blendInfo:
       hold: 0
       blendIn: 0
@@ -1430,30 +1422,22 @@ MonoBehaviour:
   _cameraMovementType: 0
   _cameraType: 1
   _vertualCam:
-    target: {fileID: 0}
-    doseUseBound: 0
-    bound: {fileID: 0}
-    lensOthoSize: 0
-    blendInfo:
-      hold: 0
-      blendIn: 0
-      blendTime: 0
-  _targetGroupCam:
     targets:
     - {fileID: 714005071}
     - {fileID: 1541206966}
     - {fileID: 1866468853}
     doseUseBound: 1
     bound: {fileID: 1443593246}
+    lensOthoSize: 0
     blendInfo:
       hold: 1
       blendIn: 1
-      blendTime: 2
+      blendTime: 1
   _blendListCam:
     subCams:
-    - cameraType: 2
+    - cameraType: 0
       virtualCam:
-        target: {fileID: 0}
+        targets: []
         doseUseBound: 0
         bound: {fileID: 0}
         lensOthoSize: 0
@@ -1461,15 +1445,7 @@ MonoBehaviour:
           hold: 0
           blendIn: 0
           blendTime: 0
-      targetGroupCam:
-        targets: []
-        doseUseBound: 0
-        bound: {fileID: 0}
-        blendInfo:
-          hold: 0
-          blendIn: 0
-          blendTime: 0
-    doseUseBound: 0
+    doseUseBound: 1
     bound: {fileID: 0}
     blendInfo:
       hold: 0
@@ -2086,20 +2062,13 @@ MonoBehaviour:
   _cameraMovementType: 0
   _cameraType: 0
   _vertualCam:
-    target: {fileID: 988220463}
+    targets:
+    - {fileID: 1848342418}
     doseUseBound: 1
     bound: {fileID: 1443593246}
     lensOthoSize: 5.4
     blendInfo:
-      hold: 2
-      blendIn: 0
-      blendTime: 0
-  _targetGroupCam:
-    targets: []
-    doseUseBound: 0
-    bound: {fileID: 0}
-    blendInfo:
-      hold: 0
+      hold: 1
       blendIn: 0
       blendTime: 0
   _blendListCam:
@@ -2768,18 +2737,10 @@ MonoBehaviour:
   _cameraMovementType: 0
   _cameraType: 0
   _vertualCam:
-    target: {fileID: 0}
-    doseUseBound: 0
-    bound: {fileID: 0}
-    lensOthoSize: 0
-    blendInfo:
-      hold: 0
-      blendIn: 0
-      blendTime: 0
-  _targetGroupCam:
     targets: []
     doseUseBound: 0
     bound: {fileID: 0}
+    lensOthoSize: 0
     blendInfo:
       hold: 0
       blendIn: 0
@@ -3954,7 +3915,7 @@ MonoBehaviour:
   _cameraMovementType: 0
   _cameraType: 2
   _vertualCam:
-    target: {fileID: 988220463}
+    targets: []
     doseUseBound: 0
     bound: {fileID: 0}
     lensOthoSize: 0
@@ -3962,61 +3923,38 @@ MonoBehaviour:
       hold: 1
       blendIn: 1
       blendTime: 2
-  _targetGroupCam:
-    targets: []
-    doseUseBound: 0
-    bound: {fileID: 0}
-    blendInfo:
-      hold: 0
-      blendIn: 0
-      blendTime: 0
   _blendListCam:
     subCams:
     - cameraType: 0
       virtualCam:
-        target: {fileID: 1113732295}
-        doseUseBound: 0
+        targets:
+        - {fileID: 1113732295}
+        doseUseBound: 1
         bound: {fileID: 0}
         lensOthoSize: 3
-        blendInfo:
-          hold: 0
-          blendIn: 0
-          blendTime: 0
-      targetGroupCam:
-        targets: []
-        doseUseBound: 0
-        bound: {fileID: 0}
         blendInfo:
           hold: 0
           blendIn: 0
           blendTime: 0
     - cameraType: 1
       virtualCam:
-        target: {fileID: 556938515}
-        doseUseBound: 0
-        bound: {fileID: 0}
+        targets:
+        - {fileID: 1113732295}
+        - {fileID: 556938515}
+        - {fileID: 1866468853}
+        doseUseBound: 1
+        bound: {fileID: 1443593246}
         lensOthoSize: 3
         blendInfo:
           hold: 1.3
           blendIn: 1
           blendTime: 2
-      targetGroupCam:
-        targets:
-        - {fileID: 1866468853}
-        - {fileID: 556938515}
-        - {fileID: 1113732295}
-        doseUseBound: 0
-        bound: {fileID: 0}
-        blendInfo:
-          hold: 1
-          blendIn: 1
-          blendTime: 1
     doseUseBound: 1
     bound: {fileID: 1443593246}
     blendInfo:
       hold: 1
-      blendIn: 0
-      blendTime: 0
+      blendIn: 1
+      blendTime: 3
   _isFade: 0
   _sceneName: Start
 --- !u!1 &1913117716

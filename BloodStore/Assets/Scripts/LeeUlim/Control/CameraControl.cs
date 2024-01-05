@@ -46,7 +46,7 @@ public class CameraControl : MonoBehaviour
         // get Information in Inspector for new Camera
         VirtualCameraInfo virtualCamInfo = interObj._vertualCam;
         
-        newVirtualCam.m_Follow = virtualCamInfo.target.transform;
+        newVirtualCam.m_Follow = virtualCamInfo.targets[0].transform;
         newVirtualCam.m_Lens.OrthographicSize = virtualCamInfo.lensOthoSize;
         newVirtualCam.AddCinemachineComponent<CinemachineFramingTransposer>();
         
@@ -66,7 +66,7 @@ public class CameraControl : MonoBehaviour
         // add Cinemachine component to new Camera
         CinemachineVirtualCamera newTargetCam = newCamera.AddComponent<CinemachineVirtualCamera>(); // new Camera Info
         // get Information in Inspector for new Camera
-        TargetGroupCameraInfo targetCamInfo = interObj._targetGroupCam;
+        VirtualCameraInfo targetCamInfo = interObj._vertualCam;
         
         // create Target Group for Camera
         GameObject group = new("TargetGroup");
@@ -120,7 +120,7 @@ public class CameraControl : MonoBehaviour
             // set sub Camera Information
             switch(subCamInfo.cameraType){
                 case CameraType.VirtualCamera:
-                    newSubVirtualCam.m_Follow = subCamInfo.virtualCam.target.transform;
+                    newSubVirtualCam.m_Follow = subCamInfo.virtualCam.targets[0].transform;
                     newSubVirtualCam.m_Lens.OrthographicSize = subCamInfo.virtualCam.lensOthoSize;
                     break;
 
@@ -129,13 +129,13 @@ public class CameraControl : MonoBehaviour
                     newtargetGroupObj.transform.SetParent(newSubCam.transform);
                     CinemachineTargetGroup newTargetGroup = newtargetGroupObj.AddComponent<CinemachineTargetGroup>();
 
-                    for(int k=0; k<subCamInfo.targetGroupCam.targets.Count(); k++) 
-                        newTargetGroup.AddMember(subCamInfo.targetGroupCam.targets[k].transform, 1, 1);
+                    for(int k=0; k<subCamInfo.virtualCam.targets.Count(); k++) 
+                        newTargetGroup.AddMember(subCamInfo.virtualCam.targets[k].transform, 1, 1);
 
                     newSubVirtualCam.m_Follow = newtargetGroupObj.transform;
                     break;
             }
-            
+
             newSubVirtualCam.AddCinemachineComponent<CinemachineFramingTransposer>();
 
             // set instruction features

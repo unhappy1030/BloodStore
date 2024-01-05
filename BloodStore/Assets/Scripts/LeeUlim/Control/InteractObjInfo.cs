@@ -5,7 +5,6 @@ using UnityEditor;
 using Cinemachine;
 using System;
 
-// ���콺 ��ȣ�ۿ� ����
 public enum InteractType
 {
     None,
@@ -37,31 +36,32 @@ public class BlendInfo
 
 [System.Serializable]
 public class VirtualCameraInfo{
-    public GameObject target;
+    public List<GameObject> targets;
     public bool doseUseBound;
     public Collider2D bound;
     public float lensOthoSize;
     public BlendInfo blendInfo;
 }
 
-[System.Serializable]
-public class TargetGroupCameraInfo{
-    public List<GameObject> targets;
-    public bool doseUseBound;
-    public Collider2D bound;
-    public BlendInfo blendInfo;
-}
+// [System.Serializable]
+// public class TargetGroupCameraInfo{
+//     public List<GameObject> targets;
+//     public bool doseUseBound;
+//     public Collider2D bound;
+//     public BlendInfo blendInfo;
+// }
 
 [System.Serializable]
 public class BlendListSubCameraInfo{
     public CameraType cameraType;
     public VirtualCameraInfo virtualCam;
-    public TargetGroupCameraInfo targetGroupCam;
+    // public TargetGroupCameraInfo targetGroupCam;
 }
 
 [System.Serializable]
 public class BlendListCameraInfo{
     public List<BlendListSubCameraInfo> subCams;
+    // public List<VirtualCameraInfo> subCams;
     public bool doseUseBound;
     public Collider2D bound;
     public BlendInfo blendInfo;
@@ -78,7 +78,7 @@ public class InteractObjInfo : MonoBehaviour
     [SerializeField] public CameraType _cameraType;
 
     [SerializeField] public VirtualCameraInfo _vertualCam;
-    [SerializeField]public TargetGroupCameraInfo _targetGroupCam;
+    // [SerializeField]public TargetGroupCameraInfo _targetGroupCam;
     [SerializeField]public BlendListCameraInfo _blendListCam;
 
     // SceneLoad
