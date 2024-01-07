@@ -1420,19 +1420,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactType: 1
   _cameraMovementType: 0
-  _cameraType: 1
+  _cameraType: 0
   _vertualCam:
     targets:
-    - {fileID: 714005071}
-    - {fileID: 1541206966}
-    - {fileID: 1866468853}
+    - {fileID: 1113732295}
+    - {fileID: 0}
+    - {fileID: 0}
     doseUseBound: 1
     bound: {fileID: 1443593246}
-    lensOthoSize: 0
+    lensOthoSize: 3
     blendInfo:
-      hold: 1
+      hold: 2
       blendIn: 1
-      blendTime: 1
+      blendTime: 3
   _blendListCam:
     subCams:
     - cameraType: 0
@@ -2060,17 +2060,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactType: 1
   _cameraMovementType: 0
-  _cameraType: 0
+  _cameraType: 1
   _vertualCam:
     targets:
-    - {fileID: 1848342418}
+    - {fileID: 714005071}
+    - {fileID: 1541206966}
+    - {fileID: 1866468853}
     doseUseBound: 1
     bound: {fileID: 1443593246}
     lensOthoSize: 5.4
     blendInfo:
-      hold: 1
+      hold: 4
       blendIn: 0
-      blendTime: 0
+      blendTime: 2
   _blendListCam:
     subCams: []
     doseUseBound: 0
@@ -3929,26 +3931,25 @@ MonoBehaviour:
       virtualCam:
         targets:
         - {fileID: 1113732295}
-        doseUseBound: 1
-        bound: {fileID: 0}
+        doseUseBound: 0
+        bound: {fileID: 1443593246}
         lensOthoSize: 3
         blendInfo:
-          hold: 0
-          blendIn: 0
-          blendTime: 0
+          hold: 1
+          blendIn: 5
+          blendTime: 3
     - cameraType: 1
       virtualCam:
         targets:
         - {fileID: 1113732295}
         - {fileID: 556938515}
-        - {fileID: 1866468853}
-        doseUseBound: 1
-        bound: {fileID: 1443593246}
-        lensOthoSize: 3
+        doseUseBound: 0
+        bound: {fileID: 0}
+        lensOthoSize: 0
         blendInfo:
-          hold: 1.3
-          blendIn: 1
-          blendTime: 2
+          hold: 5
+          blendIn: 0
+          blendTime: 0
     doseUseBound: 1
     bound: {fileID: 1443593246}
     blendInfo:

@@ -103,7 +103,8 @@ public class CameraControl : MonoBehaviour
         List<CinemachineBlendListCamera.Instruction> tempList = new();
 
         // add member of List(SubCams)
-        for(int i=0; i<blendCamInfo.subCams.Count(); i++){
+        for(int i=0; i<blendCamInfo.subCams.Count; i++){
+            Debug.Log("Sub Cam Cahnging...");
             // get  Information for sub Camera and instruction
             BlendListSubCameraInfo subCamInfo = blendCamInfo.subCams[i];
 
@@ -140,9 +141,9 @@ public class CameraControl : MonoBehaviour
 
             // set instruction features
             instruction.m_VirtualCamera = newSubVirtualCam;
+            instruction.m_Hold = subCamInfo.virtualCam.blendInfo.hold;
             
             if(i != 0){
-                instruction.m_Hold = subCamInfo.virtualCam.blendInfo.hold;
                 instruction.m_Blend.m_Style = subCamInfo.virtualCam.blendInfo.blendIn;
                 instruction.m_Blend.m_Time = subCamInfo.virtualCam.blendInfo.blendTime;
             }
