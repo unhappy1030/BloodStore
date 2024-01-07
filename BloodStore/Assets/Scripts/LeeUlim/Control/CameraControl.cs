@@ -9,11 +9,14 @@ public class CameraControl : MonoBehaviour
 {
     CinemachineBrain mainCam;
 
+    List<GameObject> cameraList;
+
     int camCount = 0;
 
     private void Awake()
     {
         mainCam = Camera.main.GetComponent<CinemachineBrain>();
+        cameraList = new();
     }
 
     public void ChangeCam(InteractObjInfo interObj)
@@ -36,6 +39,12 @@ public class CameraControl : MonoBehaviour
             case CameraType.BlendListCamera:
                 BlendListCameraCase(newCamera, interObj);
                 break;
+        }
+
+        cameraList.Add(newCamera);
+        if(cameraList.Count >= 3){
+            Destroy(cameraList[0]);
+            cameraList.RemoveAt(0);
         }
         camCount++;
     }
