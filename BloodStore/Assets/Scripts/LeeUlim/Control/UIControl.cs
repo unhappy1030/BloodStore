@@ -31,17 +31,14 @@ public class UIControl : MonoBehaviour
         fadeInOutCanvas.SetActive(true);
     }
 
-    // ---< 씬 로드 & 종료 시 수행 >---
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
-    // 씬 로드
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // 시작 화면에서는 상호작용x
         if (SceneManager.GetActiveScene().name == GameManager.Instance.startSceneName)
         {
             status = AlwaysOnUIStatus.Nothing;
@@ -54,7 +51,6 @@ public class UIControl : MonoBehaviour
         }
     }
 
-    // 씬 종료
     void OnSceneUnloaded(Scene currentScene)
     {
 
@@ -69,7 +65,6 @@ public class UIControl : MonoBehaviour
 
     private void Update()
     {
-        // esc 입력
         if (Input.GetKeyDown(KeyCode.Escape) && status != AlwaysOnUIStatus.Nothing)
         {
             ChangeUIStatusEnum();
@@ -77,7 +72,6 @@ public class UIControl : MonoBehaviour
         }
     }
 
-    // esc 누른 경우에 [status 값 바뀜] -> 그 외의 경우는 직접 값을 조정
     void ChangeUIStatusEnum()
     {
         switch (status)
@@ -92,8 +86,6 @@ public class UIControl : MonoBehaviour
                 break;
         }
     }
-
-    // ---< 버튼 상호작용 UI >---
 
     // [AlwaysOnCanvas]
     public void ControlAlwaysOnCanvasUI()

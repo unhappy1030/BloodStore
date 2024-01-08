@@ -7,6 +7,8 @@ using Unity.VisualScripting;
 
 public class CameraControl : MonoBehaviour
 {
+    // *** warning : must be in Scene and set "CameraControl" tag
+    
     CinemachineBrain mainCam;
 
     List<GameObject> cameraList;

@@ -1423,16 +1423,16 @@ MonoBehaviour:
   _cameraType: 0
   _vertualCam:
     targets:
-    - {fileID: 1113732295}
+    - {fileID: 1848342418}
     - {fileID: 0}
     - {fileID: 0}
-    doseUseBound: 1
+    doseUseBound: 0
     bound: {fileID: 1443593246}
-    lensOthoSize: 3
+    lensOthoSize: 5.4
     blendInfo:
-      hold: 2
+      hold: 0
       blendIn: 1
-      blendTime: 3
+      blendTime: 2
   _blendListCam:
     subCams:
     - cameraType: 0
@@ -2058,7 +2058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf504a0c7fba3554da375faa441ddc07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactType: 1
+  _interactType: 2
   _cameraMovementType: 0
   _cameraType: 1
   _vertualCam:
@@ -2411,7 +2411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1443593245
 Transform:
   m_ObjectHideFlags: 0
@@ -3915,14 +3915,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactType: 1
   _cameraMovementType: 0
-  _cameraType: 2
+  _cameraType: 0
   _vertualCam:
-    targets: []
+    targets:
+    - {fileID: 988220463}
     doseUseBound: 0
     bound: {fileID: 0}
-    lensOthoSize: 0
+    lensOthoSize: 5.4
     blendInfo:
-      hold: 1
+      hold: 0
       blendIn: 1
       blendTime: 2
   _blendListCam:
