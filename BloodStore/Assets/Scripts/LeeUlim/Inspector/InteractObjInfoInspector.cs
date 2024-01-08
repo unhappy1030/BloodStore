@@ -14,11 +14,13 @@ public class InteractObjInfoInspctor : Editor
     InteractObjInfo interactObjInfo;
     int count = 1;
     int targetCount = 1;
+    List<bool> isSubOpen;
     bool isOpen = true;
     bool isOtherOpen = false;
 
     private void OnEnable()
     {
+        isSubOpen = new();
         interactObjInfo = (InteractObjInfo)target;
     }
 
@@ -64,6 +66,7 @@ public class InteractObjInfoInspctor : Editor
     {
         GUILayout.Space(10);
         GUILayout.Label("Camera Move");
+        GUILayout.FlexibleSpace();
         EditorGUILayout.PropertyField(serializedObject.FindProperty("_cameraMovementType"));
 
         var cameraMovementType = (CameraControlType)serializedObject.FindProperty("_cameraMovementType").enumValueIndex;
@@ -77,7 +80,7 @@ public class InteractObjInfoInspctor : Editor
                 EditorGUI.indentLevel += 2;
                 // Virtual & TargetGroup
                 if(cameraType == CameraType.VirtualCamera || cameraType == CameraType.TargetGroupCamera)
-                    DrawInspectorForVirtualAndTargetCamera(interactObjInfo._vertualCam, cameraType);
+                    DrawInspectorForVirtualAndTargetCamera(interactObjInfo._vertualCam, cameraType, isOpen,false, 0);
                 // Blend List Camera
                 else if(cameraType == CameraType.BlendListCamera)
                     // EditorGUILayout.PropertyField(serializedObject.FindProperty("_blendListCam"));
@@ -88,7 +91,7 @@ public class InteractObjInfoInspctor : Editor
     }
 
 
-    void DrawInspectorForVirtualAndTargetCamera(VirtualCameraInfo virtualCamera, CameraType cameraType){
+    void DrawInspectorForVirtualAndTargetCamera(VirtualCameraInfo virtualCamera, CameraType cameraType, bool isOpen, bool isForSubCam, int index){
         // Vertual Camera
         if(cameraType == CameraType.VirtualCamera)
             isOpen = EditorGUILayout.Foldout(isOpen, "Virtual Camera", true);
@@ -145,18 +148,20 @@ public class InteractObjInfoInspctor : Editor
             EditorGUI.indentLevel--;
         }
         
-        // Blend Info
-        GUILayout.Space(10);
-        EditorGUILayout.LabelField("Blend Info", EditorStyles.boldLabel);
-        EditorGUI.indentLevel++;
-        if(virtualCamera.blendInfo == null)
-            virtualCamera.blendInfo = new();
+        if(!isForSubCam || (isForSubCam && index != 0)){
+            // Blend Info
+            GUILayout.Space(10);
+            EditorGUILayout.LabelField("Blend Info", EditorStyles.boldLabel);
+            EditorGUI.indentLevel++;
+            if(virtualCamera.blendInfo == null)
+                virtualCamera.blendInfo = new();
 
-        virtualCamera.blendInfo.hold = EditorGUILayout.FloatField(new GUIContent("Hold"), virtualCamera.blendInfo.hold);
-        virtualCamera.blendInfo.blendIn = (CinemachineBlendDefinition.Style)EditorGUILayout.EnumPopup(new GUIContent("Blend In"), virtualCamera.blendInfo.blendIn);
-        if(virtualCamera.blendInfo.blendIn != CinemachineBlendDefinition.Style.Cut)
-            virtualCamera.blendInfo.blendTime = EditorGUILayout.FloatField(new GUIContent("Blend Time"), virtualCamera.blendInfo.blendTime);
-        EditorGUI.indentLevel--;
+            virtualCamera.blendInfo.hold = EditorGUILayout.FloatField(new GUIContent("Hold"), virtualCamera.blendInfo.hold);
+            virtualCamera.blendInfo.blendIn = (CinemachineBlendDefinition.Style)EditorGUILayout.EnumPopup(new GUIContent("Blend In"), virtualCamera.blendInfo.blendIn);
+            if(virtualCamera.blendInfo.blendIn != CinemachineBlendDefinition.Style.Cut)
+                virtualCamera.blendInfo.blendTime = EditorGUILayout.FloatField(new GUIContent("Blend Time"), virtualCamera.blendInfo.blendTime);
+            EditorGUI.indentLevel--;
+        }
     }
 
 
@@ -180,22 +185,28 @@ public class InteractObjInfoInspctor : Editor
                 if(count <=0)
                     count =1;
                 else{
-                    if(count > interactObjInfo._blendListCam.subCams.Count)
-                        for(int i=interactObjInfo._blendListCam.subCams.Count; i<count; i++)
-                                interactObjInfo._blendListCam.subCams.Add(new());
-                    else if(count < interactObjInfo._blendListCam.subCams.Count)
-                        for(int j=count; j<interactObjInfo._blendListCam.subCams.Count; j++)
+                    int currrentCount = interactObjInfo._blendListCam.subCams.Count;
+                    if(count > currrentCount)
+                        for(int i=currrentCount; i<count; i++){
+                            isSubOpen.Add(new bool());
+                            interactObjInfo._blendListCam.subCams.Add(new BlendListSubCameraInfo());
+                        }
+                    else if(count < currrentCount)
+                        for(int j=currrentCount-1; j<count; j--){
+                            isSubOpen.RemoveAt(j);
                             interactObjInfo._blendListCam.subCams.RemoveAt(j);
+                        }
                 }
                 
                 
 
                 EditorGUILayout.LabelField("SubCams", EditorStyles.boldLabel);
                 for(int i=0; i<interactObjInfo._blendListCam.subCams.Count; i++){
+                    BlendListSubCameraInfo cameraInfo = interactObjInfo._blendListCam.subCams[i];
                     EditorGUI.indentLevel += 2;
-                    interactObjInfo._blendListCam.subCams[i].cameraType = (CameraType)EditorGUILayout.EnumPopup(interactObjInfo._blendListCam.subCams[i].cameraType);
+                    cameraInfo.cameraType = (CameraType)EditorGUILayout.EnumPopup(cameraInfo.cameraType);
                     EditorGUI.indentLevel += 2;
-                    DrawInspectorForVirtualAndTargetCamera(interactObjInfo._blendListCam.subCams[i].virtualCam, interactObjInfo._blendListCam.subCams[i].cameraType);
+                    DrawInspectorForVirtualAndTargetCamera(cameraInfo.virtualCam, cameraInfo.cameraType, isSubOpen[i],  true, i);
                     EditorGUI.indentLevel -= 2;
                     GUILayout.Space(5);
                     EditorGUI.indentLevel -= 2;
