@@ -5,20 +5,36 @@ using UnityEngine.SceneManagement;
 
 public class MouseRayCast : MonoBehaviour
 {
-    // 주의 : 버튼을 제외한 모든 상호작용 물체는 Collider를 가지고 있어야 한다
     public GameObject moveTarget;
-    CameraControl cameraControl;
+    CameraControl cameraControl; // *** warning : must be in Scene and set "CameraControl" tag
 
-    private void Start()
+    private void OnEnable()
     {
-        // *** 카메라는 MainCamera 태그를 가지고 있어야 함
-        cameraControl = GameObject.FindWithTag("CameraControl").GetComponent<CameraControl>();
-        
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // find CameraContorl object
+        GameObject cameraControlObj = GameObject.FindWithTag("CameraControl");
+        if(cameraControlObj != null)
+            cameraControl = cameraControlObj.GetComponent<CameraControl>();
+        
+        else
+        {
+            cameraControlObj = new("CameraContorl");
+            cameraControl = cameraControlObj.AddComponent<CameraControl>();
+        }
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
 
     private void Update()
     {
-        // 마우스 입력 처리
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -29,7 +45,6 @@ public class MouseRayCast : MonoBehaviour
         }
     }
 
-    // [마우스 상호작용 처리]
     void MouseInteract(GameObject gameObject)
     {
         InteractObjInfo interactObjInfo = gameObject.GetComponent<InteractObjInfo>();
@@ -37,13 +52,11 @@ public class MouseRayCast : MonoBehaviour
         if (interactObjInfo == null)
             return;
 
-        //  - 카메라 이동
         if (interactObjInfo._interactType == InteractType.CameraControl)
         {
-            cameraControl.ChangeBlendListCamSetting(interactObjInfo);
+            cameraControl.ChangeCam(interactObjInfo);
         }
 
-        // - 씬 이동
         if (interactObjInfo._interactType == InteractType.SceneLoad)
         {
             GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(interactObjInfo._sceneName, 0.05f));

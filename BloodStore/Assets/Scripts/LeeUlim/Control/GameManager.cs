@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public string[] sceneNamesInBuild; // **** Inspector 창에서 써 놓은 씬 이름
+    public string[] sceneNamesInBuild; // *** Inspector
 
-    public string startSceneName = "Start"; // 여기서 설정한 이름의 씬을 시작화면 씬으로 인식함
+    public string startSceneName = "Start"; // set start Scene name
 
     bool wasFade = false;
 
@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     public Image blackPanel;
 
 
-    // ---< 싱글톤 >---
     private static GameManager _instance;
     public static GameManager Instance
     {
@@ -35,7 +34,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // ---< 싱글톤 >---
+        // ---< Singleton >---
         if (_instance == null)
         {
             _instance = this;
@@ -47,21 +46,18 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    // ---< 씬 로드 & 종료 시 수행 >---
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
-    // 씬 로드
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (wasFade)
             StartCoroutine(FadeIn(blackPanel, 0.01f));
     }
 
-    // 씬 종료
     void OnSceneUnloaded(Scene currentScene)
     {
 
@@ -74,42 +70,36 @@ public class GameManager : MonoBehaviour
     }
 
 
-    // [씬 로드]
     public void SceneLoad(string sceneName)
     {
         if (Application.CanStreamedLevelBeLoaded(sceneName))
         {
-            Debug.Log(sceneName + " 씬을 불러옵니다...");
+            Debug.Log(sceneName + "");
             SceneManager.LoadScene(sceneName);
         }
         else
         {
-            Debug.Log("없는 씬입니다...");
+            Debug.Log("There is no scene in build...");
         }
     }
 
 
-    // [fade out 후 씬 로드]
     public IEnumerator FadeOutAndLoadScene(string sceneName, float speed)
     {
         if (Application.CanStreamedLevelBeLoaded(sceneName))
         {
-            Debug.Log(sceneName + " 씬을 불러옵니다...");
+            Debug.Log(sceneName + " load...");
             yield return StartCoroutine(FadeOut(blackPanel, speed));
             wasFade = true;
             SceneManager.LoadScene(sceneName);
         }
         else
         {
-            Debug.Log("없는 씬입니다...");
+            Debug.Log("There is no scene in build...");
         }
     }
 
 
-    // ---< 코루틴 >---
-    // fadeSpeed는 0.005f ~ 0.05f 사이의 값이 적절
-
-    // [fade out] -> 드러남
     public IEnumerator FadeOut(Image _Image, float _fadeSpeed)
     {
         Debug.Log("Fade out...");
@@ -127,7 +117,6 @@ public class GameManager : MonoBehaviour
         wasFade = true;
     }
 
-    // [fade in] -> 사라짐
     public IEnumerator FadeIn(Image _Image, float _fadeSpeed)
     {
         Debug.Log("Fade in...");
