@@ -12,11 +12,11 @@ using Unity.IO.LowLevel.Unsafe;
 public class InteractObjInfoInspctor : Editor
 {
     InteractObjInfo interactObjInfo;
-    int count = 1;
-    int targetCount = 1;
-    List<bool> isSubOpen;
-    bool isOpen = true;
-    bool isOtherOpen = false;
+    int count = 1; // subCam Count in BlendListCamera
+    int targetCount = 1; // target count in VirtualCamera & targetGroupCamera
+    List<bool> isSubOpen; // for subcams' FoldOut
+    bool isOpen = false; // for VirtualCamera's FoldOut
+    bool isOtherOpen = false; // for BlendListCamera's FoldOut
 
     private void OnEnable()
     {
@@ -62,6 +62,7 @@ public class InteractObjInfoInspctor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 
+    // [Camera Move Case]
     void CameraMoveCase()
     {
         GUILayout.Space(10);
@@ -80,7 +81,7 @@ public class InteractObjInfoInspctor : Editor
                 EditorGUI.indentLevel += 2;
                 // Virtual & TargetGroup
                 if(cameraType == CameraType.VirtualCamera || cameraType == CameraType.TargetGroupCamera)
-                    DrawInspectorForVirtualAndTargetCamera(interactObjInfo._vertualCam, cameraType, isOpen,false, 0);
+                    isOpen = DrawInspectorForVirtualAndTargetCamera(interactObjInfo._vertualCam, cameraType, isOpen, false, 0);
                 // Blend List Camera
                 else if(cameraType == CameraType.BlendListCamera)
                     // EditorGUILayout.PropertyField(serializedObject.FindProperty("_blendListCam"));
@@ -90,8 +91,8 @@ public class InteractObjInfoInspctor : Editor
         }
     }
 
-
-    void DrawInspectorForVirtualAndTargetCamera(VirtualCameraInfo virtualCamera, CameraType cameraType, bool isOpen, bool isForSubCam, int index){
+    // - Virtual Camera & Target Group Camera
+    bool DrawInspectorForVirtualAndTargetCamera(VirtualCameraInfo virtualCamera, CameraType cameraType, bool isOpen, bool isForSubCam, int index){
         // Vertual Camera
         if(cameraType == CameraType.VirtualCamera)
             isOpen = EditorGUILayout.Foldout(isOpen, "Virtual Camera", true);
@@ -162,9 +163,11 @@ public class InteractObjInfoInspctor : Editor
                 virtualCamera.blendInfo.blendTime = EditorGUILayout.FloatField(new GUIContent("Blend Time"), virtualCamera.blendInfo.blendTime);
             EditorGUI.indentLevel--;
         }
+
+        return isOpen;
     }
 
-
+    // - BlendListCamera
     void DrawInspectorForBlendListCamera(){
         //EditorGUILayout.PropertyField(serializedObject.FindProperty("_blendListCam.subCams"), new GUIContent("Sub Cams"));
         isOtherOpen = EditorGUILayout.Foldout(isOtherOpen, "Blend List Camera", true);
@@ -185,17 +188,23 @@ public class InteractObjInfoInspctor : Editor
                 if(count <=0)
                     count =1;
                 else{
-                    int currrentCount = interactObjInfo._blendListCam.subCams.Count;
-                    if(count > currrentCount)
-                        for(int i=currrentCount; i<count; i++){
-                            isSubOpen.Add(new bool());
-                            interactObjInfo._blendListCam.subCams.Add(new BlendListSubCameraInfo());
-                        }
-                    else if(count < currrentCount)
-                        for(int j=currrentCount-1; j<count; j--){
+                    int currentBoolCount = isSubOpen.Count;
+
+                    if(count > currentBoolCount)
+                        for(int i=currentBoolCount; i<count; i++)
+                            isSubOpen.Add(false);
+                    else if(count < currentBoolCount)
+                        for(int j=currentBoolCount-1; j>=count; j--)
                             isSubOpen.RemoveAt(j);
+
+                    int currentCount = interactObjInfo._blendListCam.subCams.Count;
+
+                    if(count > currentCount)
+                        for(int i=currentCount; i<count; i++)
+                            interactObjInfo._blendListCam.subCams.Add(new BlendListSubCameraInfo());
+                    else if(count < currentCount)
+                        for(int j=currentCount-1; j>=count; j--)
                             interactObjInfo._blendListCam.subCams.RemoveAt(j);
-                        }
                 }
                 
                 
@@ -206,7 +215,7 @@ public class InteractObjInfoInspctor : Editor
                     EditorGUI.indentLevel += 2;
                     cameraInfo.cameraType = (CameraType)EditorGUILayout.EnumPopup(cameraInfo.cameraType);
                     EditorGUI.indentLevel += 2;
-                    DrawInspectorForVirtualAndTargetCamera(cameraInfo.virtualCam, cameraInfo.cameraType, isSubOpen[i],  true, i);
+                    isSubOpen[i] = DrawInspectorForVirtualAndTargetCamera(cameraInfo.virtualCam, cameraInfo.cameraType, isSubOpen[i],  true, i);
                     EditorGUI.indentLevel -= 2;
                     GUILayout.Space(5);
                     EditorGUI.indentLevel -= 2;
