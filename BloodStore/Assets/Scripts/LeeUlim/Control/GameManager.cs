@@ -17,8 +17,9 @@ public class GameManager : MonoBehaviour
     public Image blackPanel;
 
     public CameraControl cameraControl; // *** warning : must be in Scene and set "CameraControl" tag
-    public YarnControl yarnControl;
+    public NPCInteract npcInteract;
     public DialogueRunner dialogueRunner;
+    public MouseRayCast mouseRayCast;
 
 
     private static GameManager _instance;
@@ -70,8 +71,14 @@ public class GameManager : MonoBehaviour
             cameraControl = cameraControlObj.AddComponent<CameraControl>();
         }
 
-        // yarnControl allign
-        yarnControl = GetComponentInChildren<YarnControl>();
+        // Find yarnControl
+        npcInteract = FindObjectOfType<NPCInteract>();
+        if(npcInteract == null){
+            GameObject temp = new("NPCInteracttionInfo");
+            npcInteract = temp.AddComponent<NPCInteract>();
+        }
+
+        mouseRayCast = GetComponent<MouseRayCast>();
 
         dialogueRunner = GetComponentInChildren<DialogueRunner>();
 

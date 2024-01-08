@@ -74,7 +74,6 @@ public class InteractObjInfo : MonoBehaviour
     // NpcInteraction
     [SerializeField] public string _nodeName;
 
-
     // SceneLoad
     [SerializeField] public bool _isFade;
     [SerializeField] public string _sceneName;

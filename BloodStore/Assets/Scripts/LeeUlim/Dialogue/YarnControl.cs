@@ -11,15 +11,4 @@ public class YarnControl : MonoBehaviour
         dialogueRunner = GameManager.Instance.dialogueRunner;
     }
 
-    public void StartDialogue(InteractObjInfo interactObjInfo){
-        string nodeName = interactObjInfo._nodeName;
-        
-        if(!dialogueRunner.IsDialogueRunning){
-            if(dialogueRunner.NodeExists(nodeName))
-                dialogueRunner.StartDialogue(nodeName);
-            else
-                Debug.Log(nodeName + " is not Exist...");
-        }else
-            Debug.Log("Other Dialogue is running...");
-    }
 }

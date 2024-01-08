@@ -5,9 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MouseRayCast : MonoBehaviour
 {
-    public GameObject moveTarget;
     CameraControl cameraControl; // *** warning : must be in Scene and set "CameraControl" tag
-    YarnControl yarnControl;
+    NPCInteract npcInteract;
 
     private void OnEnable()
     {
@@ -19,7 +18,7 @@ public class MouseRayCast : MonoBehaviour
         // cameraControl allign
         cameraControl = GameManager.Instance.cameraControl;
         // yarnControl allign
-        yarnControl = GameManager.Instance.yarnControl;
+        npcInteract = GameManager.Instance.npcInteract;
         
     }
 
@@ -53,7 +52,7 @@ public class MouseRayCast : MonoBehaviour
         }
 
         if(interactObjInfo._interactType == InteractType.NpcInteraction){
-            yarnControl.StartDialogue(interactObjInfo);
+            npcInteract.StartDialogue(interactObjInfo);
         }
 
         if (interactObjInfo._interactType == InteractType.SceneLoad){
