@@ -51,6 +51,7 @@ public class CameraControl : MonoBehaviour
         camCount++;
     }
 
+    // create and active new camera
     void VirtualCameraCase(GameObject newCamera, InteractObjInfo interObj){
         // add Cinemachine component to new Camera
         CinemachineVirtualCamera newVirtualCam = newCamera.AddComponent<CinemachineVirtualCamera>(); // new Camera Info

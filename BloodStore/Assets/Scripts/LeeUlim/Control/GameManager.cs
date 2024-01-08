@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Yarn.Unity;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class GameManager : MonoBehaviour
 
     public Image whitePanel;
     public Image blackPanel;
+
+    public CameraControl cameraControl; // *** warning : must be in Scene and set "CameraControl" tag
+    public YarnControl yarnControl;
+    public DialogueRunner dialogueRunner;
 
 
     private static GameManager _instance;
@@ -54,6 +59,23 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        // find CameraContorl object
+        GameObject cameraControlObj = GameObject.FindWithTag("CameraControl");
+        if(cameraControlObj != null)
+            cameraControl = cameraControlObj.GetComponent<CameraControl>();
+        
+        else
+        {
+            cameraControlObj = new("CameraContorl");
+            cameraControl = cameraControlObj.AddComponent<CameraControl>();
+        }
+
+        // yarnControl allign
+        yarnControl = GetComponentInChildren<YarnControl>();
+
+        dialogueRunner = GetComponentInChildren<DialogueRunner>();
+
+        // Fade in
         if (wasFade)
             StartCoroutine(FadeIn(blackPanel, 0.01f));
     }
@@ -134,5 +156,6 @@ public class GameManager : MonoBehaviour
 
         wasFade = false;
     }
+
 
 }

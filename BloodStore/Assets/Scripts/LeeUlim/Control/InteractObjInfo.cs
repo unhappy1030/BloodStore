@@ -9,6 +9,7 @@ public enum InteractType
 {
     None,
     CameraControl,
+    NpcInteraction,
     SceneLoad,
     GameExit
 }
@@ -43,25 +44,15 @@ public class VirtualCameraInfo{
     public BlendInfo blendInfo;
 }
 
-// [System.Serializable]
-// public class TargetGroupCameraInfo{
-//     public List<GameObject> targets;
-//     public bool doseUseBound;
-//     public Collider2D bound;
-//     public BlendInfo blendInfo;
-// }
-
 [System.Serializable]
 public class BlendListSubCameraInfo{
     public CameraType cameraType;
     public VirtualCameraInfo virtualCam;
-    // public TargetGroupCameraInfo targetGroupCam;
 }
 
 [System.Serializable]
 public class BlendListCameraInfo{
     public List<BlendListSubCameraInfo> subCams;
-    // public List<VirtualCameraInfo> subCams;
     public bool doseUseBound;
     public Collider2D bound;
     public BlendInfo blendInfo;
@@ -71,15 +62,18 @@ public class InteractObjInfo : MonoBehaviour
 {
     [SerializeField] public InteractType _interactType;
 
-    // CameraContorlType
+    // CameraControlType
     [SerializeField] public CameraControlType _cameraMovementType;
 
     // - ChangeCam
     [SerializeField] public CameraType _cameraType;
 
     [SerializeField] public VirtualCameraInfo _vertualCam;
-    // [SerializeField]public TargetGroupCameraInfo _targetGroupCam;
-    [SerializeField]public BlendListCameraInfo _blendListCam;
+    [SerializeField] public BlendListCameraInfo _blendListCam;
+
+    // NpcInteraction
+    [SerializeField] public string _nodeName;
+
 
     // SceneLoad
     [SerializeField] public bool _isFade;
