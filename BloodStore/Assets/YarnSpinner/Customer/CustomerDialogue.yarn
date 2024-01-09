@@ -1,0 +1,17 @@
+﻿title: Start
+tags:
+position: -536,-190
+---
+Player: This is test.
+-> Move to other Node
+    Move to Interaction Node
+    <<jump Interaction>>
+-> Exit
+    Exit...
+===
+title: Interaction
+position: -248,-191
+---
+Player: Successfully moved to Interaction Node
+Player: Exit YarnSpinner...
+===

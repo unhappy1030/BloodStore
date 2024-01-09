@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MouseRayCast : MonoBehaviour
 {
-    public GameObject moveTarget;
     CameraControl cameraControl; // *** warning : must be in Scene and set "CameraControl" tag
+    NPCInteract npcInteract;
 
     private void OnEnable()
     {
@@ -15,16 +15,11 @@ public class MouseRayCast : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // find CameraContorl object
-        GameObject cameraControlObj = GameObject.FindWithTag("CameraControl");
-        if(cameraControlObj != null)
-            cameraControl = cameraControlObj.GetComponent<CameraControl>();
+        // cameraControl assign
+        cameraControl = GameManager.Instance.cameraControl;
+        // yarnControl assign
+        npcInteract = GameManager.Instance.npcInteract;
         
-        else
-        {
-            cameraControlObj = new("CameraContorl");
-            cameraControl = cameraControlObj.AddComponent<CameraControl>();
-        }
     }
 
     private void OnDisable()
@@ -52,13 +47,15 @@ public class MouseRayCast : MonoBehaviour
         if (interactObjInfo == null)
             return;
 
-        if (interactObjInfo._interactType == InteractType.CameraControl)
-        {
+        if (interactObjInfo._interactType == InteractType.CameraControl){
             cameraControl.ChangeCam(interactObjInfo);
         }
 
-        if (interactObjInfo._interactType == InteractType.SceneLoad)
-        {
+        if(interactObjInfo._interactType == InteractType.NpcInteraction){
+            npcInteract.StartDialogue(interactObjInfo);
+        }
+
+        if (interactObjInfo._interactType == InteractType.SceneLoad){
             GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(interactObjInfo._sceneName, 0.05f));
         }
     }

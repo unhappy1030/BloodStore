@@ -43,6 +43,10 @@ public class InteractObjInfoInspctor : Editor
             case InteractType.CameraControl:
                 CameraMoveCase();
             break;
+            
+            case InteractType.NpcInteraction:
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("_nodeName"));
+            break;
 
             case InteractType.SceneLoad:
                 GUILayout.Space(10);

@@ -313,8 +313,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneNamesInBuild: []
+  startSceneName: Start
   whitePanel: {fileID: 0}
   blackPanel: {fileID: 0}
+  cameraControl: {fileID: 0}
+  yarnControl: {fileID: 0}
 --- !u!4 &1861401806
 Transform:
   m_ObjectHideFlags: 0

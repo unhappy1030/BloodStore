@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Yarn.Unity;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,12 @@ public class GameManager : MonoBehaviour
 
     public Image whitePanel;
     public Image blackPanel;
+
+    public CameraControl cameraControl; // *** warning : must be in Scene and set "CameraControl" tag
+    public NPCInteract npcInteract;
+    public MouseRayCast mouseRayCast;
+    public DialogueRunner dialogueRunner;
+    public InMemoryVariableStorage variableStorage;
 
 
     private static GameManager _instance;
@@ -54,8 +61,32 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        // find CameraContorl object
+        GameObject cameraControlObj = GameObject.FindWithTag("CameraControl");
+        if(cameraControlObj != null)
+            cameraControl = cameraControlObj.GetComponent<CameraControl>();
+        
+        else
+        {
+            cameraControlObj = new("CameraContorl");
+            cameraControl = cameraControlObj.AddComponent<CameraControl>();
+        }
+
+        // find yarnControl
+        npcInteract = FindObjectOfType<NPCInteract>();
+        if(npcInteract == null){
+            GameObject temp = new("NPCInteracttionInfo");
+            npcInteract = temp.AddComponent<NPCInteract>();
+        }
+
+        mouseRayCast = GetComponent<MouseRayCast>();
+
+        dialogueRunner = GetComponentInChildren<DialogueRunner>();
+        variableStorage = GetComponentInChildren<InMemoryVariableStorage>();
+
+        // Fade in
         if (wasFade)
-            StartCoroutine(FadeIn(blackPanel, 0.01f));
+            StartCoroutine(FadeInUI(blackPanel, 0.01f));
     }
 
     void OnSceneUnloaded(Scene currentScene)
@@ -89,7 +120,7 @@ public class GameManager : MonoBehaviour
         if (Application.CanStreamedLevelBeLoaded(sceneName))
         {
             Debug.Log(sceneName + " load...");
-            yield return StartCoroutine(FadeOut(blackPanel, speed));
+            yield return StartCoroutine(FadeOutUI(blackPanel, speed));
             wasFade = true;
             SceneManager.LoadScene(sceneName);
         }
@@ -100,12 +131,13 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public IEnumerator FadeOut(Image _Image, float _fadeSpeed)
+    public IEnumerator FadeOutUI(Image _Image, float _fadeSpeed)
     {
         Debug.Log("Fade out...");
-        _Image.gameObject.SetActive(true);
         Color t_color = _Image.color;
         t_color.a = 0;
+        
+        _Image.gameObject.SetActive(true);
 
         while (t_color.a < 1)
         {
@@ -117,11 +149,12 @@ public class GameManager : MonoBehaviour
         wasFade = true;
     }
 
-    public IEnumerator FadeIn(Image _Image, float _fadeSpeed)
+    public IEnumerator FadeInUI(Image _Image, float _fadeSpeed)
     {
         Debug.Log("Fade in...");
         Color t_color = _Image.color;
         t_color.a = 1;
+        _Image.gameObject.SetActive(true);
 
         while (t_color.a > 0)
         {
@@ -134,5 +167,41 @@ public class GameManager : MonoBehaviour
 
         wasFade = false;
     }
+
+    public IEnumerator FadeOutSprite(SpriteRenderer _Sprite, float _fadeSpeed){
+        Debug.Log("Fade out...");
+        Color t_color = _Sprite.color;
+        t_color.a = 0;
+        
+        _Sprite.gameObject.SetActive(true);
+
+        while (t_color.a < 1)
+        {
+            t_color.a += _fadeSpeed;
+            _Sprite.color = t_color;
+            yield return null;
+        }
+        
+    }
+
+    public IEnumerator FadeInSprite(SpriteRenderer _Sprite, float _fadeSpeed){
+        Debug.Log("Fade in...");
+        Color t_color = _Sprite.color;
+        t_color.a = 1;
+        
+        _Sprite.gameObject.SetActive(true);
+
+        while (t_color.a > 0)
+        {
+            t_color.a -= _fadeSpeed;
+            _Sprite.color = t_color;
+            yield return null;
+        }
+
+        _Sprite.gameObject.SetActive(false);
+
+        wasFade = false;
+    }
+
 
 }

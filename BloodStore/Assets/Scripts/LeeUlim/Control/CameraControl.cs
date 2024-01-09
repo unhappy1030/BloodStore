@@ -7,6 +7,8 @@ using Unity.VisualScripting;
 
 public class CameraControl : MonoBehaviour
 {
+    // *** warning : must be in Scene and set "CameraControl" tag
+    
     CinemachineBrain mainCam;
 
     List<GameObject> cameraList;
@@ -49,6 +51,7 @@ public class CameraControl : MonoBehaviour
         camCount++;
     }
 
+    // create and active new camera
     void VirtualCameraCase(GameObject newCamera, InteractObjInfo interObj){
         // add Cinemachine component to new Camera
         CinemachineVirtualCamera newVirtualCam = newCamera.AddComponent<CinemachineVirtualCamera>(); // new Camera Info

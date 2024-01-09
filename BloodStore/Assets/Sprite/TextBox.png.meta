@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8a5540b24f50c984bbe6483f83260373
+guid: 04affe0b50bcd9c4a8744f9937fca2c1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -81,6 +81,19 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -106,66 +119,11 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Interact_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 33
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cd424d882f54945409c20dd010e4d8cb
-      internalID: -782193185
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Interact_1
-      rect:
-        serializedVersion: 2
-        x: 33
-        y: 33
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 047e5ee15a1c4814590358c790a0d28d
-      internalID: 391900973
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Interact_2
+      name: TextBox_0
       rect:
         serializedVersion: 2
         x: 0
@@ -173,20 +131,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 8, y: 8, z: 8, w: 8}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9f55501e40c6bbd40ab83ae8d0831a1e
-      internalID: 1557126052
+      spriteID: 2bc55ffedb17219409f020af638a3c84
+      internalID: -1944186839
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Interact_3
+      name: TextBox_1
       rect:
         serializedVersion: 2
         x: 33
@@ -194,14 +152,14 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 80ca86593a1685643867e0b72f66eef6
-      internalID: 1818082350
+      spriteID: 75dd61884edde7c4d9180b4609e131f5
+      internalID: -725600554
       vertices: []
       indices: 
       edges: []
@@ -217,10 +175,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Interact_0: -782193185
-      Interact_1: 391900973
-      Interact_2: 1557126052
-      Interact_3: 1818082350
+      TextBox_0: -1944186839
+      TextBox_1: -725600554
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
