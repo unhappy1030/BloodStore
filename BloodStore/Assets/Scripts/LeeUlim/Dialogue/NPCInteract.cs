@@ -7,6 +7,7 @@ public class NPCInteract : MonoBehaviour
 {
     public int count;
     public int npcIndex=0;
+    // public bool isInteractble = true;
     public GameObject npc;
     public List<Sprite> npcSprite;
     DialogueRunner dialogueRunner;
@@ -21,12 +22,13 @@ public class NPCInteract : MonoBehaviour
             yield break;
         
         npc.GetComponent<SpriteRenderer>().sprite = npcSprite[npcIndex];
-        npc.SetActive(true);
-
+        
+        GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutSprite(npc.GetComponent<SpriteRenderer>(), 0.05f));
+        
         yield return new WaitUntil(() => dialogueRunner.IsDialogueRunning);
         yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
         
-        npc.SetActive(false);
+        GameManager.Instance.StartCoroutine(GameManager.Instance.FadeInSprite(npc.GetComponent<SpriteRenderer>(), 0.05f));
 
         yield return new WaitForSecondsRealtime(2);
 

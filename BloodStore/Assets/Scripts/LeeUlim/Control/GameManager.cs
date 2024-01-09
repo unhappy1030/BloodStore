@@ -18,8 +18,9 @@ public class GameManager : MonoBehaviour
 
     public CameraControl cameraControl; // *** warning : must be in Scene and set "CameraControl" tag
     public NPCInteract npcInteract;
-    public DialogueRunner dialogueRunner;
     public MouseRayCast mouseRayCast;
+    public DialogueRunner dialogueRunner;
+    public InMemoryVariableStorage variableStorage;
 
 
     private static GameManager _instance;
@@ -71,7 +72,7 @@ public class GameManager : MonoBehaviour
             cameraControl = cameraControlObj.AddComponent<CameraControl>();
         }
 
-        // Find yarnControl
+        // find yarnControl
         npcInteract = FindObjectOfType<NPCInteract>();
         if(npcInteract == null){
             GameObject temp = new("NPCInteracttionInfo");
@@ -81,10 +82,11 @@ public class GameManager : MonoBehaviour
         mouseRayCast = GetComponent<MouseRayCast>();
 
         dialogueRunner = GetComponentInChildren<DialogueRunner>();
+        variableStorage = GetComponentInChildren<InMemoryVariableStorage>();
 
         // Fade in
         if (wasFade)
-            StartCoroutine(FadeIn(blackPanel, 0.01f));
+            StartCoroutine(FadeInUI(blackPanel, 0.01f));
     }
 
     void OnSceneUnloaded(Scene currentScene)
@@ -118,7 +120,7 @@ public class GameManager : MonoBehaviour
         if (Application.CanStreamedLevelBeLoaded(sceneName))
         {
             Debug.Log(sceneName + " load...");
-            yield return StartCoroutine(FadeOut(blackPanel, speed));
+            yield return StartCoroutine(FadeOutUI(blackPanel, speed));
             wasFade = true;
             SceneManager.LoadScene(sceneName);
         }
@@ -129,12 +131,13 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public IEnumerator FadeOut(Image _Image, float _fadeSpeed)
+    public IEnumerator FadeOutUI(Image _Image, float _fadeSpeed)
     {
         Debug.Log("Fade out...");
-        _Image.gameObject.SetActive(true);
         Color t_color = _Image.color;
         t_color.a = 0;
+        
+        _Image.gameObject.SetActive(true);
 
         while (t_color.a < 1)
         {
@@ -146,11 +149,12 @@ public class GameManager : MonoBehaviour
         wasFade = true;
     }
 
-    public IEnumerator FadeIn(Image _Image, float _fadeSpeed)
+    public IEnumerator FadeInUI(Image _Image, float _fadeSpeed)
     {
         Debug.Log("Fade in...");
         Color t_color = _Image.color;
         t_color.a = 1;
+        _Image.gameObject.SetActive(true);
 
         while (t_color.a > 0)
         {
@@ -160,6 +164,41 @@ public class GameManager : MonoBehaviour
         }
 
         _Image.gameObject.SetActive(false);
+
+        wasFade = false;
+    }
+
+    public IEnumerator FadeOutSprite(SpriteRenderer _Sprite, float _fadeSpeed){
+        Debug.Log("Fade out...");
+        Color t_color = _Sprite.color;
+        t_color.a = 0;
+        
+        _Sprite.gameObject.SetActive(true);
+
+        while (t_color.a < 1)
+        {
+            t_color.a += _fadeSpeed;
+            _Sprite.color = t_color;
+            yield return null;
+        }
+        
+    }
+
+    public IEnumerator FadeInSprite(SpriteRenderer _Sprite, float _fadeSpeed){
+        Debug.Log("Fade in...");
+        Color t_color = _Sprite.color;
+        t_color.a = 1;
+        
+        _Sprite.gameObject.SetActive(true);
+
+        while (t_color.a > 0)
+        {
+            t_color.a -= _fadeSpeed;
+            _Sprite.color = t_color;
+            yield return null;
+        }
+
+        _Sprite.gameObject.SetActive(false);
 
         wasFade = false;
     }

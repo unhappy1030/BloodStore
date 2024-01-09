@@ -15,9 +15,9 @@ public class MouseRayCast : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // cameraControl allign
+        // cameraControl assign
         cameraControl = GameManager.Instance.cameraControl;
-        // yarnControl allign
+        // yarnControl assign
         npcInteract = GameManager.Instance.npcInteract;
         
     }

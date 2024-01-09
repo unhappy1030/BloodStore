@@ -3394,8 +3394,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   count: 0
-  index: 0
-  npc: []
+  npcIndex: 0
+  npc: {fileID: 0}
+  npcSprite: []
 --- !u!4 &1540566997
 Transform:
   m_ObjectHideFlags: 0
@@ -5333,8 +5334,9 @@ MonoBehaviour:
   blackPanel: {fileID: 1059785190}
   cameraControl: {fileID: 0}
   npcInteract: {fileID: 0}
-  dialogueRunner: {fileID: 0}
   mouseRayCast: {fileID: 0}
+  dialogueRunner: {fileID: 0}
+  variableStorage: {fileID: 0}
 --- !u!4 &1983117552
 Transform:
   m_ObjectHideFlags: 0
