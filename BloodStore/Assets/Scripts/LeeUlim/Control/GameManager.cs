@@ -73,17 +73,16 @@ public class GameManager : MonoBehaviour
         }
 
         // find yarnControl
-        npcInteract = FindObjectOfType<NPCInteract>();
-        if(npcInteract == null){
-            GameObject temp = new("NPCInteracttionInfo");
-            npcInteract = temp.AddComponent<NPCInteract>();
-        }
+        npcInteract = FindObjectOfType<NPCInteract>(true);
 
         mouseRayCast = GetComponent<MouseRayCast>();
 
         dialogueRunner = GetComponentInChildren<DialogueRunner>();
         variableStorage = GetComponentInChildren<InMemoryVariableStorage>();
-
+        
+        whitePanel.gameObject.SetActive(false);
+        blackPanel.gameObject.SetActive(false);
+        
         // Fade in
         if (wasFade)
             StartCoroutine(FadeInUI(blackPanel, 0.01f));
@@ -133,7 +132,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator FadeOutUI(Image _Image, float _fadeSpeed)
     {
-        Debug.Log("Fade out...");
+        // Debug.Log("Fade out...");
         Color t_color = _Image.color;
         t_color.a = 0;
         
@@ -151,7 +150,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator FadeInUI(Image _Image, float _fadeSpeed)
     {
-        Debug.Log("Fade in...");
+        // Debug.Log("Fade in...");
         Color t_color = _Image.color;
         t_color.a = 1;
         _Image.gameObject.SetActive(true);
@@ -169,7 +168,7 @@ public class GameManager : MonoBehaviour
     }
 
     public IEnumerator FadeOutSprite(SpriteRenderer _Sprite, float _fadeSpeed){
-        Debug.Log("Fade out...");
+        // Debug.Log("Fade out...");
         Color t_color = _Sprite.color;
         t_color.a = 0;
         
@@ -185,7 +184,7 @@ public class GameManager : MonoBehaviour
     }
 
     public IEnumerator FadeInSprite(SpriteRenderer _Sprite, float _fadeSpeed){
-        Debug.Log("Fade in...");
+        // Debug.Log("Fade in...");
         Color t_color = _Sprite.color;
         t_color.a = 1;
         
