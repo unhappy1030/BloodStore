@@ -1812,8 +1812,6 @@ MonoBehaviour:
   _cameraType: 0
   _vertualCam:
     targets:
-    - {fileID: 1848342418}
-    - {fileID: 0}
     - {fileID: 0}
     doseUseBound: 0
     bound: {fileID: 1443593246}
@@ -3555,7 +3553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf504a0c7fba3554da375faa441ddc07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactType: 3
+  _interactType: 4
   _cameraMovementType: 0
   _cameraType: 0
   _vertualCam:
