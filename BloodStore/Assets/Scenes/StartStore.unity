@@ -708,7 +708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0429bd3ebe976eb4a92cdca3bbf3ff96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 3
+  count: 2
   npcIndex: 0
   npc: {fileID: 1376918427}
   npcSprite:

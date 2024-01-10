@@ -21,10 +21,10 @@ public class NPCInteract : MonoBehaviour
     }
 
     IEnumerator StartInteraction(){
-        if(npcSprite.Count == 0 || npcSprite.Count <= npcIndex || npcSprite[npcIndex] == null)
+        if(count == 0 || npcSprite.Count == 0)
             yield break;
         
-        npc.GetComponent<SpriteRenderer>().sprite = npcSprite[npcIndex];
+        npc.GetComponent<SpriteRenderer>().sprite = npcSprite[0];
         
         GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutSprite(npc.GetComponent<SpriteRenderer>(), 0.05f));
         
@@ -35,14 +35,16 @@ public class NPCInteract : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(2);
 
-        if(npcIndex <= count-1 && npcIndex <= npcSprite.Count-1){
+        if(npcIndex < count){
             npcIndex++;
-            Debug.Log("another NPC Interact...");
+            Debug.Log("another NPC Interact triggered...");
             yield return StartCoroutine(StartInteraction());
         }
         
         Debug.Log("Available Move to Next day...");
-        ReadyToMoveNextDay();
+        
+        if(npcIndex == count - 1) // for trigger only at final interaction
+            ReadyToMoveNextDay();
     }
 
     public void ReadyToMoveNextDay(){

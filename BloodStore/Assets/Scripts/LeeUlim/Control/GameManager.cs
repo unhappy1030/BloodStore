@@ -79,7 +79,10 @@ public class GameManager : MonoBehaviour
 
         dialogueRunner = GetComponentInChildren<DialogueRunner>();
         variableStorage = GetComponentInChildren<InMemoryVariableStorage>();
-
+        
+        whitePanel.gameObject.SetActive(false);
+        blackPanel.gameObject.SetActive(false);
+        
         // Fade in
         if (wasFade)
             StartCoroutine(FadeInUI(blackPanel, 0.01f));
