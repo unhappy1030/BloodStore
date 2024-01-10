@@ -6,7 +6,8 @@ using Yarn.Unity;
 public class NPCInteract : MonoBehaviour
 {
     public int count;
-    public int npcIndex=0;
+    public int npcIndex = 0;
+    public int spriteIndex = 0;
     // public bool isInteractble = true;
     public GameObject npc;
     public List<Sprite> npcSprite;
@@ -23,8 +24,9 @@ public class NPCInteract : MonoBehaviour
     IEnumerator StartInteraction(){
         if(count == 0 || npcSprite.Count == 0)
             yield break;
-        
-        npc.GetComponent<SpriteRenderer>().sprite = npcSprite[0];
+            
+        spriteIndex = GetSpriteIndex();
+        npc.GetComponent<SpriteRenderer>().sprite = npcSprite[spriteIndex];
         
         GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutSprite(npc.GetComponent<SpriteRenderer>(), 0.05f));
         
@@ -35,19 +37,26 @@ public class NPCInteract : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(2);
 
+        npcIndex++;
+
         if(npcIndex < count){
-            npcIndex++;
             Debug.Log("another NPC Interact triggered...");
             yield return StartCoroutine(StartInteraction());
         }
         
         Debug.Log("Available Move to Next day...");
         
-        if(npcIndex == count - 1) // for trigger only at final interaction
+        if(npcIndex == count) // for trigger only at final interaction
             ReadyToMoveNextDay();
     }
 
-    public void ReadyToMoveNextDay(){
+    int GetSpriteIndex(){
+        int index;
+        index = Random.Range(0, npcSprite.Count);
+        return index;
+    }
+
+    void ReadyToMoveNextDay(){
         nextDayButton.SetActive(true);
     }
 
