@@ -460,7 +460,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -767973213, guid: c4a715218bb56b0499a30886a7aca6aa, type: 3}
+  m_Sprite: {fileID: 1818082350, guid: 8a5540b24f50c984bbe6483f83260373, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -775,7 +775,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -767973213, guid: c4a715218bb56b0499a30886a7aca6aa, type: 3}
+  m_Sprite: {fileID: 1818082350, guid: 8a5540b24f50c984bbe6483f83260373, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1230,7 +1230,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -767973213, guid: c4a715218bb56b0499a30886a7aca6aa, type: 3}
+  m_Sprite: {fileID: 1818082350, guid: 8a5540b24f50c984bbe6483f83260373, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1608,7 +1608,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -1617,7 +1617,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!1 &709405921
 GameObject:
@@ -1813,8 +1813,6 @@ MonoBehaviour:
   _vertualCam:
     targets:
     - {fileID: 1848342418}
-    - {fileID: 0}
-    - {fileID: 0}
     doseUseBound: 0
     bound: {fileID: 1443593246}
     lensOthoSize: 5.4
@@ -2773,7 +2771,7 @@ MonoBehaviour:
       blendTime: 0
   _nodeName: 
   _isFade: 1
-  _sceneName: StartStore
+  _sceneName: StartEdit
 --- !u!1 &1147904460
 GameObject:
   m_ObjectHideFlags: 0
@@ -3364,54 +3362,6 @@ MonoBehaviour:
   m_MaximumFOV: 60
   m_MinimumOrthoSize: 1
   m_MaximumOrthoSize: 5000
---- !u!1 &1540566995
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1540566997}
-  - component: {fileID: 1540566996}
-  m_Layer: 0
-  m_Name: NPCInteractionInfo
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1540566996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1540566995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0429bd3ebe976eb4a92cdca3bbf3ff96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  count: 0
-  npcIndex: 0
-  npc: {fileID: 0}
-  npcSprite: []
---- !u!4 &1540566997
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1540566995}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.18138, y: 1.0846657, z: -0.025610749}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1541206966
 GameObject:
   m_ObjectHideFlags: 0
@@ -3555,7 +3505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf504a0c7fba3554da375faa441ddc07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactType: 3
+  _interactType: 4
   _cameraMovementType: 0
   _cameraType: 0
   _vertualCam:
@@ -3828,7 +3778,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -767973213, guid: c4a715218bb56b0499a30886a7aca6aa, type: 3}
+  m_Sprite: {fileID: 1818082350, guid: 8a5540b24f50c984bbe6483f83260373, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4298,7 +4248,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -4307,7 +4257,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!1 &1752830622
 GameObject:
@@ -5328,7 +5278,9 @@ MonoBehaviour:
   sceneNamesInBuild:
   - Start
   - StartEdit
+  - Edit
   - StartStore
+  - Store
   startSceneName: Start
   whitePanel: {fileID: 1752830624}
   blackPanel: {fileID: 1059785190}
@@ -5544,7 +5496,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 1099360181}
   - {fileID: 1443593245}
-  - {fileID: 1540566997}
   - {fileID: 709405922}
   - {fileID: 988220465}
   - {fileID: 1848342420}
