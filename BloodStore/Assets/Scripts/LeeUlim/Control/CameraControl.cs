@@ -85,9 +85,19 @@ public class CameraControl : MonoBehaviour
         group.transform.SetParent(newCamera.transform);
         CinemachineTargetGroup targetGroup = group.AddComponent<CinemachineTargetGroup>();
         
+        int nullCount = 0;
         // add targetgroup member and apply features
-        for(int i=0; i<targetCamInfo.targets.Count(); i++) 
-            targetGroup.AddMember(targetCamInfo.targets[i].transform, 1, 1);
+        for(int i=0; i<targetCamInfo.targets.Count; i++){
+            if(targetCamInfo.targets[i] != null)
+                targetGroup.AddMember(targetCamInfo.targets[i].transform, 1, 1);
+            else
+                nullCount++;
+        }
+
+        if(nullCount == targetCamInfo.targets.Count){
+            Debug.Log("It is not avaiable target...");
+            return;
+        }
 
         // set group as Follow
         newTargetCam.m_Follow = group.transform;

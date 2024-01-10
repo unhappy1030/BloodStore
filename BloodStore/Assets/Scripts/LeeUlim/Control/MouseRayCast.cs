@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -40,22 +41,34 @@ public class MouseRayCast : MonoBehaviour
         }
     }
 
-    void MouseInteract(GameObject gameObject)
+    void MouseInteract(GameObject interactObj)
     {
-        InteractObjInfo interactObjInfo = gameObject.GetComponent<InteractObjInfo>();
+        InteractObjInfo interactObjInfo = interactObj.GetComponent<InteractObjInfo>();
+        SetCameraTarget setCameraTarget = interactObj.GetComponent<SetCameraTarget>();
+        bool isAvailableCameraMove = true;
 
         if (interactObjInfo == null)
             return;
 
-        if (interactObjInfo._interactType == InteractType.CameraControl){
-            cameraControl.ChangeCam(interactObjInfo);
+        if (interactObjInfo._interactType == InteractType.CameraControl)
+        {
+            // only Node case -> isAvailableCameraMove changes false at here
+            if(setCameraTarget != null)
+                isAvailableCameraMove = setCameraTarget.AssignCameraTarget(interactObjInfo);
+
+            if(isAvailableCameraMove) 
+                cameraControl.ChangeCam(interactObjInfo);
+            else
+                Debug.Log("It is not available form of targets...");
         }
 
-        if(interactObjInfo._interactType == InteractType.NpcInteraction){
+        if(interactObjInfo._interactType == InteractType.NpcInteraction)
+        {
             npcInteract.StartDialogue(interactObjInfo);
         }
 
-        if (interactObjInfo._interactType == InteractType.SceneLoad){
+        if (interactObjInfo._interactType == InteractType.SceneLoad)
+        {
             GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(interactObjInfo._sceneName, 0.05f));
         }
     }
