@@ -5,6 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+<<<<<<< HEAD
   - enabled: 0
     path: Assets/Scenes/SelectCard.unity
     guid: 2cda990e2423bbf4892e6590ba056729
@@ -24,6 +25,33 @@ EditorBuildSettings:
     path: Assets/Scenes/StartStore.unity
     guid: 568d94bdc4d513749aa00f7696da38cd
   - enabled: 0
+=======
+  - enabled: 1
+    path: Assets/Scenes/Start.unity
+    guid: 3dac59e74d0afc142942d3b922c0cab4
+  - enabled: 1
+    path: Assets/Scenes/StartEdit.unity
+    guid: d2ec3cab0850c554baebf1ffe5cc05d4
+  - enabled: 1
+    path: Assets/Scenes/Edit.unity
+    guid: daa3e1a3083055a4d9c51662b7c9a96c
+  - enabled: 1
+    path: Assets/Scenes/SelectCard.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/StartStore.unity
+    guid: 568d94bdc4d513749aa00f7696da38cd
+  - enabled: 1
+    path: Assets/Scenes/Store.unity
+    guid: 98d9b23830257324999156a50a3ad9a1
+  - enabled: 1
+    path: Assets/Scenes/FamilyTree.unity
+    guid: 1c6fa08d2af8a1c42942062db21b25f1
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 4972bc590cc5da44aa9b5a63b1b3df50
+  - enabled: 1
+>>>>>>> 30fd003015eac8887ad04c79d752584445516721
     path: Assets/Scenes/Test.unity
     guid: 7fa42c0fe95d7194b8ff6a420be8ecb2
   - enabled: 0

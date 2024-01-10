@@ -18,7 +18,6 @@ public class ButtonControl : MonoBehaviour
         GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(sceneName, 0.05f));
     }
 
-
     // ---< AlwaysOnCanvas >---
 
     public void GotoPause()
