@@ -10,9 +10,12 @@ public class NPCInteract : MonoBehaviour
     // public bool isInteractble = true;
     public GameObject npc;
     public List<Sprite> npcSprite;
+
+    public GameObject nextDayButton;
     DialogueRunner dialogueRunner;
 
     void Start(){
+        nextDayButton.SetActive(false);
         dialogueRunner = GameManager.Instance.dialogueRunner;
         StartCoroutine(StartInteraction());
     }
@@ -34,8 +37,16 @@ public class NPCInteract : MonoBehaviour
 
         if(npcIndex <= count-1 && npcIndex <= npcSprite.Count-1){
             npcIndex++;
-            StartCoroutine(StartInteraction());
+            Debug.Log("another NPC Interact...");
+            yield return StartCoroutine(StartInteraction());
         }
+        
+        Debug.Log("Available Move to Next day...");
+        ReadyToMoveNextDay();
+    }
+
+    public void ReadyToMoveNextDay(){
+        nextDayButton.SetActive(true);
     }
 
     public void StartDialogue(InteractObjInfo interactObjInfo){

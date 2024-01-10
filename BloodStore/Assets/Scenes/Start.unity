@@ -1515,6 +1515,7 @@ GameObject:
   - component: {fileID: 700067485}
   - component: {fileID: 700067484}
   - component: {fileID: 700067483}
+  - component: {fileID: 700067487}
   m_Layer: 5
   m_Name: AlwayOnCanvas
   m_TagString: Untagged
@@ -1619,6 +1620,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!210 &700067487
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700067481}
+  m_Enabled: 1
+  m_SortingLayerID: 592011183
+  m_SortingLayer: 2
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &709405921
 GameObject:
   m_ObjectHideFlags: 0
@@ -1812,7 +1825,7 @@ MonoBehaviour:
   _cameraType: 0
   _vertualCam:
     targets:
-    - {fileID: 0}
+    - {fileID: 1848342418}
     doseUseBound: 0
     bound: {fileID: 1443593246}
     lensOthoSize: 5.4
@@ -3362,54 +3375,6 @@ MonoBehaviour:
   m_MaximumFOV: 60
   m_MinimumOrthoSize: 1
   m_MaximumOrthoSize: 5000
---- !u!1 &1540566995
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1540566997}
-  - component: {fileID: 1540566996}
-  m_Layer: 0
-  m_Name: NPCInteractionInfo
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1540566996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1540566995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0429bd3ebe976eb4a92cdca3bbf3ff96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  count: 0
-  npcIndex: 0
-  npc: {fileID: 0}
-  npcSprite: []
---- !u!4 &1540566997
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1540566995}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.18138, y: 1.0846657, z: -0.025610749}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1541206966
 GameObject:
   m_ObjectHideFlags: 0
@@ -4215,6 +4180,7 @@ GameObject:
   - component: {fileID: 1701522263}
   - component: {fileID: 1701522262}
   - component: {fileID: 1701522261}
+  - component: {fileID: 1701522264}
   m_Layer: 0
   m_Name: FadeInOutCanvas
   m_TagString: Untagged
@@ -4307,6 +4273,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!210 &1701522264
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701522259}
+  m_Enabled: 1
+  m_SortingLayerID: 592011183
+  m_SortingLayer: 2
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &1752830622
 GameObject:
   m_ObjectHideFlags: 0
@@ -4324,7 +4302,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1752830623
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5542,7 +5520,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 1099360181}
   - {fileID: 1443593245}
-  - {fileID: 1540566997}
   - {fileID: 709405922}
   - {fileID: 988220465}
   - {fileID: 1848342420}
