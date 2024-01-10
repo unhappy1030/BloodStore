@@ -24,7 +24,7 @@ public class NPCInteract : MonoBehaviour
     IEnumerator StartInteraction(){
         if(count == 0 || npcSprite.Count == 0)
             yield break;
-            
+
         spriteIndex = GetSpriteIndex();
         npc.GetComponent<SpriteRenderer>().sprite = npcSprite[spriteIndex];
         
@@ -50,6 +50,7 @@ public class NPCInteract : MonoBehaviour
             ReadyToMoveNextDay();
     }
 
+    // test
     int GetSpriteIndex(){
         int index;
         index = Random.Range(0, npcSprite.Count);

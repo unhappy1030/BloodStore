@@ -460,7 +460,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -767973213, guid: c4a715218bb56b0499a30886a7aca6aa, type: 3}
+  m_Sprite: {fileID: 1818082350, guid: 8a5540b24f50c984bbe6483f83260373, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -775,7 +775,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -767973213, guid: c4a715218bb56b0499a30886a7aca6aa, type: 3}
+  m_Sprite: {fileID: 1818082350, guid: 8a5540b24f50c984bbe6483f83260373, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1230,7 +1230,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -767973213, guid: c4a715218bb56b0499a30886a7aca6aa, type: 3}
+  m_Sprite: {fileID: 1818082350, guid: 8a5540b24f50c984bbe6483f83260373, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2771,7 +2771,7 @@ MonoBehaviour:
       blendTime: 0
   _nodeName: 
   _isFade: 1
-  _sceneName: StartStore
+  _sceneName: StartEdit
 --- !u!1 &1147904460
 GameObject:
   m_ObjectHideFlags: 0
@@ -3778,7 +3778,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -767973213, guid: c4a715218bb56b0499a30886a7aca6aa, type: 3}
+  m_Sprite: {fileID: 1818082350, guid: 8a5540b24f50c984bbe6483f83260373, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5278,7 +5278,9 @@ MonoBehaviour:
   sceneNamesInBuild:
   - Start
   - StartEdit
+  - Edit
   - StartStore
+  - Store
   startSceneName: Start
   whitePanel: {fileID: 1752830624}
   blackPanel: {fileID: 1059785190}
