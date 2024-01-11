@@ -12,5 +12,4 @@ public class YarnControl : MonoBehaviour
         dialogueRunner = GameManager.Instance.dialogueRunner;
         variableStorage = GameManager.Instance.variableStorage;
     }
-
 }
