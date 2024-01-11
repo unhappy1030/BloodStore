@@ -18,6 +18,10 @@ public class ButtonControl : MonoBehaviour
         GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(sceneName, 0.05f));
     }
 
+    public void DayIncrease(){
+        GameManager.Instance.day++;
+    }
+
     // ---< AlwaysOnCanvas >---
 
     public void GotoPause()

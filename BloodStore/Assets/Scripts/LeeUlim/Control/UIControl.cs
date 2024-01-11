@@ -62,17 +62,16 @@ public class UIControl : MonoBehaviour
         SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
 
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && status != AlwaysOnUIStatus.Nothing)
         {
-            ChangeUIStatusEnum();
+            ChangeAlwaysOnCanvasUIStatusEnum();
             ControlAlwaysOnCanvasUI();
         }
     }
 
-    void ChangeUIStatusEnum()
+    void ChangeAlwaysOnCanvasUIStatusEnum()
     {
         switch (status)
         {

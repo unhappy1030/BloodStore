@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
 
     public string startSceneName = "Start"; // set start Scene name
 
+    public float money = 0;
+    public int day = 0;
+
     bool wasFade = false;
 
     public Image whitePanel;
@@ -19,6 +22,7 @@ public class GameManager : MonoBehaviour
     public CameraControl cameraControl; // *** warning : must be in Scene and set "CameraControl" tag
     public NPCInteract npcInteract;
     public MouseRayCast mouseRayCast;
+    public MoneyControl moneyControl;
     public DialogueRunner dialogueRunner;
     public InMemoryVariableStorage variableStorage;
 
@@ -76,6 +80,7 @@ public class GameManager : MonoBehaviour
         npcInteract = FindObjectOfType<NPCInteract>(true);
 
         mouseRayCast = GetComponent<MouseRayCast>();
+        moneyControl = GetComponent<MoneyControl>();
 
         dialogueRunner = GetComponentInChildren<DialogueRunner>();
         variableStorage = GetComponentInChildren<InMemoryVariableStorage>();
@@ -100,6 +105,7 @@ public class GameManager : MonoBehaviour
     }
 
 
+    // Scene Load
     public void SceneLoad(string sceneName)
     {
         if (Application.CanStreamedLevelBeLoaded(sceneName))
@@ -112,7 +118,6 @@ public class GameManager : MonoBehaviour
             Debug.Log("There is no scene in build...");
         }
     }
-
 
     public IEnumerator FadeOutAndLoadScene(string sceneName, float speed)
     {
@@ -130,6 +135,7 @@ public class GameManager : MonoBehaviour
     }
 
 
+    // Fade in & out
     public IEnumerator FadeOutUI(Image _Image, float _fadeSpeed)
     {
         // Debug.Log("Fade out...");
