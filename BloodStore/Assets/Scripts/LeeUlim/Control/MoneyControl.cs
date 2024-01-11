@@ -18,6 +18,7 @@ public class MoneyControl : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         GetMoney();
+        UpdateMoneyUI();
     }
 
     void OnSceneUnloaded(Scene currentScene)
@@ -41,14 +42,11 @@ public class MoneyControl : MonoBehaviour
         moneyText.text = money.ToString();
     }
 
-    public void AddMoney(float addAmount){
-        money += addAmount;
+    public float CalculateMoney(float amount){
+        money += amount;
+        SetMoney();
         UpdateMoneyUI();
-    }
-
-    public void DelMoney(float delAmount){
-        money -= delAmount;
-        UpdateMoneyUI();
+        return money;
     }
 
     public void GetMoney(){
@@ -58,5 +56,4 @@ public class MoneyControl : MonoBehaviour
     public void SetMoney(){
         GameManager.Instance.money = money;
     }
-
 }
