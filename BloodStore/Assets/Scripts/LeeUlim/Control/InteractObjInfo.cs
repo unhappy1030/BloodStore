@@ -77,4 +77,22 @@ public class InteractObjInfo : MonoBehaviour
     // SceneLoad
     [SerializeField] public bool _isFade;
     [SerializeField] public string _sceneName;
+    public void SetBlendData(){
+        _interactType = InteractType.CameraControl;
+        _cameraMovementType = CameraControlType.ChangeCamera;
+        _cameraType = CameraType.TargetGroupCamera;
+
+        if (_vertualCam == null) {
+            _vertualCam = new VirtualCameraInfo();
+        }
+
+        if (_vertualCam.blendInfo == null) {
+            _vertualCam.blendInfo = new BlendInfo();
+        }
+        
+        _vertualCam.blendInfo.hold = 0.25f;
+        _vertualCam.blendInfo.blendIn = CinemachineBlendDefinition.Style.EaseInOut;
+        _vertualCam.blendInfo.blendTime = 0.25f;
+    }
+
 }

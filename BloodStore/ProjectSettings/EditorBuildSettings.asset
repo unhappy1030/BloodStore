@@ -30,6 +30,14 @@ EditorBuildSettings:
     path: Assets/Scenes/Test 1.unity
     guid: 4b7be099942e95d4aab4180f7c1e0313
   - enabled: 1
+<<<<<<< HEAD
     path: Assets/Scenes/yarntester2.unity
     guid: de7103f22c973eb4ba8fc18faef21144
+=======
+    path: Assets/Scenes/LeeHyangWoo/bb.unity
+    guid: d7e1e7920724ccf44959d530b3fc8596
+  - enabled: 1
+    path: Assets/Scenes/LeeHyangWoo/NewFamilyTreeTest.unity
+    guid: 2e43ef9c1e395cc45892d15e1d9105b6
+>>>>>>> 7f01c55daf15751c50e72ff00300d0962f318f03
   m_configObjects: {}

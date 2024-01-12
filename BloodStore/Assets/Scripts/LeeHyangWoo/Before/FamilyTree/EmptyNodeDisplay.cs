@@ -22,15 +22,13 @@
 //             // collider가 있다면 클릭된 것으로 간주
 //             if (hitCollider != null && hitCollider.gameObject == gameObject)
 //             {
-//                 if(pair.BlankNodeCheck() == nodeData.nodes[nodeData.nodes.Count - 1].sex){
+//                 if(pair.BlankNodeCheck() == nodeData.node.sex){
 //                     MakePair();
 //                     pair.AddChild();
-//                     IndexManger.Instance.DayCountUpdate();
 //                 }
 //                 else{
 //                     DeleteNode();
 //                 }
-//                 SceneManager.LoadScene("SelectCard");
 //             }
 //         }
 //     }
@@ -39,13 +37,11 @@
 //     }
 //     void MakePair(){
 //         Node node = new Node();
-//         node = nodeData.nodes[nodeData.nodes.Count - 1];
+//         node = nodeData.node;
 //         pair.MakePair(node);
-//         nodeData.nodes.RemoveAt(nodeData.nodes.Count - 1);
 //         pair.isPair = true;
 //     }
 //     void DeleteNode(){
-//         nodeData.nodes.RemoveAt(nodeData.nodes.Count - 1);
 //         pair.isPair = false;
 //     }
 // }

@@ -12,4 +12,171 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ade79a5230c9a4392643f4baa07d9c, type: 3}
   m_Name: PairSo
   m_EditorClassIdentifier: 
-  pairs: []
+  root:
+  - male:
+      name: Eve
+      sex: Male
+      bloodType:
+      - B
+      - +
+      - BB
+      hp: 70
+      age: 41
+      isDead: 0
+      empty: 0
+    female:
+      name: David
+      sex: Female
+      bloodType:
+      - A
+      - +
+      - AA
+      hp: 90
+      age: 58
+      isDead: 0
+      empty: 0
+    isPair: 1
+    childNum: 2
+    children:
+    - male:
+        name: Charlie
+        sex: Male
+        bloodType:
+        - AB
+        - +
+        - AB
+        hp: 76
+        age: 53
+        isDead: 0
+        empty: 0
+      female:
+        name: Frank
+        sex: Female
+        bloodType:
+        - A
+        - +
+        - AO
+        hp: 80
+        age: 36
+        isDead: 0
+        empty: 0
+      isPair: 1
+      childNum: 4
+      children:
+      - male:
+          name: Hank
+          sex: Male
+          bloodType:
+          - AB
+          - +
+          - AB
+          hp: 84
+          age: 24
+          isDead: 0
+          empty: 0
+        female:
+          name: 
+          sex: 
+          bloodType: []
+          hp: 0
+          age: 0
+          isDead: 0
+          empty: 1
+        isPair: 0
+        childNum: 0
+        children: []
+        isParent: 0
+      - male:
+          name: 
+          sex: 
+          bloodType: []
+          hp: 0
+          age: 0
+          isDead: 0
+          empty: 1
+        female:
+          name: Eve
+          sex: Female
+          bloodType:
+          - AB
+          - +
+          - AB
+          hp: 66
+          age: 46
+          isDead: 0
+          empty: 0
+        isPair: 0
+        childNum: 0
+        children: []
+        isParent: 0
+      - male:
+          name: 
+          sex: 
+          bloodType: []
+          hp: 0
+          age: 0
+          isDead: 0
+          empty: 1
+        female:
+          name: Frank
+          sex: Female
+          bloodType:
+          - A
+          - +
+          - AO
+          hp: 76
+          age: 46
+          isDead: 0
+          empty: 0
+        isPair: 0
+        childNum: 0
+        children: []
+        isParent: 0
+      - male:
+          name: David
+          sex: Male
+          bloodType:
+          - B
+          - +
+          - BO
+          hp: 79
+          age: 52
+          isDead: 0
+          empty: 0
+        female:
+          name: 
+          sex: 
+          bloodType: []
+          hp: 0
+          age: 0
+          isDead: 0
+          empty: 1
+        isPair: 0
+        childNum: 0
+        children: []
+        isParent: 0
+      isParent: 0
+    - male:
+        name: Charlie
+        sex: Male
+        bloodType:
+        - AB
+        - +
+        - AB
+        hp: 69
+        age: 24
+        isDead: 0
+        empty: 0
+      female:
+        name: 
+        sex: 
+        bloodType: []
+        hp: 0
+        age: 0
+        isDead: 0
+        empty: 1
+      isPair: 0
+      childNum: 0
+      children: []
+      isParent: 0
+    isParent: 0
