@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class ToggleGroups : MonoBehaviour
 {
-public GameObject parentObject; // 토글 그룹들을 자식으로 가지는 부모 오브젝트
+    public GameObject parentObject; // 토글 그룹들을 자식으로 가지는 부모 오브젝트
     public List<Toggle> activeToggles;
+    public BloodPackSO bloodPackSO;
+
 
     void Start()
     {
@@ -46,5 +49,30 @@ public GameObject parentObject; // 토글 그룹들을 자식으로 가지는 �
             names += t.name + " ";
         }
         Debug.Log(names);
+
+        foreach (Toggle t in activeToggles)
+        {
+            string toggleName = t.name;
+            List<BloodPack> filteredBloodPacks = new List<BloodPack>();
+
+            foreach (BloodPack bloodPack in bloodPackSO.bloodPacks)
+            {
+                foreach (var field in bloodPack.GetType().GetFields())
+                {
+                    string fieldValueAsString = field.GetValue(bloodPack).ToString();
+                    if (fieldValueAsString == toggleName)
+                    {
+                        filteredBloodPacks.Add(bloodPack);
+                        break;
+                    }
+                }
+            }
+
+            foreach (BloodPack pack in filteredBloodPacks)
+            {
+                Debug.Log(pack.node.name);
+            }
+        }
+ 
     }
 }

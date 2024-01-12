@@ -206,7 +206,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 570770337}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9913137
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1927,7 +1927,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7214957924153088704, guid: cdbf2749cc803324aaebd0b44bfd35b3, type: 3}
       propertyPath: m_Name
-      value: RH+
+      value: +
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2847,7 +2847,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00042493688}
+  m_AnchoredPosition: {x: 0, y: 0.0007435659}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1001 &1829467979
@@ -2958,7 +2958,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7214957924153088704, guid: cdbf2749cc803324aaebd0b44bfd35b3, type: 3}
       propertyPath: m_Name
-      value: RH-
+      value: '-'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3444,6 +3444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentObject: {fileID: 2011170053}
   activeToggles: []
+  bloodPackSO: {fileID: 11400000, guid: feedc4857385f794e8a181cec85a44cd, type: 2}
 --- !u!1001 &2028592851
 PrefabInstance:
   m_ObjectHideFlags: 0

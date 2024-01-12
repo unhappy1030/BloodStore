@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96d449cc0fc34dd439010185d318bb8c, type: 3}
+  m_Name: BloodPackSo_test
+  m_EditorClassIdentifier: 
+  bloodPacks:
+  - node:
+      name: "\uC559\uAE30\uBAA8"
+      sex: Male
+      bloodType:
+      - AB
+      - +
+      hp: 0
+      age: 0
+      isDead: 0
+      empty: 0
+    bloodPackNum: 0
+    getBloodDate: 0
+  - node:
+      name: "\uC559\uAE30\uBAA8"
+      sex: Female
+      bloodType:
+      - O
+      - +
+      hp: 0
+      age: 0
+      isDead: 0
+      empty: 0
+    bloodPackNum: 0
+    getBloodDate: 0
