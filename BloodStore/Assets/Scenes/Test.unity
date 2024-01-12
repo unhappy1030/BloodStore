@@ -174,8 +174,8 @@ MonoBehaviour:
   - {fileID: 1861482714}
   - {fileID: 1305286780}
   testSize: 2
-  lineWidth: 0
-  distFromGroup: 0
+  lineWidth: 0.1
+  distFromGroup: 0.2
   lindColor:
     serializedVersion: 2
     key0: {r: 0.37050554, g: 0.3751942, b: 0.4339623, a: 1}

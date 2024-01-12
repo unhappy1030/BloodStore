@@ -9,7 +9,7 @@ public class DrawFamilyTreeLine : MonoBehaviour
     public float testSize;
 
     [Space]
-    public float lineWidth = 0.05f;
+    public float lineWidth = 0.01f;
     public float distFromGroup;
     float horLineSize;
     float verLineSize;
@@ -27,9 +27,11 @@ public class DrawFamilyTreeLine : MonoBehaviour
 
     void DrawLine(List<GameObject> childGroups){
         SetSize(testSize); // test
+        Debug.Log(childGroups.Count);
         CreateLineObj(childGroups.Count);
-        for(int i=0; i<childGroups.Count; i++)
+        for(int i=0; i<childGroups.Count; i++){
             SetLinePoints(lines[i], childGroups[i]);
+        }
 
         MoveLineToParentNode(this.gameObject);
     }
@@ -43,6 +45,7 @@ public class DrawFamilyTreeLine : MonoBehaviour
         lineParent.transform.position = new Vector3(0, 0, 0);
 
         for(int i=0; i<lineCount; i++){
+            Debug.Log("Add lines...");
             lines.Add(new("line"+i));
         }
 
@@ -55,15 +58,15 @@ public class DrawFamilyTreeLine : MonoBehaviour
 
     // set Line Points for each Line
     void SetLinePoints(GameObject line, GameObject childGroup){
+        Debug.Log("Setting Line Points...");
         LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
         if(lineRenderer == null){
             Debug.Log("There is no LineRenderer...");
             return;
         }
 
-        lineRenderer.enabled = false;
         lineRenderer.widthMultiplier = lineWidth;
-        lineRenderer.colorGradient = lindColor;
+        lineRenderer.material.color = Color.black;
         Vector3[] linePoints = new Vector3[4];
         
         horLineSize = this.transform.position.x - childGroup.transform.position.x;
@@ -84,5 +87,6 @@ public class DrawFamilyTreeLine : MonoBehaviour
 
     void MoveLineToParentNode(GameObject parentNode){
         lineParent.transform.position = parentNode.transform.position;
+        
     }
 }
