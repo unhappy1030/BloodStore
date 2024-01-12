@@ -12,4 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96d449cc0fc34dd439010185d318bb8c, type: 3}
   m_Name: BloodPackSo
   m_EditorClassIdentifier: 
-  bloodPacks: []
+  bloodPacks:
+  - node:
+      name: Lee
+      sex: Male
+      bloodType:
+      - AB
+      - +
+      hp: 0
+      age: 0
+      isDead: 0
+      empty: 0
+    bloodPackNum: 0
+    getBloodDate: 0
+  - node:
+      name: Kim
+      sex: Female
+      bloodType:
+      - O
+      - +
+      hp: 0
+      age: 0
+      isDead: 0
+      empty: 0
+    bloodPackNum: 0
+    getBloodDate: 0

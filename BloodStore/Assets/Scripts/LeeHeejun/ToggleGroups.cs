@@ -3,18 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
+using TMPro;
 
 public class ToggleGroups : MonoBehaviour
 {
-    public GameObject parentObject; // 토글 그룹들을 자식으로 가지는 부모 오브젝트
+    public GameObject parentObject;
     public List<Toggle> activeToggles;
     public BloodPackSO bloodPackSO;
-
+    public TMP_Text NumofFiltered;
 
     void Start()
     {
-        ToggleGroup[] toggleGroups = parentObject.GetComponentsInChildren<ToggleGroup>(); // 부모 오브젝트의 자식 오브젝트 중에서 토글 그룹들을 가져옴
+        ToggleGroup[] toggleGroups = parentObject.GetComponentsInChildren<ToggleGroup>();
 
         foreach(ToggleGroup tg in toggleGroups)
         {
@@ -28,6 +28,7 @@ public class ToggleGroups : MonoBehaviour
 
     void ToggleValueChanged()
     {
+        int Count = 0;
         activeToggles = new List<Toggle>();
         ToggleGroup[] toggleGroups = parentObject.GetComponentsInChildren<ToggleGroup>();
 
@@ -43,36 +44,57 @@ public class ToggleGroups : MonoBehaviour
             }
         }
 
-        string names = "";
-        foreach (Toggle t in activeToggles)
-        {
-            names += t.name + " ";
-        }
-        Debug.Log(names);
+        // string names = "";
+        // foreach (Toggle t in activeToggles)
+        // {
+        //     names += t.name + " ";
+        // }
+        // Debug.Log(names);
 
-        foreach (Toggle t in activeToggles)
-        {
-            string toggleName = t.name;
-            List<BloodPack> filteredBloodPacks = new List<BloodPack>();
+        List<BloodPack> filteredBloodPacks = new List<BloodPack>();
 
-            foreach (BloodPack bloodPack in bloodPackSO.bloodPacks)
+        foreach (BloodPack bloodPack in bloodPackSO.bloodPacks)
+        {
+            bool shouldAdd = false;
+
+            foreach(Toggle t in activeToggles)
             {
-                foreach (var field in bloodPack.GetType().GetFields())
+                string toggleName = t.name;
+
+                if(toggleName == "Male" || toggleName == "Female")
                 {
-                    string fieldValueAsString = field.GetValue(bloodPack).ToString();
-                    if (fieldValueAsString == toggleName)
+                    if(toggleName == bloodPack.node.sex)
                     {
-                        filteredBloodPacks.Add(bloodPack);
-                        break;
+                        shouldAdd = true;
                     }
                 }
+                else if(toggleName == "+" || toggleName == "-")
+                {
+                    if(toggleName == bloodPack.node.bloodType[1])
+                    {
+                        shouldAdd = true;
+                    }
+                }
+                else if(toggleName == "A" || toggleName == "B" || toggleName == "AB" || toggleName == "O")
+                {
+                    if(toggleName == bloodPack.node.bloodType[0])
+                    {
+                        shouldAdd = true;
+                    }
+                }
+
+                if (!shouldAdd) continue;
             }
 
-            foreach (BloodPack pack in filteredBloodPacks)
+            if (shouldAdd)
             {
-                Debug.Log(pack.node.name);
+                filteredBloodPacks.Add(bloodPack);
+                Debug.Log(bloodPack.node.name);
+                Count++;
             }
         }
- 
+
+        string a = "재고 : " + Count + " 개";
+        NumofFiltered.text = a;
     }
 }
