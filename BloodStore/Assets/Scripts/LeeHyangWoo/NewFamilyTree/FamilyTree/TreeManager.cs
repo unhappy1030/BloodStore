@@ -40,6 +40,7 @@ public class TreeManagerTest : MonoBehaviour
     void MakeFamilyTree(){
         Group rootGroup = RootDisplay();
         MakeChildren(rootGroup);
+        MakeCenter(rootGroup);
     }
 
     void MakeChildren(Group rootGroup){
@@ -68,10 +69,16 @@ public class TreeManagerTest : MonoBehaviour
                 rootGroup.childrenGroup.Add(group);
                 group.parentGroup = rootGroup;
                 MakeChildren(group);
+                MakeCenter(group);
             }
         }
     }
-
+    void MakeCenter(Group group){
+        if(group.pair.childNum != 0){
+            group.groupPos = new Vector2((group.childrenGroup[0].groupPos.x + group.childrenGroup[group.childrenGroup.Count - 1].groupPos.x) / 2, group.groupPos.y);
+            group.transform.position = group.groupPos;
+        }
+    }
     Group RootDisplay(){
         Group group = MakeGroupObject();
         group.pair = pairSO.root[0];
