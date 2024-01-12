@@ -14,25 +14,296 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   root:
   - male:
-      name: 
-      sex: 
-      bloodType: []
-      hp: 0
-      age: 0
+      name: Eve
+      sex: Male
+      bloodType:
+      - A
+      - '-'
+      - AA
+      hp: 97
+      age: 53
       isDead: 0
-      empty: 1
+      empty: 0
     female:
       name: David
       sex: Female
       bloodType:
-      - B
+      - A
       - '-'
-      - BB
-      hp: 92
-      age: 53
+      - AO
+      hp: 69
+      age: 47
       isDead: 0
       empty: 0
-    isPair: 0
-    childNum: 0
-    children: []
+    isPair: 1
+    childNum: 1
+    children:
+    - male:
+        name: Hank
+        sex: Male
+        bloodType:
+        - A
+        - '-'
+        - AA
+        hp: 52
+        age: 28
+        isDead: 0
+        empty: 0
+      female:
+        name: Grace
+        sex: Female
+        bloodType:
+        - O
+        - '-'
+        - OO
+        hp: 61
+        age: 28
+        isDead: 0
+        empty: 0
+      isPair: 1
+      childNum: 1
+      children:
+      - male:
+          name: David
+          sex: Male
+          bloodType:
+          - A
+          - '-'
+          - AO
+          hp: 50
+          age: 48
+          isDead: 0
+          empty: 0
+        female:
+          name: David
+          sex: Female
+          bloodType:
+          - A
+          - '-'
+          - AO
+          hp: 86
+          age: 24
+          isDead: 0
+          empty: 0
+        isPair: 1
+        childNum: 3
+        children:
+        - male:
+            name: Eve
+            sex: Male
+            bloodType:
+            - A
+            - +
+            - AO
+            hp: 93
+            age: 57
+            isDead: 0
+            empty: 0
+          female:
+            name: Alice
+            sex: Female
+            bloodType:
+            - A
+            - '-'
+            - AA
+            hp: 77
+            age: 26
+            isDead: 0
+            empty: 0
+          isPair: 1
+          childNum: 2
+          children:
+          - male:
+              name: 
+              sex: 
+              bloodType: []
+              hp: 0
+              age: 0
+              isDead: 0
+              empty: 1
+            female:
+              name: Bob
+              sex: Female
+              bloodType:
+              - A
+              - '-'
+              - AO
+              hp: 80
+              age: 21
+              isDead: 0
+              empty: 0
+            isPair: 0
+            childNum: 0
+            children: []
+            isParent: 0
+          - male:
+              name: Bob
+              sex: Male
+              bloodType:
+              - A
+              - '-'
+              - AO
+              hp: 57
+              age: 43
+              isDead: 0
+              empty: 0
+            female:
+              name: 
+              sex: 
+              bloodType: []
+              hp: 0
+              age: 0
+              isDead: 0
+              empty: 1
+            isPair: 0
+            childNum: 0
+            children: []
+            isParent: 0
+          isParent: 0
+        - male:
+            name: David
+            sex: Male
+            bloodType:
+            - A
+            - '-'
+            - AO
+            hp: 95
+            age: 52
+            isDead: 0
+            empty: 0
+          female:
+            name: Charlie
+            sex: Female
+            bloodType:
+            - A
+            - '-'
+            - AO
+            hp: 61
+            age: 47
+            isDead: 0
+            empty: 0
+          isPair: 1
+          childNum: 2
+          children:
+          - male:
+              name: 
+              sex: 
+              bloodType: []
+              hp: 0
+              age: 0
+              isDead: 0
+              empty: 1
+            female:
+              name: Grace
+              sex: Female
+              bloodType:
+              - A
+              - '-'
+              - AO
+              hp: 83
+              age: 36
+              isDead: 0
+              empty: 0
+            isPair: 0
+            childNum: 0
+            children: []
+            isParent: 0
+          - male:
+              name: 
+              sex: 
+              bloodType: []
+              hp: 0
+              age: 0
+              isDead: 0
+              empty: 1
+            female:
+              name: Hank
+              sex: Female
+              bloodType:
+              - A
+              - '-'
+              - AO
+              hp: 61
+              age: 50
+              isDead: 0
+              empty: 0
+            isPair: 0
+            childNum: 0
+            children: []
+            isParent: 0
+          isParent: 0
+        - male:
+            name: Eve
+            sex: Male
+            bloodType:
+            - A
+            - '-'
+            - AO
+            hp: 50
+            age: 36
+            isDead: 0
+            empty: 0
+          female:
+            name: Bob
+            sex: Female
+            bloodType:
+            - B
+            - +
+            - BO
+            hp: 98
+            age: 41
+            isDead: 0
+            empty: 0
+          isPair: 1
+          childNum: 2
+          children:
+          - male:
+              name: Frank
+              sex: Male
+              bloodType:
+              - AB
+              - '-'
+              - AB
+              hp: 63
+              age: 50
+              isDead: 0
+              empty: 0
+            female:
+              name: 
+              sex: 
+              bloodType: []
+              hp: 0
+              age: 0
+              isDead: 0
+              empty: 1
+            isPair: 0
+            childNum: 0
+            children: []
+            isParent: 0
+          - male:
+              name: Eve
+              sex: Male
+              bloodType:
+              - O
+              - '-'
+              - OO
+              hp: 64
+              age: 32
+              isDead: 0
+              empty: 0
+            female:
+              name: 
+              sex: 
+              bloodType: []
+              hp: 0
+              age: 0
+              isDead: 0
+              empty: 1
+            isPair: 0
+            childNum: 0
+            children: []
+            isParent: 0
+          isParent: 0
+        isParent: 0
+      isParent: 0
     isParent: 0

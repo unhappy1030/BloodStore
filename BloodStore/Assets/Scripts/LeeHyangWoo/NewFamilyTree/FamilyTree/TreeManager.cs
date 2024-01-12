@@ -82,26 +82,26 @@ public class TreeManagerTest : MonoBehaviour
     //     group.rightDisplay.transform.position = group.rightPos;
     //     return group;
     // }
-    GameObject CreateNode(Node node){
-        GameObject display;
-        if(!node.empty){
-            display = Instantiate(nodePrefab, new Vector2(0, 0), Quaternion.identity);
-            NodeDisplay nodeDisplay = display.GetComponent<NodeDisplay>();
-            nodeDisplay.SetNodeData(node);
-        }
-        else{
-            display = Instantiate(emptyPrefab, new Vector2(0, 0), Quaternion.identity);
-        }
-        return display;
-    }
+    // GameObject CreateNode(Node node){
+    //     GameObject display;
+    //     if(!node.empty){
+    //         display = Instantiate(nodePrefab, new Vector2(0, 0), Quaternion.identity);
+    //         NodeDisplay nodeDisplay = display.GetComponent<NodeDisplay>();
+    //         nodeDisplay.SetNodeData(node);
+    //     }
+    //     else{
+    //         display = Instantiate(emptyPrefab, new Vector2(0, 0), Quaternion.identity);
+    //     }
+    //     return display;
+    // }
 
     List<Vector2> MakeChildPosList(Vector2 rootPos, int childNum, float offSetX, float offSetY){
         List<Vector2> posList = new();
         float pairSize = pairOffSet + 4 * halfX;
         float unit = pairSize + offSetX;
-        float startPoint = rootPos.x +  -1 * ((childNum - 1) * unit) / 2;
+        float startPoint = rootPos.x - (childNum - 1) * unit / 2;
         for(int i = 0; i < childNum; i++){
-            Vector2 pos = rootPos +  new Vector2(startPoint + unit * i, -1 * (halfY * 2 + offSetY));
+            Vector2 pos = new Vector2(startPoint + unit * i, rootPos.y -1 * (halfY * 2 + offSetY));
             posList.Add(pos);
         }
         return posList;
