@@ -5,14 +5,12 @@ using UnityEngine;
 
 public class SetCameraTarget : MonoBehaviour
 {
-    public List<GameObject> test;
     public List<GameObject> targets = new();
     InteractObjInfo interactObjInfo;
 
     private void Start()
     {
         interactObjInfo = GetComponent<InteractObjInfo>();
-        SetTarget(test);
     }
     
     public bool AssignCameraTarget(InteractObjInfo objInfo){
