@@ -35,4 +35,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Test 1.unity
     guid: 4b7be099942e95d4aab4180f7c1e0313
+  - enabled: 1
+    path: Assets/Scenes/LeeHyangWoo/bb.unity
+    guid: d7e1e7920724ccf44959d530b3fc8596
+  - enabled: 1
+    path: Assets/Scenes/LeeHyangWoo/NewFamilyTreeTest.unity
+    guid: 2e43ef9c1e395cc45892d15e1d9105b6
   m_configObjects: {}
