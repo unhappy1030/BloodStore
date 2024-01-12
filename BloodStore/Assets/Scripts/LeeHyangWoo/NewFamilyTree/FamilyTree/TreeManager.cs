@@ -5,32 +5,32 @@ using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.UIElements;
+using Cinemachine;
 
 public class TreeManagerTest : MonoBehaviour
 {
     public PairSO pairSO;
     public GameObject nodePrefab;
     public GameObject emptyPrefab;
+    private GameObject mainGroup;
     public float pairOffSet = 0.2f;
     public float offSetX, offSetY;
     private float halfX, halfY;
     private float pairSize, unit;
-    private float lastX, lastY;
+    private float lastX = 0f, lastY = 0f;
     void Start()
     {
-        lastX = 0f;
-        lastY = 0f;
         if (pairSO.root.Count == 0)
         {
             Node node = new Node();
             node.SetAllRandom();
             AddFirstNode(node);
         }
-        SetPrefab();
+        SetPrefabData();
         MakeFamilyTree();
     }
 
-    void SetPrefab(){
+    void SetPrefabData(){
         halfX = nodePrefab.GetComponent<SpriteRenderer>().bounds.extents.x;
         halfY = nodePrefab.GetComponent<SpriteRenderer>().bounds.extents.y;
         pairSize = pairOffSet + 4 * halfX;
@@ -38,9 +38,16 @@ public class TreeManagerTest : MonoBehaviour
     }
 
     void MakeFamilyTree(){
+        MakeMainGroupObject();
         Group rootGroup = RootDisplay();
         MakeChildren(rootGroup);
         MakeCenter(rootGroup);
+        // Debug.Log("X : " + rootGroup.groupPos.x.ToString() + "  Y : " + rootGroup.groupPos.y.ToString());
+        mainGroup.transform.position = rootGroup.groupPos;
+        rootGroup.transform.parent = mainGroup.transform;
+        rootGroup.CameraSetting();
+        MakeParentMainGroup(rootGroup);
+        mainGroup.transform.position =new Vector2(0, 0);
     }
 
     void MakeChildren(Group rootGroup){
@@ -70,6 +77,7 @@ public class TreeManagerTest : MonoBehaviour
                 group.parentGroup = rootGroup;
                 MakeChildren(group);
                 MakeCenter(group);
+                // group.transform.parent = mainGroup.transform;
             }
         }
     }
@@ -91,10 +99,15 @@ public class TreeManagerTest : MonoBehaviour
         group.rightDisplay.transform.parent = group.transform;
         return group;
     }
+    void MakeMainGroupObject(){
+        mainGroup = new GameObject("MainGroup");
+    }
     Group MakeGroupObject(){
         GameObject groupObject = new GameObject("Group");
         Group group = groupObject.AddComponent<Group>();
         group.SetPrefab(nodePrefab, emptyPrefab);
+        group.SetSizeData(halfX, halfY, pairSize, unit);
+        group.MakeBoxCollider();
         return group;
     }
     // Group DisplayNodes(Group group){
@@ -116,7 +129,15 @@ public class TreeManagerTest : MonoBehaviour
     //     }
     //     return display;
     // }
-
+    void MakeParentMainGroup(Group rootGroup){
+        if(rootGroup.pair.childNum != 0){
+            foreach(Group group in rootGroup.childrenGroup){
+                group.transform.parent = mainGroup.transform;
+                group.CameraSetting();
+                MakeParentMainGroup(group);
+            }
+        }
+    }
     List<Vector2> MakeChildPosList(Vector2 rootPos, int childNum){
         List<Vector2> posList = new();
         float startPoint = rootPos.x;
