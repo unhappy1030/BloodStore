@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using Yarn;
+using System.Linq;
 public class Group : MonoBehaviour
 {
     public Pair pair;
@@ -13,20 +15,26 @@ public class Group : MonoBehaviour
 
     public GameObject leftDisplay;
     public GameObject rightDisplay;
+    private float pairOffSet;
     private float halfX, halfY;
     private float pairSize, unit;
+    public float offSetX, offSetY;
     public Group parentGroup;
     public List<Group> childrenGroup;
 
+    public float lineWidth = 0.05f;
     public void SetPrefab(GameObject nodePrefab, GameObject emptyPrefab){
         this.nodePrefab = nodePrefab;
         this.emptyPrefab = emptyPrefab;
     }
-    public void SetSizeData(float halfX, float halfY, float pairSize, float unit){
+    public void SetSizeData(float halfX, float halfY, float pairSize, float unit, float pairOffSet, float offSetX, float offSetY){
         this.halfX = halfX;
         this.halfY = halfY;
         this.pairSize = pairSize;
         this.unit = unit;
+        this.pairOffSet = pairOffSet;
+        this.offSetX = offSetX;
+        this.offSetY = offSetY;
     }
     public Group DisplayNodes(){
         leftDisplay = CreateNode(pair.male);
@@ -72,5 +80,41 @@ public class Group : MonoBehaviour
     }
     public GameObject GetGameObject(){
         return gameObject;
+    }
+
+    public void PairLine(){
+        GameObject pairLine = new("PairLine");
+        pairLine.transform.parent = gameObject.transform;
+        LineRenderer line = pairLine.AddComponent<LineRenderer>();
+        Vector2 globalPos = transform.TransformPoint(gameObject.transform.position);
+        pairLine.transform.position = new Vector3(globalPos.x, globalPos.y, 0);
+        line.widthMultiplier = lineWidth;
+        line.material.color = Color.black;
+        Vector3[] points = new Vector3[2];
+        points[0] = new Vector3( globalPos.x - pairOffSet / 2, globalPos.y, 0);
+        points[1] = new Vector3( globalPos.x + pairOffSet / 2, globalPos.y, 0);
+        line.positionCount = points.Count();
+        line.SetPositions(points);
+    }
+    public void FamilyLine(){
+        if(childrenGroup != null){
+            foreach(Group group in childrenGroup){
+                GameObject pairLine = new("Line");
+                pairLine.transform.parent = gameObject.transform;
+                Vector2 globalPos = transform.TransformPoint(gameObject.transform.position);
+                Vector2 globalChildPos = transform.TransformPoint(group.GetGameObject().transform.position);
+                LineRenderer line = pairLine.AddComponent<LineRenderer>();
+                pairLine.transform.position = new Vector3(group.groupPos.x, group.groupPos.y, 0);
+                line.widthMultiplier = lineWidth;
+                line.material.color = Color.black;
+                Vector3[] points = new Vector3[4];
+                points[0] = new Vector3( globalPos.x, globalPos.y, 0);
+                points[1] = new Vector3( globalPos.x, globalPos.y - halfY - offSetY / 2, 0);
+                points[2] = new Vector3( globalChildPos.x, globalChildPos.y + halfY + offSetY / 2, 0);
+                points[3] = new Vector3( globalChildPos.x , globalChildPos.y, 0);
+                line.positionCount = points.Count();
+                line.SetPositions(points);
+            }
+        }
     }
 }
