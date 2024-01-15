@@ -9,21 +9,22 @@ public class MouseRayCast : MonoBehaviour
     public CameraControl cameraControl; // *** warning : must be in Scene and set "CameraControl" tag
     public NPCInteract npcInteract;
 
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D ray = Physics2D.Raycast(mousePos, Vector2.zero, 0f);
+            RaycastHit2D ray = Physics2D.Raycast(mousePos, Vector2.zero, 0f, LayerMask.GetMask("Interact"));
 
-            if (ray.collider != null)
+            if (ray.collider != null){
                 MouseInteract(ray.collider.gameObject);
+            }
         }
     }
 
     void MouseInteract(GameObject interactObj)
     {
-        Debug.Log(interactObj + (interactObj == null).ToString());
         InteractObjInfo interactObjInfo = interactObj.GetComponent<InteractObjInfo>();
         SetCameraTarget setCameraTarget = interactObj.GetComponent<SetCameraTarget>();
         bool isAvailableCameraMove = true;
@@ -38,10 +39,6 @@ public class MouseRayCast : MonoBehaviour
                 isAvailableCameraMove = setCameraTarget.AssignCameraTarget(interactObjInfo);
 
             if(isAvailableCameraMove){
-                Debug.Log("isAvailableCameraMove : " + isAvailableCameraMove);
-                
-                Debug.Log(cameraControl + (cameraControl == null).ToString());
-                Debug.Log(interactObjInfo + (interactObjInfo == null).ToString());
                 cameraControl.ChangeCam(interactObjInfo);
             }
             else
