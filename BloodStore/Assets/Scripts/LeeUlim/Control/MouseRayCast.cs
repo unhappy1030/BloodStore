@@ -1,24 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MouseRayCast : MonoBehaviour
 {
-    // 주의 : 버튼을 제외한 모든 상호작용 물체는 Collider를 가지고 있어야 한다
-    public GameObject moveTarget;
-    CameraControl cameraControl;
-
-    private void Start()
-    {
-        // *** 카메라는 MainCamera 태그를 가지고 있어야 함
-        cameraControl = GameObject.FindWithTag("CameraControl").GetComponent<CameraControl>();
-        
-    }
+    public CameraControl cameraControl; // *** warning : must be in Scene and set "CameraControl" tag
+    public NPCInteract npcInteract;
 
     private void Update()
     {
-        // 마우스 입력 처리
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -29,21 +21,38 @@ public class MouseRayCast : MonoBehaviour
         }
     }
 
-    // [마우스 상호작용 처리]
-    void MouseInteract(GameObject gameObject)
+    void MouseInteract(GameObject interactObj)
     {
-        InteractObjInfo interactObjInfo = gameObject.GetComponent<InteractObjInfo>();
+        Debug.Log(interactObj + (interactObj == null).ToString());
+        InteractObjInfo interactObjInfo = interactObj.GetComponent<InteractObjInfo>();
+        SetCameraTarget setCameraTarget = interactObj.GetComponent<SetCameraTarget>();
+        bool isAvailableCameraMove = true;
 
         if (interactObjInfo == null)
             return;
 
-        //  - 카메라 이동
         if (interactObjInfo._interactType == InteractType.CameraControl)
         {
-            cameraControl.ChangeBlendListCamSetting(interactObjInfo);
+            // only Node case -> isAvailableCameraMove changes false at here
+            if(setCameraTarget != null)
+                isAvailableCameraMove = setCameraTarget.AssignCameraTarget(interactObjInfo);
+
+            if(isAvailableCameraMove){
+                Debug.Log("isAvailableCameraMove : " + isAvailableCameraMove);
+                
+                Debug.Log(cameraControl + (cameraControl == null).ToString());
+                Debug.Log(interactObjInfo + (interactObjInfo == null).ToString());
+                cameraControl.ChangeCam(interactObjInfo);
+            }
+            else
+                Debug.Log("It is not available form of targets...");
         }
 
-        // - 씬 이동
+        if(interactObjInfo._interactType == InteractType.NpcInteraction)
+        {
+            npcInteract.StartDialogue(interactObjInfo);
+        }
+
         if (interactObjInfo._interactType == InteractType.SceneLoad)
         {
             GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(interactObjInfo._sceneName, 0.05f));

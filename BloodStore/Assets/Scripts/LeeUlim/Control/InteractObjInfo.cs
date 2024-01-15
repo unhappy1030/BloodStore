@@ -5,39 +5,74 @@ using UnityEditor;
 using Cinemachine;
 using System;
 
-// ���콺 ��ȣ�ۿ� ����
 public enum InteractType
 {
     None,
     CameraControl,
+    NpcInteraction,
     SceneLoad,
     GameExit
 }
 
 public enum CameraControlType
 {
-    ChangeCam
+    ChangeCamera,
+    CameraEffect
+}
+
+public enum CameraType
+{
+    VirtualCamera,
+    TargetGroupCamera,
+    BlendListCamera
 }
 
 [System.Serializable]
-public class ChangingCameraInfo{
-    public GameObject target;
-    public float backCamHold;
+public class BlendInfo
+{
+    public float hold;
     public CinemachineBlendDefinition.Style blendIn;
     public float blendTime;
+}
+
+[System.Serializable]
+public class VirtualCameraInfo{
+    public List<GameObject> targets;
+    public bool doseUseBound;
+    public Collider2D bound;
+    public float lensOthoSize;
+    public BlendInfo blendInfo;
+}
+
+[System.Serializable]
+public class BlendListSubCameraInfo{
+    public CameraType cameraType;
+    public VirtualCameraInfo virtualCam;
+}
+
+[System.Serializable]
+public class BlendListCameraInfo{
+    public List<BlendListSubCameraInfo> subCams;
+    public bool doseUseBound;
+    public Collider2D bound;
+    public BlendInfo blendInfo;
 }
 
 public class InteractObjInfo : MonoBehaviour
 {
     [SerializeField] public InteractType _interactType;
 
-    // CameraContorlType
+    // CameraControlType
     [SerializeField] public CameraControlType _cameraMovementType;
 
     // - ChangeCam
-    [SerializeField] public bool _useCurrentCamAsStart;
-    [SerializeField] public GameObject _startCam;
-    [SerializeField] public List<ChangingCameraInfo> _changingCamList;
+    [SerializeField] public CameraType _cameraType;
+
+    [SerializeField] public VirtualCameraInfo _vertualCam;
+    [SerializeField] public BlendListCameraInfo _blendListCam;
+
+    // NpcInteraction
+    [SerializeField] public string _nodeName;
 
     // SceneLoad
     [SerializeField] public bool _isFade;

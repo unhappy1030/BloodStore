@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4354487588883787484}
   - component: {fileID: 3251021965922608152}
   - component: {fileID: 1591940119041383434}
-  - component: {fileID: -2045181551435441932}
+  - component: {fileID: 4925926693748909669}
   m_Layer: 0
   m_Name: EmptyNode
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.2605, y: 0.2989, z: 0}
-  m_LocalScale: {x: 5, y: 7, z: 1}
+  m_LocalScale: {x: 2.5, y: 3.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &-2045181551435441932
+--- !u!114 &4925926693748909669
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1446904127552790029}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1c318dd72dbca64e885595adac9e6ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 192f4b401c63d7c45a23baf54f4df627, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeData: {fileID: 11400000, guid: fa128063b10c6c0499750c3ad2ce886c, type: 2}
+  nodeSO: {fileID: 11400000, guid: fa128063b10c6c0499750c3ad2ce886c, type: 2}
