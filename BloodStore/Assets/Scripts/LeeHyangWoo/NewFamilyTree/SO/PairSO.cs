@@ -13,7 +13,7 @@ public class Pair
     public Node female;
     public bool isPair;
     public int childNum;
-    [System.NonSerialized]public Pair parentPair;
+    public Pair parentPair;
     public List<Pair> children;
     public bool isParent;
     public string BlankNodeCheck(){

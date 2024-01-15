@@ -14,31 +14,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   root:
   - male:
-      name: Charlie
+      name: Hank
       sex: Male
       bloodType:
-      - AB
+      - A
       - +
-      - AB
-      hp: 65
-      age: 28
+      - AO
+      hp: 69
+      age: 26
       isDead: 0
       empty: 0
     female:
-      name: Eve
+      name: Alice
       sex: Female
       bloodType:
-      - A
+      - O
       - '-'
-      - AA
-      hp: 79
-      age: 54
+      - OO
+      hp: 76
+      age: 48
       isDead: 0
       empty: 0
     isPair: 1
-    childNum: 2
+    childNum: 4
     children:
     - male:
+        name: Grace
+        sex: Male
+        bloodType:
+        - A
+        - '-'
+        - AO
+        hp: 78
+        age: 52
+        isDead: 0
+        empty: 0
+      female:
         name: 
         sex: 
         bloodType: []
@@ -46,20 +57,153 @@ MonoBehaviour:
         age: 0
         isDead: 0
         empty: 1
+      isPair: 0
+      childNum: 0
+      children: []
+      isParent: 0
+    - male:
+        name: Charlie
+        sex: Male
+        bloodType:
+        - AB
+        - +
+        - AB
+        hp: 51
+        age: 58
+        isDead: 0
+        empty: 0
       female:
-        name: Grace
+        name: David
+        sex: Female
+        bloodType:
+        - O
+        - +
+        - OO
+        hp: 60
+        age: 25
+        isDead: 0
+        empty: 0
+      isPair: 1
+      childNum: 3
+      children:
+      - male:
+          name: Grace
+          sex: Male
+          bloodType:
+          - B
+          - +
+          - BO
+          hp: 74
+          age: 58
+          isDead: 0
+          empty: 0
+        female:
+          name: 
+          sex: 
+          bloodType: []
+          hp: 0
+          age: 0
+          isDead: 0
+          empty: 1
+        isPair: 0
+        childNum: 0
+        children: []
+        isParent: 0
+      - male:
+          name: Bob
+          sex: Male
+          bloodType:
+          - A
+          - +
+          - AO
+          hp: 66
+          age: 48
+          isDead: 0
+          empty: 0
+        female:
+          name: 
+          sex: 
+          bloodType: []
+          hp: 0
+          age: 0
+          isDead: 0
+          empty: 1
+        isPair: 0
+        childNum: 0
+        children: []
+        isParent: 0
+      - male:
+          name: 
+          sex: 
+          bloodType: []
+          hp: 0
+          age: 0
+          isDead: 0
+          empty: 1
+        female:
+          name: David
+          sex: Female
+          bloodType:
+          - B
+          - +
+          - BO
+          hp: 54
+          age: 38
+          isDead: 0
+          empty: 0
+        isPair: 0
+        childNum: 0
+        children: []
+        isParent: 0
+      isParent: 0
+    - male:
+        name: Charlie
+        sex: Male
+        bloodType:
+        - AB
+        - +
+        - AB
+        hp: 51
+        age: 58
+        isDead: 0
+        empty: 0
+      female:
+        name: Hank
         sex: Female
         bloodType:
         - A
         - +
-        - AA
-        hp: 99
-        age: 55
+        - AO
+        hp: 69
+        age: 54
         isDead: 0
         empty: 0
-      isPair: 0
-      childNum: 0
-      children: []
+      isPair: 1
+      childNum: 1
+      children:
+      - male:
+          name: 
+          sex: 
+          bloodType: []
+          hp: 0
+          age: 0
+          isDead: 0
+          empty: 1
+        female:
+          name: Bob
+          sex: Female
+          bloodType:
+          - AB
+          - +
+          - AB
+          hp: 87
+          age: 59
+          isDead: 0
+          empty: 0
+        isPair: 0
+        childNum: 0
+        children: []
+        isParent: 0
       isParent: 0
     - male:
         name: 
@@ -73,11 +217,11 @@ MonoBehaviour:
         name: Charlie
         sex: Female
         bloodType:
-        - AB
-        - +
-        - AB
-        hp: 63
-        age: 32
+        - A
+        - '-'
+        - AO
+        hp: 74
+        age: 35
         isDead: 0
         empty: 0
       isPair: 0
