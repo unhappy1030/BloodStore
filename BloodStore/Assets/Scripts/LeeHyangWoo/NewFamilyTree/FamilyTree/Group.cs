@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using Yarn;
 using System.Linq;
+using Unity.VisualScripting;
 public class Group : MonoBehaviour
 {
     public Pair pair;
@@ -50,9 +51,14 @@ public class Group : MonoBehaviour
             display = Instantiate(nodePrefab, new Vector2(0, 0), Quaternion.identity);
             NodeDisplay nodeDisplay = display.GetComponent<NodeDisplay>();
             nodeDisplay.SetNodeData(node);
+            nodeDisplay.MakeBoxCollider();
+            nodeDisplay.DeActiveCollider();
         }
         else{
             display = Instantiate(emptyPrefab, new Vector2(0, 0), Quaternion.identity);
+            EmptyDisplay emptyDisplay = display.GetComponent<EmptyDisplay>();
+            emptyDisplay.MakeBoxCollider();
+            emptyDisplay.DeActiveCollider();
         }
         return display;
     }
@@ -61,12 +67,41 @@ public class Group : MonoBehaviour
         BoxCollider2D box = gameObject.AddComponent<BoxCollider2D>();
         box.size = new Vector2(pairSize, halfY * 2);
     }
+    public void ActiveCollider(){
+        BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
+        if(box != null){
+            box.enabled = true;
+        }
+    }
+    public void DeActiveCollider(){
+        BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
+        if(box != null){
+            box.enabled = false;
+        }
+    }
     public void CameraSetting(){
         SetCameraTarget camera = gameObject.AddComponent<SetCameraTarget>();
         InteractObjInfo inter = gameObject.AddComponent<InteractObjInfo>();
-        inter.SetBlendData();
+        
+        inter._interactType = InteractType.CameraControl;
+        inter._cameraMovementType = CameraControlType.ChangeCamera;
+        inter._cameraType = CameraType.TargetGroupCamera;
+
+        if (inter._vertualCam == null) {
+            inter._vertualCam = new VirtualCameraInfo();
+        }
+
+        if (inter._vertualCam.blendInfo == null) {
+            inter._vertualCam.blendInfo = new BlendInfo();
+        }
+        
+        inter._vertualCam.blendInfo.hold = 0.25f;
+        inter._vertualCam.blendInfo.blendIn = CinemachineBlendDefinition.Style.EaseInOut;
+        inter._vertualCam.blendInfo.blendTime = 0.25f;
+    
         camera.SetTarget(SendFamilyList());
     }
+
     public List<GameObject> SendFamilyList(){
         List<GameObject> familyList = new List<GameObject>();
         familyList.Add(GetGameObject());
@@ -84,9 +119,8 @@ public class Group : MonoBehaviour
 
     public void PairLine(){
         GameObject pairLine = new("PairLine");
-        pairLine.transform.parent = gameObject.transform;
         LineRenderer line = pairLine.AddComponent<LineRenderer>();
-        Vector2 globalPos = transform.TransformPoint(gameObject.transform.position);
+        Vector2 globalPos = transform.TransformPoint(gameObject.transform.parent.transform.position);
         pairLine.transform.position = new Vector3(globalPos.x, globalPos.y, 0);
         line.widthMultiplier = lineWidth;
         line.material.color = Color.black;
@@ -95,16 +129,18 @@ public class Group : MonoBehaviour
         points[1] = new Vector3( globalPos.x + pairOffSet / 2, globalPos.y, 0);
         line.positionCount = points.Count();
         line.SetPositions(points);
+        // Debug.Log(" group pos : " + groupPos.ToString());
+        // Debug.Log(" line pos : " + globalPos.ToString());
+        pairLine.transform.parent = gameObject.transform;
     }
     public void FamilyLine(){
         if(childrenGroup != null){
             foreach(Group group in childrenGroup){
                 GameObject pairLine = new("Line");
-                pairLine.transform.parent = gameObject.transform;
-                Vector2 globalPos = transform.TransformPoint(gameObject.transform.position);
-                Vector2 globalChildPos = transform.TransformPoint(group.GetGameObject().transform.position);
                 LineRenderer line = pairLine.AddComponent<LineRenderer>();
-                pairLine.transform.position = new Vector3(group.groupPos.x, group.groupPos.y, 0);
+                Vector2 globalPos = transform.TransformPoint(gameObject.transform.parent.transform.position);
+                Vector2 globalChildPos = group.transform.position;
+                pairLine.transform.position = new Vector3(globalChildPos.x, globalChildPos.y, 0);
                 line.widthMultiplier = lineWidth;
                 line.material.color = Color.black;
                 Vector3[] points = new Vector3[4];
@@ -114,6 +150,10 @@ public class Group : MonoBehaviour
                 points[3] = new Vector3( globalChildPos.x , globalChildPos.y, 0);
                 line.positionCount = points.Count();
                 line.SetPositions(points);
+                Debug.Log("child pos : " + group.transform.position.ToString());
+                Debug.Log("globalchild pos : " + globalChildPos.ToString());
+                // Debug.Log(" line pos : " + globalPos.ToString());
+                pairLine.transform.parent = gameObject.transform;
             }
         }
     }
