@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CardInteraction : MonoBehaviour
@@ -38,7 +39,7 @@ public class CardInteraction : MonoBehaviour
             if (ray.collider != null)
             {
                 MouseInteract(ray.collider.gameObject);
-                Debug.Log("FamilyTree interaction...");
+                // Debug.Log("FamilyTree interaction...");
             }
             else
             {
@@ -91,6 +92,7 @@ public class CardInteraction : MonoBehaviour
 
     void ShowGroup(Group _group){
         // setActive Node collider
+        Debug.Log("_group : " + (_group == null).ToString());
         EnableNodeCollider(_group, true);
 
         nodeShowingStatus = NodeShowingStatus.ShowGroup;
@@ -98,14 +100,16 @@ public class CardInteraction : MonoBehaviour
     }
 
     void EnableNodeCollider(Group _group, bool enable){
-        BoxCollider2D collider2d = _group.GetComponent<BoxCollider2D>();
-        if(collider2d != null)
-            collider2d.enabled = true;
+        BoxCollider2D boxCollider2D = _group.GetComponent<BoxCollider2D>();
+        if(boxCollider2D != null){
+            boxCollider2D.enabled = !enable;
+        }
 
 
         BoxCollider2D[] nodeColliders = _group.GetComponentsInChildren<BoxCollider2D>();
         foreach(BoxCollider2D collider in nodeColliders){
-            collider.enabled = enable;
+            if(collider.gameObject != _group.gameObject)
+                collider.enabled = enable;
         }
 
         wasNodeActived = enable;
