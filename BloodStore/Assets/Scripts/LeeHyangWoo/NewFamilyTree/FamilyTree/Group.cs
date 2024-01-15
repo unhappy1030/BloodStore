@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using Yarn;
 using System.Linq;
+using Unity.VisualScripting;
 public class Group : MonoBehaviour
 {
     public Pair pair;
