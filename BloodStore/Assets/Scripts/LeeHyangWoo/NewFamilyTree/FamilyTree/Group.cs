@@ -102,9 +102,8 @@ public class Group : MonoBehaviour
 
     public void PairLine(){
         GameObject pairLine = new("PairLine");
-        pairLine.transform.parent = gameObject.transform;
         LineRenderer line = pairLine.AddComponent<LineRenderer>();
-        Vector2 globalPos = transform.TransformPoint(gameObject.transform.position);
+        Vector2 globalPos = transform.TransformPoint(gameObject.transform.parent.transform.position);
         pairLine.transform.position = new Vector3(globalPos.x, globalPos.y, 0);
         line.widthMultiplier = lineWidth;
         line.material.color = Color.black;
@@ -113,16 +112,18 @@ public class Group : MonoBehaviour
         points[1] = new Vector3( globalPos.x + pairOffSet / 2, globalPos.y, 0);
         line.positionCount = points.Count();
         line.SetPositions(points);
+        // Debug.Log(" group pos : " + groupPos.ToString());
+        // Debug.Log(" line pos : " + globalPos.ToString());
+        pairLine.transform.parent = gameObject.transform;
     }
     public void FamilyLine(){
         if(childrenGroup != null){
             foreach(Group group in childrenGroup){
                 GameObject pairLine = new("Line");
-                pairLine.transform.parent = gameObject.transform;
-                Vector2 globalPos = transform.TransformPoint(gameObject.transform.position);
-                Vector2 globalChildPos = transform.TransformPoint(group.GetGameObject().transform.position);
                 LineRenderer line = pairLine.AddComponent<LineRenderer>();
-                pairLine.transform.position = new Vector3(group.groupPos.x, group.groupPos.y, 0);
+                Vector2 globalPos = transform.TransformPoint(gameObject.transform.parent.transform.position);
+                Vector2 globalChildPos = group.transform.position;
+                pairLine.transform.position = new Vector3(globalChildPos.x, globalChildPos.y, 0);
                 line.widthMultiplier = lineWidth;
                 line.material.color = Color.black;
                 Vector3[] points = new Vector3[4];
@@ -132,6 +133,10 @@ public class Group : MonoBehaviour
                 points[3] = new Vector3( globalChildPos.x , globalChildPos.y, 0);
                 line.positionCount = points.Count();
                 line.SetPositions(points);
+                Debug.Log("child pos : " + group.transform.position.ToString());
+                Debug.Log("globalchild pos : " + globalChildPos.ToString());
+                // Debug.Log(" line pos : " + globalPos.ToString());
+                pairLine.transform.parent = gameObject.transform;
             }
         }
     }
