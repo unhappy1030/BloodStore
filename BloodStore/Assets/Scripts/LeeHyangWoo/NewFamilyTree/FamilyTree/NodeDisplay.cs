@@ -15,4 +15,10 @@ public class NodeDisplay : MonoBehaviour
         sexLabel.text = node.sex;
         bloodTypeLabel.text = "BloodType : " + node.bloodType[0];
     }
+    public void MakeBoxCollider(){
+        BoxCollider2D box = gameObject.AddComponent<BoxCollider2D>();
+        float halfX = gameObject.GetComponent<SpriteRenderer>().bounds.extents.x;
+        float halfY = gameObject.GetComponent<SpriteRenderer>().bounds.extents.y;
+        box.size = new Vector2(halfX * 2, halfY * 2);
+    }
 }
