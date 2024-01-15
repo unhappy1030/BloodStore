@@ -13,11 +13,10 @@ public class NPCInteract : MonoBehaviour
     public List<Sprite> npcSprite;
 
     public GameObject nextDayButton;
-    DialogueRunner dialogueRunner;
+    public DialogueRunner dialogueRunner;
 
     void Start(){
         nextDayButton.SetActive(false);
-        dialogueRunner = GameManager.Instance.dialogueRunner;
         StartCoroutine(StartInteraction());
     }
 

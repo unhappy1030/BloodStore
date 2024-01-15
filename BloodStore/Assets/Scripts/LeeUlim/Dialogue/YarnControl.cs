@@ -5,15 +5,9 @@ using Yarn.Unity;
 
 public class YarnControl : MonoBehaviour
 {
-    DialogueRunner dialogueRunner;
-    InMemoryVariableStorage variableStorage;
-    MoneyControl moneyControl;
-
-    void Start(){
-        dialogueRunner = GameManager.Instance.dialogueRunner;
-        variableStorage = GameManager.Instance.variableStorage;
-        moneyControl = GameManager.Instance.moneyControl;
-    }
+    public DialogueRunner dialogueRunner;
+    public InMemoryVariableStorage variableStorage;
+    public MoneyControl moneyControl;
 
     [YarnFunction("UpdateMoney")]
     public static float UpdateMoney(){
