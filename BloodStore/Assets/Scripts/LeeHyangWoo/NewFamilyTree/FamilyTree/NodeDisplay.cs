@@ -21,4 +21,16 @@ public class NodeDisplay : MonoBehaviour
         float halfY = gameObject.GetComponent<SpriteRenderer>().bounds.extents.y;
         box.size = new Vector2(halfX * 2, halfY * 2);
     }
+    public void ActiveCollider(){
+        BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
+        if(box != null){
+            box.enabled = true;
+        }
+    }
+    public void DeActiveCollider(){
+        BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
+        if(box != null){
+            box.enabled = false;
+        }
+    }
 }
