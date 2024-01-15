@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class ButtonControl : MonoBehaviour
 {
-    UIControl uiControl;
+    public UIControl uiControl;
 
     private void Awake()
     {

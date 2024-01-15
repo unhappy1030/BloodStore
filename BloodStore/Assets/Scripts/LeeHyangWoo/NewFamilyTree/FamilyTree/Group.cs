@@ -61,12 +61,30 @@ public class Group : MonoBehaviour
         BoxCollider2D box = gameObject.AddComponent<BoxCollider2D>();
         box.size = new Vector2(pairSize, halfY * 2);
     }
+    
     public void CameraSetting(){
         SetCameraTarget camera = gameObject.AddComponent<SetCameraTarget>();
         InteractObjInfo inter = gameObject.AddComponent<InteractObjInfo>();
-        inter.SetBlendData();
+        
+        inter._interactType = InteractType.CameraControl;
+        inter._cameraMovementType = CameraControlType.ChangeCamera;
+        inter._cameraType = CameraType.TargetGroupCamera;
+
+        if (inter._vertualCam == null) {
+            inter._vertualCam = new VirtualCameraInfo();
+        }
+
+        if (inter._vertualCam.blendInfo == null) {
+            inter._vertualCam.blendInfo = new BlendInfo();
+        }
+        
+        inter._vertualCam.blendInfo.hold = 0.25f;
+        inter._vertualCam.blendInfo.blendIn = CinemachineBlendDefinition.Style.EaseInOut;
+        inter._vertualCam.blendInfo.blendTime = 0.25f;
+    
         camera.SetTarget(SendFamilyList());
     }
+
     public List<GameObject> SendFamilyList(){
         List<GameObject> familyList = new List<GameObject>();
         familyList.Add(GetGameObject());
