@@ -38,9 +38,7 @@ public class EmptyDisplay : MonoBehaviour
     }
     public void MakeBoxCollider(){
         BoxCollider2D box = gameObject.AddComponent<BoxCollider2D>();
-        float halfX = gameObject.GetComponent<SpriteRenderer>().bounds.extents.x;
-        float halfY = gameObject.GetComponent<SpriteRenderer>().bounds.extents.y;
-        box.size = new Vector2(halfX * 2, halfY * 2);
+        box.size = new Vector2(1, 1);
     }
     public void ActiveCollider(){
         BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();

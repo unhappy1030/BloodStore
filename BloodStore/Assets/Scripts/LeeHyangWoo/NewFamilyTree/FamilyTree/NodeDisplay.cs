@@ -8,7 +8,6 @@ public class NodeDisplay : MonoBehaviour
     public TextMeshPro nameLabel;
     public TextMeshPro sexLabel;
     public TextMeshPro bloodTypeLabel;
-
     public void SetNodeData(Node node)
     {
         nameLabel.text = node.name;
@@ -17,9 +16,7 @@ public class NodeDisplay : MonoBehaviour
     }
     public void MakeBoxCollider(){
         BoxCollider2D box = gameObject.AddComponent<BoxCollider2D>();
-        float halfX = gameObject.GetComponent<SpriteRenderer>().bounds.extents.x;
-        float halfY = gameObject.GetComponent<SpriteRenderer>().bounds.extents.y;
-        box.size = new Vector2(halfX * 2, halfY * 2);
+        box.size = new Vector2(1, 1);
     }
     public void ActiveCollider(){
         BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
