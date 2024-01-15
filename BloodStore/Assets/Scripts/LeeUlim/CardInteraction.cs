@@ -6,24 +6,26 @@ public class CardInteraction : MonoBehaviour
 {
     // warning : object must be set Layer as "FamilyTree"
 
-    public enum CardShowingStatus{
+    public enum NodeShowingStatus{
         ShowTotal,
         ShowFamily,
         ShowGroup
     }
-    public enum CardInteractionStatus{
+
+    public enum NodeInteractionStatus{
         None,
         ShowInfo,
         SelectPair
     }
 
-    public CardShowingStatus cardShowingStatus;
-    public CardInteractionStatus cardInteractionStatus;
+    public NodeShowingStatus nodeShowingStatus;
+    public NodeInteractionStatus cardInteractionStatus;
     public GameObject currentObj;
+    bool wasNodeActived;
 
     void Start(){
-        
-        cardInteractionStatus = CardInteractionStatus.None;
+        wasNodeActived =false;
+        cardInteractionStatus = NodeInteractionStatus.None;
         ShowTotal();
     }
 
@@ -56,7 +58,7 @@ public class CardInteraction : MonoBehaviour
         }
         else if(node != null)
         {
-
+            NodeInteraction();
         }
     }
 
@@ -73,34 +75,53 @@ public class CardInteraction : MonoBehaviour
     }
 
     void ShowTotal(){
-        // setActive Group collider
-        cardShowingStatus = CardShowingStatus.ShowTotal;
+        nodeShowingStatus = NodeShowingStatus.ShowTotal;
         Debug.Log("ShowTotal...");
     }
 
     void ShowFamily(Group _group){
-        // setActive Group collider
-        cardShowingStatus = CardShowingStatus.ShowFamily;
+        if(wasNodeActived == true)
+        {
+            EnableNodeCollider(_group, false);
+        }
+
+        nodeShowingStatus = NodeShowingStatus.ShowFamily;
         Debug.Log("ShowFamily...");
     }
 
     void ShowGroup(Group _group){
-        // setActive Card collider
-        cardShowingStatus = CardShowingStatus.ShowGroup;
+        // setActive Node collider
+        EnableNodeCollider(_group, true);
+
+        nodeShowingStatus = NodeShowingStatus.ShowGroup;
         Debug.Log("ShowGroup...");
     }
 
-    // void NodeInteraction(){
-        
-    // }
+    void EnableNodeCollider(Group _group, bool enable){
+        BoxCollider2D collider2d = _group.GetComponent<BoxCollider2D>();
+        if(collider2d != null)
+            collider2d.enabled = true;
+
+
+        BoxCollider2D[] nodeColliders = _group.GetComponentsInChildren<BoxCollider2D>();
+        foreach(BoxCollider2D collider in nodeColliders){
+            collider.enabled = enable;
+        }
+
+        wasNodeActived = enable;
+    }
+
+    void NodeInteraction(){
+        Debug.Log("Interacting Node...");
+    }
 
     void GoBackToCurrentStatus(){
         Debug.Log("Go back to current Status....");
-        switch(cardShowingStatus){
-            case CardShowingStatus.ShowFamily:
+        switch(nodeShowingStatus){
+            case NodeShowingStatus.ShowFamily:
                 ShowTotal();
             break;
-            case CardShowingStatus.ShowGroup:
+            case NodeShowingStatus.ShowGroup:
                 Group currntGroup = currentObj.GetComponent<Group>();
                 if(currntGroup != null)
                     ShowFamily(currntGroup);
