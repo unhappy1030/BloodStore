@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public NPCInteract npcInteract;
     public MouseRayCast mouseRayCast;
     public MoneyControl moneyControl;
+    public YarnControl yarnControl;
     public DialogueRunner dialogueRunner;
     public InMemoryVariableStorage variableStorage;
 
@@ -76,14 +77,25 @@ public class GameManager : MonoBehaviour
             cameraControl = cameraControlObj.AddComponent<CameraControl>();
         }
 
-        // find yarnControl
         npcInteract = FindObjectOfType<NPCInteract>(true);
 
         mouseRayCast = GetComponent<MouseRayCast>();
         moneyControl = GetComponent<MoneyControl>();
 
+        yarnControl = GetComponentInChildren<YarnControl>();
         dialogueRunner = GetComponentInChildren<DialogueRunner>();
         variableStorage = GetComponentInChildren<InMemoryVariableStorage>();
+
+        // assign scripts 
+        if(npcInteract != null)
+            npcInteract.dialogueRunner = dialogueRunner;
+
+        mouseRayCast.cameraControl = cameraControl;
+        mouseRayCast.npcInteract = npcInteract;
+
+        yarnControl.moneyControl = moneyControl;
+        yarnControl.dialogueRunner = dialogueRunner;
+        yarnControl.variableStorage = variableStorage;
         
         whitePanel.gameObject.SetActive(false);
         blackPanel.gameObject.SetActive(false);
