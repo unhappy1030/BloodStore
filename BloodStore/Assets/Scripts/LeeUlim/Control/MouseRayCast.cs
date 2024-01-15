@@ -6,28 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class MouseRayCast : MonoBehaviour
 {
-    CameraControl cameraControl; // *** warning : must be in Scene and set "CameraControl" tag
-    NPCInteract npcInteract;
-
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        // cameraControl assign
-        cameraControl = GameManager.Instance.cameraControl;
-        // yarnControl assign
-        npcInteract = GameManager.Instance.npcInteract;
-        
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
+    public CameraControl cameraControl; // *** warning : must be in Scene and set "CameraControl" tag
+    public NPCInteract npcInteract;
 
     private void Update()
     {
@@ -43,6 +23,7 @@ public class MouseRayCast : MonoBehaviour
 
     void MouseInteract(GameObject interactObj)
     {
+        Debug.Log(interactObj + (interactObj == null).ToString());
         InteractObjInfo interactObjInfo = interactObj.GetComponent<InteractObjInfo>();
         SetCameraTarget setCameraTarget = interactObj.GetComponent<SetCameraTarget>();
         bool isAvailableCameraMove = true;
@@ -56,8 +37,13 @@ public class MouseRayCast : MonoBehaviour
             if(setCameraTarget != null)
                 isAvailableCameraMove = setCameraTarget.AssignCameraTarget(interactObjInfo);
 
-            if(isAvailableCameraMove) 
+            if(isAvailableCameraMove){
+                Debug.Log("isAvailableCameraMove : " + isAvailableCameraMove);
+                
+                Debug.Log(cameraControl + (cameraControl == null).ToString());
+                Debug.Log(interactObjInfo + (interactObjInfo == null).ToString());
                 cameraControl.ChangeCam(interactObjInfo);
+            }
             else
                 Debug.Log("It is not available form of targets...");
         }

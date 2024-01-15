@@ -48,6 +48,9 @@ public class TreeManagerTest : MonoBehaviour
         rootGroup.CameraSetting();
         MakeParentMainGroup(rootGroup);
         mainGroup.transform.position =new Vector2(0, 0);
+        rootGroup.PairLine();
+        rootGroup.FamilyLine();
+        MakeLine(rootGroup);
     }
 
     void MakeChildren(Group rootGroup){
@@ -106,7 +109,7 @@ public class TreeManagerTest : MonoBehaviour
         GameObject groupObject = new GameObject("Group");
         Group group = groupObject.AddComponent<Group>();
         group.SetPrefab(nodePrefab, emptyPrefab);
-        group.SetSizeData(halfX, halfY, pairSize, unit);
+        group.SetSizeData(halfX, halfY, pairSize, unit, pairOffSet, offSetX, offSetY);
         group.MakeBoxCollider();
         return group;
     }
@@ -135,6 +138,16 @@ public class TreeManagerTest : MonoBehaviour
                 group.transform.parent = mainGroup.transform;
                 group.CameraSetting();
                 MakeParentMainGroup(group);
+                group.PairLine();
+                group.FamilyLine();
+            }
+        }
+    }
+    void MakeLine(Group rootGroup){
+        if(rootGroup.pair.childNum != 0){
+            foreach(Group group in rootGroup.childrenGroup){
+                group.PairLine();
+                group.FamilyLine();
             }
         }
     }

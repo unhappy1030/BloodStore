@@ -39,13 +39,13 @@ public class EmptyDisplayTest : MonoBehaviour
     void ChangeDisplay(string sex){
         if(sex == "Male"){
             group.leftDisplay = group.CreateNode(group.pair.male);
-            group.leftDisplay.transform.position = group.leftPos;
             group.leftDisplay.transform.parent = group.transform;
+            group.leftDisplay.transform.position = this.transform.position;
         }
         else{
             group.rightDisplay = group.CreateNode(group.pair.female);
-            group.rightDisplay.transform.position = group.rightPos;
             group.rightDisplay.transform.parent = group.transform;
+            group.rightDisplay.transform.position = this.transform.position;
         }
         Destroy(gameObject);
     }
