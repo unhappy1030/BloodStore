@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class EmptyDisplayTest : MonoBehaviour
+public class EmptyDisplay : MonoBehaviour
 {
     public NodeSO nodeSO;
     Group group;
@@ -34,6 +34,24 @@ public class EmptyDisplayTest : MonoBehaviour
                 }
 
             }
+        }
+    }
+    public void MakeBoxCollider(){
+        BoxCollider2D box = gameObject.AddComponent<BoxCollider2D>();
+        float halfX = gameObject.GetComponent<SpriteRenderer>().bounds.extents.x;
+        float halfY = gameObject.GetComponent<SpriteRenderer>().bounds.extents.y;
+        box.size = new Vector2(halfX * 2, halfY * 2);
+    }
+    public void ActiveCollider(){
+        BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
+        if(box != null){
+            box.enabled = true;
+        }
+    }
+    public void DeActiveCollider(){
+        BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
+        if(box != null){
+            box.enabled = false;
         }
     }
     void ChangeDisplay(string sex){

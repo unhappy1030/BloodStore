@@ -50,9 +50,14 @@ public class Group : MonoBehaviour
             display = Instantiate(nodePrefab, new Vector2(0, 0), Quaternion.identity);
             NodeDisplay nodeDisplay = display.GetComponent<NodeDisplay>();
             nodeDisplay.SetNodeData(node);
+            nodeDisplay.MakeBoxCollider();
+            nodeDisplay.DeActiveCollider();
         }
         else{
             display = Instantiate(emptyPrefab, new Vector2(0, 0), Quaternion.identity);
+            EmptyDisplay emptyDisplay = display.GetComponent<EmptyDisplay>();
+            emptyDisplay.MakeBoxCollider();
+            emptyDisplay.DeActiveCollider();
         }
         return display;
     }
@@ -61,7 +66,18 @@ public class Group : MonoBehaviour
         BoxCollider2D box = gameObject.AddComponent<BoxCollider2D>();
         box.size = new Vector2(pairSize, halfY * 2);
     }
-    
+    public void ActiveCollider(){
+        BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
+        if(box != null){
+            box.enabled = true;
+        }
+    }
+    public void DeActiveCollider(){
+        BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
+        if(box != null){
+            box.enabled = false;
+        }
+    }
     public void CameraSetting(){
         SetCameraTarget camera = gameObject.AddComponent<SetCameraTarget>();
         InteractObjInfo inter = gameObject.AddComponent<InteractObjInfo>();
