@@ -106,6 +106,7 @@ public class TreeManagerTest : MonoBehaviour
     }
     Group MakeGroupObject(){
         GameObject groupObject = new GameObject("Group");
+        groupObject.layer = LayerMask.NameToLayer("FamilyTree");
         Group group = groupObject.AddComponent<Group>();
         group.SetPrefab(nodePrefab, emptyPrefab);
         group.SetSizeData(halfX, halfY, pairSize, unit, pairOffSet, offSetX, offSetY);
