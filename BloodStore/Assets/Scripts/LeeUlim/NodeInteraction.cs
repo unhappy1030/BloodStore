@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class CardInteraction : MonoBehaviour
+public class NodeInteraction : MonoBehaviour
 {
     // warning : object must be set Layer as "FamilyTree"
 
     public enum NodeShowingStatus{
         ShowTotal,
         ShowFamily,
-        ShowGroup
+        ShowGroup,
+        ShowNode
     }
 
     public enum NodeInteractionStatus{
@@ -21,7 +22,7 @@ public class CardInteraction : MonoBehaviour
 
     public NodeShowingStatus nodeShowingStatus;
     public NodeInteractionStatus cardInteractionStatus;
-    public GameObject currentObj;
+    public GameObject currentGroup;
     bool wasNodeActived;
 
     void Start(){
@@ -59,12 +60,12 @@ public class CardInteraction : MonoBehaviour
         }
         else if(node != null)
         {
-            NodeInteraction();
+            NodeInteract();
         }
     }
 
     void GroupInteract(Group _newgroup){
-        if(currentObj == null || _newgroup.gameObject != currentObj) // the first interaction or same group interaction
+        if(currentGroup == null || _newgroup.gameObject != currentGroup) // the first interaction or same group interaction
         {
             ShowFamily(_newgroup);
         }
@@ -72,7 +73,7 @@ public class CardInteraction : MonoBehaviour
         {
             ShowGroup(_newgroup);
         }
-        currentObj = _newgroup.gameObject;
+        currentGroup = _newgroup.gameObject;
     }
 
     void ShowTotal(){
@@ -115,8 +116,9 @@ public class CardInteraction : MonoBehaviour
         wasNodeActived = enable;
     }
 
-    void NodeInteraction(){
+    void NodeInteract(){
         Debug.Log("Interacting Node...");
+        nodeShowingStatus = NodeShowingStatus.ShowNode;
     }
 
     void GoBackToCurrentStatus(){
@@ -126,10 +128,16 @@ public class CardInteraction : MonoBehaviour
                 ShowTotal();
             break;
             case NodeShowingStatus.ShowGroup:
-                Group currntGroup = currentObj.GetComponent<Group>();
-                if(currntGroup != null)
-                    ShowFamily(currntGroup);
+                Group currntGroup1 = currentGroup.GetComponent<Group>();
+                if(currntGroup1 != null)
+                    ShowFamily(currntGroup1);
             break;
+            case NodeShowingStatus.ShowNode:
+                Group currntGroup2 = currentGroup.GetComponent<Group>();
+                if(currntGroup2 != null)
+                    ShowGroup(currntGroup2);
+            break;
+
         }
     }
 
