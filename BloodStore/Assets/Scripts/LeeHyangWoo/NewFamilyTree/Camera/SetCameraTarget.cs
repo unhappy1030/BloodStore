@@ -28,7 +28,7 @@ public class SetCameraTarget : MonoBehaviour
         if(nullCount == targets.Count)
             return false;
 
-        objInfo._vertualCam.targets = new(targets);
+        objInfo._virtualCam.targets = new(targets);
         return true;
     }
 

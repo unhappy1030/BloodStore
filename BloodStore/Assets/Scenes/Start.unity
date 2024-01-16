@@ -1061,7 +1061,7 @@ MonoBehaviour:
   _interactType: 3
   _cameraMovementType: 0
   _cameraType: 0
-  _vertualCam:
+  _virtualCam:
     targets: []
     doseUseBound: 0
     bound: {fileID: 0}
@@ -1913,16 +1913,16 @@ MonoBehaviour:
   _interactType: 1
   _cameraMovementType: 0
   _cameraType: 0
-  _vertualCam:
+  _virtualCam:
     targets:
     - {fileID: 1848342418}
     doseUseBound: 0
-    bound: {fileID: 1443593246}
+    bound: {fileID: 0}
     lensOthoSize: 5.4
     blendInfo:
       hold: 0
       blendIn: 1
-      blendTime: 2
+      blendTime: 1
   _blendListCam:
     subCams:
     - cameraType: 0
@@ -2984,18 +2984,15 @@ MonoBehaviour:
   _interactType: 3
   _cameraMovementType: 0
   _cameraType: 1
-  _vertualCam:
-    targets:
-    - {fileID: 714005071}
-    - {fileID: 1541206966}
-    - {fileID: 1866468853}
-    doseUseBound: 1
-    bound: {fileID: 1443593246}
-    lensOthoSize: 5.4
+  _virtualCam:
+    targets: []
+    doseUseBound: 0
+    bound: {fileID: 0}
+    lensOthoSize: 0
     blendInfo:
-      hold: 4
+      hold: 0
       blendIn: 0
-      blendTime: 2
+      blendTime: 0
   _blendListCam:
     subCams: []
     doseUseBound: 0
@@ -3626,9 +3623,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c149bcc0622dcb74dbc5966312861236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraControl: {fileID: 0}
   nodeShowingStatus: 0
   cardInteractionStatus: 0
-  currentObj: {fileID: 0}
+  currentGroup: {fileID: 0}
 --- !u!4 &1530754856
 Transform:
   m_ObjectHideFlags: 0
@@ -3790,7 +3788,7 @@ MonoBehaviour:
   _interactType: 4
   _cameraMovementType: 0
   _cameraType: 0
-  _vertualCam:
+  _virtualCam:
     targets: []
     doseUseBound: 0
     bound: {fileID: 0}
@@ -5545,20 +5543,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactType: 1
   _cameraMovementType: 0
-  _cameraType: 1
-  _vertualCam:
+  _cameraType: 0
+  _virtualCam:
     targets:
     - {fileID: 988220463}
-    - {fileID: 0}
-    - {fileID: 714005071}
-    - {fileID: 0}
     doseUseBound: 0
     bound: {fileID: 0}
-    lensOthoSize: 5.4
+    lensOthoSize: 0
     blendInfo:
       hold: 0
       blendIn: 1
-      blendTime: 2
+      blendTime: 1
   _blendListCam:
     subCams:
     - cameraType: 0

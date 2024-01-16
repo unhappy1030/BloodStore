@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Cinemachine;
 
 public class NodeInteraction : MonoBehaviour
 {
@@ -10,8 +11,7 @@ public class NodeInteraction : MonoBehaviour
     public enum NodeShowingStatus{
         ShowTotal,
         ShowFamily,
-        ShowGroup,
-        ShowNode
+        ShowGroup
     }
 
     public enum NodeInteractionStatus{
@@ -20,14 +20,19 @@ public class NodeInteraction : MonoBehaviour
         SelectPair
     }
 
+    public CameraControl cameraControl;
     public NodeShowingStatus nodeShowingStatus;
-    public NodeInteractionStatus cardInteractionStatus;
-    public GameObject currentGroup;
+    public NodeInteractionStatus nodeInteractionStatus;
+    public Group currentGroup;
+    public Group currentParent;
+    bool wasZeroChild;
     bool wasNodeActived;
 
     void Start(){
+        wasZeroChild = false;
         wasNodeActived =false;
-        cardInteractionStatus = NodeInteractionStatus.None;
+        nodeShowingStatus = NodeShowingStatus.ShowTotal;
+        nodeInteractionStatus = NodeInteractionStatus.None;
         ShowTotal();
     }
 
@@ -60,46 +65,148 @@ public class NodeInteraction : MonoBehaviour
         }
         else if(node != null)
         {
-            NodeInteract();
+            // NodeInteract(node);
         }
     }
 
     void GroupInteract(Group _newgroup){
-        if(currentGroup == null || _newgroup.gameObject != currentGroup) // the first interaction or same group interaction
+        if(nodeShowingStatus == NodeShowingStatus.ShowTotal) // From Start
         {
             ShowFamily(_newgroup);
         }
-        else
+        else if(nodeShowingStatus == NodeShowingStatus.ShowFamily)
         {
-            ShowGroup(_newgroup);
+            if(_newgroup == currentParent || _newgroup.parentGroup == currentParent && (_newgroup.childrenGroup == null || _newgroup.childrenGroup.Count == 0))
+            {
+                ShowGroup(_newgroup);
+            }
+            else
+            {
+                ShowFamily(_newgroup);
+            }
+
+            currentGroup = _newgroup;
         }
-        currentGroup = _newgroup.gameObject;
     }
 
     void ShowTotal(){
-        nodeShowingStatus = NodeShowingStatus.ShowTotal;
         Debug.Log("ShowTotal...");
+
+        nodeShowingStatus = NodeShowingStatus.ShowTotal;
     }
 
     void ShowFamily(Group _group){
-        if(wasNodeActived == true)
+        Debug.Log("ShowFamily...");
+
+        // set camera target
+        List<GameObject> familyTarget = new();
+
+        if(_group.childrenGroup == null || _group.childrenGroup.Count == 0) // no children(no family) -> show parent's family
         {
-            EnableNodeCollider(_group, false);
+            Group parent = _group.parentGroup;
+            List<Group> siblings = parent.childrenGroup;
+
+            familyTarget.Add(parent.gameObject);
+            foreach(Group sibling in siblings){
+                familyTarget.Add(sibling.gameObject);
+            }
+
+            wasZeroChild = true;
+            currentParent = _group.parentGroup;
+        }
+        else
+        {
+            List<Group> children = _group.childrenGroup;
+
+            familyTarget.Add(_group.gameObject);
+            foreach(Group child in children){
+                familyTarget.Add(child.gameObject);
+            }
+
+            wasZeroChild = false;
+            currentParent = _group;
         }
 
+        CreateTargetCamera(familyTarget);
+
+        if(currentGroup != null){
+            EnableNodeCollider(currentGroup, false);
+        }
+        
         nodeShowingStatus = NodeShowingStatus.ShowFamily;
-        Debug.Log("ShowFamily...");
     }
 
     void ShowGroup(Group _group){
+        Debug.Log("ShowGroup...");
+        
+        // set target
+        List<GameObject> groupTarget = new();
+        groupTarget.Add(_group.gameObject);
+
+        CreateTargetCamera(groupTarget);
+
         // setActive Node collider
-        Debug.Log("_group : " + (_group == null).ToString());
         EnableNodeCollider(_group, true);
 
         nodeShowingStatus = NodeShowingStatus.ShowGroup;
-        Debug.Log("ShowGroup...");
+        nodeInteractionStatus = NodeInteractionStatus.None;
     }
 
+    void NodeInteract(NodeDisplay node){
+        Debug.Log("Interacting Node...");
+
+        if(nodeInteractionStatus == NodeInteractionStatus.None)
+        {
+            ShowNodeInfo(node);
+        }
+        else if(nodeInteractionStatus == NodeInteractionStatus.SelectPair)
+        {
+            SelectPair(node);
+        }
+    }
+
+
+    void ShowNodeInfo(NodeDisplay nodeDisplay){
+        Group group = nodeDisplay.GetComponentInParent<Group>();
+        if(group == null){
+            Debug.Log("There is no group script...");
+            return;
+        }
+
+        Pair pair = group.pair;
+        Node node;
+        if(nodeDisplay.sexLabel.text == "Male"){
+            node = pair.male;
+        }
+        else{
+            node = pair.female;
+        }
+
+        Debug.Log("<Node Info>");
+        Debug.Log(node.name);
+        Debug.Log(node.sex);
+        Debug.Log(node.age);
+        Debug.Log(node.bloodType[1] + node.bloodType[2]);
+        Debug.Log(node.hp);
+    }
+
+    void SelectPair(NodeDisplay node){
+
+    }
+
+
+    void GoBackToCurrentStatus(){
+        Debug.Log("Go back to current Status....");
+        switch(nodeShowingStatus){
+            case NodeShowingStatus.ShowFamily:
+                ShowTotal();
+            break;
+            case NodeShowingStatus.ShowGroup:
+                ShowFamily(currentParent);
+            break;
+        }
+    }
+    
     void EnableNodeCollider(Group _group, bool enable){
         BoxCollider2D boxCollider2D = _group.GetComponent<BoxCollider2D>();
         if(boxCollider2D != null){
@@ -116,29 +223,14 @@ public class NodeInteraction : MonoBehaviour
         wasNodeActived = enable;
     }
 
-    void NodeInteract(){
-        Debug.Log("Interacting Node...");
-        nodeShowingStatus = NodeShowingStatus.ShowNode;
-    }
+    void CreateTargetCamera(List<GameObject> targets){
+        InteractObjInfo interactObjInfo = gameObject.GetComponent<InteractObjInfo>();
+        if(interactObjInfo == null)
+            interactObjInfo = gameObject.AddComponent<InteractObjInfo>();
 
-    void GoBackToCurrentStatus(){
-        Debug.Log("Go back to current Status....");
-        switch(nodeShowingStatus){
-            case NodeShowingStatus.ShowFamily:
-                ShowTotal();
-            break;
-            case NodeShowingStatus.ShowGroup:
-                Group currntGroup1 = currentGroup.GetComponent<Group>();
-                if(currntGroup1 != null)
-                    ShowFamily(currntGroup1);
-            break;
-            case NodeShowingStatus.ShowNode:
-                Group currntGroup2 = currentGroup.GetComponent<Group>();
-                if(currntGroup2 != null)
-                    ShowGroup(currntGroup2);
-            break;
-
-        }
+        interactObjInfo.SetTargetCameraInfo(targets, 0.25f, CinemachineBlendDefinition.Style.EaseInOut, 0.5f);
+        cameraControl.ChangeCam(interactObjInfo);
     }
 
 }
+
