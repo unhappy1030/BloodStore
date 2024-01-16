@@ -11,8 +11,7 @@ public class NodeInteraction : MonoBehaviour
     public enum NodeShowingStatus{
         ShowTotal,
         ShowFamily,
-        ShowGroup,
-        ShowNode
+        ShowGroup
     }
 
     public enum NodeInteractionStatus{
@@ -23,13 +22,17 @@ public class NodeInteraction : MonoBehaviour
 
     public CameraControl cameraControl;
     public NodeShowingStatus nodeShowingStatus;
-    public NodeInteractionStatus cardInteractionStatus;
-    public GameObject currentGroup;
+    public NodeInteractionStatus nodeInteractionStatus;
+    public Group currentGroup;
+    public Group currentParent;
+    bool wasZeroChild;
     bool wasNodeActived;
 
     void Start(){
+        wasZeroChild = false;
         wasNodeActived =false;
-        cardInteractionStatus = NodeInteractionStatus.None;
+        nodeShowingStatus = NodeShowingStatus.ShowTotal;
+        nodeInteractionStatus = NodeInteractionStatus.None;
         ShowTotal();
     }
 
@@ -62,49 +65,74 @@ public class NodeInteraction : MonoBehaviour
         }
         else if(node != null)
         {
-            NodeInteract(node);
+            // NodeInteract(node);
         }
     }
 
     void GroupInteract(Group _newgroup){
-        if(currentGroup == null || _newgroup.gameObject != currentGroup) // the first interaction or same group interaction
+        if(nodeShowingStatus == NodeShowingStatus.ShowTotal) // From Start
         {
             ShowFamily(_newgroup);
         }
-        else
+        else if(nodeShowingStatus == NodeShowingStatus.ShowFamily)
         {
-            ShowGroup(_newgroup);
+            if(_newgroup == currentParent || _newgroup.parentGroup == currentParent && (_newgroup.childrenGroup == null || _newgroup.childrenGroup.Count == 0))
+            {
+                ShowGroup(_newgroup);
+            }
+            else
+            {
+                ShowFamily(_newgroup);
+            }
+
+            currentGroup = _newgroup;
         }
-        currentGroup = _newgroup.gameObject;
     }
 
     void ShowTotal(){
         Debug.Log("ShowTotal...");
+
         nodeShowingStatus = NodeShowingStatus.ShowTotal;
     }
 
     void ShowFamily(Group _group){
         Debug.Log("ShowFamily...");
-        // set Camera Target
+
+        // set camera target
         List<GameObject> familyTarget = new();
-        familyTarget.Add(_group.gameObject);
 
-        if(_group.childrenGroup == null || _group.childrenGroup.Count == 0){
-            ShowGroup(_group);
-            return;
+        if(_group.childrenGroup == null || _group.childrenGroup.Count == 0) // no children(no family) -> show parent's family
+        {
+            Group parent = _group.parentGroup;
+            List<Group> siblings = parent.childrenGroup;
+
+            familyTarget.Add(parent.gameObject);
+            foreach(Group sibling in siblings){
+                familyTarget.Add(sibling.gameObject);
+            }
+
+            wasZeroChild = true;
+            currentParent = _group.parentGroup;
         }
+        else
+        {
+            List<Group> children = _group.childrenGroup;
 
-        foreach(Group child in _group.childrenGroup){
-            familyTarget.Add(child.gameObject);
+            familyTarget.Add(_group.gameObject);
+            foreach(Group child in children){
+                familyTarget.Add(child.gameObject);
+            }
+
+            wasZeroChild = false;
+            currentParent = _group;
         }
 
         CreateTargetCamera(familyTarget);
 
-        if(wasNodeActived == true)
-        {
-            EnableNodeCollider(_group, false);
+        if(currentGroup != null){
+            EnableNodeCollider(currentGroup, false);
         }
-
+        
         nodeShowingStatus = NodeShowingStatus.ShowFamily;
     }
 
@@ -121,12 +149,51 @@ public class NodeInteraction : MonoBehaviour
         EnableNodeCollider(_group, true);
 
         nodeShowingStatus = NodeShowingStatus.ShowGroup;
+        nodeInteractionStatus = NodeInteractionStatus.None;
     }
 
     void NodeInteract(NodeDisplay node){
         Debug.Log("Interacting Node...");
-        nodeShowingStatus = NodeShowingStatus.ShowNode;
+
+        if(nodeInteractionStatus == NodeInteractionStatus.None)
+        {
+            ShowNodeInfo(node);
+        }
+        else if(nodeInteractionStatus == NodeInteractionStatus.SelectPair)
+        {
+            SelectPair(node);
+        }
     }
+
+
+    void ShowNodeInfo(NodeDisplay nodeDisplay){
+        Group group = nodeDisplay.GetComponentInParent<Group>();
+        if(group == null){
+            Debug.Log("There is no group script...");
+            return;
+        }
+
+        Pair pair = group.pair;
+        Node node;
+        if(nodeDisplay.sexLabel.text == "Male"){
+            node = pair.male;
+        }
+        else{
+            node = pair.female;
+        }
+
+        Debug.Log("<Node Info>");
+        Debug.Log(node.name);
+        Debug.Log(node.sex);
+        Debug.Log(node.age);
+        Debug.Log(node.bloodType[1] + node.bloodType[2]);
+        Debug.Log(node.hp);
+    }
+
+    void SelectPair(NodeDisplay node){
+
+    }
+
 
     void GoBackToCurrentStatus(){
         Debug.Log("Go back to current Status....");
@@ -135,14 +202,7 @@ public class NodeInteraction : MonoBehaviour
                 ShowTotal();
             break;
             case NodeShowingStatus.ShowGroup:
-                Group currntGroup1 = currentGroup.GetComponent<Group>();
-                if(currntGroup1 != null)
-                    ShowFamily(currntGroup1);
-            break;
-            case NodeShowingStatus.ShowNode:
-                Group currntGroup2 = currentGroup.GetComponent<Group>();
-                if(currntGroup2 != null)
-                    ShowGroup(currntGroup2);
+                ShowFamily(currentParent);
             break;
         }
     }
@@ -173,3 +233,4 @@ public class NodeInteraction : MonoBehaviour
     }
 
 }
+

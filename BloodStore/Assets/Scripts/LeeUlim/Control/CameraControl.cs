@@ -89,7 +89,7 @@ public class CameraControl : MonoBehaviour
         // add targetgroup member and apply features
         for(int i=0; i<targetCamInfo.targets.Count; i++){
             if(targetCamInfo.targets[i] != null)
-                targetGroup.AddMember(targetCamInfo.targets[i].transform, 1, 1);
+                targetGroup.AddMember(targetCamInfo.targets[i].transform, 1, 1.5f);
             else
                 nullCount++;
         }
