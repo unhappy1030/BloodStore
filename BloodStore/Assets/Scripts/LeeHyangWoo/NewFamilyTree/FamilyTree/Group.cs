@@ -150,8 +150,8 @@ public class Group : MonoBehaviour
                 points[3] = new Vector3( globalChildPos.x , globalChildPos.y, 0);
                 line.positionCount = points.Count();
                 line.SetPositions(points);
-                Debug.Log("child pos : " + group.transform.position.ToString());
-                Debug.Log("globalchild pos : " + globalChildPos.ToString());
+                // Debug.Log("child pos : " + group.transform.position.ToString());
+                // Debug.Log("globalchild pos : " + globalChildPos.ToString());
                 // Debug.Log(" line pos : " + globalPos.ToString());
                 pairLine.transform.parent = gameObject.transform;
             }
