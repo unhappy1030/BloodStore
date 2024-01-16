@@ -56,7 +56,7 @@ public class CameraControl : MonoBehaviour
         // add Cinemachine component to new Camera
         CinemachineVirtualCamera newVirtualCam = newCamera.AddComponent<CinemachineVirtualCamera>(); // new Camera Info
         // get Information in Inspector for new Camera
-        VirtualCameraInfo virtualCamInfo = interObj._vertualCam;
+        VirtualCameraInfo virtualCamInfo = interObj._virtualCam;
         
         newVirtualCam.m_Follow = virtualCamInfo.targets[0].transform;
         newVirtualCam.m_Lens.OrthographicSize = virtualCamInfo.lensOthoSize;
@@ -78,7 +78,7 @@ public class CameraControl : MonoBehaviour
         // add Cinemachine component to new Camera
         CinemachineVirtualCamera newTargetCam = newCamera.AddComponent<CinemachineVirtualCamera>(); // new Camera Info
         // get Information in Inspector for new Camera
-        VirtualCameraInfo targetCamInfo = interObj._vertualCam;
+        VirtualCameraInfo targetCamInfo = interObj._virtualCam;
         
         // create Target Group for Camera
         GameObject group = new("TargetGroup");

@@ -87,17 +87,17 @@ public class Group : MonoBehaviour
         inter._cameraMovementType = CameraControlType.ChangeCamera;
         inter._cameraType = CameraType.TargetGroupCamera;
 
-        if (inter._vertualCam == null) {
-            inter._vertualCam = new VirtualCameraInfo();
+        if (inter._virtualCam == null) {
+            inter._virtualCam = new VirtualCameraInfo();
         }
 
-        if (inter._vertualCam.blendInfo == null) {
-            inter._vertualCam.blendInfo = new BlendInfo();
+        if (inter._virtualCam.blendInfo == null) {
+            inter._virtualCam.blendInfo = new BlendInfo();
         }
         
-        inter._vertualCam.blendInfo.hold = 0.25f;
-        inter._vertualCam.blendInfo.blendIn = CinemachineBlendDefinition.Style.EaseInOut;
-        inter._vertualCam.blendInfo.blendTime = 0.25f;
+        inter._virtualCam.blendInfo.hold = 0.25f;
+        inter._virtualCam.blendInfo.blendIn = CinemachineBlendDefinition.Style.EaseInOut;
+        inter._virtualCam.blendInfo.blendTime = 0.25f;
     
         camera.SetTarget(SendFamilyList());
     }

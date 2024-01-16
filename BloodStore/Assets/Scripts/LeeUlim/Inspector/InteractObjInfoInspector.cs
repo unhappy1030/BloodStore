@@ -85,7 +85,7 @@ public class InteractObjInfoInspctor : Editor
                 EditorGUI.indentLevel += 2;
                 // Virtual & TargetGroup
                 if(cameraType == CameraType.VirtualCamera || cameraType == CameraType.TargetGroupCamera)
-                    isOpen = DrawInspectorForVirtualAndTargetCamera(interactObjInfo._vertualCam, cameraType, isOpen, false, 0);
+                    isOpen = DrawInspectorForVirtualAndTargetCamera(interactObjInfo._virtualCam, cameraType, isOpen, false, 0);
                 // Blend List Camera
                 else if(cameraType == CameraType.BlendListCamera)
                     // EditorGUILayout.PropertyField(serializedObject.FindProperty("_blendListCam"));

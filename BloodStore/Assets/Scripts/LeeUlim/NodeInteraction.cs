@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Cinemachine;
 
 public class NodeInteraction : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class NodeInteraction : MonoBehaviour
         SelectPair
     }
 
+    public CameraControl cameraControl;
     public NodeShowingStatus nodeShowingStatus;
     public NodeInteractionStatus cardInteractionStatus;
     public GameObject currentGroup;
@@ -60,7 +62,7 @@ public class NodeInteraction : MonoBehaviour
         }
         else if(node != null)
         {
-            NodeInteract();
+            NodeInteract(node);
         }
     }
 
@@ -77,46 +79,51 @@ public class NodeInteraction : MonoBehaviour
     }
 
     void ShowTotal(){
-        nodeShowingStatus = NodeShowingStatus.ShowTotal;
         Debug.Log("ShowTotal...");
+        nodeShowingStatus = NodeShowingStatus.ShowTotal;
     }
 
     void ShowFamily(Group _group){
+        Debug.Log("ShowFamily...");
+        // set Camera Target
+        List<GameObject> familyTarget = new();
+        familyTarget.Add(_group.gameObject);
+
+        if(_group.childrenGroup == null || _group.childrenGroup.Count == 0){
+            ShowGroup(_group);
+            return;
+        }
+
+        foreach(Group child in _group.childrenGroup){
+            familyTarget.Add(child.gameObject);
+        }
+
+        CreateTargetCamera(familyTarget);
+
         if(wasNodeActived == true)
         {
             EnableNodeCollider(_group, false);
         }
 
         nodeShowingStatus = NodeShowingStatus.ShowFamily;
-        Debug.Log("ShowFamily...");
     }
 
     void ShowGroup(Group _group){
+        Debug.Log("ShowGroup...");
+        
+        // set target
+        List<GameObject> groupTarget = new();
+        groupTarget.Add(_group.gameObject);
+
+        CreateTargetCamera(groupTarget);
+
         // setActive Node collider
-        Debug.Log("_group : " + (_group == null).ToString());
         EnableNodeCollider(_group, true);
 
         nodeShowingStatus = NodeShowingStatus.ShowGroup;
-        Debug.Log("ShowGroup...");
     }
 
-    void EnableNodeCollider(Group _group, bool enable){
-        BoxCollider2D boxCollider2D = _group.GetComponent<BoxCollider2D>();
-        if(boxCollider2D != null){
-            boxCollider2D.enabled = !enable;
-        }
-
-
-        BoxCollider2D[] nodeColliders = _group.GetComponentsInChildren<BoxCollider2D>();
-        foreach(BoxCollider2D collider in nodeColliders){
-            if(collider.gameObject != _group.gameObject)
-                collider.enabled = enable;
-        }
-
-        wasNodeActived = enable;
-    }
-
-    void NodeInteract(){
+    void NodeInteract(NodeDisplay node){
         Debug.Log("Interacting Node...");
         nodeShowingStatus = NodeShowingStatus.ShowNode;
     }
@@ -137,8 +144,32 @@ public class NodeInteraction : MonoBehaviour
                 if(currntGroup2 != null)
                     ShowGroup(currntGroup2);
             break;
-
         }
+    }
+    
+    void EnableNodeCollider(Group _group, bool enable){
+        BoxCollider2D boxCollider2D = _group.GetComponent<BoxCollider2D>();
+        if(boxCollider2D != null){
+            boxCollider2D.enabled = !enable;
+        }
+
+
+        BoxCollider2D[] nodeColliders = _group.GetComponentsInChildren<BoxCollider2D>();
+        foreach(BoxCollider2D collider in nodeColliders){
+            if(collider.gameObject != _group.gameObject)
+                collider.enabled = enable;
+        }
+
+        wasNodeActived = enable;
+    }
+
+    void CreateTargetCamera(List<GameObject> targets){
+        InteractObjInfo interactObjInfo = gameObject.GetComponent<InteractObjInfo>();
+        if(interactObjInfo == null)
+            interactObjInfo = gameObject.AddComponent<InteractObjInfo>();
+
+        interactObjInfo.SetTargetCameraInfo(targets, 0.25f, CinemachineBlendDefinition.Style.EaseInOut, 0.5f);
+        cameraControl.ChangeCam(interactObjInfo);
     }
 
 }
