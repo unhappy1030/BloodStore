@@ -30,6 +30,7 @@ public class NodeInteraction : MonoBehaviour
     public CameraControl cameraControl;
     public NodeShowingStatus nodeShowingStatus;
     public NodeInteractionStatus nodeInteractionStatus;
+    public PairSO pairSO;
     public Group currentGroup;
     public Group currentParent;
     public DialogueRunner dialogueRunner;
@@ -122,6 +123,12 @@ public class NodeInteraction : MonoBehaviour
         if(_group.childrenGroup == null || _group.childrenGroup.Count == 0) // no children(no family) -> show parent's family
         {
             Group parent = _group.parentGroup;
+
+            if(_group.pair == pairSO.root[0]){
+                ShowGroup(_group);
+                return;
+            }
+
             List<Group> siblings = parent.childrenGroup;
 
             familyTarget.Add(parent.gameObject);

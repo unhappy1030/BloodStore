@@ -9353,6 +9353,7 @@ MonoBehaviour:
   cameraControl: {fileID: 0}
   nodeShowingStatus: 0
   nodeInteractionStatus: 0
+  pairSO: {fileID: 11400000, guid: fb10147e6c8e11644ba7a669fdfe19b0, type: 2}
   currentGroup: {fileID: 0}
   currentParent: {fileID: 0}
   dialogueRunner: {fileID: 0}
