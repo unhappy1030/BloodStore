@@ -129,24 +129,25 @@ public class PairSO : ScriptableObject
             pair.female.age += 10;
         }
         if(pair.childNum != 0){
-            foreach(Pair nowPair in pair.children){
-                if(!nowPair.male.empty){
-                    pair.male.age += 10;
+            foreach(Pair child in pair.children){
+                if(!child.male.empty){
+                    child.male.age += 10;
                 }   
-                if(!nowPair.female.empty){
-                    pair.female.age += 10;
+                if(!child.female.empty){
+                    child.female.age += 10;
                 }
+                MakeOlder(child);
             }
         }
     }
     public void MakeOlder(Pair pair){
         if(pair.childNum != 0){
-            foreach(Pair nowPair in pair.children){
-                if(!nowPair.male.empty){
-                    pair.male.age += 10;
+            foreach(Pair child in pair.children){
+                if(!child.male.empty){
+                    child.male.age += 10;
                 }   
-                if(!nowPair.female.empty){
-                    pair.female.age += 10;
+                if(!child.female.empty){
+                    child.female.age += 10;
                 }
             }
         }

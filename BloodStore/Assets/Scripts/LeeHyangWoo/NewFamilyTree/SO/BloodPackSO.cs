@@ -30,29 +30,30 @@ public class BloodPackSO : ScriptableObject
     public PairSO pairSO;
     public List<BloodPack> bloodPacks;
     public void GetBloodPack(){
-        Pair nowPair = pairSO.root[0];
-        if(nowPair.male.empty == false && nowPair.male.age >= 16){
-            AddBloodPack(nowPair.male);
+        Debug.Log("피 줘");
+        Pair pair = pairSO.root[0];
+        if(pair.male.empty == false && pair.male.age >= 16){
+            AddBloodPack(pair.male);
         }
-        if(nowPair.female.empty == false && nowPair.female.age >= 16){
-            AddBloodPack(nowPair.female);
+        if(pair.female.empty == false && pair.female.age >= 16){
+            AddBloodPack(pair.female);
         }
-        if(nowPair.childNum != 0){
-            foreach(Pair pair in nowPair.children){
-                GetBloodPack(pair);
+        if(pair.childNum != 0){
+            foreach(Pair child in pair.children){
+                GetBloodPack(child);
             }
         }
     }
-    public void GetBloodPack(Pair nowPair){
-        if(nowPair.male.empty == false && nowPair.male.age >= 16){
-            AddBloodPack(nowPair.male);
+    public void GetBloodPack(Pair pair){
+        if(pair.male.empty == false && pair.male.age >= 16){
+            AddBloodPack(pair.male);
         }
-        if(nowPair.female.empty == false && nowPair.female.age >= 16){
-            AddBloodPack(nowPair.female);
+        if(pair.female.empty == false && pair.female.age >= 16){
+            AddBloodPack(pair.female);
         }
-        if(nowPair.childNum != 0){
-            foreach(Pair pair in nowPair.children){
-                GetBloodPack(pair);
+        if(pair.childNum != 0){
+            foreach(Pair child in pair.children){
+                GetBloodPack(child);
             }
         }
     }
@@ -106,7 +107,14 @@ public class BloodPackSO : ScriptableObject
     public BloodPack NodeToBloodPack(Node nodeConvert){
         int date =GameManager.Instance.day;
         BloodPack pack = new BloodPack{
-            node = nodeConvert,
+            node = new Node{
+                name = nodeConvert.name,
+                sex = nodeConvert.sex,
+                bloodType = nodeConvert.bloodType,
+                age = nodeConvert.age,
+                hp = nodeConvert.hp,
+                type = nodeConvert.type
+            },
             packNum = Random.Range(1,5),
             getBloodDate = date,
         };
