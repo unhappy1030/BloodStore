@@ -46,6 +46,8 @@ public class NodeInteraction : MonoBehaviour
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D ray = Physics2D.Raycast(mousePos, Vector2.zero, 0f, LayerMask.GetMask("FamilyTree"));
 
+            Debug.Log("ray.collider : " + (ray.collider == null).ToString());
+
             if (ray.collider != null)
             {
                 MouseInteract(ray.collider.gameObject);
@@ -62,6 +64,7 @@ public class NodeInteraction : MonoBehaviour
     void MouseInteract(GameObject interactObj){
         Group group = interactObj.GetComponent<Group>();
         NodeDisplay node = interactObj.GetComponent<NodeDisplay>();
+        EmptyDisplay emptyNode = interactObj.GetComponent<EmptyDisplay>();
 
         if(group != null)
         {
@@ -69,7 +72,11 @@ public class NodeInteraction : MonoBehaviour
         }
         else if(node != null)
         {
-            NodeInteract(node);
+            ShowNodeInfo(node);
+        }
+        else if(emptyNode != null)
+        {
+            SelectPair(emptyNode);    
         }
     }
 
@@ -136,6 +143,7 @@ public class NodeInteraction : MonoBehaviour
         }
         
         nodeShowingStatus = NodeShowingStatus.ShowFamily;
+        nodeInteractionStatus = NodeInteractionStatus.None;
     }
 
     void ShowGroup(Group _group){
@@ -153,20 +161,6 @@ public class NodeInteraction : MonoBehaviour
         nodeShowingStatus = NodeShowingStatus.ShowGroup;
         nodeInteractionStatus = NodeInteractionStatus.None;
     }
-
-    void NodeInteract(NodeDisplay node){
-        Debug.Log("Interacting Node...");
-
-        if(nodeInteractionStatus == NodeInteractionStatus.None)
-        {
-            ShowNodeInfo(node);
-        }
-        else if(nodeInteractionStatus == NodeInteractionStatus.SelectPair)
-        {
-            SelectPair(node);
-        }
-    }
-
 
     void ShowNodeInfo(NodeDisplay nodeDisplay){
         Group group = nodeDisplay.GetComponentInParent<Group>();
@@ -187,6 +181,7 @@ public class NodeInteraction : MonoBehaviour
         nodeInfoCanvas.SetActive(true);
         SetNodeInfoUIImg(nodeDisplay);
         SetNodeInfoUIText(node);
+        nodeInteractionStatus = NodeInteractionStatus.ShowInfo;
     }
 
     void SetNodeInfoUIImg(NodeDisplay nodeDisplay){
@@ -219,8 +214,17 @@ public class NodeInteraction : MonoBehaviour
         texts[5].text = "Type : " + "None";
     }
 
-    void SelectPair(NodeDisplay node){
+    void SelectPair(EmptyDisplay emptyNode){
+        Debug.Log("Select Pair start...");
+        Group group = emptyNode.transform.parent.GetComponent<Group>();
 
+        if(group == null){
+            Debug.Log("There is no group in emptyNode's parent...");
+            return;
+        }
+
+        emptyNode.SetNode();
+        nodeInteractionStatus = NodeInteractionStatus.SelectPair;
     }
 
 
