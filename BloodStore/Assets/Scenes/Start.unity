@@ -1767,6 +1767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b40ec572deb134ba54780dfd1910be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCam: {fileID: 0}
 --- !u!1 &714005071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1922,7 +1923,7 @@ MonoBehaviour:
     blendInfo:
       hold: 0
       blendIn: 1
-      blendTime: 2
+      blendTime: 1.5
   _blendListCam:
     subCams:
     - cameraType: 0
@@ -3631,6 +3632,7 @@ MonoBehaviour:
   nodeInteractionStatus: 0
   currentGroup: {fileID: 0}
   currentParent: {fileID: 0}
+  dialogueRunner: {fileID: 0}
 --- !u!4 &1530754856
 Transform:
   m_ObjectHideFlags: 0
@@ -5557,7 +5559,7 @@ MonoBehaviour:
     blendInfo:
       hold: 0
       blendIn: 1
-      blendTime: 2
+      blendTime: 1.5
   _blendListCam:
     subCams:
     - cameraType: 0
@@ -5954,6 +5956,7 @@ MonoBehaviour:
   startSceneName: Start
   money: 0
   day: 0
+  isFading: 0
   whitePanel: {fileID: 1752830624}
   blackPanel: {fileID: 1059785190}
   cameraControl: {fileID: 0}
@@ -5997,6 +6000,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraControl: {fileID: 0}
   npcInteract: {fileID: 0}
+  dialogueRunner: {fileID: 0}
 --- !u!114 &1983117554
 MonoBehaviour:
   m_ObjectHideFlags: 0

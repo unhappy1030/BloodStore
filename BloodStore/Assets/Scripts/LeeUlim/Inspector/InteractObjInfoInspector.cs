@@ -62,6 +62,11 @@ public class InteractObjInfoInspctor : Editor
         }
 
         EditorGUI.indentLevel--;
+        
+        if(GUI.changed){
+            Undo.RecordObject(interactObjInfo, "Change InteractObjInfo");
+            EditorUtility.SetDirty(interactObjInfo);
+        }
 
         serializedObject.ApplyModifiedProperties();
     }
