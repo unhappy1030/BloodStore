@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public float money = 0;
     public int day = 0;
 
+    public bool isFading = false; 
     bool wasFade = false;
 
     public Image whitePanel;
@@ -163,6 +164,7 @@ public class GameManager : MonoBehaviour
     // Fade in & out
     public IEnumerator FadeOutUI(Image _Image, float _fadeSpeed)
     {
+        isFading = true;
         // Debug.Log("Fade out...");
         Color t_color = _Image.color;
         t_color.a = 0;
@@ -176,11 +178,13 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
+        isFading = false;
         wasFade = true;
     }
 
     public IEnumerator FadeInUI(Image _Image, float _fadeSpeed)
     {
+        isFading = true;
         // Debug.Log("Fade in...");
         Color t_color = _Image.color;
         t_color.a = 1;
@@ -195,6 +199,7 @@ public class GameManager : MonoBehaviour
 
         _Image.gameObject.SetActive(false);
 
+        isFading = false;
         wasFade = false;
     }
 
