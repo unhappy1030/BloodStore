@@ -80,26 +80,8 @@ public class Group : MonoBehaviour
         }
     }
     public void CameraSetting(){
-        SetCameraTarget camera = gameObject.AddComponent<SetCameraTarget>();
         InteractObjInfo inter = gameObject.AddComponent<InteractObjInfo>();
-        
-        inter._interactType = InteractType.CameraControl;
-        inter._cameraMovementType = CameraControlType.ChangeCamera;
-        inter._cameraType = CameraType.TargetGroupCamera;
-
-        if (inter._virtualCam == null) {
-            inter._virtualCam = new VirtualCameraInfo();
-        }
-
-        if (inter._virtualCam.blendInfo == null) {
-            inter._virtualCam.blendInfo = new BlendInfo();
-        }
-        
-        inter._virtualCam.blendInfo.hold = 0.25f;
-        inter._virtualCam.blendInfo.blendIn = CinemachineBlendDefinition.Style.EaseInOut;
-        inter._virtualCam.blendInfo.blendTime = 0.25f;
-    
-        camera.SetTarget(SendFamilyList());
+        inter.SetTargetCameraInfo(SendFamilyList(), 0.25f, CinemachineBlendDefinition.Style.EaseInOut, 0.5f);
     }
 
     public List<GameObject> SendFamilyList(){
