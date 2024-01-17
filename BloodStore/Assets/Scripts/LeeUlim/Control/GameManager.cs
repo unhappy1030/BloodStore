@@ -90,14 +90,21 @@ public class GameManager : MonoBehaviour
 
 
         // assign scripts 
-        if(npcInteract != null)
+        if(npcInteract != null){
             npcInteract.dialogueRunner = dialogueRunner;
+        }
 
-        if(nodeInteraction != null && cameraControl != null)
-            nodeInteraction.cameraControl = cameraControl;
+        if(nodeInteraction != null){
+            if(cameraControl != null)
+            {
+                nodeInteraction.cameraControl = cameraControl;
+            }
+            nodeInteraction.dialogueRunner = dialogueRunner;
+        }
 
         mouseRayCast.cameraControl = cameraControl;
         mouseRayCast.npcInteract = npcInteract;
+        mouseRayCast.dialogueRunner = dialogueRunner;
 
         yarnControl.moneyControl = moneyControl;
         yarnControl.dialogueRunner = dialogueRunner;
