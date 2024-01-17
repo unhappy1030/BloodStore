@@ -8981,6 +8981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b40ec572deb134ba54780dfd1910be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCam: {fileID: 0}
 --- !u!4 &1559105770
 Transform:
   m_ObjectHideFlags: 0
@@ -9980,6 +9981,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraControl: {fileID: 0}
   npcInteract: {fileID: 0}
+  dialogueRunner: {fileID: 0}
 --- !u!114 &1862155007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10019,10 +10021,12 @@ MonoBehaviour:
   startSceneName: Start
   money: 0
   day: 0
+  isFading: 0
   whitePanel: {fileID: 1289215816}
   blackPanel: {fileID: 1784205739}
   cameraControl: {fileID: 0}
   npcInteract: {fileID: 0}
+  nodeInteraction: {fileID: 0}
   mouseRayCast: {fileID: 0}
   moneyControl: {fileID: 0}
   yarnControl: {fileID: 0}

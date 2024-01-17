@@ -31,10 +31,10 @@ public class BloodPackSO : ScriptableObject
     public List<BloodPack> bloodPacks;
     public void GetBloodPack(){
         Pair nowPair = pairSO.root[0];
-        if(nowPair.male.empty == false){
+        if(nowPair.male.empty == false && nowPair.male.age >= 16){
             AddBloodPack(nowPair.male);
         }
-        if(nowPair.female.empty == false){
+        if(nowPair.female.empty == false && nowPair.female.age >= 16){
             AddBloodPack(nowPair.female);
         }
         if(nowPair.childNum != 0){
@@ -44,10 +44,10 @@ public class BloodPackSO : ScriptableObject
         }
     }
     public void GetBloodPack(Pair nowPair){
-        if(nowPair.male.empty == false){
+        if(nowPair.male.empty == false && nowPair.male.age >= 16){
             AddBloodPack(nowPair.male);
         }
-        if(nowPair.female.empty == false){
+        if(nowPair.female.empty == false && nowPair.female.age >= 16){
             AddBloodPack(nowPair.female);
         }
         if(nowPair.childNum != 0){

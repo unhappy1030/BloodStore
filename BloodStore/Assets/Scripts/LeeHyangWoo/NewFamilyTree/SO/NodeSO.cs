@@ -17,13 +17,33 @@ public class Node
     public Node(){
         empty = true;
     }
+    public int GetMaxHp(){
+        if(age > 0 && age < 10){
+            return 50;
+        }
+        else if(age >= 10 && age < 20){
+            return 75;
+        }
+        else if(age >= 65 && age < 75){
+            return 75;
+        }
+        else if(age >= 75 && age < 85){
+            return 65;
+        }
+        else if(age >= 85){
+            return 50;
+        }
+        else{
+            return 100;
+        }
+    }
     public void SetAllRandom()
     {
         this.name = GenerateRandomName();
         this.sex = Random.Range(0, 2) == 0 ? "Male" : "Female";
         this.bloodType = GenerateRandomBloodType();
-        this.hp = Random.Range(50, 101);
-        this.age = Random.Range(20, 60);
+        this.hp = 100;
+        this.age = Random.Range(20, 36);
         this.isDead = false;
         this.empty = false;
     }
