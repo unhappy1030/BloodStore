@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     public CameraControl cameraControl; // *** warning : must be in Scene and set "CameraControl" tag
     public NPCInteract npcInteract;
+    public NodeInteraction nodeInteraction;
     public MouseRayCast mouseRayCast;
     public MoneyControl moneyControl;
     public YarnControl yarnControl;
@@ -77,7 +78,8 @@ public class GameManager : MonoBehaviour
             cameraControl = cameraControlObj.AddComponent<CameraControl>();
         }
 
-        npcInteract = FindObjectOfType<NPCInteract>(true);
+        npcInteract = FindObjectOfType<NPCInteract>();
+        nodeInteraction = FindObjectOfType<NodeInteraction>();
 
         mouseRayCast = GetComponent<MouseRayCast>();
         moneyControl = GetComponent<MoneyControl>();
@@ -86,9 +88,13 @@ public class GameManager : MonoBehaviour
         dialogueRunner = GetComponentInChildren<DialogueRunner>();
         variableStorage = GetComponentInChildren<InMemoryVariableStorage>();
 
+
         // assign scripts 
         if(npcInteract != null)
             npcInteract.dialogueRunner = dialogueRunner;
+
+        if(nodeInteraction != null && cameraControl != null)
+            nodeInteraction.cameraControl = cameraControl;
 
         mouseRayCast.cameraControl = cameraControl;
         mouseRayCast.npcInteract = npcInteract;

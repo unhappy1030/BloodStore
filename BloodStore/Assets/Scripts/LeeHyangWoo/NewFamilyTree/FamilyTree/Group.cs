@@ -80,26 +80,8 @@ public class Group : MonoBehaviour
         }
     }
     public void CameraSetting(){
-        SetCameraTarget camera = gameObject.AddComponent<SetCameraTarget>();
         InteractObjInfo inter = gameObject.AddComponent<InteractObjInfo>();
-        
-        inter._interactType = InteractType.CameraControl;
-        inter._cameraMovementType = CameraControlType.ChangeCamera;
-        inter._cameraType = CameraType.TargetGroupCamera;
-
-        if (inter._vertualCam == null) {
-            inter._vertualCam = new VirtualCameraInfo();
-        }
-
-        if (inter._vertualCam.blendInfo == null) {
-            inter._vertualCam.blendInfo = new BlendInfo();
-        }
-        
-        inter._vertualCam.blendInfo.hold = 0.25f;
-        inter._vertualCam.blendInfo.blendIn = CinemachineBlendDefinition.Style.EaseInOut;
-        inter._vertualCam.blendInfo.blendTime = 0.25f;
-    
-        camera.SetTarget(SendFamilyList());
+        inter.SetTargetCameraInfo(SendFamilyList(), 0.25f, CinemachineBlendDefinition.Style.EaseInOut, 0.5f);
     }
 
     public List<GameObject> SendFamilyList(){
@@ -150,8 +132,8 @@ public class Group : MonoBehaviour
                 points[3] = new Vector3( globalChildPos.x , globalChildPos.y, 0);
                 line.positionCount = points.Count();
                 line.SetPositions(points);
-                Debug.Log("child pos : " + group.transform.position.ToString());
-                Debug.Log("globalchild pos : " + globalChildPos.ToString());
+                // Debug.Log("child pos : " + group.transform.position.ToString());
+                // Debug.Log("globalchild pos : " + globalChildPos.ToString());
                 // Debug.Log(" line pos : " + globalPos.ToString());
                 pairLine.transform.parent = gameObject.transform;
             }

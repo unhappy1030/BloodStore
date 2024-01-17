@@ -68,7 +68,7 @@ public class InteractObjInfo : MonoBehaviour
     // - ChangeCam
     [SerializeField] public CameraType _cameraType;
 
-    [SerializeField] public VirtualCameraInfo _vertualCam;
+    [SerializeField] public VirtualCameraInfo _virtualCam;
     [SerializeField] public BlendListCameraInfo _blendListCam;
 
     // NpcInteraction
@@ -77,4 +77,50 @@ public class InteractObjInfo : MonoBehaviour
     // SceneLoad
     [SerializeField] public bool _isFade;
     [SerializeField] public string _sceneName;
+    
+    public void SetTargetCameraInfo(List<GameObject> targets, float hold, CinemachineBlendDefinition.Style blendIn, float blendTime){
+        _interactType = InteractType.CameraControl;
+        _cameraMovementType = CameraControlType.ChangeCamera;
+        _cameraType = CameraType.TargetGroupCamera;
+
+        if(_virtualCam == null)
+            _virtualCam = new();
+        
+        if(_virtualCam.targets == null)
+            _virtualCam.targets = new();
+        
+        bool isAvailableTarget = AssignCameraTarget(targets);
+
+        if(!isAvailableTarget){
+            Debug.Log("It is not available form of targets...");
+        }
+
+        if(_virtualCam.blendInfo == null)
+            _virtualCam.blendInfo = new();
+        
+        _virtualCam.blendInfo.hold = hold;
+        _virtualCam.blendInfo.blendIn = blendIn;
+        _virtualCam.blendInfo.blendTime = blendTime;
+    }
+
+    bool AssignCameraTarget(List<GameObject> targets){
+        int nullCount = 0;
+        _cameraType = CameraType.TargetGroupCamera;
+
+        if(targets.Count == 0)
+            return false;
+        
+        for(int i=0; i<targets.Count; i++){
+            if(targets[i] == null)
+                nullCount++;
+        }
+
+        if(nullCount == targets.Count)
+            return false;
+
+        _virtualCam.targets = new(targets);
+        return true;
+    }
+
 }
+

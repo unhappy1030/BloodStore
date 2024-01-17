@@ -42,5 +42,10 @@ public class ButtonControl : MonoBehaviour
         uiControl.status = UIControl.AlwaysOnUIStatus.Setting;
         uiControl.ControlAlwaysOnCanvasUI();
     }
-
+    public void PopUpSelectUI()
+    {
+        SelectCardUI UI = GetComponentInParent<SelectCardUI>();
+        UI.ActiveSelectableCards();
+        UI.DeActiveSelectedCard();
+    }
 }
