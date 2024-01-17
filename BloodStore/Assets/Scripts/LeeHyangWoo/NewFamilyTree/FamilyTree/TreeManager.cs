@@ -20,7 +20,7 @@ public class TreeManagerTest : MonoBehaviour
     private float lastX = 0f, lastY = 0f;
     void Start()
     {
-        if (pairSO.root.Count == 0)
+        if (pairSO.pairs.Count == 0)
         {
             Node node = new Node();
             node.SetAllRandom();
@@ -54,12 +54,12 @@ public class TreeManagerTest : MonoBehaviour
     }
 
     void MakeChildren(Group rootGroup){
-        if(rootGroup.pair.childNum != 0){
+        if(rootGroup.pairTree.pair.childNum != 0){
             rootGroup.childrenGroup = new();
-            List<Vector2> posList = MakeChildPosList(rootGroup.groupPos, rootGroup.pair.childNum);
-            for(int i = 0; i < rootGroup.pair.childNum; i++){
+            List<Vector2> posList = MakeChildPosList(rootGroup.groupPos, rootGroup.pairTree.pair.childNum);
+            for(int i = 0; i < rootGroup.pairTree.pair.childNum; i++){
                 Group group = MakeGroupObject();
-                group.pair = rootGroup.pair.children[i];
+                group.pairTree = rootGroup.pairTree.children[i];
                 if(posList[i].y >= lastY && posList[i].x <= lastX){
                     // Debug.Log("Move");
                     lastX += unit;
@@ -84,14 +84,14 @@ public class TreeManagerTest : MonoBehaviour
         }
     }
     void MakeCenter(Group group){
-        if(group.pair.childNum != 0){
+        if(group.pairTree.pair.childNum != 0){
             group.groupPos = new Vector2((group.childrenGroup[0].groupPos.x + group.childrenGroup[group.childrenGroup.Count - 1].groupPos.x) / 2, group.groupPos.y);
             group.transform.position = group.groupPos;
         }
     }
     Group RootDisplay(){
         Group group = MakeGroupObject();
-        group.pair = pairSO.root[0];
+        group.pairTree = pairSO.pairs[0];
         group.groupPos = new Vector2(0, 0);
         group.transform.position = group.groupPos;
         group.leftPos =  group.groupPos + new Vector2(-1 * (halfX + (pairOffSet / 2)), 0);
@@ -133,7 +133,7 @@ public class TreeManagerTest : MonoBehaviour
     //     return display;
     // }
     void MakeParentMainGroup(Group rootGroup){
-        if(rootGroup.pair.childNum != 0){
+        if(rootGroup.pairTree.pair.childNum != 0){
             foreach(Group group in rootGroup.childrenGroup){
                 group.transform.parent = mainGroup.transform;
                 group.CameraSetting();
@@ -142,7 +142,7 @@ public class TreeManagerTest : MonoBehaviour
         }
     }
     void MakeLine(Group rootGroup){
-        if(rootGroup.pair.childNum != 0){
+        if(rootGroup.pairTree.pair.childNum != 0){
             foreach(Group group in rootGroup.childrenGroup){
                 group.PairLine();
                 group.FamilyLine();
@@ -165,7 +165,6 @@ public class TreeManagerTest : MonoBehaviour
         {
             Pair first = new Pair
             {
-                parentPair = null,
                 male = node,
                 female = new Node(),
                 isPair = false,
@@ -176,7 +175,6 @@ public class TreeManagerTest : MonoBehaviour
         {
             Pair first = new Pair
             {
-                parentPair = null,
                 male = new Node(),
                 female = node,
                 isPair = false,

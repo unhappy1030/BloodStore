@@ -12,9 +12,9 @@ public class EmptyDisplay : MonoBehaviour
     }
 
     public void SetNode(){
-        if(group.pair.BlankNodeCheck() == nodeSO.node.sex){
+        if(group.pairTree.BlankNodeCheck() == nodeSO.node.sex){
             MakePair();
-            group.pair.AddChild();
+            group.pairTree.AddChild();
             ChangeDisplay(nodeSO.node.sex);
         }
         else{
@@ -40,12 +40,12 @@ public class EmptyDisplay : MonoBehaviour
     }
     void ChangeDisplay(string sex){
         if(sex == "Male"){
-            group.leftDisplay = group.CreateNode(group.pair.male);
+            group.leftDisplay = group.CreateNode(group.pairTree.pair.male);
             group.leftDisplay.transform.parent = group.transform;
             group.leftDisplay.transform.position = this.transform.position;
         }
         else{
-            group.rightDisplay = group.CreateNode(group.pair.female);
+            group.rightDisplay = group.CreateNode(group.pairTree.pair.female);
             group.rightDisplay.transform.parent = group.transform;
             group.rightDisplay.transform.position = this.transform.position;
         }
@@ -54,10 +54,10 @@ public class EmptyDisplay : MonoBehaviour
     void MakePair(){
         Node node = new Node();
         node = nodeSO.node;
-        group.pair.MakePair(node);
-        group.pair.isPair = true;
+        group.pairTree.MakePair(node);
+        group.pairTree.pair.isPair = true;
     }
     void DeleteNode(){
-        group.pair.isPair = false;
+        group.pairTree.pair.isPair = false;
     }
 }

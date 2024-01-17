@@ -13,4 +13,147 @@ MonoBehaviour:
   m_Name: BloodPackSo
   m_EditorClassIdentifier: 
   pairSO: {fileID: 11400000, guid: fb10147e6c8e11644ba7a669fdfe19b0, type: 2}
-  bloodPacks: []
+  bloodPacks:
+  - node:
+      name: Hank
+      sex: Male
+      bloodType:
+      - O
+      - '-'
+      - OO
+      hp: 100
+      age: 42
+      isDead: 0
+      empty: 1
+    packNum: 2
+    getBloodDate: 1
+  - node:
+      name: Grace
+      sex: Female
+      bloodType:
+      - O
+      - '-'
+      - OO
+      hp: 100
+      age: 54
+      isDead: 0
+      empty: 1
+    packNum: 4
+    getBloodDate: 1
+  - node:
+      name: Frank
+      sex: Male
+      bloodType:
+      - O
+      - '-'
+      - OO
+      hp: 50
+      age: 23
+      isDead: 0
+      empty: 1
+    packNum: 4
+    getBloodDate: 1
+  - node:
+      name: Eve
+      sex: Male
+      bloodType:
+      - O
+      - '-'
+      - OO
+      hp: 50
+      age: 24
+      isDead: 0
+      empty: 1
+    packNum: 3
+    getBloodDate: 1
+  - node:
+      name: Hank
+      sex: Male
+      bloodType:
+      - O
+      - '-'
+      - OO
+      hp: 100
+      age: 52
+      isDead: 0
+      empty: 1
+    packNum: 3
+    getBloodDate: 2
+  - node:
+      name: Grace
+      sex: Female
+      bloodType:
+      - O
+      - '-'
+      - OO
+      hp: 100
+      age: 64
+      isDead: 0
+      empty: 1
+    packNum: 4
+    getBloodDate: 2
+  - node:
+      name: Frank
+      sex: Male
+      bloodType:
+      - O
+      - '-'
+      - OO
+      hp: 50
+      age: 33
+      isDead: 0
+      empty: 1
+    packNum: 4
+    getBloodDate: 2
+  - node:
+      name: Eve
+      sex: Male
+      bloodType:
+      - O
+      - '-'
+      - OO
+      hp: 50
+      age: 34
+      isDead: 0
+      empty: 1
+    packNum: 2
+    getBloodDate: 2
+  - node:
+      name: Charlie
+      sex: Female
+      bloodType:
+      - B
+      - '-'
+      - BB
+      hp: 100
+      age: 34
+      isDead: 0
+      empty: 1
+    packNum: 2
+    getBloodDate: 2
+  - node:
+      name: Charlie
+      sex: Female
+      bloodType:
+      - B
+      - '-'
+      - BO
+      hp: 50
+      age: 20
+      isDead: 0
+      empty: 1
+    packNum: 3
+    getBloodDate: 2
+  - node:
+      name: Alice
+      sex: Female
+      bloodType:
+      - B
+      - '-'
+      - BO
+      hp: 50
+      age: 17
+      isDead: 0
+      empty: 1
+    packNum: 2
+    getBloodDate: 2

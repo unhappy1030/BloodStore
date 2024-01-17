@@ -124,7 +124,7 @@ public class NodeInteraction : MonoBehaviour
         {
             Group parent = _group.parentGroup;
 
-            if(_group.pair == pairSO.root[0]){
+            if(_group.pairTree.pair == pairSO.root[0]){
                 ShowGroup(_group);
                 return;
             }

@@ -7,7 +7,7 @@ using System.Linq;
 using Unity.VisualScripting;
 public class Group : MonoBehaviour
 {
-    public Pair pair;
+    public PairTree pairTree;
     public GameObject nodePrefab;
     public GameObject emptyPrefab;
     public Vector2 groupPos;
@@ -38,9 +38,9 @@ public class Group : MonoBehaviour
         this.offSetY = offSetY;
     }
     public Group DisplayNodes(){
-        leftDisplay = CreateNode(pair.male);
+        leftDisplay = CreateNode(pairTree.pair.male);
         leftDisplay.transform.position = leftPos;
-        rightDisplay = CreateNode(pair.female);
+        rightDisplay = CreateNode(pairTree.pair.female);
         rightDisplay.transform.position = rightPos;
         return this;
     }
