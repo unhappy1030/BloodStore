@@ -60,3 +60,4 @@
 //         ageLabel.text = "Age: " + node.age.ToString();
 //     }
 // }
+//안녕 클래오파트라

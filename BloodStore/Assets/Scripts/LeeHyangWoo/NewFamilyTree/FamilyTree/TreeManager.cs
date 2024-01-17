@@ -48,6 +48,9 @@ public class TreeManagerTest : MonoBehaviour
         rootGroup.CameraSetting();
         MakeParentMainGroup(rootGroup);
         mainGroup.transform.position =new Vector2(0, 0);
+        rootGroup.PairLine();
+        rootGroup.FamilyLine();
+        MakeLine(rootGroup);
     }
 
     void MakeChildren(Group rootGroup){
@@ -58,14 +61,14 @@ public class TreeManagerTest : MonoBehaviour
                 Group group = MakeGroupObject();
                 group.pair = rootGroup.pair.children[i];
                 if(posList[i].y >= lastY && posList[i].x <= lastX){
-                    Debug.Log("Move");
+                    // Debug.Log("Move");
                     lastX += unit;
                     posList[i] = new Vector2(lastX, posList[i].y);
                 }
-                Debug.Log("LastX : " + lastX.ToString() + "  name : " + group.pair.male.name);
+                // Debug.Log("LastX : " + lastX.ToString() + "  name : " + group.pair.male.name);
                 lastX = posList[i].x;
                 lastY = posList[i].y;
-                Debug.Log("posX : " + posList[i].x.ToString() + " posY : " + posList[i].y.ToString());
+                // Debug.Log("posX : " + posList[i].x.ToString() + " posY : " + posList[i].y.ToString());
                 group.groupPos = posList[i];
                 group.transform.position = group.groupPos;
                 group.leftPos =  group.groupPos + new Vector2(-1 * (halfX + (pairOffSet / 2)), 0);
@@ -77,7 +80,6 @@ public class TreeManagerTest : MonoBehaviour
                 group.parentGroup = rootGroup;
                 MakeChildren(group);
                 MakeCenter(group);
-                // group.transform.parent = mainGroup.transform;
             }
         }
     }
@@ -106,7 +108,7 @@ public class TreeManagerTest : MonoBehaviour
         GameObject groupObject = new GameObject("Group");
         Group group = groupObject.AddComponent<Group>();
         group.SetPrefab(nodePrefab, emptyPrefab);
-        group.SetSizeData(halfX, halfY, pairSize, unit);
+        group.SetSizeData(halfX, halfY, pairSize, unit, pairOffSet, offSetX, offSetY);
         group.MakeBoxCollider();
         return group;
     }
@@ -135,6 +137,15 @@ public class TreeManagerTest : MonoBehaviour
                 group.transform.parent = mainGroup.transform;
                 group.CameraSetting();
                 MakeParentMainGroup(group);
+            }
+        }
+    }
+    void MakeLine(Group rootGroup){
+        if(rootGroup.pair.childNum != 0){
+            foreach(Group group in rootGroup.childrenGroup){
+                group.PairLine();
+                group.FamilyLine();
+                MakeLine(group);
             }
         }
     }

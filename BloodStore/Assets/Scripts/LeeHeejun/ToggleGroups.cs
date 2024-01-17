@@ -96,5 +96,7 @@ public class ToggleGroups : MonoBehaviour
 
         string a = "재고 : " + Count + " 개";
         NumofFiltered.text = a;
+
     }
+
 }
