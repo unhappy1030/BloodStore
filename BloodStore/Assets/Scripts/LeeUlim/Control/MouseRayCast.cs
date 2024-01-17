@@ -28,23 +28,13 @@ public class MouseRayCast : MonoBehaviour
     void MouseInteract(GameObject interactObj)
     {
         InteractObjInfo interactObjInfo = interactObj.GetComponent<InteractObjInfo>();
-        SetCameraTarget setCameraTarget = interactObj.GetComponent<SetCameraTarget>();
-        bool isAvailableCameraMove = true;
 
         if (interactObjInfo == null)
             return;
 
         if (interactObjInfo._interactType == InteractType.CameraControl)
         {
-            // only Node case -> isAvailableCameraMove changes false at here
-            if(setCameraTarget != null)
-                isAvailableCameraMove = setCameraTarget.AssignCameraTarget(interactObjInfo);
-
-            if(isAvailableCameraMove){
-                cameraControl.ChangeCam(interactObjInfo);
-            }
-            else
-                Debug.Log("It is not available form of targets...");
+            cameraControl.ChangeCam(interactObjInfo);
         }
 
         if(interactObjInfo._interactType == InteractType.NpcInteraction)

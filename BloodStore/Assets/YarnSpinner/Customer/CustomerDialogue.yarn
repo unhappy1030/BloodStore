@@ -1,6 +1,6 @@
 ﻿title: Start
 tags:
-position: -536,-190
+position: -1179,-265
 ---
 <<declare $money = 0>>
 <<declare $amount = 2>>
@@ -16,7 +16,7 @@ Customer: Do you have Rh+O blood?
     Customer: Then, Ok.
 ===
 title: Interaction
-position: -248,-191
+position: -860,-267
 ---
 Player: Successfully moved to Interaction Node
 Player: Exit YarnSpinner...

@@ -1922,7 +1922,7 @@ MonoBehaviour:
     blendInfo:
       hold: 0
       blendIn: 1
-      blendTime: 1
+      blendTime: 2
   _blendListCam:
     subCams:
     - cameraType: 0
@@ -3623,10 +3623,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c149bcc0622dcb74dbc5966312861236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nodeInfoCanvas: {fileID: 0}
+  nodeInfoTexts: {fileID: 0}
+  nodeImg: {fileID: 0}
   cameraControl: {fileID: 0}
   nodeShowingStatus: 0
-  cardInteractionStatus: 0
+  nodeInteractionStatus: 0
   currentGroup: {fileID: 0}
+  currentParent: {fileID: 0}
 --- !u!4 &1530754856
 Transform:
   m_ObjectHideFlags: 0
@@ -5553,7 +5557,7 @@ MonoBehaviour:
     blendInfo:
       hold: 0
       blendIn: 1
-      blendTime: 1
+      blendTime: 2
   _blendListCam:
     subCams:
     - cameraType: 0
@@ -5954,6 +5958,7 @@ MonoBehaviour:
   blackPanel: {fileID: 1059785190}
   cameraControl: {fileID: 0}
   npcInteract: {fileID: 0}
+  nodeInteraction: {fileID: 0}
   mouseRayCast: {fileID: 0}
   moneyControl: {fileID: 0}
   yarnControl: {fileID: 0}

@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using TMPro;
 using Cinemachine;
+using UnityEngine.UI;
 
 public class NodeInteraction : MonoBehaviour
 {
@@ -20,16 +22,18 @@ public class NodeInteraction : MonoBehaviour
         SelectPair
     }
 
+    public GameObject nodeInfoCanvas; // assign at Inspector
+    public GameObject nodeInfoTexts; // assign at Inspector
+    public Image nodeImg; // assign at Inspector
     public CameraControl cameraControl;
     public NodeShowingStatus nodeShowingStatus;
     public NodeInteractionStatus nodeInteractionStatus;
     public Group currentGroup;
     public Group currentParent;
-    bool wasZeroChild;
     bool wasNodeActived;
 
     void Start(){
-        wasZeroChild = false;
+        nodeInfoCanvas.SetActive(false);
         wasNodeActived =false;
         nodeShowingStatus = NodeShowingStatus.ShowTotal;
         nodeInteractionStatus = NodeInteractionStatus.None;
@@ -41,6 +45,8 @@ public class NodeInteraction : MonoBehaviour
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D ray = Physics2D.Raycast(mousePos, Vector2.zero, 0f, LayerMask.GetMask("FamilyTree"));
+
+            Debug.Log("ray.collider : " + (ray.collider == null).ToString());
 
             if (ray.collider != null)
             {
@@ -58,6 +64,7 @@ public class NodeInteraction : MonoBehaviour
     void MouseInteract(GameObject interactObj){
         Group group = interactObj.GetComponent<Group>();
         NodeDisplay node = interactObj.GetComponent<NodeDisplay>();
+        EmptyDisplay emptyNode = interactObj.GetComponent<EmptyDisplay>();
 
         if(group != null)
         {
@@ -65,7 +72,11 @@ public class NodeInteraction : MonoBehaviour
         }
         else if(node != null)
         {
-            // NodeInteract(node);
+            ShowNodeInfo(node);
+        }
+        else if(emptyNode != null)
+        {
+            SelectPair(emptyNode);    
         }
     }
 
@@ -111,7 +122,6 @@ public class NodeInteraction : MonoBehaviour
                 familyTarget.Add(sibling.gameObject);
             }
 
-            wasZeroChild = true;
             currentParent = _group.parentGroup;
         }
         else
@@ -123,7 +133,6 @@ public class NodeInteraction : MonoBehaviour
                 familyTarget.Add(child.gameObject);
             }
 
-            wasZeroChild = false;
             currentParent = _group;
         }
 
@@ -134,6 +143,7 @@ public class NodeInteraction : MonoBehaviour
         }
         
         nodeShowingStatus = NodeShowingStatus.ShowFamily;
+        nodeInteractionStatus = NodeInteractionStatus.None;
     }
 
     void ShowGroup(Group _group){
@@ -152,20 +162,6 @@ public class NodeInteraction : MonoBehaviour
         nodeInteractionStatus = NodeInteractionStatus.None;
     }
 
-    void NodeInteract(NodeDisplay node){
-        Debug.Log("Interacting Node...");
-
-        if(nodeInteractionStatus == NodeInteractionStatus.None)
-        {
-            ShowNodeInfo(node);
-        }
-        else if(nodeInteractionStatus == NodeInteractionStatus.SelectPair)
-        {
-            SelectPair(node);
-        }
-    }
-
-
     void ShowNodeInfo(NodeDisplay nodeDisplay){
         Group group = nodeDisplay.GetComponentInParent<Group>();
         if(group == null){
@@ -182,16 +178,53 @@ public class NodeInteraction : MonoBehaviour
             node = pair.female;
         }
 
-        Debug.Log("<Node Info>");
-        Debug.Log(node.name);
-        Debug.Log(node.sex);
-        Debug.Log(node.age);
-        Debug.Log(node.bloodType[1] + node.bloodType[2]);
-        Debug.Log(node.hp);
+        nodeInfoCanvas.SetActive(true);
+        SetNodeInfoUIImg(nodeDisplay);
+        SetNodeInfoUIText(node);
+        nodeInteractionStatus = NodeInteractionStatus.ShowInfo;
     }
 
-    void SelectPair(NodeDisplay node){
+    void SetNodeInfoUIImg(NodeDisplay nodeDisplay){
+        GameObject spriteObj = nodeDisplay.transform.GetChild(0).gameObject;
+        SpriteRenderer spriteScript = spriteObj.GetComponent<SpriteRenderer>();
+        
+        if(spriteScript == null){
+            Debug.Log("there is no Sprite Renderer in Node child...");
+            return;
+        }
+        
+        nodeImg.sprite = spriteScript.sprite;
+    }
 
+    void SetNodeInfoUIText(Node node){
+        List<TextMeshProUGUI> texts = new();
+        int childCount = nodeInfoTexts.transform.childCount;
+
+        for(int i=0; i<childCount; i++){
+            GameObject textObj = nodeInfoTexts.transform.GetChild(i).gameObject;
+            TextMeshProUGUI tmp = textObj.GetComponent<TextMeshProUGUI>();
+            texts.Add(tmp);
+        }
+
+        texts[0].text = "Name : " + node.name;
+        texts[1].text = "Sex : " + node.sex;
+        texts[2].text = "Age : " + node.age;
+        texts[3].text = "BloodType : " + node.bloodType[1] + node.bloodType[2];
+        texts[4].text = "HP : " + node.hp;
+        texts[5].text = "Type : " + "None";
+    }
+
+    void SelectPair(EmptyDisplay emptyNode){
+        Debug.Log("Select Pair start...");
+        Group group = emptyNode.transform.parent.GetComponent<Group>();
+
+        if(group == null){
+            Debug.Log("There is no group in emptyNode's parent...");
+            return;
+        }
+
+        emptyNode.SetNode();
+        nodeInteractionStatus = NodeInteractionStatus.SelectPair;
     }
 
 
