@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using Cinemachine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class NodeInteraction : MonoBehaviour
 {
@@ -41,7 +42,7 @@ public class NodeInteraction : MonoBehaviour
     }
 
     void Update(){
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D ray = Physics2D.Raycast(mousePos, Vector2.zero, 0f, LayerMask.GetMask("FamilyTree"));
