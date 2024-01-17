@@ -2322,6 +2322,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: fb10147e6c8e11644ba7a669fdfe19b0, type: 2}
+        m_TargetAssemblyTypeName: PairSO, Assembly-CSharp
+        m_MethodName: MakeOlder
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 7c2b4efd1557e3940875c8f665fd760d, type: 2}
+        m_TargetAssemblyTypeName: BloodPackSO, Assembly-CSharp
+        m_MethodName: GetBloodPack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &302601640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2995,6 +3019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b40ec572deb134ba54780dfd1910be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCam: {fileID: 0}
 --- !u!4 &497903255
 Transform:
   m_ObjectHideFlags: 0
@@ -9330,6 +9355,7 @@ MonoBehaviour:
   nodeInteractionStatus: 0
   currentGroup: {fileID: 0}
   currentParent: {fileID: 0}
+  dialogueRunner: {fileID: 0}
 --- !u!4 &2006179463
 Transform:
   m_ObjectHideFlags: 0
