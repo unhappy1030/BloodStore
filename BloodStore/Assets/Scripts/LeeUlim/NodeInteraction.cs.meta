@@ -3,7 +3,15 @@ guid: c149bcc0622dcb74dbc5966312861236
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - nodeInfoCanvas: {instanceID: 0}
+  - nodeInfoTexts: {instanceID: 0}
+  - nodeImg: {instanceID: 0}
+  - cameraControl: {instanceID: 0}
+  - pairSO: {fileID: 11400000, guid: fb10147e6c8e11644ba7a669fdfe19b0, type: 2}
+  - currentGroup: {instanceID: 0}
+  - currentParent: {instanceID: 0}
+  - dialogueRunner: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
