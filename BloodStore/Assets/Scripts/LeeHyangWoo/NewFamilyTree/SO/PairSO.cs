@@ -66,8 +66,8 @@ public class Pair
             name = GenerateRandomName(),
             sex = Random.Range(0, 2) == 0 ? "Male" : "Female",
             bloodType = GenerateBloodTypeArr(),
-            hp = Random.Range(50, 101),
-            age = Random.Range(20, 60),
+            hp = 50,
+            age = Random.Range(1, 11),
             isDead = false,
             empty = false,
         };
@@ -112,11 +112,44 @@ public class Pair
         }
         return newGeno;
     }
-   
 }
+
 
 [CreateAssetMenu(fileName = "PairSo", menuName = "Scriptable Object/PairSo")]
 public class PairSO : ScriptableObject
 {
     public List<Pair> root;
+
+    public void MakeOlder(){
+        Pair pair = root[0];
+        if(!pair.male.empty){
+            pair.male.age += 10;
+        }   
+        if(!pair.female.empty){
+            pair.female.age += 10;
+        }
+        if(pair.childNum != 0){
+            foreach(Pair child in pair.children){
+                if(!child.male.empty){
+                    child.male.age += 10;
+                }   
+                if(!child.female.empty){
+                    child.female.age += 10;
+                }
+                MakeOlder(child);
+            }
+        }
+    }
+    public void MakeOlder(Pair pair){
+        if(pair.childNum != 0){
+            foreach(Pair child in pair.children){
+                if(!child.male.empty){
+                    child.male.age += 10;
+                }   
+                if(!child.female.empty){
+                    child.female.age += 10;
+                }
+            }
+        }
+    }
 }

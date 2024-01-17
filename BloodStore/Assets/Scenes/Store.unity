@@ -435,6 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64bf3fd46c380d7459bdf489d95d67d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiControl: {fileID: 0}
 --- !u!114 &193522016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -530,7 +531,7 @@ GameObject:
   - component: {fileID: 529723175}
   - component: {fileID: 529723174}
   - component: {fileID: 529723173}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Charactor1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -552,7 +553,7 @@ MonoBehaviour:
   _interactType: 2
   _cameraMovementType: 0
   _cameraType: 0
-  _vertualCam:
+  _virtualCam:
     targets: []
     doseUseBound: 0
     bound: {fileID: 0}
@@ -923,6 +924,7 @@ MonoBehaviour:
   - {fileID: 391900973, guid: 8a5540b24f50c984bbe6483f83260373, type: 3}
   - {fileID: 1557126052, guid: 8a5540b24f50c984bbe6483f83260373, type: 3}
   nextDayButton: {fileID: 166274612}
+  dialogueRunner: {fileID: 0}
 --- !u!4 &1159324194
 Transform:
   m_ObjectHideFlags: 0

@@ -1995,7 +1995,7 @@ GameObject:
   - component: {fileID: 234103537}
   - component: {fileID: 234103536}
   - component: {fileID: 234103535}
-  - component: {fileID: 234103534}
+  - component: {fileID: 234103538}
   m_Layer: 5
   m_Name: NextButton
   m_TagString: Untagged
@@ -2023,18 +2023,6 @@ RectTransform:
   m_AnchoredPosition: {x: 825, y: 450}
   m_SizeDelta: {x: 110, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &234103534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 234103532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8259035d65b272141ae8dce2b7aa72a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &234103535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2079,16 +2067,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 234103534}
-        m_TargetAssemblyTypeName: NextButton, Assembly-CSharp
-        m_MethodName: OnButtonClick
-        m_Mode: 1
+      - m_Target: {fileID: 234103538}
+        m_TargetAssemblyTypeName: ButtonControl, Assembly-CSharp
+        m_MethodName: SceneLoad
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: bb
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &234103536
@@ -2129,6 +2117,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 234103532}
   m_CullTransparentMesh: 1
+--- !u!114 &234103538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234103532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64bf3fd46c380d7459bdf489d95d67d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiControl: {fileID: 0}
 --- !u!1 &267401848
 GameObject:
   m_ObjectHideFlags: 0
@@ -7401,7 +7402,7 @@ GameObject:
   - component: {fileID: 1129721572}
   - component: {fileID: 1129721571}
   - component: {fileID: 1129721570}
-  - component: {fileID: 1129721569}
+  - component: {fileID: 1129721573}
   m_Layer: 5
   m_Name: SelectCardViewButton
   m_TagString: Untagged
@@ -7429,18 +7430,6 @@ RectTransform:
   m_AnchoredPosition: {x: 825.0566, y: -476.56403}
   m_SizeDelta: {x: 205.7455, y: 72.992}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1129721569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1129721567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d44442ebf5c16d442ba68d0831506034, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1129721570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7485,9 +7474,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1129721569}
-        m_TargetAssemblyTypeName: SelectCardButton, Assembly-CSharp
-        m_MethodName: OnButtonClick
+      - m_Target: {fileID: 1129721573}
+        m_TargetAssemblyTypeName: ButtonControl, Assembly-CSharp
+        m_MethodName: PopUpSelectUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7535,6 +7524,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1129721567}
   m_CullTransparentMesh: 1
+--- !u!114 &1129721573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129721567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64bf3fd46c380d7459bdf489d95d67d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiControl: {fileID: 0}
 --- !u!1 &1185420799
 GameObject:
   m_ObjectHideFlags: 0
@@ -8168,7 +8170,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1296762441
 Transform:
   m_ObjectHideFlags: 0
@@ -8979,6 +8981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b40ec572deb134ba54780dfd1910be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCam: {fileID: 0}
 --- !u!4 &1559105770
 Transform:
   m_ObjectHideFlags: 0
@@ -9957,7 +9960,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1862155004}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c20b4d55300f3c4c9fd3e29bddebcfc, type: 3}
   m_Name: 
@@ -9978,6 +9981,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraControl: {fileID: 0}
   npcInteract: {fileID: 0}
+  dialogueRunner: {fileID: 0}
 --- !u!114 &1862155007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9985,7 +9989,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1862155004}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f17276a5367acee4f8c4121581ad6bce, type: 3}
   m_Name: 
@@ -10017,10 +10021,12 @@ MonoBehaviour:
   startSceneName: Start
   money: 0
   day: 0
+  isFading: 0
   whitePanel: {fileID: 1289215816}
   blackPanel: {fileID: 1784205739}
   cameraControl: {fileID: 0}
   npcInteract: {fileID: 0}
+  nodeInteraction: {fileID: 0}
   mouseRayCast: {fileID: 0}
   moneyControl: {fileID: 0}
   yarnControl: {fileID: 0}

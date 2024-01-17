@@ -27,11 +27,14 @@ public class NPCInteract : MonoBehaviour
         spriteIndex = GetSpriteIndex();
         npc.GetComponent<SpriteRenderer>().sprite = npcSprite[spriteIndex];
         
-        GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutSprite(npc.GetComponent<SpriteRenderer>(), 0.05f));
-        
+        npc.GetComponent<BoxCollider2D>().enabled = false;
+        yield return GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutSprite(npc.GetComponent<SpriteRenderer>(), 0.05f));
+        npc.GetComponent<BoxCollider2D>().enabled = true;
+
         yield return new WaitUntil(() => dialogueRunner.IsDialogueRunning);
         yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
         
+        npc.GetComponent<BoxCollider2D>().enabled = false;
         GameManager.Instance.StartCoroutine(GameManager.Instance.FadeInSprite(npc.GetComponent<SpriteRenderer>(), 0.05f));
 
         yield return new WaitForSecondsRealtime(2);
