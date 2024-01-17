@@ -9,7 +9,7 @@ public class CameraControl : MonoBehaviour
 {
     // *** warning : must be in Scene and set "CameraControl" tag
     
-    CinemachineBrain mainCam;
+    public CinemachineBrain mainCam;
 
     List<GameObject> cameraList;
 
