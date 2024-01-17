@@ -38,3 +38,75 @@ MonoBehaviour:
       empty: 0
     packNum: 0
     getBloodDate: 0
+  - node:
+      name: test1
+      sex: Female
+      bloodType:
+      - A
+      - '-'
+      hp: 0
+      age: 0
+      isDead: 0
+      empty: 0
+    packNum: 0
+    getBloodDate: 0
+  - node:
+      name: test2
+      sex: Male
+      bloodType:
+      - B
+      - '-'
+      hp: 0
+      age: 0
+      isDead: 0
+      empty: 0
+    packNum: 0
+    getBloodDate: 0
+  - node:
+      name: test3
+      sex: Male
+      bloodType:
+      - O
+      - +
+      hp: 0
+      age: 0
+      isDead: 0
+      empty: 0
+    packNum: 0
+    getBloodDate: 0
+  - node:
+      name: test4
+      sex: Male
+      bloodType:
+      - O
+      - +
+      hp: 0
+      age: 0
+      isDead: 0
+      empty: 0
+    packNum: 0
+    getBloodDate: 0
+  - node:
+      name: test5
+      sex: Male
+      bloodType:
+      - O
+      - +
+      hp: 0
+      age: 0
+      isDead: 0
+      empty: 0
+    packNum: 0
+    getBloodDate: 0
+  - node:
+      name: test6
+      sex: Male
+      bloodType:
+      - O
+      - +
+      hp: 0
+      age: 0
+      isDead: 0
+      empty: 0
+    packNum: 0
+    getBloodDate: 0

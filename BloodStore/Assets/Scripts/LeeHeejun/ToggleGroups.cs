@@ -11,7 +11,7 @@ public class ToggleGroups : MonoBehaviour
     public List<Toggle> activeToggles;
     public BloodPackSO bloodPackSO;
     public TMP_Text NumofFiltered;
-    public GameObject bloodPackUIPrefab;  
+    public GameObject bloodPackUIPrefab;
     public Transform uiContainer;
 
     private List<GameObject> uiInstances = new List<GameObject>();
@@ -20,14 +20,15 @@ public class ToggleGroups : MonoBehaviour
     {
         ToggleGroup[] toggleGroups = parentObject.GetComponentsInChildren<ToggleGroup>();
 
-        foreach(ToggleGroup tg in toggleGroups)
+        foreach (ToggleGroup tg in toggleGroups)
         {
             List<Toggle> ts = new List<Toggle>(tg.GetComponentsInChildren<Toggle>());
-            foreach(Toggle t in ts)
+            foreach (Toggle t in ts)
             {
-                t.onValueChanged.AddListener(delegate {ToggleValueChanged(); });
+                t.onValueChanged.AddListener(delegate { ToggleValueChanged(); });
             }
         }
+        ToggleValueChanged();
     }
 
     void ToggleValueChanged()
@@ -60,30 +61,30 @@ public class ToggleGroups : MonoBehaviour
             bool bloodTypeSignToggleSelected = false;
             bool bloodTypeLetterToggleSelected = false;
 
-            foreach(Toggle t in activeToggles)
+            foreach (Toggle t in activeToggles)
             {
                 string toggleName = t.name;
 
-                if(toggleName == "Male" || toggleName == "Female")
+                if (toggleName == "Male" || toggleName == "Female")
                 {
                     sexToggleSelected = true;
-                    if(toggleName == bloodPack.node.sex)
+                    if (toggleName == bloodPack.node.sex)
                     {
                         isSexMatch = true;
                     }
                 }
-                else if(toggleName == "+" || toggleName == "-")
+                else if (toggleName == "+" || toggleName == "-")
                 {
                     bloodTypeSignToggleSelected = true;
-                    if(toggleName == bloodPack.node.bloodType[1])
+                    if (toggleName == bloodPack.node.bloodType[1])
                     {
                         isBloodTypeSignMatch = true;
                     }
                 }
-                else if(toggleName == "A" || toggleName == "B" || toggleName == "AB" || toggleName == "O")
+                else if (toggleName == "A" || toggleName == "B" || toggleName == "AB" || toggleName == "O")
                 {
                     bloodTypeLetterToggleSelected = true;
-                    if(toggleName == bloodPack.node.bloodType[0])
+                    if (toggleName == bloodPack.node.bloodType[0])
                     {
                         isBloodTypeLetterMatch = true;
                     }
@@ -110,37 +111,39 @@ public class ToggleGroups : MonoBehaviour
         // 기존에 생성된 UI 요소들을 모두 삭제
         foreach (GameObject uiInstance in uiInstances)
         {
-            Destroy(uiInstance); 
+            Destroy(uiInstance);
         }
 
         uiInstances.Clear();  // 리스트를 비웁니다.
 
         foreach (BloodPack bloodPack in filteredBloodPacks)
         {
-            // 프리팹 인스턴스를 생성
-            GameObject newUI = Instantiate(bloodPackUIPrefab);
+            // 프리팹 인스턴스를 생성하면서 부모를 설정
+            GameObject newUI = Instantiate(bloodPackUIPrefab, uiContainer);
+
             yield return null;  // 한 프레임 대기
 
-            // 인스턴스를 컨테이너의 자식으로 설정
-            newUI.transform.SetParent(uiContainer, false);
-            
-            // 인스턴스 내부의 Text 요소들을 찾아서 BloodPack 정보로 설정
-            Text[] texts = newUI.GetComponentsInChildren<Text>();
-            
-            if(texts.Length >= 5)  // Text 컴포넌트가 충분한지 확인
-            {
-                texts[0].text = bloodPack.node.name;
-                texts[1].text = bloodPack.node.age.ToString();
-                texts[2].text = bloodPack.node.sex;
-                texts[3].text = bloodPack.node.bloodType[0];
-                texts[4].text = bloodPack.node.bloodType[1];
-            }
-            else
-            {
-                Debug.LogError("Insufficient Text components in the prefab.");
-            }
+            Debug.Log("Node Name: " + bloodPack.node.name);
+            Debug.Log("Node Age: " + bloodPack.node.age);
+            Debug.Log("Node Sex: " + bloodPack.node.sex);
+            Debug.Log("Node Blood Type: " + bloodPack.node.bloodType[0] + bloodPack.node.bloodType[1]);
 
-            uiInstances.Add(newUI);  // 생성한 인스턴스를 리스트에 추가합니다.
+            // 텍스트 컴포넌트를 찾습니다.
+            TMP_Text nameText = newUI.transform.Find("Name").GetComponent<TMP_Text>();
+            TMP_Text ageText = newUI.transform.Find("Age").GetComponent<TMP_Text>();
+            TMP_Text sexText = newUI.transform.Find("Sex").GetComponent<TMP_Text>();
+            TMP_Text bloodTypeText = newUI.transform.Find("Type").GetComponent<TMP_Text>();
+            TMP_Text bloodTypeSignText = newUI.transform.Find("Rh").GetComponent<TMP_Text>();
+
+            // 각 텍스트 컴포넌트에 BloodPack 정보를 설정합니다.
+            nameText.text = "이름 : " + bloodPack.node.name;
+            ageText.text = "나이 : " + bloodPack.node.age.ToString();
+            sexText.text = "성별 : " + bloodPack.node.sex;
+            bloodTypeText.text = "혈액형 : " + bloodPack.node.bloodType[0];
+            bloodTypeSignText.text = "Rh" + bloodPack.node.bloodType[1];
+
+            uiInstances.Add(newUI); 
         }
     }
+
 }
