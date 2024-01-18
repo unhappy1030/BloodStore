@@ -8,8 +8,7 @@ using Cinemachine;
 
 public class TreeManagerTest : MonoBehaviour
 {
-    public PairSO pairSO;
-    public BloodPackSO bloodPackSO;
+    public Pairs pairList;
     public PairTree root;
     public GameObject nodePrefab;
     public GameObject emptyPrefab;
@@ -21,8 +20,9 @@ public class TreeManagerTest : MonoBehaviour
     private float lastX = 0f, lastY = 0f;
     void Start()
     {
-        root = pairSO.Deserialize();
-        if (pairSO.pairs.Count == 0)
+        this.pairList = GameManager.Instance.pairList;
+        root = pairList.Deserialize();
+        if(pairList.pairs.Count == 0)
         {
             Node node = new Node();
             node.SetAllRandom();
@@ -32,8 +32,7 @@ public class TreeManagerTest : MonoBehaviour
         MakeFamilyTree();
     }
     void OnDestroy() {
-        pairSO.Serialize(root);
-        bloodPackSO.Packing();
+        pairList.Serialize(root);
     }
     void SetPrefabData(){
         halfX = nodePrefab.GetComponent<SpriteRenderer>().bounds.extents.x;

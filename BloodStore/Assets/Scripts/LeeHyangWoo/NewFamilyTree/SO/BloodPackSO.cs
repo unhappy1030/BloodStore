@@ -47,7 +47,7 @@ public class BloodPackLink
 [CreateAssetMenu(fileName = "BloodPackSo", menuName = "Scriptable Object/BloodPackSo")]
 public class BloodPackSO : ScriptableObject
 {
-    public PairSO pairSO;
+    // public PairSO pairSO;
     public List<BloodPack> bloodPacks = new();
     [System.NonSerialized]public List<BloodPackLink> bloodPackList = new();
     public void Serialize()
@@ -93,18 +93,18 @@ public class BloodPackSO : ScriptableObject
             }
         }
     }
-    public void Packing(){
-        Deserialize();
-        foreach(Pair pair in pairSO.pairs){
-            if(pair.male.empty == false && pair.male.age >= 16){
-                AddBloodPack(pair.male);
-            }
-            if(pair.female.empty == false && pair.female.age >= 16){
-                AddBloodPack(pair.female);
-            }
-        }
-        Serialize();
-    }
+    // public void Packing(){
+    //     Deserialize();
+    //     foreach(Pair pair in pairSO.pairs){
+    //         if(pair.male.empty == false && pair.male.age >= 16){
+    //             AddBloodPack(pair.male);
+    //         }
+    //         if(pair.female.empty == false && pair.female.age >= 16){
+    //             AddBloodPack(pair.female);
+    //         }
+    //     }
+    //     Serialize();
+    // }
     public void AddBloodPack(Node node){
         if(bloodPacks.Count == 0){
             bloodPackList.Add(new BloodPackLink(NodeToBloodPack(node)));

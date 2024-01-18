@@ -125,7 +125,7 @@ public class NodeInteraction : MonoBehaviour
         {
             Group parent = _group.parentGroup;
             
-            if(treeManagerTest.pairSO.pairs.Count <= 1 || _group.pairTree.pair == treeManagerTest.pairSO.pairs[0]){
+            if(GameManager.Instance.pairList.pairs.Count <= 1 || _group.pairTree.pair == GameManager.Instance.pairList.pairs[0]){
                 ShowGroup(_group);
                 return;
             }

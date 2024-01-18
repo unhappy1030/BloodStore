@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     public YarnControl yarnControl;
     public DialogueRunner dialogueRunner;
     public InMemoryVariableStorage variableStorage;
-
+    public Pairs pairList;
 
     private static GameManager _instance;
     public static GameManager Instance
@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
         yarnControl = GetComponentInChildren<YarnControl>();
         dialogueRunner = GetComponentInChildren<DialogueRunner>();
         variableStorage = GetComponentInChildren<InMemoryVariableStorage>();
-
+        pairList = GetComponent<Pairs>();
 
         // assign scripts 
         if(npcInteract != null){
