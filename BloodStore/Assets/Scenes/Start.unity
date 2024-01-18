@@ -3630,6 +3630,7 @@ MonoBehaviour:
   cameraControl: {fileID: 0}
   nodeShowingStatus: 0
   nodeInteractionStatus: 0
+  pairSO: {fileID: 0}
   currentGroup: {fileID: 0}
   currentParent: {fileID: 0}
   dialogueRunner: {fileID: 0}
@@ -4331,6 +4332,9 @@ MonoBehaviour:
   dialogueRunner: {fileID: 0}
   variableStorage: {fileID: 0}
   moneyControl: {fileID: 0}
+  targetIndex: 0
+  nodeName: 
+  isSell: 0
 --- !u!1 &1665093755
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,20 +4,38 @@ position: -1179,-265
 ---
 <<declare $money = 0>>
 <<declare $amount = 2>>
+<<declare $sell = false>>
 
 <<set $money = UpdateMoney()>>
 
 Customer: Do you have Rh+O blood?
--> Sell(earn {$amount})
-    Customer: Thank you!
-    <<CalculateMoney DialogueSystem {$amount}>>
-    you earned {$amount}. 
+-> Sell
+    <<set $sell = true>>
+    <<SellBlood DialogueSystem {$sell}>>
+    <<SetCamTargetIndex DialogueSystem 1>>
+    <<SetNodeName DialogueSystem Sell>>
 -> No we don't have...
-    Customer: Then, Ok.
+    <<set $sell = false>>
+    Customer: Then.. Ok.
+
+
 ===
-title: Interaction
+title: Sell
 position: -860,-267
 ---
-Player: Successfully moved to Interaction Node
-Player: Exit YarnSpinner...
+Customer: Thank you!
+<<CalculateMoney DialogueSystem {$amount}>>
+you earned {$amount}.
+
+// <<declare $sellInfo = 0>>
+
+// <<set $sellInfo = GetSellInfo()>>
+
+// <<if $sellInfo >= 5.0>>
+//     Customer: Thank you! That's exactly what I'm looking for!
+//     Player: You're welcome.
+// <<else>>
+//     Customer: Well... Ok.
+// <<endif>>
+
 ===
