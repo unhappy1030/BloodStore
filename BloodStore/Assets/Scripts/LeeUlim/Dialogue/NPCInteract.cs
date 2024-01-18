@@ -11,8 +11,10 @@ public class NPCInteract : MonoBehaviour
     // public bool isInteractble = true;
     public GameObject npc;
     public List<Sprite> npcSprite;
+    public List<GameObject> cameraTarget;
 
     public GameObject nextDayButton;
+    public CameraControl cameraControl;
     public DialogueRunner dialogueRunner;
 
     void Start(){
@@ -74,4 +76,26 @@ public class NPCInteract : MonoBehaviour
         }else
             Debug.Log("Other Dialogue is running...");
     }
+
+    void CreateVirtualCamera(int targetIndex){
+        InteractObjInfo interactObjInfo = gameObject.GetComponent<InteractObjInfo>();
+        if(interactObjInfo == null){
+            interactObjInfo = gameObject.AddComponent<InteractObjInfo>();
+        }
+        
+        if(cameraTarget == null || cameraTarget.Count == 0){
+            Debug.Log("Target list is empty...");
+            return;
+        }
+
+        if(targetIndex > cameraTarget.Count -1 || cameraTarget[targetIndex] == null){
+            Debug.Log("There is no camera target in list...");
+            return;
+        }
+
+        interactObjInfo.SetVirtualCameraInfo(cameraTarget[targetIndex], false, null, 5.4f, 0.25f, Cinemachine.CinemachineBlendDefinition.Style.EaseInOut, 1.5f);
+        cameraControl.ChangeCam(interactObjInfo);
+    }   
+
+
 }

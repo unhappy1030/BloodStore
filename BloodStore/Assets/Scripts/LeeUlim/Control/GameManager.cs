@@ -93,6 +93,7 @@ public class GameManager : MonoBehaviour
         // assign scripts 
         if(npcInteract != null){
             npcInteract.dialogueRunner = dialogueRunner;
+            npcInteract.cameraControl = cameraControl;
         }
 
         if(nodeInteraction != null){
