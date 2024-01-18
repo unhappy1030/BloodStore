@@ -146,4 +146,18 @@ public class ToggleGroups : MonoBehaviour
         }
     }
 
+    // 모든 토글 비활성화(리셋)
+    public void DeactivateAllToggles()
+    {
+        ToggleGroup[] toggleGroups = parentObject.GetComponentsInChildren<ToggleGroup>();
+
+        foreach(ToggleGroup tg in toggleGroups)
+        {
+            List<Toggle> ts = new List<Toggle>(tg.GetComponentsInChildren<Toggle>());
+            foreach(Toggle t in ts)
+            {
+                t.isOn = false;
+            }
+        }
+    }
 }
