@@ -4,7 +4,7 @@ using UnityEngine;
 using System.IO;
 [System.Serializable]
 public class SaveAll{
-    public SavePair[] saveAll;
+    public Pair[] saveAll;
 }
 [System.Serializable]
 public class SavePair
@@ -20,15 +20,9 @@ public class Pairs : MonoBehaviour
     public List<Pair> pairs = new();
     public void Save(List<Pair> pairList){
         string _path = Application.dataPath + "/testRightFuture.json";
-        List<SavePair> savePair = new();
+        List<Pair> savePair = new();
         foreach(Pair pair in pairList){
-            SavePair temp = new SavePair{
-                maleNode = pair.male,
-                femaleNode = pair.female,
-                isPair = pair.isPair,
-                childNum = pair.childNum,
-            };
-            savePair.Add(temp);
+            savePair.Add(pair);
         }
         SaveAll all = new();
         all.saveAll = savePair.ToArray();
