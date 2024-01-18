@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour
         if(npcInteract != null){
             npcInteract.dialogueRunner = dialogueRunner;
             npcInteract.cameraControl = cameraControl;
+            npcInteract.yarnControl = yarnControl;
         }
 
         if(nodeInteraction != null){

@@ -9,6 +9,8 @@ public class YarnControl : MonoBehaviour
     public InMemoryVariableStorage variableStorage;
     public MoneyControl moneyControl;
 
+    public int targetIndex;
+
     [YarnFunction("UpdateMoney")]
     public static float UpdateMoney(){
         float money = GameManager.Instance.money;        
@@ -20,5 +22,10 @@ public class YarnControl : MonoBehaviour
     public void CalculateMoney(float amount){
         float money = moneyControl.CalculateMoney(amount);
         variableStorage.SetValue("$money", money);
+    }
+
+    [YarnCommand("GetTargetIndex")]
+    public void GetTargetIndex(){
+        variableStorage.TryGetValue("$cameraTarget", out targetIndex);
     }
 }

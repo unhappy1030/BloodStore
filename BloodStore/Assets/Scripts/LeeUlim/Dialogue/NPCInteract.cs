@@ -15,6 +15,7 @@ public class NPCInteract : MonoBehaviour
 
     public GameObject nextDayButton;
     public CameraControl cameraControl;
+    public YarnControl yarnControl;
     public DialogueRunner dialogueRunner;
 
     void Start(){
