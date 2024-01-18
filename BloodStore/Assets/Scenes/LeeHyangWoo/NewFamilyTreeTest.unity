@@ -8641,7 +8641,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a91195b1d7ed874e820922dba23879f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pairSO: {fileID: 11400000, guid: fb10147e6c8e11644ba7a669fdfe19b0, type: 2}
+  pairSO: {fileID: 11400000, guid: 08d3616b22f104c4b9931915cf530844, type: 2}
+  bloodPackSO: {fileID: 11400000, guid: 7c2b4efd1557e3940875c8f665fd760d, type: 2}
   nodePrefab: {fileID: 4066454781233555869, guid: 0a0e85bbe5f2eeb40afe91827c112767, type: 3}
   emptyPrefab: {fileID: 8718197429054370660, guid: 3b736b6025e4f464ebba10c9000fb0f0, type: 3}
   pairOffSet: 0.2

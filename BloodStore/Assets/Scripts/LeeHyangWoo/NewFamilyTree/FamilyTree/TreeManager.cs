@@ -10,6 +10,8 @@ using Cinemachine;
 public class TreeManagerTest : MonoBehaviour
 {
     public PairSO pairSO;
+    public BloodPackSO bloodPackSO;
+    public PairTree root;
     public GameObject nodePrefab;
     public GameObject emptyPrefab;
     private GameObject mainGroup;
@@ -20,6 +22,7 @@ public class TreeManagerTest : MonoBehaviour
     private float lastX = 0f, lastY = 0f;
     void Start()
     {
+        root = pairSO.Deserialize();
         if (pairSO.pairs.Count == 0)
         {
             Node node = new Node();
@@ -29,7 +32,10 @@ public class TreeManagerTest : MonoBehaviour
         SetPrefabData();
         MakeFamilyTree();
     }
-
+    void OnDestroy() {
+        pairSO.Serialize(root);
+        bloodPackSO.Packing();
+    }
     void SetPrefabData(){
         halfX = nodePrefab.GetComponent<SpriteRenderer>().bounds.extents.x;
         halfY = nodePrefab.GetComponent<SpriteRenderer>().bounds.extents.y;
@@ -91,7 +97,7 @@ public class TreeManagerTest : MonoBehaviour
     }
     Group RootDisplay(){
         Group group = MakeGroupObject();
-        group.pairTree = pairSO.pairs[0];
+        group.pairTree = root;
         group.groupPos = new Vector2(0, 0);
         group.transform.position = group.groupPos;
         group.leftPos =  group.groupPos + new Vector2(-1 * (halfX + (pairOffSet / 2)), 0);
@@ -113,25 +119,7 @@ public class TreeManagerTest : MonoBehaviour
         group.MakeBoxCollider();
         return group;
     }
-    // Group DisplayNodes(Group group){
-    //     group.leftDisplay = CreateNode(group.pair, group.pair.male);
-    //     group.leftDisplay.transform.position = group.leftPos;
-    //     group.rightDisplay = CreateNode(group.pair, group.pair.female);
-    //     group.rightDisplay.transform.position = group.rightPos;
-    //     return group;
-    // }
-    // GameObject CreateNode(Node node){
-    //     GameObject display;
-    //     if(!node.empty){
-    //         display = Instantiate(nodePrefab, new Vector2(0, 0), Quaternion.identity);
-    //         NodeDisplay nodeDisplay = display.GetComponent<NodeDisplay>();
-    //         nodeDisplay.SetNodeData(node);
-    //     }
-    //     else{
-    //         display = Instantiate(emptyPrefab, new Vector2(0, 0), Quaternion.identity);
-    //     }
-    //     return display;
-    // }
+
     void MakeParentMainGroup(Group rootGroup){
         if(rootGroup.pairTree.pair.childNum != 0){
             foreach(Group group in rootGroup.childrenGroup){
@@ -169,7 +157,7 @@ public class TreeManagerTest : MonoBehaviour
                 female = new Node(),
                 isPair = false,
             };
-            pairSO.root.Add(first);
+            root = new PairTree(first);
         }
         if (node.sex == "Female")
         {
@@ -179,7 +167,7 @@ public class TreeManagerTest : MonoBehaviour
                 female = node,
                 isPair = false,
             };
-            pairSO.root.Add(first);
+            root = new PairTree(first);
         }
     }
 }

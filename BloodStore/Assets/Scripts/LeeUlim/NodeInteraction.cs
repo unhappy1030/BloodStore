@@ -124,7 +124,7 @@ public class NodeInteraction : MonoBehaviour
         {
             Group parent = _group.parentGroup;
 
-            if(_group.pairTree.pair == pairSO.root[0]){
+            if(_group.pairTree.pair == pairSO.pairs[0]){
                 ShowGroup(_group);
                 return;
             }
@@ -183,13 +183,13 @@ public class NodeInteraction : MonoBehaviour
             return;
         }
 
-        Pair pair = group.pair;
+        PairTree pairTree = group.pairTree;
         Node node;
         if(nodeDisplay.sexLabel.text == "Male"){
-            node = pair.male;
+            node = pairTree.pair.male;
         }
         else{
-            node = pair.female;
+            node = pairTree.pair.female;
         }
 
         nodeInfoCanvas.SetActive(true);

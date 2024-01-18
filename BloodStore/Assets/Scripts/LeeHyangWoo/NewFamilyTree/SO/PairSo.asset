@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c364baf68e54db4f86a7167cbe03126, type: 3}
   m_Name: PairSo
   m_EditorClassIdentifier: 
+  pairs: []

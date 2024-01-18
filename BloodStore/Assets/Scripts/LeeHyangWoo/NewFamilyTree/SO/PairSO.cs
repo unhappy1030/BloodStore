@@ -132,7 +132,7 @@ public class PairTree
 public class PairSO : ScriptableObject
 {
     public List<Pair> pairs = new();
-    public void SerializeFromTree(PairTree pairTree)
+    public void Serialize(PairTree pairTree)
     {
         pairs.Clear();
         Local_SerializeAll(pairTree);
