@@ -27,16 +27,17 @@ public class NodeInteraction : MonoBehaviour
     public GameObject nodeInfoCanvas; // assign at Inspector
     public GameObject nodeInfoTexts; // assign at Inspector
     public Image nodeImg; // assign at Inspector
+    public TreeManagerTest treeManagerTest;
     public CameraControl cameraControl;
     public NodeShowingStatus nodeShowingStatus;
     public NodeInteractionStatus nodeInteractionStatus;
-    public PairSO pairSO;
     public Group currentGroup;
     public Group currentParent;
     public DialogueRunner dialogueRunner;
     bool wasNodeActived;
 
     void Start(){
+        treeManagerTest = FindObjectOfType<TreeManagerTest>();
         nodeInfoCanvas.SetActive(false);
         wasNodeActived =false;
         nodeShowingStatus = NodeShowingStatus.ShowTotal;
@@ -123,8 +124,8 @@ public class NodeInteraction : MonoBehaviour
         if(_group.childrenGroup == null || _group.childrenGroup.Count == 0) // no children(no family) -> show parent's family
         {
             Group parent = _group.parentGroup;
-
-            if(_group.pairTree.pair == pairSO.pairs[0]){
+            
+            if(treeManagerTest.pairSO.pairs.Count <= 1 || _group.pairTree.pair == treeManagerTest.pairSO.pairs[0]){
                 ShowGroup(_group);
                 return;
             }
