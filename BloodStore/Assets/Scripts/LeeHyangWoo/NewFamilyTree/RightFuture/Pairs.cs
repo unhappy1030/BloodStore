@@ -1,10 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+[System.Serializable]
+public class SaveAll{
+    public SavePair[] saveAll;
+}
+[System.Serializable]
+public class SavePair
+{
+    public Node maleNode;
+    public Node femaleNode;
+    public bool isPair;
+    public int childNum;
+}
 
 public class Pairs : MonoBehaviour
 {
     public List<Pair> pairs = new();
+    public void Save(List<Pair> pairList){
+        string _path = Application.dataPath + "/testRightFuture.json";
+        List<SavePair> savePair = new();
+        foreach(Pair pair in pairList){
+            SavePair temp = new SavePair{
+                maleNode = pair.male,
+                femaleNode = pair.female,
+                isPair = pair.isPair,
+                childNum = pair.childNum,
+            };
+            savePair.Add(temp);
+        }
+        SaveAll all = new();
+        all.saveAll = savePair.ToArray();
+        string json = JsonUtility.ToJson(all);
+        File.WriteAllText(_path, json);
+        Debug.Log("RightFuture");
+    }
     public void Serialize(PairTree pairTree)
     {
         pairs.Clear();
@@ -59,7 +90,7 @@ public class Pairs : MonoBehaviour
         }
     }
 }
-
+[System.Serializable]
 public class Pair
 {
     public Node male;

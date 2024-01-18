@@ -33,6 +33,7 @@ public class TreeManagerTest : MonoBehaviour
     }
     void OnDestroy() {
         pairList.Serialize(root);
+        pairList.Save(pairList.pairs);
     }
     void SetPrefabData(){
         halfX = nodePrefab.GetComponent<SpriteRenderer>().bounds.extents.x;
