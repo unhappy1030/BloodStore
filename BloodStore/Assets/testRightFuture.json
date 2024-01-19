@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-{"saveAll":[{"male":{"name":"Grace","sex":"Male","bloodType":["O","+","OO"],"hp":100,"age":26,"isDead":false,"empty":false},"female":{"name":"","sex":"","bloodType":[],"hp":0,"age":0,"isDead":false,"empty":true},"isPair":false,"childNum":0}]}
-=======
-{"saveAll":[{"male":{"name":"","sex":"","bloodType":[],"hp":0,"age":0,"isDead":false,"empty":true},"female":{"name":"Eve","sex":"Female","bloodType":["O","+","OO"],"hp":100,"age":24,"isDead":false,"empty":false},"isPair":false,"childNum":0}]}
->>>>>>> 9419422e6b1c276dc2a116c6feaaa22c2e4bfa44
+{"saveAll":[{"male":{"name":"Hank","sex":"Male","bloodType":["A","+","AA"],"hp":100,"age":35,"isDead":false,"empty":false},"female":{"name":"David","sex":"Female","bloodType":["B","-","BB"],"hp":100,"age":27,"isDead":false,"empty":false},"isPair":true,"childNum":2},{"male":{"name":"","sex":"","bloodType":[],"hp":0,"age":0,"isDead":false,"empty":true},"female":{"name":"Charlie","sex":"Female","bloodType":["AB","-","AB"],"hp":50,"age":7,"isDead":false,"empty":false},"isPair":false,"childNum":0},{"male":{"name":"","sex":"","bloodType":[],"hp":0,"age":0,"isDead":false,"empty":true},"female":{"name":"Hank","sex":"Female","bloodType":["AB","-","AB"],"hp":50,"age":2,"isDead":false,"empty":false},"isPair":false,"childNum":0}]}
