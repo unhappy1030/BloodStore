@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using Cinemachine;
 using System;
+using Unity.VisualScripting;
 
 public enum InteractType
 {
@@ -78,6 +79,39 @@ public class InteractObjInfo : MonoBehaviour
     [SerializeField] public bool _isFade;
     [SerializeField] public string _sceneName;
     
+    public void SetVirtualCameraInfo(GameObject target, bool doseUseBound, Collider2D bound, float lensOthoSize, float hold, CinemachineBlendDefinition.Style blendIn, float blendTime){
+        _interactType = InteractType.CameraControl;
+        _cameraMovementType = CameraControlType.ChangeCamera;
+        _cameraType = CameraType.VirtualCamera;
+
+        if(_virtualCam == null){
+            _virtualCam = new();
+        }
+        
+        if(_virtualCam.targets == null){
+            _virtualCam.targets = new();
+        }
+
+        _virtualCam.targets.Clear();
+        _virtualCam.targets.Add(target);
+
+        _virtualCam.doseUseBound = doseUseBound;
+        
+        if(doseUseBound){
+            _virtualCam.bound = bound;
+        }
+
+        _virtualCam.lensOthoSize = lensOthoSize;
+
+        if(_virtualCam.blendInfo == null){
+            _virtualCam.blendInfo = new();
+        }
+
+        _virtualCam.blendInfo.hold = hold;
+        _virtualCam.blendInfo.blendIn = blendIn;
+        _virtualCam.blendInfo.blendTime = blendTime;
+    }
+
     public void SetTargetCameraInfo(List<GameObject> targets, float hold, CinemachineBlendDefinition.Style blendIn, float blendTime){
         _interactType = InteractType.CameraControl;
         _cameraMovementType = CameraControlType.ChangeCamera;
