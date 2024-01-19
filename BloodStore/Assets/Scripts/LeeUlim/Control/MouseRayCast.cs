@@ -46,7 +46,7 @@ public class MouseRayCast : MonoBehaviour
 
         if(interactObjInfo._interactType == InteractType.NpcInteraction)
         {
-            npcInteract.StartDialogue(interactObjInfo);
+            npcInteract.StartDialogue(interactObjInfo._nodeName);
         }
 
         if (interactObjInfo._interactType == InteractType.SceneLoad)
