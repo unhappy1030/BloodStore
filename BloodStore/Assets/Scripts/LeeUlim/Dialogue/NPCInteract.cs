@@ -51,19 +51,20 @@ public class NPCInteract : MonoBehaviour
             bloodPackCanvas.SetActive(true);
             
             selectBlood = false;
-            yield return new WaitUntil(() => selectBlood); // wait until select blood
+            yield return new WaitUntil(() => selectBlood); // wait until select blood -> button in Blood pack canvas
             
             // YarnControl.sellInfo = CalculateSellInfo(); // Evaluate about blood pack
             bloodPackCanvas.SetActive(false);
             
             CreateVirtualCamera(0); // camera move to default target
             yield return new WaitUntil(() => cameraControl.mainCam.IsBlending);
-            yield return new WaitUntil(() => !cameraControl.mainCam.IsBlending); // wait intil camera move ends
+            yield return new WaitUntil(() => !cameraControl.mainCam.IsBlending); // wait until camera move ends
         
-            StartDialogue(yarnControl.nodeName); // tell their evaluation or end dialogue
-            yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
             yarnControl.isSell = false;
         }
+        
+        StartDialogue(yarnControl.nodeName); // tell their evaluation or end dialogue
+        yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
 
         DeActiveSprite(spriteIndex);
 

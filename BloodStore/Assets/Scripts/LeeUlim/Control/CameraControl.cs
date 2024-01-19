@@ -14,7 +14,6 @@ public class CameraControl : MonoBehaviour
     List<GameObject> cameraList;
 
     int camCount = 0;
-    public bool completeCreateCam = false;
 
     private void Awake()
     {
@@ -24,8 +23,6 @@ public class CameraControl : MonoBehaviour
 
     public void ChangeCam(InteractObjInfo interObj)
     {
-        completeCreateCam = false;
-        
         // create new object for main Camera and set this as Parent
         GameObject newCamera = new("CreatedCam"+camCount);
         newCamera.SetActive(false);
@@ -194,6 +191,5 @@ public class CameraControl : MonoBehaviour
         Debug.Log("Waiting...");
         cam.gameObject.SetActive(true);
         cam.MoveToTopOfPrioritySubqueue();
-        completeCreateCam = true;
     }
 }

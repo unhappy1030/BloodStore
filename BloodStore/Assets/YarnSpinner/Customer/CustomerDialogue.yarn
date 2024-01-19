@@ -16,16 +16,21 @@ Customer: Do you have Rh+O blood?
     <<SetNodeName DialogueSystem Sell>>
 -> No we don't have...
     <<set $sell = false>>
-    Customer: Then.. Ok.
+    <<SellBlood DialogueSystem {$sell}>>
+    <<SetNodeName DialogueSystem Sell>>
 
 
 ===
 title: Sell
 position: -860,-267
 ---
-Customer: Thank you!
-<<CalculateMoney DialogueSystem {$amount}>>
-you earned {$amount}.
+<<if $sell == true>>
+    Customer: Thank you!
+    <<CalculateMoney DialogueSystem {$amount}>>
+    you earned {$amount}.
+<<else>>
+    Then... Ok.
+<<endif>>
 
 // <<declare $sellInfo = 0>>
 
