@@ -27,21 +27,32 @@ public class NodeInteraction : MonoBehaviour
     public GameObject nodeInfoCanvas; // assign at Inspector
     public GameObject nodeInfoTexts; // assign at Inspector
     public Image nodeImg; // assign at Inspector
-    public TreeManagerTest treeManagerTest;
-    public CameraControl cameraControl;
+
     public NodeShowingStatus nodeShowingStatus;
     public NodeInteractionStatus nodeInteractionStatus;
-    public Group currentGroup;
-    public Group currentParent;
-    public DialogueRunner dialogueRunner;
-    bool wasNodeActived;
 
+    public Group currentSelectGroup;
+    public Group currentParent;
+    
+    bool wasNodeActived;
+    bool wasRoot;
+
+    // public TreeManagerTest treeManagerTest;
+
+    public CameraControl cameraControl;
+    public DialogueRunner dialogueRunner;
+
+    
     void Start(){
-        treeManagerTest = FindObjectOfType<TreeManagerTest>();
+        // treeManagerTest = FindObjectOfType<TreeManagerTest>();
         nodeInfoCanvas.SetActive(false);
-        wasNodeActived =false;
+
+        wasNodeActived = false;
+        wasRoot = false;
+        
         nodeShowingStatus = NodeShowingStatus.ShowTotal;
         nodeInteractionStatus = NodeInteractionStatus.None;
+        
         ShowTotal();
     }
 
@@ -104,14 +115,17 @@ public class NodeInteraction : MonoBehaviour
             {
                 ShowFamily(_newgroup);
             }
-
-            currentGroup = _newgroup;
         }
+        currentSelectGroup = _newgroup;
     }
 
     void ShowTotal(){
         Debug.Log("ShowTotal...");
 
+        if(currentSelectGroup != null){
+            EnableNodeCollider(currentSelectGroup, false);
+        }
+        
         nodeShowingStatus = NodeShowingStatus.ShowTotal;
     }
 
@@ -127,6 +141,7 @@ public class NodeInteraction : MonoBehaviour
             
             if(GameManager.Instance.pairList.pairs.Count <= 1 || _group.pairTree.pair == GameManager.Instance.pairList.pairs[0]){
                 ShowGroup(_group);
+                wasRoot = true;
                 return;
             }
 
@@ -153,8 +168,8 @@ public class NodeInteraction : MonoBehaviour
 
         CreateTargetCamera(familyTarget);
 
-        if(currentGroup != null){
-            EnableNodeCollider(currentGroup, false);
+        if(currentSelectGroup != null){
+            EnableNodeCollider(currentSelectGroup, false);
         }
         
         nodeShowingStatus = NodeShowingStatus.ShowFamily;
@@ -250,7 +265,12 @@ public class NodeInteraction : MonoBehaviour
                 ShowTotal();
             break;
             case NodeShowingStatus.ShowGroup:
-                ShowFamily(currentParent);
+                if(wasRoot){
+                    ShowTotal();
+                    wasRoot = false;
+                }else{
+                    ShowFamily(currentParent);
+                }
             break;
         }
     }
