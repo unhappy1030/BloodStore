@@ -27,16 +27,17 @@ public class NodeInteraction : MonoBehaviour
     public GameObject nodeInfoCanvas; // assign at Inspector
     public GameObject nodeInfoTexts; // assign at Inspector
     public Image nodeImg; // assign at Inspector
+    public TreeManagerTest treeManagerTest;
     public CameraControl cameraControl;
     public NodeShowingStatus nodeShowingStatus;
     public NodeInteractionStatus nodeInteractionStatus;
-    public PairSO pairSO;
     public Group currentGroup;
     public Group currentParent;
     public DialogueRunner dialogueRunner;
     bool wasNodeActived;
 
     void Start(){
+        treeManagerTest = FindObjectOfType<TreeManagerTest>();
         nodeInfoCanvas.SetActive(false);
         wasNodeActived =false;
         nodeShowingStatus = NodeShowingStatus.ShowTotal;
@@ -123,8 +124,8 @@ public class NodeInteraction : MonoBehaviour
         if(_group.childrenGroup == null || _group.childrenGroup.Count == 0) // no children(no family) -> show parent's family
         {
             Group parent = _group.parentGroup;
-
-            if(_group.pair == pairSO.root[0]){
+            
+            if(GameManager.Instance.pairList.pairs.Count <= 1 || _group.pairTree.pair == GameManager.Instance.pairList.pairs[0]){
                 ShowGroup(_group);
                 return;
             }
@@ -183,13 +184,13 @@ public class NodeInteraction : MonoBehaviour
             return;
         }
 
-        Pair pair = group.pair;
+        PairTree pairTree = group.pairTree;
         Node node;
         if(nodeDisplay.sexLabel.text == "Male"){
-            node = pair.male;
+            node = pairTree.pair.male;
         }
         else{
-            node = pair.female;
+            node = pairTree.pair.female;
         }
 
         nodeInfoCanvas.SetActive(true);

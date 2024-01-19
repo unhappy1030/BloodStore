@@ -12,27 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c364baf68e54db4f86a7167cbe03126, type: 3}
   m_Name: PairSo
   m_EditorClassIdentifier: 
-  root:
-  - male:
-      name: 
-      sex: 
-      bloodType: []
-      hp: 0
-      age: 0
-      isDead: 0
-      empty: 1
-    female:
-      name: Grace
-      sex: Female
-      bloodType:
-      - A
-      - '-'
-      - AA
-      hp: 100
-      age: 32
-      isDead: 0
-      empty: 0
-    isPair: 0
-    childNum: 0
-    children: []
-    isParent: 0
+  pairs: []

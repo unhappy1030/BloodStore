@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96d449cc0fc34dd439010185d318bb8c, type: 3}
   m_Name: BloodPackSo
   m_EditorClassIdentifier: 
-  pairSO: {fileID: 11400000, guid: fb10147e6c8e11644ba7a669fdfe19b0, type: 2}
+  pairSO: {fileID: 0}
   bloodPacks: []

@@ -3627,6 +3627,7 @@ MonoBehaviour:
   nodeInfoCanvas: {fileID: 0}
   nodeInfoTexts: {fileID: 0}
   nodeImg: {fileID: 0}
+  treeManagerTest: {fileID: 0}
   cameraControl: {fileID: 0}
   nodeShowingStatus: 0
   nodeInteractionStatus: 0
@@ -5932,6 +5933,7 @@ GameObject:
   - component: {fileID: 1983117554}
   - component: {fileID: 1983117553}
   - component: {fileID: 1983117555}
+  - component: {fileID: 1983117556}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -5971,6 +5973,7 @@ MonoBehaviour:
   yarnControl: {fileID: 0}
   dialogueRunner: {fileID: 0}
   variableStorage: {fileID: 0}
+  pairList: {fileID: 0}
 --- !u!4 &1983117552
 Transform:
   m_ObjectHideFlags: 0
@@ -6037,6 +6040,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   money: 0
   moneyText: {fileID: 1976250573}
+--- !u!114 &1983117556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983117550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b07f6329f4ef4846a237c07fcbe999f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2009257847
 GameObject:
   m_ObjectHideFlags: 0
