@@ -3,32 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 [System.Serializable]
-public class SaveAll{
-    public Pair[] saveAll;
-}
-[System.Serializable]
-public class SavePair
-{
-    public Node maleNode;
-    public Node femaleNode;
-    public bool isPair;
-    public int childNum;
+public class SaveArray{
+    public Pair[] arr;
 }
 
 public class Pairs : MonoBehaviour
 {
     public List<Pair> pairs = new();
+    SaveArray saveArray = new();
+
     public void Save(List<Pair> pairList){
-        string _path = Application.dataPath + "/testRightFuture.json";
-        List<Pair> savePair = new();
-        foreach(Pair pair in pairList){
-            savePair.Add(pair);
-        }
-        SaveAll all = new();
-        all.saveAll = savePair.ToArray();
-        string json = JsonUtility.ToJson(all);
+        string _path = Application.dataPath + "/testRightFuture.json"; 
+        saveArray = new();
+        saveArray.arr = pairList.ToArray();
+        string json = JsonUtility.ToJson(saveArray);
         File.WriteAllText(_path, json);
         Debug.Log("RightFuture");
+    }
+    public Pairs Load(){
+        string _path = Application.dataPath + "/testRightFuture.json";
+        string jsonData = File.ReadAllText(_path);
+        saveArray = JsonUtility.FromJson<SaveArray>(jsonData);
+        if(saveArray == null){
+            Debug.Log("NewGame Start!");
+        }
+        else{
+            Debug.Log("Save Data Load!");
+            pairs = new List<Pair>(saveArray.arr);
+        }
+        return this;
     }
     public void Serialize(PairTree pairTree)
     {
