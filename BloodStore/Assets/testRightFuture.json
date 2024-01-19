@@ -1,1 +1,1 @@
-{"saveAll":[{"male":{"name":"Charlie","sex":"Male","bloodType":["A","-","AO"],"hp":100,"age":22,"isDead":false,"empty":false},"female":{"name":"","sex":"","bloodType":[],"hp":0,"age":0,"isDead":false,"empty":true},"isPair":false,"childNum":0}]}
+{"saveAll":[{"male":{"name":"Grace","sex":"Male","bloodType":["O","+","OO"],"hp":100,"age":26,"isDead":false,"empty":false},"female":{"name":"","sex":"","bloodType":[],"hp":0,"age":0,"isDead":false,"empty":true},"isPair":false,"childNum":0}]}
