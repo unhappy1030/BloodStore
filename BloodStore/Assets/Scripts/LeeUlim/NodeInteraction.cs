@@ -31,11 +31,16 @@ public class NodeInteraction : MonoBehaviour
     public NodeShowingStatus nodeShowingStatus;
     public NodeInteractionStatus nodeInteractionStatus;
 
+    public Group currentGroup;
     public Group currentSelectGroup;
     public Group currentParent;
+
+    int currentHorInput;
+    int currentVerInput;
     
     bool wasNodeActived;
     bool wasRoot;
+    bool isFirstInput;
 
     // public TreeManagerTest treeManagerTest;
 
@@ -47,8 +52,12 @@ public class NodeInteraction : MonoBehaviour
         // treeManagerTest = FindObjectOfType<TreeManagerTest>();
         nodeInfoCanvas.SetActive(false);
 
+        currentHorInput = 0;
+        currentVerInput = 0;
+
         wasNodeActived = false;
         wasRoot = false;
+        isFirstInput = true;
         
         nodeShowingStatus = NodeShowingStatus.ShowTotal;
         nodeInteractionStatus = NodeInteractionStatus.None;
@@ -57,27 +66,164 @@ public class NodeInteraction : MonoBehaviour
     }
 
     void Update(){
-        if (Input.GetMouseButtonDown(0) 
-            && !EventSystem.current.IsPointerOverGameObject() 
-            && !dialogueRunner.IsDialogueRunning 
+        if(!dialogueRunner.IsDialogueRunning 
             && !GameManager.Instance.isFading
             && !cameraControl.mainCam.IsBlending)
         {
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D ray = Physics2D.Raycast(mousePos, Vector2.zero, 0f, LayerMask.GetMask("FamilyTree"));
-
-            Debug.Log("ray.collider : " + (ray.collider == null).ToString());
-
-            if (ray.collider != null)
-            {
-                MouseInteract(ray.collider.gameObject);
-                // Debug.Log("FamilyTree interaction...");
+            if(isFirstInput){
+                KeyInteract();
             }
-            else
+
+            if(Input.GetMouseButtonDown(0) 
+                && !EventSystem.current.IsPointerOverGameObject())
             {
-                // 이거 어떻게 처리할지 정해야 함!
-                GoBackToCurrentStatus();
+                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                RaycastHit2D ray = Physics2D.Raycast(mousePos, Vector2.zero, 0f, LayerMask.GetMask("FamilyTree"));
+
+                Debug.Log("ray.collider : " + (ray.collider == null).ToString());
+
+                if (ray.collider != null)
+                {
+                    MouseInteract(ray.collider.gameObject);
+                    // Debug.Log("FamilyTree interaction...");
+                }
+                else
+                {
+                    // 이거 어떻게 처리할지 정해야 함!
+                    GoBackToCurrentStatus();
+                }
             }
+        }
+    }
+
+    void ShowSelectedGroup(Group selectedGroup){
+        if(currentGroup != null){
+            LineRenderer currentLine = currentGroup.GetComponentInChildren<LineRenderer>();
+            currentLine.material.color = Color.black;
+        }
+
+        LineRenderer newLine = selectedGroup.GetComponentInChildren<LineRenderer>();
+        newLine.material.color = Color.white;
+    }
+
+    void KeyInteract(){
+        int hInput = (int)Input.GetAxisRaw("Horizontal");
+        int vInput = (int)Input.GetAxisRaw("Vertical");
+
+        if(hInput != 0 && vInput != 0){ // avoid duplication between hor and ver input
+            return;
+        }
+
+        if(currentGroup == null){
+            return;
+        }
+
+        if(nodeShowingStatus != NodeShowingStatus.ShowFamily){
+            Debug.Log("Key input is only acceptable in ShowFamily status...");
+            return;
+        }
+
+        if(currentHorInput != hInput) // Avoid duplication of input
+        {
+            if(hInput != 0){
+                Debug.Log("Hor Move");
+                HorKeyInput(hInput);
+            }
+            currentHorInput = hInput;
+        }
+        else if(currentVerInput != vInput) // Avoid duplication of input
+        {
+            if(vInput != 0){
+                Debug.Log("Ver Move");
+                VerKeyInput(vInput);
+            }
+            currentVerInput = vInput;
+        }
+    }
+
+    void HorKeyInput(int input){
+        if(currentParent == null){
+            Debug.Log("There is no parent in current node...");
+            return;
+        }
+
+        if(currentParent.childrenGroup.Count <= 1){
+            Debug.Log("It is the only child...");
+            return;
+        }
+
+        int currentIndex = -1;
+        int i=0;
+
+        foreach(Group sibling in currentParent.childrenGroup){ // get current selected group sibling index
+            if(sibling == currentGroup){
+                currentIndex = i;
+                break;
+            }
+            i++;
+        }
+
+        if(currentIndex == -1){
+            Debug.Log("There is no current select Group in this parent...");
+            return;
+        }
+
+        if(input > 0) // Right input
+        {
+            if(currentIndex == currentParent.childrenGroup.Count - 1){
+                Debug.Log("It is the youngest...");
+                return;
+            }
+
+            Group sibling = currentParent.childrenGroup[currentIndex + 1];
+            ShowFamily(sibling);
+            
+            ShowSelectedGroup(sibling);
+            currentGroup = sibling;
+            currentParent = sibling.parentGroup;
+
+        }
+        else // Left input
+        {
+            if(i == 0){
+                Debug.Log("It is the Oldest...");
+                return;
+            }
+
+            Group sibling = currentParent.childrenGroup[currentIndex - 1];
+            ShowFamily(sibling);
+
+            ShowSelectedGroup(sibling);
+            currentGroup = sibling;
+            currentParent = sibling.parentGroup;
+        }
+    }
+    
+    void VerKeyInput(int input){
+        if(input > 0) // Up
+        {
+            if(currentParent == null){
+                Debug.Log("There is no parent to move...");
+                return;
+            }
+            ShowFamily(currentParent);
+
+            ShowSelectedGroup(currentParent);
+            currentGroup = currentParent;
+            currentParent = currentParent.parentGroup;
+        }
+        else // Down
+        {
+            if(currentParent.childrenGroup.Count == 0){
+                Debug.Log("There is no parent to move...");
+                return;
+            }
+            
+            ShowFamily(currentParent.childrenGroup[0]);
+
+            ShowSelectedGroup(currentParent.childrenGroup[0]);
+            currentGroup = currentParent.childrenGroup[0];
+            currentParent = currentParent.childrenGroup[0].parentGroup;
         }
     }
 
@@ -101,22 +247,10 @@ public class NodeInteraction : MonoBehaviour
     }
 
     void GroupInteract(Group _newgroup){
-        if(nodeShowingStatus == NodeShowingStatus.ShowTotal) // From Start
-        {
-            ShowFamily(_newgroup);
-        }
-        else if(nodeShowingStatus == NodeShowingStatus.ShowFamily)
-        {
-            if(_newgroup == currentParent || _newgroup.parentGroup == currentParent && (_newgroup.childrenGroup == null || _newgroup.childrenGroup.Count == 0))
-            {
-                ShowGroup(_newgroup);
-            }
-            else
-            {
-                ShowFamily(_newgroup);
-            }
-        }
-        currentSelectGroup = _newgroup;
+        ShowGroup(_newgroup);
+
+        ShowSelectedGroup(_newgroup);
+        currentGroup = _newgroup;
     }
 
     void ShowTotal(){
@@ -126,20 +260,37 @@ public class NodeInteraction : MonoBehaviour
             EnableNodeCollider(currentSelectGroup, false);
         }
         
+        currentGroup = null;
+        currentParent = null;
+        
         nodeShowingStatus = NodeShowingStatus.ShowTotal;
     }
 
-    void ShowFamily(Group _group){
+    void ShowFamily(Group _parent){
         Debug.Log("ShowFamily...");
+        
+        if(currentSelectGroup != null){
+            EnableNodeCollider(currentSelectGroup, false);
+        }     
 
         // set camera target
         List<GameObject> familyTarget = new();
+        familyTarget.Add(_parent.gameObject);
 
+        if(_parent.childrenGroup == null || _parent.childrenGroup.Count == 0){
+            return;
+        }
+        
+        foreach(Group child in _parent.childrenGroup){
+            familyTarget.Add(child.gameObject);
+        }
+
+        /*
         if(_group.childrenGroup == null || _group.childrenGroup.Count == 0) // no children(no family) -> show parent's family
         {
             Group parent = _group.parentGroup;
             
-            if(GameManager.Instance.pairList.pairs.Count <= 1 || _group.pairTree.pair == GameManager.Instance.pairList.pairs[0]){
+            if(GameManager.Instance.pairList.pairs.Count <= 1 || _group.pairTree.pair == GameManager.Instance.pairList.pairs[0]){ // if root
                 ShowGroup(_group);
                 wasRoot = true;
                 return;
@@ -154,7 +305,7 @@ public class NodeInteraction : MonoBehaviour
 
             currentParent = _group.parentGroup;
         }
-        else
+        else // show its own family
         {
             List<Group> children = _group.childrenGroup;
 
@@ -165,13 +316,12 @@ public class NodeInteraction : MonoBehaviour
 
             currentParent = _group;
         }
+        */
 
         CreateTargetCamera(familyTarget);
-
-        if(currentSelectGroup != null){
-            EnableNodeCollider(currentSelectGroup, false);
-        }
         
+        currentParent = _parent;
+
         nodeShowingStatus = NodeShowingStatus.ShowFamily;
         nodeInteractionStatus = NodeInteractionStatus.None;
     }
@@ -185,9 +335,10 @@ public class NodeInteraction : MonoBehaviour
 
         CreateTargetCamera(groupTarget);
 
-        // setActive Node collider
-        EnableNodeCollider(_group, true);
+        EnableNodeCollider(_group, true); // setActive Node collider
 
+        currentSelectGroup = _group;
+        
         nodeShowingStatus = NodeShowingStatus.ShowGroup;
         nodeInteractionStatus = NodeInteractionStatus.None;
     }
@@ -265,10 +416,13 @@ public class NodeInteraction : MonoBehaviour
                 ShowTotal();
             break;
             case NodeShowingStatus.ShowGroup:
-                if(wasRoot){
+                if(wasRoot)
+                {
                     ShowTotal();
                     wasRoot = false;
-                }else{
+                }
+                else
+                {
                     ShowFamily(currentParent);
                 }
             break;
