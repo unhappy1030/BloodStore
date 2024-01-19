@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Yarn.Unity;
 
 public class YarnControl : MonoBehaviour
@@ -13,7 +14,23 @@ public class YarnControl : MonoBehaviour
     public int targetIndex;
     public string nodeName;
     public static float sellInfo = 0;
-    public bool isSell = false;
+    public bool isSell;
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
+        targetIndex = 0;
+        isSell = false;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
 
     [YarnFunction("UpdateMoney")]
     public static float UpdateMoney(){

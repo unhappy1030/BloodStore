@@ -6,12 +6,13 @@ using Yarn.Unity;
 
 public class NPCInteract : MonoBehaviour
 {
-    public int count;
-    public int npcIndex = 0;
-    public int spriteIndex = 0;
-    public bool finishCreateCam = false;
-    public bool selectBlood = false;
+    public int count; // assign at Inspector
+    public int npcIndex;
+    public int spriteIndex;
+    public bool finishCreateCam;
+    public bool selectBlood;
     // public bool isInteractble = true;
+
     public GameObject npc;
     public List<Sprite> npcSprite;
     public List<GameObject> cameraTarget;
@@ -19,15 +20,32 @@ public class NPCInteract : MonoBehaviour
     public GameObject bloodPackCanvas;
     public GameObject nextDayButton;
 
+    public Coroutine npcCoroutine;
+
     public CameraControl cameraControl;
     public YarnControl yarnControl;
     public DialogueRunner dialogueRunner;
 
     void Start(){
+        npcIndex = 0;
+        spriteIndex = 0;
+        finishCreateCam = false;
+        selectBlood = false;
+
+        npc.SetActive(false);
+
         bloodPackCanvas.SetActive(false);
         nextDayButton.SetActive(false);
 
-        StartCoroutine(StartInteraction());
+        npcCoroutine = StartCoroutine(StartInteraction());
+    }
+
+    private void OnDestroy()
+    {
+        if(npcCoroutine != null){
+            StopCoroutine(npcCoroutine);
+            npcCoroutine = null;
+        }
     }
 
     IEnumerator StartInteraction(){
@@ -77,10 +95,10 @@ public class NPCInteract : MonoBehaviour
             yield return StartCoroutine(StartInteraction());
         }
         
-        Debug.Log("Available Move to Next day...");
-        
         if(npcIndex == count){ // for trigger only at final interaction
+            Debug.Log("Available Move to Next day...");
             ReadyToMoveNextDay();
+            npcCoroutine = null;
         }
     }
 
@@ -91,12 +109,9 @@ public class NPCInteract : MonoBehaviour
         return index;
     }
 
-    void ReadyToMoveNextDay(){
-        nextDayButton.SetActive(true);
-    }
-
     IEnumerator ActiveSprite(int spriteIndex){
         npc.GetComponent<SpriteRenderer>().sprite = npcSprite[spriteIndex];
+        npc.SetActive(true);
         
         npc.GetComponent<BoxCollider2D>().enabled = false;
         yield return GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutSprite(npc.GetComponent<SpriteRenderer>(), 0.05f));
@@ -106,6 +121,7 @@ public class NPCInteract : MonoBehaviour
     void DeActiveSprite(int spriteIndex){
         npc.GetComponent<BoxCollider2D>().enabled = false;
         GameManager.Instance.StartCoroutine(GameManager.Instance.FadeInSprite(npc.GetComponent<SpriteRenderer>(), 0.05f));
+        npc.SetActive(false);
     }
 
     public void StartDialogue(string nodeName){
@@ -147,4 +163,10 @@ public class NPCInteract : MonoBehaviour
     float CalculateSellInfo(){
         return 5.0f;
     }
+    
+    void ReadyToMoveNextDay(){
+        nextDayButton.SetActive(true);
+    }
+
+
 }

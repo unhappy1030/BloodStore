@@ -117,13 +117,17 @@ public class GameManager : MonoBehaviour
         blackPanel.gameObject.SetActive(false);
         
         // Fade in
-        if (wasFade)
+        if (wasFade){
             StartCoroutine(FadeInUI(blackPanel, 0.01f));
+        }
     }
 
     void OnSceneUnloaded(Scene currentScene)
     {
-
+        if(dialogueRunner.IsDialogueRunning){
+            dialogueRunner.Stop();
+            Debug.Log("Stop all dialogue...");
+        }
     }
 
     private void OnDisable()
