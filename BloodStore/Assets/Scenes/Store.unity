@@ -952,7 +952,7 @@ GameObject:
   - component: {fileID: 193522015}
   - component: {fileID: 193522014}
   m_Layer: 5
-  m_Name: StoreCamvas
+  m_Name: StoreCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2467,6 +2467,7 @@ MonoBehaviour:
   count: 2
   npcIndex: 0
   spriteIndex: 0
+  finishCreateCam: 0
   selectBlood: 0
   npc: {fileID: 529723172}
   npcSprite:
