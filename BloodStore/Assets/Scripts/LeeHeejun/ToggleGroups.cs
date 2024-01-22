@@ -28,10 +28,11 @@ public class ToggleGroups : MonoBehaviour
                 t.onValueChanged.AddListener(delegate { ToggleValueChanged(); });
             }
         }
-        ToggleValueChanged();
+        // ToggleValueChanged();
+        // DeactivateAllToggles();
     }
 
-    void ToggleValueChanged()
+    public void ToggleValueChanged()
     {
         int Count = 0;
         activeToggles = new List<Toggle>();
