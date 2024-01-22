@@ -15,19 +15,39 @@ public class NPCInfo : ScriptableObject
     public int startDay;
     public List<DialogueFrame> dialogues;
 
-    public void GetDialogues(){
-        foreach(DialogueFrame dialogueInfo in dialogues){
-            
+    public bool ableNPC(int day){
+        if(startDay > day){
+            return false;
         }
+        return true;
     }
 
-    public int GetDayCount(int day){
+    public List<DialogueFrame> GetAllDialogues(WhereNodeStart where, WhenNodeStart when, bool isDay, int num){
+        List<DialogueFrame> list = new();
+        
+        int index = 0;
+        foreach(DialogueFrame dialogue in dialogues){
+            if(dialogue.where == where && dialogue.when == when){
+                if(dialogue.isDay == isDay && dialogue.num == num){
+                    list.Add(new());
+                    list[index] = dialogue;
+                    list[index].npcName = npcName; // assign npc Name here
+                }
+            }
+        }
+
+        return list;
+    }
+    
+    public int GetDialoguesCount(WhereNodeStart where, WhenNodeStart when, bool isDay, int num){
         int count = 0;
         
         if(dialogues != null){
-            foreach(DialogueFrame dialogueInfo in dialogues){
-                if(dialogueInfo.isDay && dialogueInfo.num == day){
-                    count++;
+            foreach(DialogueFrame dialogue in dialogues){
+                if(dialogue.where == where && dialogue.when == when){
+                    if(dialogue.isDay == isDay && dialogue.num == num){
+                        count++;
+                    }
                 }
             }
         }
@@ -35,23 +55,11 @@ public class NPCInfo : ScriptableObject
         return count;
     }
 
-    public int GetConditionCount(int condition){
-        int count = 0;
-
-        if(dialogues != null){
-            foreach(DialogueFrame dialogueInfo in dialogues){
-                if(!dialogueInfo.isDay && dialogueInfo.num == condition){
-                    count++;
-                }
-            }
-        }
-
-        return count;
-    }
 }
 
 [Serializable]
 public class DialogueFrame{
+    [HideInInspector] public string npcName; // not assign at inspector
     public WhereNodeStart where;
     public WhenNodeStart when;
     
@@ -59,6 +67,8 @@ public class DialogueFrame{
     [Tooltip("If isDay is true, num means day, or condition.")]
     public int num;
     public int priority;
+
+    public string dialogueName;
 }
 
 

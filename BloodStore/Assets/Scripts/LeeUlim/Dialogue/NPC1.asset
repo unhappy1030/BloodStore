@@ -12,15 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cd42481cd8575348b0c8e7e1778d70c, type: 3}
   m_Name: NPC1
   m_EditorClassIdentifier: 
-  info:
-    NPCName: npc1
-    sprites:
-    - {fileID: -782193185, guid: 8a5540b24f50c984bbe6483f83260373, type: 3}
-    startDay: 0
-    dayDialogues:
-    - day: 0
-      priority: 0
-      nodeName: 
-    conditionDialogues:
-    - condition: 0
-      nodeName: 
+  npcName: npc1
+  sprites:
+  - {fileID: -782193185, guid: 8a5540b24f50c984bbe6483f83260373, type: 3}
+  startDay: 0
+  dialogues:
+  - npcName: npc1
+    where: 0
+    when: 0
+    isDay: 1
+    num: 2
+    priority: 0
+    dialogueName: npc1Start
+  - npcName: npc1
+    where: 0
+    when: 0
+    isDay: 1
+    num: 3
+    priority: 1
+    dialogueName: npc1Second

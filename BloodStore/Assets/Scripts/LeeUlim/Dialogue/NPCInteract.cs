@@ -4,16 +4,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Yarn.Unity;
 
-public class DialogueInfo{
-    public string npcName;
-    public DialogueFrame nodeInfo;
-}
-
 public class NPCInteract : MonoBehaviour
 {
-    // public bool isInteractble = true;
-
-    public List<NPCInfo> npcInfos;
+    public List<NPCInfo> npcInfos; // assign at inspector
 
     public GameObject npc; // assign at Inspector
     public List<Sprite> npcSprite; // assign at Inspector
@@ -23,6 +16,7 @@ public class NPCInteract : MonoBehaviour
     public GameObject nextDayButton; // assign at Inspector
 
     public CameraControl cameraControl;
+    public DialogueControl dialogueControl;
     public YarnControl yarnControl;
     public DialogueRunner dialogueRunner;
 
@@ -33,7 +27,12 @@ public class NPCInteract : MonoBehaviour
 
     Coroutine npcCoroutine;
 
+    List<DialogueInfo> dialogueSum;
+
     void Start(){
+        GetDialogues();
+        count = dialogueSum.Count;
+
         npcIndex = 0;
         spriteIndex = 0;
         selectBlood = false;
@@ -54,11 +53,31 @@ public class NPCInteract : MonoBehaviour
         }
     }
 
+    void GetDialogues(){
+        dialogueControl.GetAbleNPC();
+        dialogueControl.GetDayDialogue(WhereNodeStart.Store, WhenNodeStart.Click);
+        dialogueSum = dialogueControl.ableDialogues;
+    }
+
+    void SetDialogues(){
+        InteractObjInfo interactObjInfo = npc.GetComponent<InteractObjInfo>();
+        if(interactObjInfo == null){
+            interactObjInfo = npc.AddComponent<InteractObjInfo>();
+        }
+
+        interactObjInfo._interactType = InteractType.NpcInteraction;
+        interactObjInfo._nodeName = dialogueSum[npcIndex].dialogueName;
+    }
+
     IEnumerator StartInteraction(){
-        if(count == 0 || npcSprite.Count == 0)
+        if(count == 0 || npcSprite.Count == 0){
+            ReadyToMoveNextDay();
+            npcCoroutine = null;
             yield break;
+        }
         
-        spriteIndex = GetSpriteIndex();
+        // spriteIndex = GetSpriteIndex();
+        SetDialogues();
 
         yield return ActiveSprite(spriteIndex);
 
@@ -107,11 +126,23 @@ public class NPCInteract : MonoBehaviour
             npcCoroutine = null;
         }
     }
-
+    
     // test
-    int GetSpriteIndex(){
-        int index;
-        index = Random.Range(0, npcSprite.Count);
+    int GetSpriteIndex(string npcName){
+        bool isExist = false;
+        int index = 0;
+        
+        foreach(NPCInfo npcInfo in npcInfos){
+            if(npcInfo.npcName == npcName){
+                isExist = true;
+                break;
+            }
+            index++;
+        }
+        if(!isExist && index == 0){
+            index = -1;
+        }
+        
         return index;
     }
 
@@ -174,7 +205,14 @@ public class NPCInteract : MonoBehaviour
 */
 
     IEnumerator ActiveSprite(int spriteIndex){
-        npc.GetComponent<SpriteRenderer>().sprite = npcSprite[spriteIndex];
+        spriteIndex = GetSpriteIndex(dialogueSum[npcIndex].npcName);
+        
+        if(spriteIndex < 0 || spriteIndex > npcInfos.Count -1 || npcInfos[spriteIndex].sprites[0] == null){
+            Debug.Log("There is no sprite in NPCInfos...");
+            yield break;
+        }
+
+        npc.GetComponent<SpriteRenderer>().sprite = npcInfos[spriteIndex].sprites[0];
         npc.SetActive(true);
         
         npc.GetComponent<BoxCollider2D>().enabled = false;

@@ -2445,6 +2445,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1159324194}
   - component: {fileID: 1159324193}
+  - component: {fileID: 1159324195}
   m_Layer: 0
   m_Name: NPCInteractionInfo
   m_TagString: Untagged
@@ -2464,8 +2465,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0429bd3ebe976eb4a92cdca3bbf3ff96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npc1: {fileID: 11400000, guid: 3d1d625548e647344b40cfdd6fd77aaf, type: 2}
-  npc2: {fileID: 11400000, guid: 540abed9f20331349b980ccba58e0df9, type: 2}
+  npcInfos:
+  - {fileID: 11400000, guid: 3d1d625548e647344b40cfdd6fd77aaf, type: 2}
+  - {fileID: 11400000, guid: 540abed9f20331349b980ccba58e0df9, type: 2}
   npc: {fileID: 529723172}
   npcSprite:
   - {fileID: -782193185, guid: 8a5540b24f50c984bbe6483f83260373, type: 3}
@@ -2477,6 +2479,7 @@ MonoBehaviour:
   bloodPackCanvas: {fileID: 1976738256}
   nextDayButton: {fileID: 166274612}
   cameraControl: {fileID: 0}
+  dialogueControl: {fileID: 1159324195}
   yarnControl: {fileID: 0}
   dialogueRunner: {fileID: 0}
 --- !u!4 &1159324194
@@ -2495,6 +2498,21 @@ Transform:
   - {fileID: 529723176}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1159324195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159324192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 522c3b56b8a24a34e947709af13d38ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcInfos:
+  - {fileID: 11400000, guid: 3d1d625548e647344b40cfdd6fd77aaf, type: 2}
+  - {fileID: 11400000, guid: 540abed9f20331349b980ccba58e0df9, type: 2}
 --- !u!1 &1169500010
 GameObject:
   m_ObjectHideFlags: 0

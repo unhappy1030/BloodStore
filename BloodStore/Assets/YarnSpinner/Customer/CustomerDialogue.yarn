@@ -1,6 +1,6 @@
 ﻿title: Start
 tags:
-position: -1179,-265
+position: -1370,-331
 ---
 <<declare $money = 0>>
 <<declare $amount = 2>>
@@ -43,4 +43,58 @@ position: -860,-267
 //     Customer: Well... Ok.
 // <<endif>>
 
+===
+title: npc1Start
+position: -1134,-65
+---
+npc1: this is test1.
+
+<<set $money = UpdateMoney()>>
+
+Customer: Do you have Rh+O blood?
+-> Sell
+    <<set $sell = true>>
+    <<SellBlood DialogueSystem {$sell}>>
+    <<SetCamTargetIndex DialogueSystem 1>>
+    <<SetNodeName DialogueSystem Sell>>
+-> No we don't have...
+    <<set $sell = false>>
+    <<SellBlood DialogueSystem {$sell}>>
+    <<SetNodeName DialogueSystem Sell>>
+===
+title: npc1Second
+position: -1359,-62
+---
+npc1: this is test2.
+
+<<set $money = UpdateMoney()>>
+
+Customer: Do you have Rh+O blood?
+-> Sell
+    <<set $sell = true>>
+    <<SellBlood DialogueSystem {$sell}>>
+    <<SetCamTargetIndex DialogueSystem 1>>
+    <<SetNodeName DialogueSystem Sell>>
+-> No we don't have...
+    <<set $sell = false>>
+    <<SellBlood DialogueSystem {$sell}>>
+    <<SetNodeName DialogueSystem Sell>>
+===
+title: npc2Start
+position: -1295,-245
+---
+npc2: this is test1.
+
+<<set $money = UpdateMoney()>>
+
+Customer: Do you have Rh+O blood?
+-> Sell
+    <<set $sell = true>>
+    <<SellBlood DialogueSystem {$sell}>>
+    <<SetCamTargetIndex DialogueSystem 1>>
+    <<SetNodeName DialogueSystem Sell>>
+-> No we don't have...
+    <<set $sell = false>>
+    <<SellBlood DialogueSystem {$sell}>>
+    <<SetNodeName DialogueSystem Sell>>
 ===
