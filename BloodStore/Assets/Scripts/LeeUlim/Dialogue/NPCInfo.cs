@@ -13,14 +13,20 @@ public class NPCInfo : ScriptableObject
     [Tooltip("0 : Normal / 1 : Happy / 2 : Sad / 3 : Angry")]
     public List<Sprite> sprites;
     public int startDay;
-    public List<NodeInfo> nodeInfos;
+    public List<DialogueFrame> dialogues;
+
+    public void GetDialogues(){
+        foreach(DialogueFrame dialogueInfo in dialogues){
+            
+        }
+    }
 
     public int GetDayCount(int day){
         int count = 0;
         
-        if(nodeInfos != null){
-            foreach(NodeInfo nodeInfo in nodeInfos){
-                if(nodeInfo.isDay && nodeInfo.num == day){
+        if(dialogues != null){
+            foreach(DialogueFrame dialogueInfo in dialogues){
+                if(dialogueInfo.isDay && dialogueInfo.num == day){
                     count++;
                 }
             }
@@ -32,9 +38,9 @@ public class NPCInfo : ScriptableObject
     public int GetConditionCount(int condition){
         int count = 0;
 
-        if(nodeInfos != null){
-            foreach(NodeInfo nodeInfo in nodeInfos){
-                if(!nodeInfo.isDay && nodeInfo.num == condition){
+        if(dialogues != null){
+            foreach(DialogueFrame dialogueInfo in dialogues){
+                if(!dialogueInfo.isDay && dialogueInfo.num == condition){
                     count++;
                 }
             }
@@ -45,7 +51,7 @@ public class NPCInfo : ScriptableObject
 }
 
 [Serializable]
-public class NodeInfo{
+public class DialogueFrame{
     public WhereNodeStart where;
     public WhenNodeStart when;
     

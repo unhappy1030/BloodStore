@@ -6,7 +6,7 @@ using Yarn.Unity;
 
 public class DialogueInfo{
     public string npcName;
-    public NodeInfo nodeInfo;
+    public DialogueFrame nodeInfo;
 }
 
 public class NPCInteract : MonoBehaviour
