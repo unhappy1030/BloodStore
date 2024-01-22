@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     public YarnControl yarnControl;
     public DialogueRunner dialogueRunner;
     public InMemoryVariableStorage variableStorage;
-
+    public Pairs pairList;
 
     private static GameManager _instance;
     public static GameManager Instance
@@ -88,11 +88,13 @@ public class GameManager : MonoBehaviour
         yarnControl = GetComponentInChildren<YarnControl>();
         dialogueRunner = GetComponentInChildren<DialogueRunner>();
         variableStorage = GetComponentInChildren<InMemoryVariableStorage>();
-
+        pairList = GetComponent<Pairs>();
 
         // assign scripts 
         if(npcInteract != null){
             npcInteract.dialogueRunner = dialogueRunner;
+            npcInteract.cameraControl = cameraControl;
+            npcInteract.yarnControl = yarnControl;
         }
 
         if(nodeInteraction != null){
@@ -115,13 +117,17 @@ public class GameManager : MonoBehaviour
         blackPanel.gameObject.SetActive(false);
         
         // Fade in
-        if (wasFade)
+        if (wasFade){
             StartCoroutine(FadeInUI(blackPanel, 0.01f));
+        }
     }
 
     void OnSceneUnloaded(Scene currentScene)
     {
-
+        if(dialogueRunner.IsDialogueRunning){
+            dialogueRunner.Stop();
+            Debug.Log("Stop all dialogue...");
+        }
     }
 
     private void OnDisable()

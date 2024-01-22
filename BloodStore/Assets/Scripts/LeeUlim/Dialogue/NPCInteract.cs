@@ -1,41 +1,90 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Yarn.Unity;
 
 public class NPCInteract : MonoBehaviour
 {
-    public int count;
-    public int npcIndex = 0;
-    public int spriteIndex = 0;
+    public int count; // assign at Inspector
+    public int npcIndex;
+    public int spriteIndex;
+    public bool finishCreateCam;
+    public bool selectBlood;
     // public bool isInteractble = true;
+
     public GameObject npc;
     public List<Sprite> npcSprite;
+    public List<GameObject> cameraTarget;
 
+    public GameObject bloodPackCanvas;
     public GameObject nextDayButton;
+
+    public Coroutine npcCoroutine;
+
+    public CameraControl cameraControl;
+    public YarnControl yarnControl;
     public DialogueRunner dialogueRunner;
 
     void Start(){
+        npcIndex = 0;
+        spriteIndex = 0;
+        finishCreateCam = false;
+        selectBlood = false;
+
+        npc.SetActive(false);
+
+        bloodPackCanvas.SetActive(false);
         nextDayButton.SetActive(false);
-        StartCoroutine(StartInteraction());
+
+        npcCoroutine = StartCoroutine(StartInteraction());
+    }
+
+    private void OnDestroy()
+    {
+        if(npcCoroutine != null){
+            StopCoroutine(npcCoroutine);
+            npcCoroutine = null;
+        }
     }
 
     IEnumerator StartInteraction(){
         if(count == 0 || npcSprite.Count == 0)
             yield break;
-
+        
         spriteIndex = GetSpriteIndex();
-        npc.GetComponent<SpriteRenderer>().sprite = npcSprite[spriteIndex];
-        
-        npc.GetComponent<BoxCollider2D>().enabled = false;
-        yield return GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutSprite(npc.GetComponent<SpriteRenderer>(), 0.05f));
-        npc.GetComponent<BoxCollider2D>().enabled = true;
 
-        yield return new WaitUntil(() => dialogueRunner.IsDialogueRunning);
-        yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
+        yield return ActiveSprite(spriteIndex);
+
+        yield return new WaitUntil(() => dialogueRunner.IsDialogueRunning); // wait until mouse click
+        // tell what they want
+        yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning); // wait until dialogue ends
         
-        npc.GetComponent<BoxCollider2D>().enabled = false;
-        GameManager.Instance.StartCoroutine(GameManager.Instance.FadeInSprite(npc.GetComponent<SpriteRenderer>(), 0.05f));
+        // if sellect sell
+        if(yarnControl.isSell){
+            CreateVirtualCamera(yarnControl.targetIndex); // move camera
+            yield return new WaitUntil(() => cameraControl.mainCam.IsBlending);
+            yield return new WaitUntil(() => !cameraControl.mainCam.IsBlending); // wait until camera move ends
+            
+            bloodPackCanvas.SetActive(true);
+            
+            selectBlood = false;
+            yield return new WaitUntil(() => selectBlood); // wait until select blood -> button in Blood pack canvas
+            
+            // YarnControl.sellInfo = CalculateSellInfo(); // Evaluate about blood pack
+            bloodPackCanvas.SetActive(false);
+            
+            CreateVirtualCamera(0); // camera move to default target
+            yield return new WaitUntil(() => cameraControl.mainCam.IsBlending);
+            yield return new WaitUntil(() => !cameraControl.mainCam.IsBlending); // wait until camera move ends
+        
+            yarnControl.isSell = false;
+        }
+        
+        StartDialogue(yarnControl.nodeName); // tell their evaluation or end dialogue
+        yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
+
+        DeActiveSprite(spriteIndex);
 
         yield return new WaitForSecondsRealtime(2);
 
@@ -46,10 +95,11 @@ public class NPCInteract : MonoBehaviour
             yield return StartCoroutine(StartInteraction());
         }
         
-        Debug.Log("Available Move to Next day...");
-        
-        if(npcIndex == count) // for trigger only at final interaction
+        if(npcIndex == count){ // for trigger only at final interaction
+            Debug.Log("Available Move to Next day...");
             ReadyToMoveNextDay();
+            npcCoroutine = null;
+        }
     }
 
     // test
@@ -59,13 +109,22 @@ public class NPCInteract : MonoBehaviour
         return index;
     }
 
-    void ReadyToMoveNextDay(){
-        nextDayButton.SetActive(true);
+    IEnumerator ActiveSprite(int spriteIndex){
+        npc.GetComponent<SpriteRenderer>().sprite = npcSprite[spriteIndex];
+        npc.SetActive(true);
+        
+        npc.GetComponent<BoxCollider2D>().enabled = false;
+        yield return GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutSprite(npc.GetComponent<SpriteRenderer>(), 0.05f));
+        npc.GetComponent<BoxCollider2D>().enabled = true;
     }
 
-    public void StartDialogue(InteractObjInfo interactObjInfo){
-        string nodeName = interactObjInfo._nodeName;
-        
+    void DeActiveSprite(int spriteIndex){
+        npc.GetComponent<BoxCollider2D>().enabled = false;
+        GameManager.Instance.StartCoroutine(GameManager.Instance.FadeInSprite(npc.GetComponent<SpriteRenderer>(), 0.05f));
+        npc.SetActive(false);
+    }
+
+    public void StartDialogue(string nodeName){
         if(!dialogueRunner.IsDialogueRunning){
             if(dialogueRunner.NodeExists(nodeName))
                 dialogueRunner.StartDialogue(nodeName);
@@ -74,4 +133,40 @@ public class NPCInteract : MonoBehaviour
         }else
             Debug.Log("Other Dialogue is running...");
     }
+
+    void CreateVirtualCamera(int targetIndex){
+        InteractObjInfo interactObjInfo = gameObject.GetComponent<InteractObjInfo>();
+        if(interactObjInfo == null){
+            interactObjInfo = gameObject.AddComponent<InteractObjInfo>();
+        }
+        
+        if(cameraTarget == null || cameraTarget.Count == 0){
+            Debug.Log("Target list is empty...");
+            return;
+        }
+
+        if(targetIndex > cameraTarget.Count -1 || cameraTarget[targetIndex] == null){
+            Debug.Log("There is no camera target in list...");
+            return;
+        }
+
+        interactObjInfo.SetVirtualCameraInfo(cameraTarget[targetIndex], false, null, 5.4f, 0.25f, Cinemachine.CinemachineBlendDefinition.Style.EaseInOut, 1.5f);
+        finishCreateCam = true;
+        cameraControl.ChangeCam(interactObjInfo);
+    }   
+
+    public void ChangeSelectBloodAsTrue(){
+        selectBlood = true;
+    }
+
+    // test
+    float CalculateSellInfo(){
+        return 5.0f;
+    }
+    
+    void ReadyToMoveNextDay(){
+        nextDayButton.SetActive(true);
+    }
+
+
 }
