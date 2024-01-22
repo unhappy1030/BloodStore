@@ -21,6 +21,7 @@ public class TreeManagerTest : MonoBehaviour
     void Start()
     {
         this.pairList = GameManager.Instance.pairList;
+        this.pairList = pairList.Load();
         root = pairList.Deserialize();
         if(pairList.pairs.Count == 0)
         {
@@ -34,6 +35,7 @@ public class TreeManagerTest : MonoBehaviour
     void OnDestroy() {
         pairList.Serialize(root);
         pairList.Save(pairList.pairs);
+        // pairList.Load();
     }
     void SetPrefabData(){
         halfX = nodePrefab.GetComponent<SpriteRenderer>().bounds.extents.x;
