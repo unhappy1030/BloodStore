@@ -3,16 +3,68 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
-[Serializable]
-public class Info{
-    public string NPCName;
-    [Tooltip("0 : Normal / 1 : Happy / 2 : Sad / 3 : Angry")]
-    public List<SpriteRenderer> sprites;
-}
+using UnityEditor;
+using System.Threading;
 
 [CreateAssetMenu(fileName ="NPCInfo", menuName = "Scriptable Object/NPCInfo")]
 public class NPCInfo : ScriptableObject
 {
-    public List<Info> infos;
+    public string npcName;
+    [Tooltip("0 : Normal / 1 : Happy / 2 : Sad / 3 : Angry")]
+    public List<Sprite> sprites;
+    public int startDay;
+    public List<NodeInfo> nodeInfos;
+
+    public int GetDayCount(int day){
+        int count = 0;
+        
+        if(nodeInfos != null){
+            foreach(NodeInfo nodeInfo in nodeInfos){
+                if(nodeInfo.isDay && nodeInfo.num == day){
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    public int GetConditionCount(int condition){
+        int count = 0;
+
+        if(nodeInfos != null){
+            foreach(NodeInfo nodeInfo in nodeInfos){
+                if(!nodeInfo.isDay && nodeInfo.num == condition){
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
 }
+
+[Serializable]
+public class NodeInfo{
+    public WhereNodeStart where;
+    public WhenNodeStart when;
+    
+    public bool isDay;
+    [Tooltip("If isDay is true, num means day, or condition.")]
+    public int num;
+    public int priority;
+}
+
+
+[Serializable]
+public enum WhereNodeStart{
+    Store,
+    Edit
+}
+
+[Serializable]
+public enum WhenNodeStart{
+    Click,
+    SceneLoad
+}
+

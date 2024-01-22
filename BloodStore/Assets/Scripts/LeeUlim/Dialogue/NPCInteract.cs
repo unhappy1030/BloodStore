@@ -4,32 +4,38 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Yarn.Unity;
 
+public class DialogueInfo{
+    public string npcName;
+    public NodeInfo nodeInfo;
+}
+
 public class NPCInteract : MonoBehaviour
 {
-    public int count; // assign at Inspector
-    public int npcIndex;
-    public int spriteIndex;
-    public bool finishCreateCam;
-    public bool selectBlood;
     // public bool isInteractble = true;
 
-    public GameObject npc;
-    public List<Sprite> npcSprite;
-    public List<GameObject> cameraTarget;
+    public List<NPCInfo> npcInfos;
 
-    public GameObject bloodPackCanvas;
-    public GameObject nextDayButton;
+    public GameObject npc; // assign at Inspector
+    public List<Sprite> npcSprite; // assign at Inspector
+    public List<GameObject> cameraTarget; // assign at Inspector
 
-    public Coroutine npcCoroutine;
+    public GameObject bloodPackCanvas; // assign at Inspector
+    public GameObject nextDayButton; // assign at Inspector
 
     public CameraControl cameraControl;
     public YarnControl yarnControl;
     public DialogueRunner dialogueRunner;
 
+    int count;
+    int npcIndex;
+    int spriteIndex;
+    bool selectBlood;
+
+    Coroutine npcCoroutine;
+
     void Start(){
         npcIndex = 0;
         spriteIndex = 0;
-        finishCreateCam = false;
         selectBlood = false;
 
         npc.SetActive(false);
@@ -109,6 +115,64 @@ public class NPCInteract : MonoBehaviour
         return index;
     }
 
+    /*
+    void SetCount(){
+        int dayCount = 0;
+        int conditionCount = 0;
+        int requiredCount = 0;
+
+        foreach(NPCInfo npcInfo in npcInfos){
+            if(npcInfo.startDay >= GameManager.Instance.day){
+                dayCount = npcInfo.GetDayCount(GameManager.Instance.day);
+            }
+
+            // assign conditionCount here
+            // conditionCount = npcInfo.GetConditionCount(condition);
+        }
+
+        requiredCount = dayCount + conditionCount; // test
+        
+        if(requiredCount > 5) // test
+        {
+            count = requiredCount;
+        }
+        else
+        {
+            count = Random.Range(requiredCount, requiredCount + 3); // test
+        }
+    }
+    
+    void SetDialogues(){
+        int index = 0;
+
+        foreach(NPCInfo npcInfo in npcInfos){
+            foreach(NodeInfo nodeInfo in npcInfo.nodeInfos){
+                if(nodeInfo.isDay && nodeInfo.num == GameManager.Instance.day
+                    || !nodeInfo.isDay && nodeInfo.num == condition)
+                {
+                    dialogueInfos.Add(new());
+                    dialogueInfos[index].npcName = npcInfo.npcName;
+                    dialogueInfos[index].nodeInfo = nodeInfo;
+                    index++;
+                }
+            }
+        }
+
+        if(dialogueInfos.Count < count){
+            while(true){
+                NPCInfo randNPC = npcInfos[Random.Range(0, npcInfos.Count)];
+
+                if(randNPC.startDay >= GameManager.Instance.day){
+                    break;
+                }
+            }
+
+            dialogueInfos.Add(new());
+            dialogueInfos[index].npcName =
+        }
+    }
+*/
+
     IEnumerator ActiveSprite(int spriteIndex){
         npc.GetComponent<SpriteRenderer>().sprite = npcSprite[spriteIndex];
         npc.SetActive(true);
@@ -125,13 +189,17 @@ public class NPCInteract : MonoBehaviour
     }
 
     public void StartDialogue(string nodeName){
-        if(!dialogueRunner.IsDialogueRunning){
+        if(!dialogueRunner.IsDialogueRunning)
+        {
             if(dialogueRunner.NodeExists(nodeName))
                 dialogueRunner.StartDialogue(nodeName);
             else
                 Debug.Log(nodeName + " is not Exist...");
-        }else
+        }
+        else
+        {
             Debug.Log("Other Dialogue is running...");
+        }
     }
 
     void CreateVirtualCamera(int targetIndex){
@@ -151,7 +219,6 @@ public class NPCInteract : MonoBehaviour
         }
 
         interactObjInfo.SetVirtualCameraInfo(cameraTarget[targetIndex], false, null, 5.4f, 0.25f, Cinemachine.CinemachineBlendDefinition.Style.EaseInOut, 1.5f);
-        finishCreateCam = true;
         cameraControl.ChangeCam(interactObjInfo);
     }   
 

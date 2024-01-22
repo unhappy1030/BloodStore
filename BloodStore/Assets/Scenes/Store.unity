@@ -2464,11 +2464,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0429bd3ebe976eb4a92cdca3bbf3ff96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 2
-  npcIndex: 0
-  spriteIndex: 0
-  finishCreateCam: 0
-  selectBlood: 0
+  npc1: {fileID: 11400000, guid: 3d1d625548e647344b40cfdd6fd77aaf, type: 2}
+  npc2: {fileID: 11400000, guid: 540abed9f20331349b980ccba58e0df9, type: 2}
   npc: {fileID: 529723172}
   npcSprite:
   - {fileID: -782193185, guid: 8a5540b24f50c984bbe6483f83260373, type: 3}

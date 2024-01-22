@@ -3627,13 +3627,16 @@ MonoBehaviour:
   nodeInfoCanvas: {fileID: 0}
   nodeInfoTexts: {fileID: 0}
   nodeImg: {fileID: 0}
-  treeManagerTest: {fileID: 0}
-  cameraControl: {fileID: 0}
   nodeShowingStatus: 0
   nodeInteractionStatus: 0
-  pairSO: {fileID: 0}
   currentGroup: {fileID: 0}
+  currentSelectGroup: {fileID: 0}
   currentParent: {fileID: 0}
+  leftGroup: {fileID: 0}
+  rightGroup: {fileID: 0}
+  upGroup: {fileID: 0}
+  downGroup: {fileID: 0}
+  cameraControl: {fileID: 0}
   dialogueRunner: {fileID: 0}
 --- !u!4 &1530754856
 Transform:
@@ -6052,6 +6055,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b07f6329f4ef4846a237c07fcbe999f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pairs: []
 --- !u!1 &2009257847
 GameObject:
   m_ObjectHideFlags: 0
