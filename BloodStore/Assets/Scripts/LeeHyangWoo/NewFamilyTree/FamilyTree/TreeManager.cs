@@ -10,6 +10,7 @@ public class TreeManagerTest : MonoBehaviour
 {
     public Pairs pairList;
     public PairTree root;
+    public BloodPacks bloodPackList;
     public GameObject nodePrefab;
     public GameObject emptyPrefab;
     private GameObject mainGroup;
@@ -21,6 +22,7 @@ public class TreeManagerTest : MonoBehaviour
     void Start()
     {
         this.pairList = GameManager.Instance.pairList;
+        this.bloodPackList = GameManager.Instance.bloodPackList;
         this.pairList = pairList.Load();
         root = pairList.Deserialize();
         if(pairList.pairs.Count == 0)
@@ -35,6 +37,7 @@ public class TreeManagerTest : MonoBehaviour
     void OnDestroy() {
         pairList.Serialize(root);
         pairList.Save(pairList.pairs);
+        bloodPackList.Packing(pairList);
         // pairList.Load();
     }
     void SetPrefabData(){

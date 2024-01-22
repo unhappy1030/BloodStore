@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public DialogueRunner dialogueRunner;
     public InMemoryVariableStorage variableStorage;
     public Pairs pairList;
+    public BloodPacks bloodPackList;
 
     private static GameManager _instance;
     public static GameManager Instance
@@ -89,7 +90,7 @@ public class GameManager : MonoBehaviour
         dialogueRunner = GetComponentInChildren<DialogueRunner>();
         variableStorage = GetComponentInChildren<InMemoryVariableStorage>();
         pairList = GetComponent<Pairs>();
-
+        bloodPackList = GetComponent<BloodPacks>();
         // assign scripts 
         if(npcInteract != null){
             npcInteract.dialogueRunner = dialogueRunner;
