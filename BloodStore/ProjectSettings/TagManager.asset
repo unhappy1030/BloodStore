@@ -12,8 +12,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - FamilyTree
+  - Interact
   - 
   - 
   - 
@@ -41,4 +41,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: InGame
+    uniqueID: 2600002751
+    locked: 0
+  - name: AlwaysOn
+    uniqueID: 592011183
     locked: 0

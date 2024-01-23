@@ -3,20 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Yarn.Unity;
 
 public class GameManager : MonoBehaviour
 {
-    public string[] sceneNamesInBuild; // **** Inspector 창에서 써 놓은 씬 이름
+    public string[] sceneNamesInBuild; // *** Inspector
 
-    public string startSceneName = "Start"; // 여기서 설정한 이름의 씬을 시작화면 씬으로 인식함
+    public string startSceneName = "Start"; // set start Scene name
 
+    public float money = 0;
+    public int day = 0;
+
+    public bool isFading = false; 
     bool wasFade = false;
 
     public Image whitePanel;
     public Image blackPanel;
 
+    public CameraControl cameraControl; // *** warning : must be in Scene and set "CameraControl" tag
+    public NPCInteract npcInteract;
+    public NodeInteraction nodeInteraction;
+    public MouseRayCast mouseRayCast;
+    public MoneyControl moneyControl;
+    public YarnControl yarnControl;
+    public DialogueRunner dialogueRunner;
+    public InMemoryVariableStorage variableStorage;
+    public Pairs pairList;
 
-    // ---< 싱글톤 >---
     private static GameManager _instance;
     public static GameManager Instance
     {
@@ -35,7 +48,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // ---< 싱글톤 >---
+        // ---< Singleton >---
         if (_instance == null)
         {
             _instance = this;
@@ -47,24 +60,74 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    // ---< 씬 로드 & 종료 시 수행 >---
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
-    // 씬 로드
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (wasFade)
-            StartCoroutine(FadeIn(blackPanel, 0.01f));
+        // find CameraContorl object
+        GameObject cameraControlObj = GameObject.FindWithTag("CameraControl");
+        if(cameraControlObj != null)
+            cameraControl = cameraControlObj.GetComponent<CameraControl>();
+        
+        else
+        {
+            cameraControlObj = new("CameraContorl");
+            cameraControl = cameraControlObj.AddComponent<CameraControl>();
+        }
+
+        npcInteract = FindObjectOfType<NPCInteract>();
+        nodeInteraction = FindObjectOfType<NodeInteraction>();
+
+        mouseRayCast = GetComponent<MouseRayCast>();
+        moneyControl = GetComponent<MoneyControl>();
+
+        yarnControl = GetComponentInChildren<YarnControl>();
+        dialogueRunner = GetComponentInChildren<DialogueRunner>();
+        variableStorage = GetComponentInChildren<InMemoryVariableStorage>();
+        pairList = GetComponent<Pairs>();
+
+        // assign scripts 
+        if(npcInteract != null){
+            npcInteract.dialogueRunner = dialogueRunner;
+            npcInteract.cameraControl = cameraControl;
+            npcInteract.yarnControl = yarnControl;
+        }
+
+        if(nodeInteraction != null){
+            if(cameraControl != null)
+            {
+                nodeInteraction.cameraControl = cameraControl;
+            }
+            nodeInteraction.dialogueRunner = dialogueRunner;
+        }
+
+        mouseRayCast.cameraControl = cameraControl;
+        mouseRayCast.npcInteract = npcInteract;
+        mouseRayCast.dialogueRunner = dialogueRunner;
+
+        yarnControl.moneyControl = moneyControl;
+        yarnControl.dialogueRunner = dialogueRunner;
+        yarnControl.variableStorage = variableStorage;
+        
+        whitePanel.gameObject.SetActive(false);
+        blackPanel.gameObject.SetActive(false);
+        
+        // Fade in
+        if (wasFade){
+            StartCoroutine(FadeInUI(blackPanel, 0.01f));
+        }
     }
 
-    // 씬 종료
     void OnSceneUnloaded(Scene currentScene)
     {
-
+        if(dialogueRunner.IsDialogueRunning){
+            dialogueRunner.Stop();
+            Debug.Log("Stop all dialogue...");
+        }
     }
 
     private void OnDisable()
@@ -74,48 +137,45 @@ public class GameManager : MonoBehaviour
     }
 
 
-    // [씬 로드]
+    // Scene Load
     public void SceneLoad(string sceneName)
     {
         if (Application.CanStreamedLevelBeLoaded(sceneName))
         {
-            Debug.Log(sceneName + " 씬을 불러옵니다...");
+            Debug.Log(sceneName + "");
             SceneManager.LoadScene(sceneName);
         }
         else
         {
-            Debug.Log("없는 씬입니다...");
+            Debug.Log("There is no scene in build...");
         }
     }
 
-
-    // [fade out 후 씬 로드]
     public IEnumerator FadeOutAndLoadScene(string sceneName, float speed)
     {
         if (Application.CanStreamedLevelBeLoaded(sceneName))
         {
-            Debug.Log(sceneName + " 씬을 불러옵니다...");
-            yield return StartCoroutine(FadeOut(blackPanel, speed));
+            Debug.Log(sceneName + " load...");
+            yield return StartCoroutine(FadeOutUI(blackPanel, speed));
             wasFade = true;
             SceneManager.LoadScene(sceneName);
         }
         else
         {
-            Debug.Log("없는 씬입니다...");
+            Debug.Log("There is no scene in build...");
         }
     }
 
 
-    // ---< 코루틴 >---
-    // fadeSpeed는 0.005f ~ 0.05f 사이의 값이 적절
-
-    // [fade out] -> 드러남
-    public IEnumerator FadeOut(Image _Image, float _fadeSpeed)
+    // Fade in & out
+    public IEnumerator FadeOutUI(Image _Image, float _fadeSpeed)
     {
-        Debug.Log("Fade out...");
-        _Image.gameObject.SetActive(true);
+        isFading = true;
+        // Debug.Log("Fade out...");
         Color t_color = _Image.color;
         t_color.a = 0;
+        
+        _Image.gameObject.SetActive(true);
 
         while (t_color.a < 1)
         {
@@ -124,15 +184,17 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
+        isFading = false;
         wasFade = true;
     }
 
-    // [fade in] -> 사라짐
-    public IEnumerator FadeIn(Image _Image, float _fadeSpeed)
+    public IEnumerator FadeInUI(Image _Image, float _fadeSpeed)
     {
-        Debug.Log("Fade in...");
+        isFading = true;
+        // Debug.Log("Fade in...");
         Color t_color = _Image.color;
         t_color.a = 1;
+        _Image.gameObject.SetActive(true);
 
         while (t_color.a > 0)
         {
@@ -143,7 +205,44 @@ public class GameManager : MonoBehaviour
 
         _Image.gameObject.SetActive(false);
 
+        isFading = false;
         wasFade = false;
     }
+
+    public IEnumerator FadeOutSprite(SpriteRenderer _Sprite, float _fadeSpeed){
+        // Debug.Log("Fade out...");
+        Color t_color = _Sprite.color;
+        t_color.a = 0;
+        
+        _Sprite.gameObject.SetActive(true);
+
+        while (t_color.a < 1)
+        {
+            t_color.a += _fadeSpeed;
+            _Sprite.color = t_color;
+            yield return null;
+        }
+        
+    }
+
+    public IEnumerator FadeInSprite(SpriteRenderer _Sprite, float _fadeSpeed){
+        // Debug.Log("Fade in...");
+        Color t_color = _Sprite.color;
+        t_color.a = 1;
+        
+        _Sprite.gameObject.SetActive(true);
+
+        while (t_color.a > 0)
+        {
+            t_color.a -= _fadeSpeed;
+            _Sprite.color = t_color;
+            yield return null;
+        }
+
+        _Sprite.gameObject.SetActive(false);
+
+        wasFade = false;
+    }
+
 
 }

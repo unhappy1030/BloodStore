@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class ButtonControl : MonoBehaviour
 {
-    UIControl uiControl;
+    public UIControl uiControl;
 
     private void Awake()
     {
@@ -18,6 +18,9 @@ public class ButtonControl : MonoBehaviour
         GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(sceneName, 0.05f));
     }
 
+    public void DayIncrease(){
+        GameManager.Instance.day++;
+    }
 
     // ---< AlwaysOnCanvas >---
 
@@ -39,5 +42,10 @@ public class ButtonControl : MonoBehaviour
         uiControl.status = UIControl.AlwaysOnUIStatus.Setting;
         uiControl.ControlAlwaysOnCanvasUI();
     }
-
+    public void PopUpSelectUI()
+    {
+        SelectCardUI UI = GetComponentInParent<SelectCardUI>();
+        UI.ActiveSelectableCards();
+        UI.DeActiveSelectedCard();
+    }
 }

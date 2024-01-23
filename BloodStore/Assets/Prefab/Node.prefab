@@ -884,7 +884,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.2605, y: 0.2989, z: 0}
-  m_LocalScale: {x: 5, y: 7, z: 1}
+  m_LocalScale: {x: 2.5, y: 3.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6596303923921372721}
@@ -1004,7 +1004,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aae0b8dc5bdd3d4c8dd97dcffc66b1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveCamera: {fileID: 0}
   pairData: {fileID: 11400000, guid: a594d54955c75be468d43d8515178ef5, type: 2}
   nodePrefab: {fileID: 6760261051291835718}
   emptyPrefab: {fileID: 1446904127552790029, guid: 49ce4c4a768573249a7e521ad26add58, type: 3}

@@ -1,49 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using Yarn.Unity;
 
 public class MouseRayCast : MonoBehaviour
 {
-    // 주의 : 버튼을 제외한 모든 상호작용 물체는 Collider를 가지고 있어야 한다
-    public GameObject moveTarget;
-    CameraControl cameraControl;
+    // warning : object must be set Layer as "Interact"
+    
+    public CameraControl cameraControl; // *** warning : must be in Scene and set "CameraControl" tag
+    public NPCInteract npcInteract;
+    public DialogueRunner dialogueRunner;
 
-    private void Start()
-    {
-        // *** 카메라는 MainCamera 태그를 가지고 있어야 함
-        cameraControl = GameObject.FindWithTag("CameraControl").GetComponent<CameraControl>();
-        
-    }
 
     private void Update()
     {
-        // 마우스 입력 처리
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) 
+            && !EventSystem.current.IsPointerOverGameObject() 
+            && !dialogueRunner.IsDialogueRunning
+            && !GameManager.Instance.isFading
+            && !cameraControl.mainCam.IsBlending)
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D ray = Physics2D.Raycast(mousePos, Vector2.zero, 0f);
+            RaycastHit2D ray = Physics2D.Raycast(mousePos, Vector2.zero, 0f, LayerMask.GetMask("Interact"));
 
-            if (ray.collider != null)
+            if (ray.collider != null){
                 MouseInteract(ray.collider.gameObject);
+            }
         }
     }
 
-    // [마우스 상호작용 처리]
-    void MouseInteract(GameObject gameObject)
+    void MouseInteract(GameObject interactObj)
     {
-        InteractObjInfo interactObjInfo = gameObject.GetComponent<InteractObjInfo>();
+        InteractObjInfo interactObjInfo = interactObj.GetComponent<InteractObjInfo>();
 
         if (interactObjInfo == null)
             return;
 
-        //  - 카메라 이동
         if (interactObjInfo._interactType == InteractType.CameraControl)
         {
-            cameraControl.ChangeBlendListCamSetting(interactObjInfo);
+            cameraControl.ChangeCam(interactObjInfo);
         }
 
-        // - 씬 이동
+        if(interactObjInfo._interactType == InteractType.NpcInteraction)
+        {
+            npcInteract.StartDialogue(interactObjInfo._nodeName);
+        }
+
         if (interactObjInfo._interactType == InteractType.SceneLoad)
         {
             GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(interactObjInfo._sceneName, 0.05f));

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9a91195b1d7ed874e820922dba23879f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - pairSO: {fileID: 11400000, guid: 08d3616b22f104c4b9931915cf530844, type: 2}
+  - bloodPackSO: {fileID: 11400000, guid: 7c2b4efd1557e3940875c8f665fd760d, type: 2}
+  - nodePrefab: {fileID: 4066454781233555869, guid: 0a0e85bbe5f2eeb40afe91827c112767, type: 3}
+  - emptyPrefab: {fileID: 8718197429054370660, guid: 3b736b6025e4f464ebba10c9000fb0f0, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
