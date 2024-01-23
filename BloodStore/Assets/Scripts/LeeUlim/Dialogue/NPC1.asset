@@ -23,11 +23,11 @@ MonoBehaviour:
     isDay: 1
     num: 2
     priority: 0
-    dialogueName: npc1Start
+    dialogueName: npc1Day2
   - npcName: npc1
     where: 0
     when: 0
     isDay: 1
     num: 3
     priority: 1
-    dialogueName: npc1Second
+    dialogueName: npc1Day3

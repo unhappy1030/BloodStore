@@ -6,8 +6,6 @@ using Yarn.Unity;
 
 public class NPCInteract : MonoBehaviour
 {
-    public List<NPCInfo> npcInfos; // assign at inspector
-
     public GameObject npc; // assign at Inspector
     public List<Sprite> npcSprite; // assign at Inspector
     public List<GameObject> cameraTarget; // assign at Inspector
@@ -27,10 +25,13 @@ public class NPCInteract : MonoBehaviour
 
     Coroutine npcCoroutine;
 
+    List<NPCInfo> npcInfos; // get from DialogueControl
     List<DialogueInfo> dialogueSum;
 
     void Start(){
-        GetDialogues();
+        npcInfos = dialogueControl.npcInfos; // test
+
+        GetStoreDialogues();
         count = dialogueSum.Count;
 
         npcIndex = 0;
@@ -42,7 +43,7 @@ public class NPCInteract : MonoBehaviour
         bloodPackCanvas.SetActive(false);
         nextDayButton.SetActive(false);
 
-        npcCoroutine = StartCoroutine(StartInteraction());
+        npcCoroutine = StartCoroutine(StartCustomer());
     }
 
     private void OnDestroy()
@@ -53,23 +54,7 @@ public class NPCInteract : MonoBehaviour
         }
     }
 
-    void GetDialogues(){
-        dialogueControl.GetAbleNPC();
-        dialogueControl.GetDayDialogue(WhereNodeStart.Store, WhenNodeStart.Click);
-        dialogueSum = dialogueControl.ableDialogues;
-    }
-
-    void SetDialogues(){
-        InteractObjInfo interactObjInfo = npc.GetComponent<InteractObjInfo>();
-        if(interactObjInfo == null){
-            interactObjInfo = npc.AddComponent<InteractObjInfo>();
-        }
-
-        interactObjInfo._interactType = InteractType.NpcInteraction;
-        interactObjInfo._nodeName = dialogueSum[npcIndex].dialogueName;
-    }
-
-    IEnumerator StartInteraction(){
+    IEnumerator StartCustomer(){
         if(count == 0 || npcSprite.Count == 0){
             ReadyToMoveNextDay();
             npcCoroutine = null;
@@ -77,7 +62,7 @@ public class NPCInteract : MonoBehaviour
         }
         
         // spriteIndex = GetSpriteIndex();
-        SetDialogues();
+        SetStoreDialogues();
 
         yield return ActiveSprite(spriteIndex);
 
@@ -117,7 +102,7 @@ public class NPCInteract : MonoBehaviour
 
         if(npcIndex < count){
             Debug.Log("another NPC Interact triggered...");
-            yield return StartCoroutine(StartInteraction());
+            yield return StartCoroutine(StartCustomer());
         }
         
         if(npcIndex == count){ // for trigger only at final interaction
@@ -127,7 +112,6 @@ public class NPCInteract : MonoBehaviour
         }
     }
     
-    // test
     int GetSpriteIndex(string npcName){
         bool isExist = false;
         int index = 0;
@@ -145,64 +129,26 @@ public class NPCInteract : MonoBehaviour
         
         return index;
     }
-
-    /*
-    void SetCount(){
-        int dayCount = 0;
-        int conditionCount = 0;
-        int requiredCount = 0;
-
-        foreach(NPCInfo npcInfo in npcInfos){
-            if(npcInfo.startDay >= GameManager.Instance.day){
-                dayCount = npcInfo.GetDayCount(GameManager.Instance.day);
-            }
-
-            // assign conditionCount here
-            // conditionCount = npcInfo.GetConditionCount(condition);
-        }
-
-        requiredCount = dayCount + conditionCount; // test
-        
-        if(requiredCount > 5) // test
-        {
-            count = requiredCount;
-        }
-        else
-        {
-            count = Random.Range(requiredCount, requiredCount + 3); // test
-        }
-    }
     
-    void SetDialogues(){
-        int index = 0;
-
-        foreach(NPCInfo npcInfo in npcInfos){
-            foreach(NodeInfo nodeInfo in npcInfo.nodeInfos){
-                if(nodeInfo.isDay && nodeInfo.num == GameManager.Instance.day
-                    || !nodeInfo.isDay && nodeInfo.num == condition)
-                {
-                    dialogueInfos.Add(new());
-                    dialogueInfos[index].npcName = npcInfo.npcName;
-                    dialogueInfos[index].nodeInfo = nodeInfo;
-                    index++;
-                }
-            }
-        }
-
-        if(dialogueInfos.Count < count){
-            while(true){
-                NPCInfo randNPC = npcInfos[Random.Range(0, npcInfos.Count)];
-
-                if(randNPC.startDay >= GameManager.Instance.day){
-                    break;
-                }
-            }
-
-            dialogueInfos.Add(new());
-            dialogueInfos[index].npcName =
-        }
+    // from DialogueControl
+    void GetStoreDialogues(){
+        dialogueControl.GetAbleNPC();
+        dialogueControl.GetDayDialogue(WhereNodeStart.Store, WhenNodeStart.Click);
+        dialogueControl.GetCondDialogue(WhereNodeStart.Store, WhenNodeStart.Click);
+        dialogueControl.SetAllDialogues();
+        dialogueSum = dialogueControl.ableDialogues;
     }
-*/
+
+    // to InteractObjInfo
+    void SetStoreDialogues(){
+        InteractObjInfo interactObjInfo = npc.GetComponent<InteractObjInfo>();
+        if(interactObjInfo == null){
+            interactObjInfo = npc.AddComponent<InteractObjInfo>();
+        }
+
+        interactObjInfo._interactType = InteractType.NpcInteraction;
+        interactObjInfo._nodeName = dialogueSum[npcIndex].dialogueName;
+    }
 
     IEnumerator ActiveSprite(int spriteIndex){
         spriteIndex = GetSpriteIndex(dialogueSum[npcIndex].npcName);
@@ -269,6 +215,7 @@ public class NPCInteract : MonoBehaviour
         return 5.0f;
     }
     
+    // test
     void ReadyToMoveNextDay(){
         nextDayButton.SetActive(true);
     }

@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9cd42481cd8575348b0c8e7e1778d70c, type: 3}
-  m_Name: NPC2
+  m_Name: NPC3
   m_EditorClassIdentifier: 
-  npcName: npc2
+  npcName: npc3
   sprites:
-  - {fileID: 391900973, guid: 8a5540b24f50c984bbe6483f83260373, type: 3}
-  startDay: 3
+  - {fileID: 1557126052, guid: 8a5540b24f50c984bbe6483f83260373, type: 3}
+  startDay: 0
   dialogues:
   - npcName: npc2
     where: 0
     when: 0
-    isDay: 1
-    num: 2
-    priority: 0
-    dialogueName: npc2Day2
+    isDay: 0
+    num: 0
+    priority: 1
+    dialogueName: npc3Cond0
   - npcName: npc2
     where: 0
     when: 0
-    isDay: 1
-    num: 3
+    isDay: 0
+    num: 1
     priority: 0
-    dialogueName: npc2Day3
+    dialogueName: npc3Cond1

@@ -15,7 +15,7 @@ public class NPCInfo : ScriptableObject
     public int startDay;
     public List<DialogueFrame> dialogues;
 
-    public bool ableNPC(int day){
+    public bool AbleNPC(int day){
         if(startDay > day){
             return false;
         }
