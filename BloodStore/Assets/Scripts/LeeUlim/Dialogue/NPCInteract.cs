@@ -64,7 +64,7 @@ public class NPCInteract : MonoBehaviour
         // spriteIndex = GetSpriteIndex();
         SetStoreDialogues();
 
-        yield return ActiveSprite(spriteIndex);
+        yield return ActiveSprite();
 
         yield return new WaitUntil(() => dialogueRunner.IsDialogueRunning); // wait until mouse click
         // tell what they want
@@ -94,7 +94,7 @@ public class NPCInteract : MonoBehaviour
         StartDialogue(yarnControl.nodeName); // tell their evaluation or end dialogue
         yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
 
-        DeActiveSprite(spriteIndex);
+        DeActiveSprite();
 
         yield return new WaitForSecondsRealtime(2);
 
@@ -123,7 +123,7 @@ public class NPCInteract : MonoBehaviour
             }
             index++;
         }
-        if(!isExist && index == 0){
+        if(!isExist){
             index = -1;
         }
         
@@ -150,9 +150,9 @@ public class NPCInteract : MonoBehaviour
         interactObjInfo._nodeName = dialogueSum[npcIndex].dialogueName;
     }
 
-    IEnumerator ActiveSprite(int spriteIndex){
+    IEnumerator ActiveSprite(){
         spriteIndex = GetSpriteIndex(dialogueSum[npcIndex].npcName);
-        
+
         if(spriteIndex < 0 || spriteIndex > npcInfos.Count -1 || npcInfos[spriteIndex].sprites[0] == null){
             Debug.Log("There is no sprite in NPCInfos...");
             yield break;
@@ -166,7 +166,7 @@ public class NPCInteract : MonoBehaviour
         npc.GetComponent<BoxCollider2D>().enabled = true;
     }
 
-    void DeActiveSprite(int spriteIndex){
+    void DeActiveSprite(){
         npc.GetComponent<BoxCollider2D>().enabled = false;
         GameManager.Instance.StartCoroutine(GameManager.Instance.FadeInSprite(npc.GetComponent<SpriteRenderer>(), 0.05f));
         npc.SetActive(false);

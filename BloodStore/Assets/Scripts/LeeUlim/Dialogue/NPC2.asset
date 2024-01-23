@@ -16,18 +16,15 @@ MonoBehaviour:
   sprites:
   - {fileID: 391900973, guid: 8a5540b24f50c984bbe6483f83260373, type: 3}
   startDay: 3
-  dialogues:
-  - npcName: npc2
-    where: 0
+  dayDialogues:
+  - where: 0
     when: 0
-    isDay: 1
-    num: 2
-    priority: 0
-    dialogueName: npc2Day2
-  - npcName: npc2
-    where: 0
-    when: 0
-    isDay: 1
-    num: 3
+    day: 2
     priority: 0
     dialogueName: npc2Day3
+  - where: 0
+    when: 0
+    day: 3
+    priority: 0
+    dialogueName: npc2Day3
+  condDialogues: []

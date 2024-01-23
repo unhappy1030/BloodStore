@@ -49,90 +49,69 @@ position: -1134,-65
 ---
 npc1: this is Day2.
 
-<<set $money = UpdateMoney()>>
-
-Customer: Do you have Rh+O blood?
--> Sell
-    <<set $sell = true>>
-    <<SellBlood DialogueSystem {$sell}>>
-    <<SetCamTargetIndex DialogueSystem 1>>
-    <<SetNodeName DialogueSystem Sell>>
--> No we don't have...
-    <<set $sell = false>>
-    <<SellBlood DialogueSystem {$sell}>>
-    <<SetNodeName DialogueSystem Sell>>
+<<set $sell = false>>
+<<SellBlood DialogueSystem {$sell}>>
+<<SetNodeName DialogueSystem Finish>>
 ===
 title: npc1Day3
 position: -1359,-62
 ---
 npc1: this is Day3.
 
-<<set $money = UpdateMoney()>>
-
-Customer: Do you have Rh+O blood?
--> Sell
-    <<set $sell = true>>
-    <<SellBlood DialogueSystem {$sell}>>
-    <<SetCamTargetIndex DialogueSystem 1>>
-    <<SetNodeName DialogueSystem Sell>>
--> No we don't have...
-    <<set $sell = false>>
-    <<SellBlood DialogueSystem {$sell}>>
-    <<SetNodeName DialogueSystem Sell>>
+<<set $sell = false>>
+<<SellBlood DialogueSystem {$sell}>>
+<<SetNodeName DialogueSystem Finish>>
 ===
 title: npc2Day3
 position: -1135,-433
 ---
 npc2: this is Day3.
 
-<<set $money = UpdateMoney()>>
-
-Customer: Do you have Rh+O blood?
--> Sell
-    <<set $sell = true>>
-    <<SellBlood DialogueSystem {$sell}>>
-    <<SetCamTargetIndex DialogueSystem 1>>
-    <<SetNodeName DialogueSystem Sell>>
--> No we don't have...
-    <<set $sell = false>>
-    <<SellBlood DialogueSystem {$sell}>>
-    <<SetNodeName DialogueSystem Sell>>
+<<set $sell = false>>
+<<SellBlood DialogueSystem {$sell}>>
+<<SetNodeName DialogueSystem Finish>>
 ===
 title: npc3Cond0
 position: -1684,-180
 ---
 npc3: this is condition0.
 
-<<set $money = UpdateMoney()>>
-
-Customer: Do you have Rh+O blood?
--> Sell
-    <<set $sell = true>>
-    <<SellBlood DialogueSystem {$sell}>>
-    <<SetCamTargetIndex DialogueSystem 1>>
-    <<SetNodeName DialogueSystem Sell>>
+Change Condition?
+-> Yes
     <<SetCondition DialogueSystem npc3 1>>
--> No we don't have...
-    <<set $sell = false>>
-    <<SellBlood DialogueSystem {$sell}>>
-    <<SetNodeName DialogueSystem Sell>>
+-> NO
+
+
+<<set $sell = false>>
+<<SellBlood DialogueSystem {$sell}>>
+<<SetNodeName DialogueSystem Finish>>
+
 ===
 title: npc3Cond1
 position: -1795,-344
 ---
 npc3: this is condition1.
 
-<<set $money = UpdateMoney()>>
-
-Customer: Do you have Rh+O blood?
--> Sell
-    <<set $sell = true>>
-    <<SellBlood DialogueSystem {$sell}>>
-    <<SetCamTargetIndex DialogueSystem 1>>
-    <<SetNodeName DialogueSystem Sell>>
+Change Condition?
+-> Yes
     <<SetCondition DialogueSystem npc3 2>>
--> No we don't have...
-    <<set $sell = false>>
-    <<SellBlood DialogueSystem {$sell}>>
-    <<SetNodeName DialogueSystem Sell>>
+-> NO
+
+<<set $sell = false>>
+<<SellBlood DialogueSystem {$sell}>>
+<<SetNodeName DialogueSystem Finish>>
+===
+title: npc3Day3
+position: -1502,-496
+---
+npc3: this is Day3.
+
+<<set $sell = false>>
+<<SellBlood DialogueSystem {$sell}>>
+<<SetNodeName DialogueSystem Finish>>
+===
+title: Finish
+position: -1426,-253
+---
+Finish dialogue...
 ===

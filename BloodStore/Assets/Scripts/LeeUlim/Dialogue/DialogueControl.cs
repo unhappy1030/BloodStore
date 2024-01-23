@@ -71,16 +71,19 @@ public class DialogueControl : MonoBehaviour
         }
 
         int index = 0;
-        foreach(NPCInfo ableNpcInfo in ableNPCInfos){
-            List<DialogueFrame> list = ableNpcInfo.GetAllDialogues(where, when, true, GameManager.Instance.day);
 
-            dayCount += ableNpcInfo.GetDialoguesCount(where, when, true, GameManager.Instance.day);
-            
-            foreach(DialogueFrame frame in list){
+        foreach(NPCInfo ableNpcInfo in ableNPCInfos){
+            List<DayDialogue> list = ableNpcInfo.GetDayDialogues(where, when, GameManager.Instance.day);
+
+            dayCount += list.Count;
+
+            foreach(DayDialogue day in list){
                 dayDialogues.Add(new());
-                dayDialogues[index].npcName = frame.npcName;
-                dayDialogues[index].priority = frame.priority;
-                dayDialogues[index].dialogueName = frame.dialogueName;
+                dayDialogues[index].npcName = ableNpcInfo.npcName;
+                dayDialogues[index].priority = day.priority;
+                dayDialogues[index].dialogueName = day.dialogueName;
+                Debug.Log("Able day name " + index + " : " + dayDialogues[index].npcName);
+
                 index++;
             }
         }
@@ -97,22 +100,25 @@ public class DialogueControl : MonoBehaviour
         }
 
         if(ableNPCInfos == null || ableNPCInfos.Count == 0){
-            Debug.Log("There is no able NPC in this day...");
+            Debug.Log("There is no able NPC in this Condition...");
             return;
         }
 
         int index = 0;
+
         foreach(NPCInfo ableNpcInfo in ableNPCInfos){
             string npcName = ableNpcInfo.npcName;
-            List<DialogueFrame> list = ableNpcInfo.GetAllDialogues(where, when, false, npcConditions[npcName]);
+            List<CondDialogue> list 
+                = ableNpcInfo.GetCondDialogues(where, when, npcConditions[npcName], GameManager.Instance.day);
 
-            dayCount += ableNpcInfo.GetDialoguesCount(where, when, true, npcConditions[npcName]);
+            conditionCount += list.Count;
             
-            foreach(DialogueFrame frame in list){
+            foreach(CondDialogue cond in list){
                 condDialogues.Add(new());
-                condDialogues[index].npcName = frame.npcName;
-                condDialogues[index].priority = frame.priority;
-                condDialogues[index].dialogueName = frame.dialogueName;
+                condDialogues[index].npcName = ableNpcInfo.npcName;
+                condDialogues[index].priority = cond.priority;
+                condDialogues[index].dialogueName = cond.dialogueName;
+                Debug.Log("Able Cond name " + index + " : " + condDialogues[index].npcName);
                 index++;
             }
         }
@@ -130,12 +136,17 @@ public class DialogueControl : MonoBehaviour
 
         foreach(DialogueInfo day in dayDialogues){
             ableDialogues.Add(day);
+            Debug.Log("Able day name : " + day.npcName);
         }
 
-        foreach(DialogueInfo condition in condDialogues){
-            ableDialogues.Add(condition);
+        foreach(DialogueInfo cond in condDialogues){
+            ableDialogues.Add(cond);
+            Debug.Log("Able Cond name : " + cond.npcName);
         }
 
+        foreach(DialogueInfo info in ableDialogues){
+            Debug.Log("Name : " + info.npcName.ToString());
+        }
         ableDialogues.Sort(ComparePriority);
     }
 

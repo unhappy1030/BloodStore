@@ -13,7 +13,8 @@ public class NPCInfo : ScriptableObject
     [Tooltip("0 : Normal / 1 : Happy / 2 : Sad / 3 : Angry")]
     public List<Sprite> sprites;
     public int startDay;
-    public List<DialogueFrame> dialogues;
+    public List<DayDialogue> dayDialogues;
+    public List<CondDialogue> condDialogues;
 
     public bool AbleNPC(int day){
         if(startDay > day){
@@ -22,50 +23,62 @@ public class NPCInfo : ScriptableObject
         return true;
     }
 
-    public List<DialogueFrame> GetAllDialogues(WhereNodeStart where, WhenNodeStart when, bool isDay, int num){
-        List<DialogueFrame> list = new();
+    public List<DayDialogue> GetDayDialogues(WhereNodeStart where, WhenNodeStart when, int day){
+        List<DayDialogue> list = new();
         
         int index = 0;
-        foreach(DialogueFrame dialogue in dialogues){
+        foreach(DayDialogue dialogue in dayDialogues){
             if(dialogue.where == where && dialogue.when == when){
-                if(dialogue.isDay == isDay && dialogue.num == num){
-                    list.Add(new());
-                    list[index] = dialogue;
-                    list[index].npcName = npcName; // assign npc Name here
+                if(dialogue.day == day){
+                    list.Add(dialogue);
+                    index++;
                 }
             }
         }
 
         return list;
     }
-    
-    public int GetDialoguesCount(WhereNodeStart where, WhenNodeStart when, bool isDay, int num){
-        int count = 0;
+
+    public List<CondDialogue> GetCondDialogues(WhereNodeStart where, WhenNodeStart when, int condition, int day){
+        List<CondDialogue> list = new();
         
-        if(dialogues != null){
-            foreach(DialogueFrame dialogue in dialogues){
-                if(dialogue.where == where && dialogue.when == when){
-                    if(dialogue.isDay == isDay && dialogue.num == num){
-                        count++;
-                    }
+        int index = 0;
+        foreach(CondDialogue dialogue in condDialogues){
+            if(dialogue.where == where && dialogue.when == when){
+                if(dialogue.condition == condition 
+                    && day >= dialogue.waitUntil 
+                    && day <= dialogue.deadline)
+                {
+                    list.Add(dialogue);
+                    index++;
                 }
             }
         }
 
-        return count;
+        return list;
     }
-
 }
 
 [Serializable]
-public class DialogueFrame{
-    [HideInInspector] public string npcName; // not assign at inspector
+public class DayDialogue{
     public WhereNodeStart where;
     public WhenNodeStart when;
     
-    public bool isDay;
-    [Tooltip("If isDay is true, num means day, or condition.")]
-    public int num;
+    public int day;
+    public int priority;
+
+    public string dialogueName;
+}
+
+
+[Serializable]
+public class CondDialogue{
+    public WhereNodeStart where;
+    public WhenNodeStart when;
+    
+    public int condition;
+    public int waitUntil;
+    public int deadline;
     public int priority;
 
     public string dialogueName;
