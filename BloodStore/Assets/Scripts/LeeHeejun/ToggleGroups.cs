@@ -9,7 +9,7 @@ public class ToggleGroups : MonoBehaviour
 {
     public GameObject parentObject;
     public List<Toggle> activeToggles;
-    public BloodPackSO bloodPackSO;
+    public BloodPacks bloodPackSO;
     public TMP_Text NumofFiltered;
     public GameObject bloodPackUIPrefab;
     public Transform uiContainer;
@@ -18,6 +18,7 @@ public class ToggleGroups : MonoBehaviour
 
     void Start()
     {
+        this.bloodPackSO = GameManager.Instance.bloodPackList;
         ToggleGroup[] toggleGroups = parentObject.GetComponentsInChildren<ToggleGroup>();
 
         foreach (ToggleGroup tg in toggleGroups)

@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 [System.Serializable]
-public class SaveArray{
+public class SavePairArray{
     public Pair[] arr;
 }
 
 public class Pairs : MonoBehaviour
 {
     public List<Pair> pairs = new();
-    SaveArray saveArray = new();
+    SavePairArray saveArray = new();
 
     public void Save(List<Pair> pairList){
-        string _path = Application.dataPath + "/testRightFuture.json"; 
+        string _path = Application.dataPath + "/FamilyTree.json"; 
         saveArray = new();
         saveArray.arr = pairList.ToArray();
         string json = JsonUtility.ToJson(saveArray);
@@ -21,15 +21,20 @@ public class Pairs : MonoBehaviour
         Debug.Log("RightFuture");
     }
     public Pairs Load(){
-        string _path = Application.dataPath + "/testRightFuture.json";
-        string jsonData = File.ReadAllText(_path);
-        saveArray = JsonUtility.FromJson<SaveArray>(jsonData);
-        if(saveArray == null){
-            Debug.Log("NewGame Start!");
+        string _path = Application.dataPath + "/FamilyTree.json";
+        if(File.Exists(_path)){
+            string jsonData = File.ReadAllText(_path);
+            saveArray = JsonUtility.FromJson<SavePairArray>(jsonData);
+            if(saveArray == null){
+                Debug.Log("NewGame Start!");
+            }
+            else{
+                Debug.Log("Save Data Load!");
+                pairs = new List<Pair>(saveArray.arr);
+            }
         }
         else{
-            Debug.Log("Save Data Load!");
-            pairs = new List<Pair>(saveArray.arr);
+            pairs = new();
         }
         return this;
     }
