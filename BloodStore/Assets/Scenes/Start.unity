@@ -5939,6 +5939,7 @@ GameObject:
   - component: {fileID: 1983117555}
   - component: {fileID: 1983117557}
   - component: {fileID: 1983117556}
+  - component: {fileID: 1983117558}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -6076,6 +6077,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3d1d625548e647344b40cfdd6fd77aaf, type: 2}
   - {fileID: 11400000, guid: 540abed9f20331349b980ccba58e0df9, type: 2}
   - {fileID: 11400000, guid: 8c18af9606a9b2142935bb5e408012bd, type: 2}
+--- !u!114 &1983117558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983117550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e96fbca96571764a96d2736a9382aa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodPacks: []
+  saveArray:
+    arr: []
 --- !u!1 &2009257847
 GameObject:
   m_ObjectHideFlags: 0
