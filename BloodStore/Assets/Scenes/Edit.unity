@@ -4674,6 +4674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pairList: {fileID: 0}
+  bloodPackList: {fileID: 0}
   nodePrefab: {fileID: 4066454781233555869, guid: 0a0e85bbe5f2eeb40afe91827c112767, type: 3}
   emptyPrefab: {fileID: 8718197429054370660, guid: 3b736b6025e4f464ebba10c9000fb0f0, type: 3}
   pairOffSet: 0.2
@@ -7789,7 +7790,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -9068,12 +9069,16 @@ MonoBehaviour:
   nodeInfoCanvas: {fileID: 1582490376}
   nodeInfoTexts: {fileID: 1048937464}
   nodeImg: {fileID: 798279807}
-  treeManagerTest: {fileID: 0}
-  cameraControl: {fileID: 0}
   nodeShowingStatus: 0
   nodeInteractionStatus: 0
   currentGroup: {fileID: 0}
+  currentSelectGroup: {fileID: 0}
   currentParent: {fileID: 0}
+  leftGroup: {fileID: 0}
+  rightGroup: {fileID: 0}
+  upGroup: {fileID: 0}
+  downGroup: {fileID: 0}
+  cameraControl: {fileID: 0}
   dialogueRunner: {fileID: 0}
 --- !u!4 &2006179463
 Transform:

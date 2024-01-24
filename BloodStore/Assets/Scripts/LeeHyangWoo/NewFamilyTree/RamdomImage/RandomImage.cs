@@ -16,6 +16,6 @@ public class RandomImage : MonoBehaviour
     {
         int index = Random.Range(0, spriteList.Count); // 랜덤 인덱스 생성
         spriteRenderer.sprite = spriteList[index]; // 선택된 스프라이트로 설정
-        spriteRenderer.transform.localScale = new Vector2(0.35f, 0.22f);
+        spriteRenderer.transform.localScale = new Vector2(0.6f, 0.6f);
     }
 }
