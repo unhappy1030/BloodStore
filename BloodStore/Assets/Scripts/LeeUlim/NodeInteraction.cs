@@ -332,13 +332,8 @@ public class NodeInteraction : MonoBehaviour
         }
 
         PairTree pairTree = group.pairTree;
-        Node node;
-        if(nodeDisplay.sexLabel.text == "Male"){
-            node = pairTree.pair.male;
-        }
-        else{
-            node = pairTree.pair.female;
-        }
+        Node node = nodeDisplay.data;
+
 
         nodeInfoCanvas.SetActive(true);
         SetNodeInfoUIImg(nodeDisplay);
