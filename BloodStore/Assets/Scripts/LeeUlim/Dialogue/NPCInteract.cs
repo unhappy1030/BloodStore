@@ -25,7 +25,7 @@ public class NPCInteract : MonoBehaviour
 
     Coroutine npcCoroutine;
 
-    List<NPCInfo> npcInfos; // get from DialogueControl
+    List<NPCSO> npcInfos; // get from DialogueControl
     List<DialogueInfo> dialogueSum;
 
     void Start(){
@@ -94,9 +94,9 @@ public class NPCInteract : MonoBehaviour
         StartDialogue(yarnControl.nodeName); // tell their evaluation or end dialogue
         yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
 
-        DeActiveSprite();
+        yield return StartCoroutine(DeActiveSprite());
 
-        yield return new WaitForSecondsRealtime(2);
+        yield return new WaitForSecondsRealtime(1);
 
         npcIndex++;
 
@@ -112,31 +112,10 @@ public class NPCInteract : MonoBehaviour
         }
     }
     
-    int GetSpriteIndex(string npcName){
-        bool isExist = false;
-        int index = 0;
-        
-        foreach(NPCInfo npcInfo in npcInfos){
-            if(npcInfo.npcName == npcName){
-                isExist = true;
-                break;
-            }
-            index++;
-        }
-        if(!isExist){
-            index = -1;
-        }
-        
-        return index;
-    }
-    
     // from DialogueControl
     void GetStoreDialogues(){
-        dialogueControl.GetAbleNPC();
-        dialogueControl.GetDayDialogue(WhereNodeStart.Store, WhenNodeStart.Click);
-        dialogueControl.GetCondDialogue(WhereNodeStart.Store, WhenNodeStart.Click);
-        dialogueControl.SetAllDialogues();
-        dialogueSum = dialogueControl.ableDialogues;
+        dialogueControl.GetAllDialogues(WhereNodeStart.Store, WhenNodeStart.Click);
+        dialogueSum = dialogueControl.allDialogues;
     }
 
     // to InteractObjInfo
@@ -150,6 +129,25 @@ public class NPCInteract : MonoBehaviour
         interactObjInfo._nodeName = dialogueSum[npcIndex].dialogueName;
     }
 
+    int GetSpriteIndex(string npcName){
+        bool isExist = false;
+        int index = 0;
+        
+        foreach(NPCSO npcInfo in npcInfos){
+            if(npcInfo.npcName == npcName){
+                isExist = true;
+                break;
+            }
+            index++;
+        }
+
+        if(!isExist){
+            index = -1;
+        }
+        
+        return index;
+    }
+    
     IEnumerator ActiveSprite(){
         spriteIndex = GetSpriteIndex(dialogueSum[npcIndex].npcName);
 
@@ -166,9 +164,9 @@ public class NPCInteract : MonoBehaviour
         npc.GetComponent<BoxCollider2D>().enabled = true;
     }
 
-    void DeActiveSprite(){
+    IEnumerator DeActiveSprite(){
         npc.GetComponent<BoxCollider2D>().enabled = false;
-        GameManager.Instance.StartCoroutine(GameManager.Instance.FadeInSprite(npc.GetComponent<SpriteRenderer>(), 0.05f));
+        yield return GameManager.Instance.StartCoroutine(GameManager.Instance.FadeInSprite(npc.GetComponent<SpriteRenderer>(), 0.05f));
         npc.SetActive(false);
     }
 

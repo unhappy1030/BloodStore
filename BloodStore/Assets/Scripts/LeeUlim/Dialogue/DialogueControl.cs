@@ -1,11 +1,117 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using Yarn;
 
 public class DialogueControl : MonoBehaviour
 {
+    int totalCount = 0;
+
+    public List<NPCSO> npcInfos; // assign at inspector
+    public Dictionary<string, int> npcConditions;
+    
+    List<NPCSO> ableNPCInfos;
+    public List<DialogueInfo> allDialogues;
+
+    void Awake(){
+        ResetCondition();
+    }
+
+    void ResetCondition(){
+        npcConditions = new();
+        npcConditions.Clear();
+
+        for(int i=0; i<npcInfos.Count; i++){
+            npcConditions.Add(npcInfos[i].npcName, 0);
+        }
+
+        Debug.Log("Reset Condition...");
+    }
+    
+    public void GetAbleNPC(){
+        if(ableNPCInfos == null) // reset
+        {
+            ableNPCInfos = new();
+        }
+        else
+        {
+            ableNPCInfos.Clear();
+        }
+
+        if(npcInfos == null || npcInfos.Count == 0){
+            Debug.Log("There is no NPC Information...");
+            return;
+        }
+
+        foreach(NPCSO npcInfo in npcInfos){
+            if(npcInfo.AbleNPC(GameManager.Instance.day)){
+                ableNPCInfos.Add(npcInfo);
+            }
+        }
+    }
+
+    public void GetAllDialogues(WhereNodeStart where, WhenNodeStart when){
+        GetAbleNPC();
+        
+        if(allDialogues == null) // reset
+        {
+            allDialogues = new();
+        }
+        else
+        {
+            allDialogues.Clear();
+        }
+
+        if(ableNPCInfos == null || ableNPCInfos.Count == 0){
+            Debug.Log("There is no able NPC in this Condition...");
+            return;
+        }
+
+        int index = 0;
+
+        foreach(NPCSO ableNpcInfo in ableNPCInfos){
+            string npcName = ableNpcInfo.npcName;
+            List<Dialogue> list 
+                = ableNpcInfo.GetDialogues(where, when, GameManager.Instance.day, npcConditions[npcName]);
+
+            totalCount += list.Count;
+            
+            foreach(Dialogue dialogue in list){
+                allDialogues.Add(new());
+                allDialogues[index].npcName = ableNpcInfo.npcName;
+                allDialogues[index].priority = dialogue.priority;
+                allDialogues[index].dialogueName = dialogue.dialogueName;
+                index++;
+            }
+        }
+
+        allDialogues.Sort(Shuffle);
+        allDialogues.Sort(ComparePriority);
+    }
+
+    // 내림차순
+    int ComparePriority(DialogueInfo dialogue1, DialogueInfo dialogue2){
+        if(dialogue1.priority > dialogue2.priority)
+            return -1;
+        else if(dialogue1.priority < dialogue2.priority)
+            return 1;
+        
+        return 0;
+    }
+
+    int Shuffle(DialogueInfo dialogue1, DialogueInfo dialogue2){
+        return (int)UnityEngine.Random.Range(-1, 1);
+    }
+
+    public void SetCondition(string name, int condition){
+        npcConditions[name] = condition;
+        Debug.Log("Set "+ name.ToString() + " Condition to " + condition.ToString() + "...");
+    }
+
+
+
+    /*
 //     int dayCount = 0;
 //     int conditionCount = 0;
 //     int totalCount = 0;
@@ -164,10 +270,12 @@ public class DialogueControl : MonoBehaviour
 //         npcConditions[name] = condition;
 //         Debug.Log("Set "+ name.ToString() + " Condition to " + condition.ToString() + "...");
 //     }
+*/
 }
 
-// public class DialogueInfo{
-//     public string npcName;
-//     public int priority;
-//     public string dialogueName;
-// }
+[Serializable]
+public class DialogueInfo{
+    public string npcName;
+    public int priority;
+    public string dialogueName;
+}

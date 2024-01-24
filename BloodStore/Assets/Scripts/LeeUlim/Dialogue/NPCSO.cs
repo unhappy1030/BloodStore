@@ -21,7 +21,7 @@ public class NPCSO : ScriptableObject
         return true;
     }
 
-    public List<Dialogue> GetAllDialogue(WhereNodeStart where, WhenNodeStart when, int day, int condition){
+    public List<Dialogue> GetDialogues(WhereNodeStart where, WhenNodeStart when, int day, int condition){
         List<Dialogue> list = new();
 
         int index = 0;

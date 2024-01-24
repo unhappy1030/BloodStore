@@ -16,47 +16,47 @@ public class NPCInfo : ScriptableObject
     public List<DayDialogue> dayDialogues;
     public List<CondDialogue> condDialogues;
 
-    public bool AbleNPC(int day){
-        if(startDay > day){
-            return false;
-        }
-        return true;
-    }
+    // public bool AbleNPC(int day){
+    //     if(startDay > day){
+    //         return false;
+    //     }
+    //     return true;
+    // }
 
-    public List<DayDialogue> GetDayDialogues(WhereNodeStart where, WhenNodeStart when, int day){
-        List<DayDialogue> list = new();
+    // public List<DayDialogue> GetDayDialogues(WhereNodeStart where, WhenNodeStart when, int day){
+    //     List<DayDialogue> list = new();
         
-        int index = 0;
-        foreach(DayDialogue dialogue in dayDialogues){
-            if(dialogue.where == where && dialogue.when == when){
-                if(dialogue.day == day){
-                    list.Add(dialogue);
-                    index++;
-                }
-            }
-        }
+    //     int index = 0;
+    //     foreach(DayDialogue dialogue in dayDialogues){
+    //         if(dialogue.where == where && dialogue.when == when){
+    //             if(dialogue.day == day){
+    //                 list.Add(dialogue);
+    //                 index++;
+    //             }
+    //         }
+    //     }
 
-        return list;
-    }
+    //     return list;
+    // }
 
-    public List<CondDialogue> GetCondDialogues(WhereNodeStart where, WhenNodeStart when, int condition, int day){
-        List<CondDialogue> list = new();
+    // public List<CondDialogue> GetCondDialogues(WhereNodeStart where, WhenNodeStart when, int condition, int day){
+    //     List<CondDialogue> list = new();
         
-        int index = 0;
-        foreach(CondDialogue dialogue in condDialogues){
-            if(dialogue.where == where && dialogue.when == when){
-                if(dialogue.condition == condition 
-                    && day >= dialogue.waitUntil 
-                    && day <= dialogue.deadline)
-                {
-                    list.Add(dialogue);
-                    index++;
-                }
-            }
-        }
+    //     int index = 0;
+    //     foreach(CondDialogue dialogue in condDialogues){
+    //         if(dialogue.where == where && dialogue.when == when){
+    //             if(dialogue.condition == condition 
+    //                 && day >= dialogue.waitUntil 
+    //                 && day <= dialogue.deadline)
+    //             {
+    //                 list.Add(dialogue);
+    //                 index++;
+    //             }
+    //         }
+    //     }
 
-        return list;
-    }
+    //     return list;
+    // }
 }
 
 [Serializable]
@@ -73,8 +73,6 @@ public class DayDialogue{
 
 [Serializable]
 public class CondDialogue{
-    public WhereNodeStart where;
-    public WhenNodeStart when;
     
     public int condition;
     public int waitUntil;
@@ -85,15 +83,15 @@ public class CondDialogue{
 }
 
 
-[Serializable]
-public enum WhereNodeStart{
-    Store,
-    Edit
-}
+// [Serializable]
+// public enum WhereNodeStart{
+//     Store,
+//     Edit
+// }
 
-[Serializable]
-public enum WhenNodeStart{
-    Click,
-    SceneLoad
-}
+// [Serializable]
+// public enum WhenNodeStart{
+//     Click,
+//     SceneLoad
+// }
 
