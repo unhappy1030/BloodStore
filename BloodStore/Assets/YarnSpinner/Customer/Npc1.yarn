@@ -1,0 +1,32 @@
+﻿title: Npc1Cond0Day1
+tags:
+position: 0,0
+---
+<<declare $npc1Cond0 = 0>>
+
+Npc1: this is condition0 first.
+===
+
+title: Npc1Cond0Day4
+position: 2,152
+---
+Npc1: this is condition0 Day4.
+Move to Next Condition?
+-> Yes
+    <<set $npc1Cond0 = 1>>
+    Changed...
+-> No
+    Not changed...
+===
+title: Npc1Cond0Day5
+position: 228,152
+---
+Npc1: this is condition0 Last.
+Npc1: the result is {$npc1Cond0}
+<<if $npc1Cond0 == 1>>
+    In Progress Condition 1
+<<else>>
+    Condition Not Satisfied.
+    Move to Condition -1
+<<endif>>
+===

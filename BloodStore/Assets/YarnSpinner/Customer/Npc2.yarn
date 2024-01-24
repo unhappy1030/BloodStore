@@ -1,0 +1,29 @@
+﻿title: Npc2Cond0Day1
+tags:
+---
+<<declare $npc2Cond0 = 0>>
+Npc2: this is Condition0 First.
+===
+title: Npc2Cond0Day3
+position: 0,0
+---
+Npc2: this is Condition0 Day3.
+Npc2: wanna interact Npc3?
+-> Yes
+    Successfully interacted.
+    <<set $npc3Cond0Day3 = true>>
+    <<set $npc2Cond0 = 1>>
+-> No
+    finish dialogue.
+===
+title: Npc2Cond0Day4
+position: 10,10
+---
+Npc2: this is Condition0 Day4.
+===
+title: Npc2Cond0Day5
+position: 20,20
+---
+Npc2: this is Condition0 Last.
+
+===

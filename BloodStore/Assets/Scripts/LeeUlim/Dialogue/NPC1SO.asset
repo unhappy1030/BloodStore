@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fdf5f7d8787ece468e824f29de549fb, type: 3}
+  m_Name: NPC1SO
+  m_EditorClassIdentifier: 
+  npcName: npc1
+  sprites:
+  - {fileID: -782193185, guid: 8a5540b24f50c984bbe6483f83260373, type: 3}
+  startDay: 0
+  conditionInfos:
+  - condiiton: 0
+    waitUntil: 1
+    deadLine: 5
+    dialogues:
+    - day: 1
+      priority: 0
+      dialogueName: Npc1Cond0First
+    - day: 4
+      priority: 0
+      dialogueName: Npc1Cond0Day4
+    - day: 5
+      priority: 0
+      dialogueName: Npc1Cond0Last
+  - condiiton: 1
+    waitUntil: 6
+    deadLine: 10
+    dialogues:
+    - day: 6
+      priority: 0
+      dialogueName: Npc1Cond1First
+    - day: 7
+      priority: 0
+      dialogueName: Npc1Cond1Day7
+    - day: 9
+      priority: 0
+      dialogueName: Npc1Cond1Day9
+    - day: 10
+      priority: 0
+      dialogueName: Npc1Cond1Last
