@@ -8,10 +8,10 @@ public class DialogueControl : MonoBehaviour
 {
     int totalCount = 0;
 
-    public List<NPCSO> npcInfos; // assign at inspector
-    public Dictionary<string, int> npcConditions;
+    public List<NPCSO> npcs; // assign at inspector
+    Dictionary<string, int> npcConditions;
     
-    List<NPCSO> ableNPCInfos;
+    List<NPCSO> ableNPCs;
     public List<DialogueInfo> allDialogues;
 
     void Awake(){
@@ -22,38 +22,39 @@ public class DialogueControl : MonoBehaviour
         npcConditions = new();
         npcConditions.Clear();
 
-        for(int i=0; i<npcInfos.Count; i++){
-            npcConditions.Add(npcInfos[i].npcName, 0);
+        foreach(NPCSO npc in npcs){
+            npcConditions.Add(npc.npcName, 0);
         }
 
         Debug.Log("Reset Condition...");
     }
     
     public void GetAbleNPC(){
-        if(ableNPCInfos == null) // reset
+        if(ableNPCs == null) // reset
         {
-            ableNPCInfos = new();
+            ableNPCs = new();
         }
         else
         {
-            ableNPCInfos.Clear();
+            ableNPCs.Clear();
         }
 
-        if(npcInfos == null || npcInfos.Count == 0){
+        if(npcs == null || npcs.Count == 0){
             Debug.Log("There is no NPC Information...");
             return;
         }
 
-        foreach(NPCSO npcInfo in npcInfos){
+        foreach(NPCSO npcInfo in npcs){
             if(npcInfo.AbleNPC(GameManager.Instance.day)){
-                ableNPCInfos.Add(npcInfo);
+                ableNPCs.Add(npcInfo);
+                Debug.Log("Able npc name : " + npcInfo.npcName.ToString());
             }
         }
     }
 
     public void GetAllDialogues(WhereNodeStart where, WhenNodeStart when){
         GetAbleNPC();
-        
+
         if(allDialogues == null) // reset
         {
             allDialogues = new();
@@ -63,25 +64,27 @@ public class DialogueControl : MonoBehaviour
             allDialogues.Clear();
         }
 
-        if(ableNPCInfos == null || ableNPCInfos.Count == 0){
+        if(ableNPCs == null || ableNPCs.Count == 0){
             Debug.Log("There is no able NPC in this Condition...");
             return;
         }
 
         int index = 0;
 
-        foreach(NPCSO ableNpcInfo in ableNPCInfos){
+        foreach(NPCSO ableNpcInfo in ableNPCs){
             string npcName = ableNpcInfo.npcName;
             List<Dialogue> list 
                 = ableNpcInfo.GetDialogues(where, when, GameManager.Instance.day, npcConditions[npcName]);
 
             totalCount += list.Count;
+            Debug.Log("list count : " + list.Count);
             
             foreach(Dialogue dialogue in list){
                 allDialogues.Add(new());
                 allDialogues[index].npcName = ableNpcInfo.npcName;
                 allDialogues[index].priority = dialogue.priority;
                 allDialogues[index].dialogueName = dialogue.dialogueName;
+                Debug.Log("Dialogue Name : " + allDialogues[index].dialogueName);
                 index++;
             }
         }
@@ -101,7 +104,7 @@ public class DialogueControl : MonoBehaviour
     }
 
     int Shuffle(DialogueInfo dialogue1, DialogueInfo dialogue2){
-        return (int)UnityEngine.Random.Range(-1, 1);
+        return UnityEngine.Random.Range(-1, 1);
     }
 
     public void SetCondition(string name, int condition){

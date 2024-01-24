@@ -1,18 +1,22 @@
-﻿title: Npc3Cond0Day1
+﻿title: Npc3Cond0Day3
 tags:
 ---
-<<declare $npc3Cond = 0>>
-<<declare $npc3Cond0Day3 = false>>
+<<declare $npc3Cond0 = 0>>
+<<declare $npc3Cond0Day3_1 = false>>
+<<declare $npc3Cond0Day3_2 = false>>
 
-Npc3: this is Condition0 First.
-===
-title: Npc3Cond0Day3
-tags:
----
-Npc3: this is Condition0 Day3.
-===
-title: Npc3Cond0Day5
-tags:
----
-Npc3: this is Condition0 Last.
+Npc3: Hi.
+Npc3: Do you know about him?
+-> Yes
+    <<set $npc3Cond0Day3_1 = true>>
+    Npc3: Can you give to me that thing?
+    Npc3: You would know about What 'thing' is...
+    -> Ok.
+        Npc3: Thanks.
+        <<set $npc3Cond0Day3_2 = true>>
+    -> No.
+        Npc3: It is good for you.
+-> No
+    Npc3: I'll trust you.
+
 ===

@@ -26,7 +26,7 @@ public class NPCSO : ScriptableObject
 
         int index = 0;
         foreach(ConditionInfo conditionInfo in conditionInfos){
-            if(conditionInfo.condition == condition){
+            if(conditionInfo.condition != condition){
                 continue;
             }
 

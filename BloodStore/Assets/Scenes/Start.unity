@@ -5937,9 +5937,9 @@ GameObject:
   - component: {fileID: 1983117554}
   - component: {fileID: 1983117553}
   - component: {fileID: 1983117555}
+  - component: {fileID: 1983117558}
   - component: {fileID: 1983117557}
   - component: {fileID: 1983117556}
-  - component: {fileID: 1983117557}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -6076,6 +6076,23 @@ MonoBehaviour:
   bloodPacks: []
   saveArray:
     arr: []
+--- !u!114 &1983117558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983117550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 522c3b56b8a24a34e947709af13d38ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcs:
+  - {fileID: 11400000, guid: a716690538c38a44cbb93e393572f73c, type: 2}
+  - {fileID: 11400000, guid: 1a6bbc5b766e992489e6b370aac47921, type: 2}
+  - {fileID: 11400000, guid: 8b371e9ab20b75f45bb2083f8bfb8fac, type: 2}
+  allDialogues: []
 --- !u!1 &2009257847
 GameObject:
   m_ObjectHideFlags: 0

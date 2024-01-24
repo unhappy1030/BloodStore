@@ -2,28 +2,54 @@
 tags:
 ---
 <<declare $npc2Cond0 = 0>>
-Npc2: this is Condition0 First.
+<<declare $npc2Cond0Day2 = false>>
+
+Npc2: ...
+Npc2: You should be careful.
 ===
-title: Npc2Cond0Day3
+title: Npc2Cond0Day2
 position: 0,0
 ---
-Npc2: this is Condition0 Day3.
-Npc2: wanna interact Npc3?
+Npc2: Hey.
+Npc2: Do you have any weapon to protect yourself?
 -> Yes
-    Successfully interacted.
-    <<set $npc3Cond0Day3 = true>>
-    <<set $npc2Cond0 = 1>>
+    Npc2: ...
+    Npc2: Ok.
+    <<set $npc2Cond0 = 2>>
 -> No
-    finish dialogue.
+    Npc2: Then, keep this.
+    Npc2: This will protect you.
+    <<set $npc2Cond0Day2 = true>>
+    <<set $npc2Cond0 = 1>>
+<<SetCondition DialogueSystem npc2 {$npc2Cond0}>>
 ===
-title: Npc2Cond0Day4
-position: 10,10
----
-Npc2: this is Condition0 Day4.
-===
-title: Npc2Cond0Day5
+title: Npc2Cond1Day5
 position: 20,20
 ---
-Npc2: this is Condition0 Last.
-
+Npc2: Hey.
+Npc2: Do you still have what I gave to you?
+<<if $npc3Cond0Day3_2 == true>>
+    -> Yes
+        Npc2: Ok. 
+        Npc2: Please don't talk about that to anyone.
+        <<if $npc3Cond0Day3_1 == true>>
+        Npc2: I know you already talk to somebody...
+        Npc2: Please. It won't helpful.
+        <<endif>>
+<<else>>
+    -> No
+        Npc2: What?
+        Npc2: ...
+<<endif>>
+===
+title: Npc2Cond2Day5
+position: 20,20
+---
+Npc2: Hey.
+Npc2: Do you really have weapon?
+-> Yes
+    Npc2: Ok.
+-> No
+    Npc2: What?
+    Npc2: Why did you lied to me?
 ===

@@ -17,19 +17,40 @@ MonoBehaviour:
   - {fileID: 391900973, guid: 8a5540b24f50c984bbe6483f83260373, type: 3}
   startDay: 0
   conditionInfos:
-  - condiiton: 0
+  - condition: 0
     waitUntil: 1
     deadLine: 5
     dialogues:
-    - day: 1
+    - where: 0
+      when: 0
+      day: 1
       priority: 0
-      dialogueName: Npc2Cond0First
-    - day: 3
+      dialogueName: Npc2Cond0Day1
+    - where: 0
+      when: 0
+      day: 2
       priority: 1
-      dialogueName: Npc2Cond0Day3
-    - day: 4
+      dialogueName: Npc2Cond0Day2
+    - where: 0
+      when: 0
+      day: 5
       priority: 0
-      dialogueName: Npc2Cond0Day4
-    - day: 5
+      dialogueName: Npc2Cond0Day5
+  - condition: 1
+    waitUntil: 6
+    deadLine: 6
+    dialogues:
+    - where: 0
+      when: 0
+      day: 6
       priority: 0
-      dialogueName: Npc1Cond0Last
+      dialogueName: Npc2Cond1Day6
+  - condition: 2
+    waitUntil: 6
+    deadLine: 6
+    dialogues:
+    - where: 0
+      when: 0
+      day: 6
+      priority: 0
+      dialogueName: Npc2Cond2Day6
