@@ -26,19 +26,19 @@ public class BloodPackUI : MonoBehaviour, IPointerClickHandler
         isSelected = !isSelected;
         Color targetColor = isSelected ? selectedColor : defaultColor;
 
-        foreach (TMP_Text text in texts)
-        {
-             bloodPackManager.SelectBloodPack(this);
-            text.color = targetColor;
-        }
-
         if (isSelected)
         {
+            bloodPackManager.SelectBloodPack(this);
             PrintInfo();
         }
         else
         {
             bloodPackManager.DeselectBloodPack(this);  // 선택이 해제되었으므로 BloodPackManager에서 제거
+        }
+
+        foreach (TMP_Text text in texts)
+        {
+            text.color = targetColor;
         }
     }
 
