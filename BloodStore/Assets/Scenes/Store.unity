@@ -2276,6 +2276,10 @@ MonoBehaviour:
   NumofFiltered: {fileID: 1368316902}
   bloodPackUIPrefab: {fileID: 367333933166623263, guid: 0fdda40c6a479a24e9950120052cedb7, type: 3}
   uiContainer: {fileID: 1704766419}
+  categories:
+  - Sex
+  - BloodType
+  - Rh
 --- !u!1 &894048166
 GameObject:
   m_ObjectHideFlags: 0
