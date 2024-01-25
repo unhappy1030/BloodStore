@@ -19,7 +19,7 @@ MonoBehaviour:
   conditionInfos:
   - condition: 0
     waitUntil: 1
-    deadLine: 5
+    deadLine: 2
     dialogues:
     - where: 0
       when: 0
@@ -31,26 +31,21 @@ MonoBehaviour:
       day: 2
       priority: 1
       dialogueName: Npc2Cond0Day2
+  - condition: 1
+    waitUntil: 5
+    deadLine: 5
+    dialogues:
     - where: 0
       when: 0
       day: 5
       priority: 0
-      dialogueName: Npc2Cond0Day5
-  - condition: 1
-    waitUntil: 6
-    deadLine: 6
-    dialogues:
-    - where: 0
-      when: 0
-      day: 6
-      priority: 0
-      dialogueName: Npc2Cond1Day6
+      dialogueName: Npc2Cond1Day5
   - condition: 2
-    waitUntil: 6
-    deadLine: 6
+    waitUntil: 5
+    deadLine: 5
     dialogues:
     - where: 0
       when: 0
-      day: 6
+      day: 5
       priority: 0
-      dialogueName: Npc2Cond2Day6
+      dialogueName: Npc2Cond2Day5

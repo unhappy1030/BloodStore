@@ -1,11 +1,7 @@
 {
   "projectFileVersion": 2,
   "sourceFiles": [
-    "CustomerDialogue.yarn",
-    "ScretDiary1.yarn",
-    "Npc1.yarn",
-    "Npc2.yarn",
-    "Npc3.yarn"
+    "**/*.yarn"
   ],
   "excludeFiles": [
     "**/*~/*"

@@ -7,6 +7,8 @@ tags:
 Npc2: ...
 Npc2: You should be careful.
 ===
+
+
 title: Npc2Cond0Day2
 position: 0,0
 ---
@@ -21,20 +23,23 @@ Npc2: Do you have any weapon to protect yourself?
     Npc2: This will protect you.
     <<set $npc2Cond0Day2 = true>>
     <<set $npc2Cond0 = 1>>
+
 <<SetCondition DialogueSystem npc2 {$npc2Cond0}>>
 ===
+
+
 title: Npc2Cond1Day5
 position: 20,20
 ---
 Npc2: Hey.
 Npc2: Do you still have what I gave to you?
-<<if $npc3Cond0Day3_2 == true>>
+<<if $npc3Cond0Day3_2 == false>>
     -> Yes
         Npc2: Ok. 
         Npc2: Please don't talk about that to anyone.
         <<if $npc3Cond0Day3_1 == true>>
-        Npc2: I know you already talk to somebody...
-        Npc2: Please. It won't helpful.
+            Npc2: I know you already talk to somebody...
+            Npc2: Please. It won't helpful.
         <<endif>>
 <<else>>
     -> No
@@ -51,5 +56,5 @@ Npc2: Do you really have weapon?
     Npc2: Ok.
 -> No
     Npc2: What?
-    Npc2: Why did you lied to me?
+    Npc2: Why did you lie to me?
 ===

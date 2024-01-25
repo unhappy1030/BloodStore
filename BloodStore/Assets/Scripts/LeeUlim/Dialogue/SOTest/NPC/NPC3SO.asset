@@ -15,33 +15,14 @@ MonoBehaviour:
   npcName: npc3
   sprites:
   - {fileID: 1557126052, guid: 8a5540b24f50c984bbe6483f83260373, type: 3}
-  startDay: 0
+  startDay: 3
   conditionInfos:
   - condition: 0
-    waitUntil: 1
-    deadLine: 5
+    waitUntil: 3
+    deadLine: 3
     dialogues:
     - where: 0
       when: 0
       day: 3
       priority: 0
       dialogueName: Npc3Cond0Day3
-    - where: 0
-      when: 0
-      day: 4
-      priority: 0
-      dialogueName: Npc3Cond0Day4
-    - where: 0
-      when: 0
-      day: 5
-      priority: 0
-      dialogueName: Npc3Cond0Day5
-  - condition: 1
-    waitUntil: 6
-    deadLine: 6
-    dialogues:
-    - where: 0
-      when: 0
-      day: 6
-      priority: 0
-      dialogueName: Npc3Cond1Day6

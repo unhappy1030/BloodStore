@@ -6,7 +6,7 @@ tags:
 <<declare $npc3Cond0Day3_2 = false>>
 
 Npc3: Hi.
-Npc3: Do you know about him?
+Npc3: Do you know anything about him?
 -> Yes
     <<set $npc3Cond0Day3_1 = true>>
     Npc3: Can you give to me that thing?
