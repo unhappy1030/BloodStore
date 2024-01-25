@@ -10,6 +10,7 @@ public class YarnControl : MonoBehaviour
     public DialogueRunner dialogueRunner;
     public InMemoryVariableStorage variableStorage;
     public MoneyControl moneyControl;
+    public DialogueControl dialogueControl;
 
     public int targetIndex;
     public string nodeName;
@@ -42,6 +43,11 @@ public class YarnControl : MonoBehaviour
     public void CalculateMoney(float amount){
         float money = moneyControl.CalculateMoney(amount);
         variableStorage.SetValue("$money", money);
+    }
+
+    [YarnCommand("SetCondition")]
+    public void SetCondition(string npcName, int condition){
+        dialogueControl.SetCondition(npcName, condition);
     }
 
     // ---< Sell blood >---

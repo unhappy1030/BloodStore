@@ -1,0 +1,117 @@
+﻿title: Start
+tags:
+position: -1370,-331
+---
+<<declare $money = 0>>
+<<declare $amount = 2>>
+<<declare $sell = false>>
+
+<<set $money = UpdateMoney()>>
+
+Customer: Do you have Rh+O blood?
+-> Sell
+    <<set $sell = true>>
+    <<SellBlood DialogueSystem {$sell}>>
+    <<SetCamTargetIndex DialogueSystem 1>>
+    <<SetNodeName DialogueSystem Sell>>
+-> No we don't have...
+    <<set $sell = false>>
+    <<SellBlood DialogueSystem {$sell}>>
+    <<SetNodeName DialogueSystem Sell>>
+
+
+===
+title: Sell
+position: -860,-267
+---
+<<if $sell == true>>
+    Customer: Thank you!
+    <<CalculateMoney DialogueSystem {$amount}>>
+    you earned {$amount}.
+<<else>>
+    Then... Ok.
+<<endif>>
+
+// <<declare $sellInfo = 0>>
+
+// <<set $sellInfo = GetSellInfo()>>
+
+// <<if $sellInfo >= 5.0>>
+//     Customer: Thank you! That's exactly what I'm looking for!
+//     Player: You're welcome.
+// <<else>>
+//     Customer: Well... Ok.
+// <<endif>>
+
+===
+title: npc1Day2
+position: -1134,-65
+---
+npc1: this is Day2.
+
+<<set $sell = false>>
+<<SellBlood DialogueSystem {$sell}>>
+<<SetNodeName DialogueSystem Finish>>
+===
+title: npc1Day3
+position: -1359,-62
+---
+npc1: this is Day3.
+
+<<set $sell = false>>
+<<SellBlood DialogueSystem {$sell}>>
+<<SetNodeName DialogueSystem Finish>>
+===
+title: npc2Day3
+position: -1135,-433
+---
+npc2: this is Day3.
+
+<<set $sell = false>>
+<<SellBlood DialogueSystem {$sell}>>
+<<SetNodeName DialogueSystem Finish>>
+===
+title: npc3Cond0
+position: -1684,-180
+---
+npc3: this is condition0.
+
+Change Condition?
+-> Yes
+    <<SetCondition DialogueSystem npc3 1>>
+-> NO
+
+
+<<set $sell = false>>
+<<SellBlood DialogueSystem {$sell}>>
+<<SetNodeName DialogueSystem Finish>>
+
+===
+title: npc3Cond1
+position: -1795,-344
+---
+npc3: this is condition1.
+
+Change Condition?
+-> Yes
+    <<SetCondition DialogueSystem npc3 2>>
+-> NO
+
+<<set $sell = false>>
+<<SellBlood DialogueSystem {$sell}>>
+<<SetNodeName DialogueSystem Finish>>
+===
+title: npc3Day3
+position: -1502,-496
+---
+npc3: this is Day3.
+
+<<set $sell = false>>
+<<SellBlood DialogueSystem {$sell}>>
+<<SetNodeName DialogueSystem Finish>>
+===
+title: Finish
+position: -1426,-253
+---
+Finish dialogue...
+===
