@@ -6092,6 +6092,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a716690538c38a44cbb93e393572f73c, type: 2}
   - {fileID: 11400000, guid: 1a6bbc5b766e992489e6b370aac47921, type: 2}
   - {fileID: 11400000, guid: 8b371e9ab20b75f45bb2083f8bfb8fac, type: 2}
+  normalNPCs: {fileID: 11400000, guid: 0677e91525f60c642aed92f2ba852e4b, type: 2}
   allDialogues: []
 --- !u!1 &2009257847
 GameObject:

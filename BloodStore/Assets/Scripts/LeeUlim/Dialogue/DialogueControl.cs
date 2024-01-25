@@ -7,9 +7,12 @@ using UnityEngine;
 public class DialogueControl : MonoBehaviour
 {
     int totalCount = 0;
+    int maxCount = 6;
 
     public List<NPCSO> npcs; // assign at inspector
     Dictionary<string, int> npcConditions;
+
+    public NormalNPCSO normalNPCs;
     
     List<NPCSO> ableNPCs;
     public List<DialogueInfo> allDialogues;
@@ -47,7 +50,6 @@ public class DialogueControl : MonoBehaviour
         foreach(NPCSO npcInfo in npcs){
             if(npcInfo.AbleNPC(GameManager.Instance.day)){
                 ableNPCs.Add(npcInfo);
-                Debug.Log("Able npc name : " + npcInfo.npcName.ToString());
             }
         }
     }
@@ -62,6 +64,7 @@ public class DialogueControl : MonoBehaviour
         else
         {
             allDialogues.Clear();
+            totalCount = 0;
         }
 
         if(ableNPCs == null || ableNPCs.Count == 0){
@@ -77,20 +80,60 @@ public class DialogueControl : MonoBehaviour
                 = ableNpcInfo.GetDialogues(where, when, GameManager.Instance.day, npcConditions[npcName]);
 
             totalCount += list.Count;
-            Debug.Log("list count : " + list.Count);
             
             foreach(Dialogue dialogue in list){
                 allDialogues.Add(new());
                 allDialogues[index].npcName = ableNpcInfo.npcName;
+                allDialogues[index].sprites = new(ableNpcInfo.sprites);
                 allDialogues[index].priority = dialogue.priority;
                 allDialogues[index].dialogueName = dialogue.dialogueName;
-                Debug.Log("Dialogue Name : " + allDialogues[index].dialogueName);
                 index++;
             }
         }
 
-        allDialogues.Sort(Shuffle);
+        Debug.Log("before add total Count : " + totalCount);
+
+        AddRandomNPC(); // test
+
+        ListShuffle<DialogueInfo>(allDialogues);
         allDialogues.Sort(ComparePriority);
+    }
+
+    void AddRandomNPC(){
+        List<Sprite> normalSprites = new(normalNPCs.normalNPCSprites);
+
+        if(normalSprites == null || normalSprites.Count == 0){
+            Debug.Log("There is no sprite in normalNpc...");
+            return;
+        }
+
+        if (totalCount > 4){
+            return;
+        }
+
+        int addCount = UnityEngine.Random.Range(1, maxCount - totalCount + 1);
+        Debug.Log("add Count : "+ addCount);
+
+        ListShuffle<Sprite>(normalSprites);
+
+        int index = allDialogues.Count;
+
+        for(int i=0; i<addCount; i++){
+            List<Sprite> tempSprite = new()
+            {
+                normalSprites[i]
+            };
+
+            allDialogues.Add(new());
+            allDialogues[index].npcName = "";
+            allDialogues[index].sprites = tempSprite;
+            allDialogues[index].priority = 0;
+            allDialogues[index].dialogueName = "Normal"; // test
+            index++;
+        }
+
+        totalCount += addCount;
+        Debug.Log("total NPC Count : " + totalCount);
     }
 
     // 내림차순
@@ -103,16 +146,24 @@ public class DialogueControl : MonoBehaviour
         return 0;
     }
 
-    int Shuffle(DialogueInfo dialogue1, DialogueInfo dialogue2){
-        return UnityEngine.Random.Range(-1, 1);
+    void ListShuffle<T>(List<T> list){
+        for(int i=list.Count - 1; i>0; i--){
+            int randIndex = UnityEngine.Random.Range(0, i+1);
+
+            T temp = list[i];
+            list[i] = list[randIndex];
+            list[randIndex] = temp;
+        }
     }
+
+    // int Shuffle(DialogueInfo dialogue1, DialogueInfo dialogue2){
+    //     return UnityEngine.Random.Range(-1, 2);
+    // }
 
     public void SetCondition(string name, int condition){
         npcConditions[name] = condition;
         Debug.Log("Set "+ name.ToString() + " Condition to " + condition.ToString() + "...");
     }
-
-
 
     /*
 //     int dayCount = 0;
@@ -279,6 +330,7 @@ public class DialogueControl : MonoBehaviour
 [Serializable]
 public class DialogueInfo{
     public string npcName;
+    public List<Sprite> sprites;
     public int priority;
     public string dialogueName;
 }

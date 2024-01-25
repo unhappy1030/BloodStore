@@ -24,11 +24,12 @@ public class NPCInteract : MonoBehaviour
 
     Coroutine npcCoroutine;
 
-    List<NPCSO> npcs; // get from DialogueControl
+    // List<NPCSO> npcs; // get from DialogueControl
     List<DialogueInfo> dialogueSum;
+    List<Sprite> npcSprites;
 
     void Start(){
-        npcs = dialogueControl.npcs; // test
+        // npcs = dialogueControl.npcs; // test
 
         GetStoreDialogues();
 
@@ -131,34 +132,43 @@ public class NPCInteract : MonoBehaviour
         interactObjInfo._nodeName = dialogueSum[npcIndex].dialogueName;
     }
 
-    int GetSpriteIndex(string npcName){
-        bool isExist = false;
-        int index = 0;
+    // int GetSpriteIndex(string npcName){
+    //     bool isExist = false;
+    //     int index = 0;
         
-        foreach(NPCSO npcInfo in npcs){
-            if(npcInfo.npcName == npcName){
-                isExist = true;
-                break;
-            }
-            index++;
-        }
+    //     foreach(NPCSO npcInfo in npcs){
+    //         if(npcInfo.npcName == npcName){
+    //             isExist = true;
+    //             break;
+    //         }
+    //         index++;
+    //     }
 
-        if(!isExist){
-            index = -1;
-        }
+    //     if(!isExist){
+    //         index = -1;
+    //     }
         
-        return index;
-    }
+    //     return index;
+    // }
     
     IEnumerator ActiveSprite(){
-        spriteIndex = GetSpriteIndex(dialogueSum[npcIndex].npcName);
+        // spriteIndex = GetSpriteIndex(dialogueSum[npcIndex].npcName);
 
-        if(spriteIndex < 0 || spriteIndex > npcs.Count -1 || npcs[spriteIndex].sprites[0] == null){
-            Debug.Log("There is no sprite in npcs...");
+        // if(spriteIndex < 0 || spriteIndex > npcs.Count -1 || npcs[spriteIndex].sprites[0] == null){
+        //     Debug.Log("There is no sprite in npcs...");
+        //     yield break;
+        // }
+
+        // npc.GetComponent<SpriteRenderer>().sprite = npcs[spriteIndex].sprites[0];
+        npcSprites = dialogueSum[npcIndex].sprites;
+
+        if(npcSprites == null || npcSprites.Count == 0){
+            Debug.Log("There is no sprites in index " + npcIndex + " dialogue Info...");
             yield break;
         }
 
-        npc.GetComponent<SpriteRenderer>().sprite = npcs[spriteIndex].sprites[0];
+        npc.GetComponent<SpriteRenderer>().sprite = npcSprites[0];
+
         npc.SetActive(true);
         
         npc.GetComponent<BoxCollider2D>().enabled = false;
