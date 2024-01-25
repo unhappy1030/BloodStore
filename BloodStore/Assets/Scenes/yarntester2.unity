@@ -1600,6 +1600,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 921614226}
   m_CullTransparentMesh: 1
+--- !u!1 &1001778606
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1001778608}
+  - component: {fileID: 1001778607}
+  m_Layer: 0
+  m_Name: BloodPackManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1001778607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001778606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f18a2916eb9997544b3f8b608c43f81d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1001778608
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001778606}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1367.7605, y: 205.81352, z: -2.5132167}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1028426501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1732,6 +1776,7 @@ GameObject:
   - component: {fileID: 1072988974}
   - component: {fileID: 1072988973}
   - component: {fileID: 1072988972}
+  - component: {fileID: 1072988975}
   m_Layer: 0
   m_Name: Sell
   m_TagString: Untagged
@@ -1841,6 +1886,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1072988970}
   m_CullTransparentMesh: 1
+--- !u!114 &1072988975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072988970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c099e1c1a98b72644b551495026733ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodPackManager: {fileID: 1001778607}
 --- !u!1 &1164001553
 GameObject:
   m_ObjectHideFlags: 0
@@ -3449,3 +3507,4 @@ SceneRoots:
   - {fileID: 223363150}
   - {fileID: 546331533}
   - {fileID: 127867837}
+  - {fileID: 1001778608}
