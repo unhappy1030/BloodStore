@@ -9,13 +9,11 @@ public class ChildAddUI : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-    public void Active(){
+    public void Active(Group group){
+        this.group = group;
         gameObject.SetActive(true);
     }
     public void DeActive(){
         gameObject.SetActive(false);
-    }
-    public void SetGroup(Group group){
-        this.group = group;
     }
 }

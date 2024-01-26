@@ -153,6 +153,7 @@ public class Group : MonoBehaviour
             buttonOff.SetActive(false);
             ChildButton childButton = button.AddComponent<ChildButton>();
             childButton.addChildUI = addChildUI;
+            childButton.group = this;
             BoxCollider2D box = button.AddComponent<BoxCollider2D>();
             SpriteRenderer spriteRenderer = button.GetComponent<SpriteRenderer>();
             Vector2 spriteSize = spriteRenderer.sprite.bounds.size;
