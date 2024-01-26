@@ -8,14 +8,13 @@ using UnityEngine;
 public class BloodTasteSO : ScriptableObject
 {
     public string group;
-    public BloodTasteInfo tasteInfo;
-    public List<Taste> specificTastes;
+    public List<Taste> tastes;
 }
 
 [Serializable]
 public class Taste{
-    public string group;
-    public BloodTasteInfo tasteInfo;
+    public string name;
+    public List<BloodTasteInfo> tasteInfo;
 }
 
 [Serializable]
