@@ -13,6 +13,9 @@ public class TreeManagerTest : MonoBehaviour
     public BloodPacks bloodPackList;
     public GameObject nodePrefab;
     public GameObject emptyPrefab;
+    public GameObject addChildUI;
+    public GameObject childButtonPrefab;
+    public GameObject childButtonOffPrefab;
     private GameObject mainGroup;
     public float pairOffSet = 0.2f;
     public float offSetX, offSetY;
@@ -88,6 +91,7 @@ public class TreeManagerTest : MonoBehaviour
                 group.rightDisplay.transform.parent = group.transform;
                 rootGroup.childrenGroup.Add(group);
                 group.parentGroup = rootGroup;
+                group.MakeChildButton();
                 MakeChildren(group);
                 MakeCenter(group);
             }
@@ -109,6 +113,7 @@ public class TreeManagerTest : MonoBehaviour
         group.DisplayNodes();
         group.leftDisplay.transform.parent = group.transform;
         group.rightDisplay.transform.parent = group.transform;
+        group.MakeChildButton();
         return group;
     }
     void MakeMainGroupObject(){
@@ -118,7 +123,7 @@ public class TreeManagerTest : MonoBehaviour
         GameObject groupObject = new GameObject("Group");
         groupObject.layer = LayerMask.NameToLayer("FamilyTree");
         Group group = groupObject.AddComponent<Group>();
-        group.SetPrefab(nodePrefab, emptyPrefab);
+        group.SetPrefab(nodePrefab, emptyPrefab, childButtonPrefab, childButtonOffPrefab, addChildUI);
         group.SetSizeData(halfX, halfY, pairSize, unit, pairOffSet, offSetX, offSetY);
         group.MakeBoxCollider();
         return group;

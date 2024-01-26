@@ -68,7 +68,7 @@ public class NodeInteraction : MonoBehaviour
     }
 
     void Update(){
-        Debug.Log("node Show Status : " + nodeShowingStatus);
+        // Debug.Log("node Show Status : " + nodeShowingStatus);
 
         if(!dialogueRunner.IsDialogueRunning 
             && !GameManager.Instance.isFading
