@@ -75,22 +75,6 @@ public class NodeInteraction : MonoBehaviour
             && !cameraControl.mainCam.IsBlending)
         {
             KeyInteract();
-
-            if(Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
-            {
-                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                RaycastHit2D ray = Physics2D.Raycast(mousePos, Vector2.zero, 0f, LayerMask.GetMask("FamilyTree"));
-
-                if (ray.collider != null)
-                {
-                    MouseInteract(ray.collider.gameObject);
-                }
-                else
-                {
-                    // 이거 어떻게 처리할지 정해야 함!
-                    // GoBackToCurrentStatus();
-                }
-            }
         }
     }
 
@@ -183,13 +167,18 @@ public class NodeInteraction : MonoBehaviour
         }
     }
 
-    void MouseInteract(GameObject interactObj){
-        Group group = interactObj.GetComponent<Group>();
-        NodeDisplay node = interactObj.GetComponent<NodeDisplay>();
-        EmptyDisplay emptyNode = interactObj.GetComponent<EmptyDisplay>();
-
-        if(group != null)
+    public void MouseInteract(InteractObjInfo info){
+        FamilyTreeType treeType = info._familyTreeType;
+        
+        if(treeType == FamilyTreeType.Group)
         {
+            Group group = info.GetComponent<Group>();
+
+            if(group == null){
+                Debug.Log("There is no group script...");
+                return;
+            }
+
             if(nodeShowingStatus != NodeShowingStatus.ShowGroup){
                 ShowGroup(group);
                 AbleKeyInput(group);
@@ -197,13 +186,25 @@ public class NodeInteraction : MonoBehaviour
 
             // GroupInteract(group);
         }
-        else if(node != null)
+        else if(treeType == FamilyTreeType.Node)
         {
+            NodeDisplay node = info.GetComponent<NodeDisplay>();
+
+            if(node == null){
+                Debug.Log("There is no node display...");
+                return;
+            }
+
             ShowNodeInfo(node);
         }
-        else if(emptyNode != null)
+        else if(treeType == FamilyTreeType.EmptyNode)
         {
-            SelectPair(emptyNode);    
+            EmptyDisplay emptyNode = info.GetComponent<EmptyDisplay>();
+            if(emptyNode == null){
+                Debug.Log("There is no Empty node display...");
+                return;
+            }
+            SelectPair(emptyNode);
         }
     }
 

@@ -129,7 +129,7 @@ public class NPCInteract : MonoBehaviour
             interactObjInfo = npc.AddComponent<InteractObjInfo>();
         }
 
-        interactObjInfo._interactType = InteractType.NpcInteraction;
+        interactObjInfo._interactType = InteractType.StartDialogue;
         interactObjInfo._nodeName = dialogueSum[npcIndex].dialogueName;
     }
 

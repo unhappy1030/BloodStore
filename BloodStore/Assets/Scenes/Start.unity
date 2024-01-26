@@ -406,7 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf504a0c7fba3554da375faa441ddc07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactType: 3
+  _interactType: 5
   _cameraMovementType: 0
   _cameraType: 0
   _virtualCam:
@@ -427,6 +427,8 @@ MonoBehaviour:
       blendIn: 0
       blendTime: 0
   _nodeName: 
+  _familyTreeType: 0
+  _ui: {fileID: 0}
   _isFade: 1
   _sceneName: Edit
 --- !u!1 &709405921
@@ -650,6 +652,8 @@ MonoBehaviour:
       blendIn: 0
       blendTime: 0
   _nodeName: 
+  _familyTreeType: 0
+  _ui: {fileID: 0}
   _isFade: 0
   _sceneName: StartEdit
 --- !u!1 &821240111
@@ -1159,7 +1163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf504a0c7fba3554da375faa441ddc07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactType: 3
+  _interactType: 5
   _cameraMovementType: 0
   _cameraType: 1
   _virtualCam:
@@ -1180,6 +1184,8 @@ MonoBehaviour:
       blendIn: 0
       blendTime: 0
   _nodeName: 
+  _familyTreeType: 0
+  _ui: {fileID: 0}
   _isFade: 1
   _sceneName: Edit
 --- !u!1 &1289085620
@@ -1645,6 +1651,8 @@ MonoBehaviour:
       blendIn: 0
       blendTime: 0
   _nodeName: 
+  _familyTreeType: 0
+  _ui: {fileID: 0}
   _isFade: 0
   _sceneName: StartEdit
 --- !u!1 &1799124451
@@ -2052,6 +2060,8 @@ MonoBehaviour:
       blendIn: 1
       blendTime: 3
   _nodeName: 
+  _familyTreeType: 0
+  _ui: {fileID: 0}
   _isFade: 0
   _sceneName: Start
 --- !u!222 &56988350894636757
