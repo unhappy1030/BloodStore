@@ -14,7 +14,7 @@ public class EmptyDisplay : MonoBehaviour
     public void SetNode(){
         if(group.pairTree.BlankNodeCheck() == nodeSO.node.sex){
             MakePair();
-            group.pairTree.AddChild();
+            group.button.SetActive(true);
             ChangeDisplay(nodeSO.node.sex);
         }
         else{

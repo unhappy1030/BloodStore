@@ -13,6 +13,8 @@ public class TreeManagerTest : MonoBehaviour
     public BloodPacks bloodPackList;
     public GameObject nodePrefab;
     public GameObject emptyPrefab;
+    public GameObject childButtonPrefab;
+    public GameObject childButtonOffPrefab;
     private GameObject mainGroup;
     public float pairOffSet = 0.2f;
     public float offSetX, offSetY;
@@ -55,7 +57,7 @@ public class TreeManagerTest : MonoBehaviour
         // Debug.Log("X : " + rootGroup.groupPos.x.ToString() + "  Y : " + rootGroup.groupPos.y.ToString());
         mainGroup.transform.position = rootGroup.groupPos;
         rootGroup.transform.parent = mainGroup.transform;
-        rootGroup.CameraSetting();
+        // rootGroup.CameraSetting();
         MakeParentMainGroup(rootGroup);
         mainGroup.transform.position =new Vector2(0, 0);
         rootGroup.PairLine();
@@ -88,6 +90,7 @@ public class TreeManagerTest : MonoBehaviour
                 group.rightDisplay.transform.parent = group.transform;
                 rootGroup.childrenGroup.Add(group);
                 group.parentGroup = rootGroup;
+                group.MakeChildButton();
                 MakeChildren(group);
                 MakeCenter(group);
             }
@@ -109,6 +112,7 @@ public class TreeManagerTest : MonoBehaviour
         group.DisplayNodes();
         group.leftDisplay.transform.parent = group.transform;
         group.rightDisplay.transform.parent = group.transform;
+        group.MakeChildButton();
         return group;
     }
     void MakeMainGroupObject(){
@@ -116,9 +120,12 @@ public class TreeManagerTest : MonoBehaviour
     }
     Group MakeGroupObject(){
         GameObject groupObject = new GameObject("Group");
-        groupObject.layer = LayerMask.NameToLayer("FamilyTree");
+        InteractObjInfo inter = groupObject.AddComponent<InteractObjInfo>();
+        inter._interactType = InteractType.FamilyTree;
+        inter._familyTreeType = FamilyTreeType.Group;
+        groupObject.layer = LayerMask.NameToLayer("Interact");
         Group group = groupObject.AddComponent<Group>();
-        group.SetPrefab(nodePrefab, emptyPrefab);
+        group.SetPrefab(nodePrefab, emptyPrefab, childButtonPrefab, childButtonOffPrefab);
         group.SetSizeData(halfX, halfY, pairSize, unit, pairOffSet, offSetX, offSetY);
         group.MakeBoxCollider();
         return group;
@@ -128,7 +135,7 @@ public class TreeManagerTest : MonoBehaviour
         if(rootGroup.pairTree.pair.childNum != 0){
             foreach(Group group in rootGroup.childrenGroup){
                 group.transform.parent = mainGroup.transform;
-                group.CameraSetting();
+                // group.CameraSetting();
                 MakeParentMainGroup(group);
             }
         }
