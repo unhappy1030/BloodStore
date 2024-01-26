@@ -16,14 +16,15 @@ public class ValueButton : MonoBehaviour
     {
         SetValueRandom();
     }
-    void SetValueRandom(){
-        weight = Random.Range(0.5f, 0.9f);
+    public void SetValueRandom(){
+        weight = Random.Range(0.8f, 0.9f);
         probability = Random.Range(0.75f, 1f);
         cost = 0;
     }
-    public void AddChildByUI(Group group){
-        group.pairTree.AddChildByValue(weight, probability);
+    public void AddChildByUI(){
         ChildAddUI UI = addChildUI.GetComponent<ChildAddUI>();
+        Group group = UI.group;
+        group.pairTree.AddChildByValue(weight, probability);
         UI.DeActive();
         group.button.SetActive(false);
         group.buttonOff.SetActive(true);

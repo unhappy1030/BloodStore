@@ -5,9 +5,7 @@ using UnityEngine;
 public class ChildButton : MonoBehaviour
 {
     public Group group;
-    public GameObject addChildUI;
-    public void OnAddChildUI(){
-        ChildAddUI UI = addChildUI.GetComponent<ChildAddUI>();
-        UI.Active(group);
+    private void Start() {
+        group = gameObject.GetComponentInParent<Group>();
     }
 }

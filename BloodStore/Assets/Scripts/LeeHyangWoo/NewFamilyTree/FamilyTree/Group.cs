@@ -8,7 +8,6 @@ using Unity.VisualScripting;
 public class Group : MonoBehaviour
 {
     public PairTree pairTree;
-    public GameObject addChildUI;
     public GameObject nodePrefab;
     public GameObject emptyPrefab;
     public GameObject childButtonPrefab;
@@ -28,12 +27,11 @@ public class Group : MonoBehaviour
     public List<Group> childrenGroup;
 
     public float lineWidth = 0.05f;
-    public void SetPrefab(GameObject nodePrefab, GameObject emptyPrefab, GameObject childButtonPrefab, GameObject childButtonOffPrefab, GameObject addChildUI){
+    public void SetPrefab(GameObject nodePrefab, GameObject emptyPrefab, GameObject childButtonPrefab, GameObject childButtonOffPrefab){
         this.nodePrefab = nodePrefab;
         this.emptyPrefab = emptyPrefab;
         this.childButtonPrefab = childButtonPrefab;
         this.childButtonOffPrefab = childButtonOffPrefab;
-        this.addChildUI = addChildUI;
     }
     public void SetSizeData(float halfX, float halfY, float pairSize, float unit, float pairOffSet, float offSetX, float offSetY){
         this.halfX = halfX;
@@ -56,6 +54,9 @@ public class Group : MonoBehaviour
         GameObject display;
         if(!node.empty){
             display = Instantiate(nodePrefab, new Vector2(0, 0), Quaternion.identity);
+            InteractObjInfo inter = display.AddComponent<InteractObjInfo>();
+            inter._interactType = InteractType.FamilyTree;
+            inter._familyTreeType = FamilyTreeType.Node;
             NodeDisplay nodeDisplay = display.GetComponent<NodeDisplay>();
             nodeDisplay.SetNodeData(node);
             nodeDisplay.MakeBoxCollider();
@@ -63,6 +64,9 @@ public class Group : MonoBehaviour
         }
         else{
             display = Instantiate(emptyPrefab, new Vector2(0, 0), Quaternion.identity);
+            InteractObjInfo inter = display.AddComponent<InteractObjInfo>();
+            inter._interactType = InteractType.FamilyTree;
+            inter._familyTreeType = FamilyTreeType.EmptyNode;
             EmptyDisplay emptyDisplay = display.GetComponent<EmptyDisplay>();
             emptyDisplay.MakeBoxCollider();
             emptyDisplay.DeActiveCollider();
@@ -147,19 +151,23 @@ public class Group : MonoBehaviour
     }
 
     public void MakeChildButton(){
+        button =  Instantiate(childButtonPrefab, groupPos, Quaternion.identity);
+        InteractObjInfo inter = button.AddComponent<InteractObjInfo>();
+        inter._interactType = InteractType.FamilyTree;
+        inter._familyTreeType = FamilyTreeType.ChildButton;
+        buttonOff = Instantiate(childButtonOffPrefab, groupPos, Quaternion.identity);
+        button.SetActive(false);
+        buttonOff.SetActive(false);
+        ChildButton childButton = button.AddComponent<ChildButton>();
+        childButton.group = this;
+        BoxCollider2D box = button.AddComponent<BoxCollider2D>();
+        SpriteRenderer spriteRenderer = button.GetComponent<SpriteRenderer>();
+        Vector2 spriteSize = spriteRenderer.sprite.bounds.size;
+        box.size = spriteSize;
+        button.transform.parent = transform;
+        buttonOff.transform.parent = transform;
         if(pairTree.pair.isPair && pairTree.pair.childNum == 0){
-            button =  Instantiate(childButtonPrefab, groupPos, Quaternion.identity);
-            buttonOff = Instantiate(childButtonOffPrefab, groupPos, Quaternion.identity);
-            buttonOff.SetActive(false);
-            ChildButton childButton = button.AddComponent<ChildButton>();
-            childButton.addChildUI = addChildUI;
-            childButton.group = this;
-            BoxCollider2D box = button.AddComponent<BoxCollider2D>();
-            SpriteRenderer spriteRenderer = button.GetComponent<SpriteRenderer>();
-            Vector2 spriteSize = spriteRenderer.sprite.bounds.size;
-            box.size = spriteSize;
-            button.transform.parent = transform;
-            buttonOff.transform.parent = transform;
+            button.SetActive(true);
         }
     }
     public void ChangeButton(){
