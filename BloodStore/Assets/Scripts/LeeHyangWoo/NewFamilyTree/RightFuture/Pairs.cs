@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEditor.Experimental.GraphView;
+using Unity.VisualScripting.Dependencies.NCalc;
 [System.Serializable]
 public class SavePairArray{
     public Pair[] arr;
@@ -127,6 +129,46 @@ public class PairTree
             pair.female = node;
         }
     }
+    public void AddChildByValue(float weight, float probability){
+        if(pair.isPair == true && pair.childNum == 0){ //테스트용 조건문
+            pair.childNum = GetChildNum(weight, probability);
+            for(int i = 0; i < pair.childNum; i++){
+                Node node = new Node();
+                node = SetByParent();
+                if(node.sex == "Male"){
+                    Pair child = new Pair
+                    {
+                        male = node,
+                        female = new Node(),
+                        isPair = false,
+                        childNum = 0,
+                    };
+                    AddChild(new PairTree(child));
+                }
+                else{
+                    Pair child = new Pair
+                    {
+                        male = new Node(),
+                        female = node,
+                        isPair = false,
+                        childNum = 0,
+                    };
+                    AddChild(new PairTree(child));
+                }
+            }
+        }
+    }
+    int GetChildNum(float weight, float probability){
+        int num = 0;
+        float random = Random.Range(0f, 1f);
+        float value = probability;
+        while(random <= value){
+            num++;
+            value *= weight;
+            random = Random.Range(0f, 1f);
+        }
+        return num;
+    }
     public void AddChild(){
         if(pair.isPair == true && pair.childNum == 0){ //테스트용 조건문
             pair.childNum = Random.Range(1,5);
@@ -160,7 +202,6 @@ public class PairTree
                 child.AddChild();
             }
         }
-
     }
     private Node SetByParent(){
         Node node = new Node{

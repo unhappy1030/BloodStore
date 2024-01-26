@@ -26,6 +26,7 @@ public class NodeInteraction : MonoBehaviour
 
     public GameObject nodeInfoCanvas; // assign at Inspector
     public GameObject nodeInfoTexts; // assign at Inspector
+    public GameObject addChildUI;
     public Image nodeImg; // assign at Inspector
 
     public NodeShowingStatus nodeShowingStatus;
@@ -68,7 +69,7 @@ public class NodeInteraction : MonoBehaviour
     }
 
     void Update(){
-        Debug.Log("node Show Status : " + nodeShowingStatus);
+        // Debug.Log("node Show Status : " + nodeShowingStatus);
 
         if(!dialogueRunner.IsDialogueRunning 
             && !GameManager.Instance.isFading
@@ -205,6 +206,12 @@ public class NodeInteraction : MonoBehaviour
                 return;
             }
             SelectPair(emptyNode);
+        }
+        else if(treeType == FamilyTreeType.ChildButton)
+        {
+            ChildButton childButton = info.GetComponent<ChildButton>();
+            ChildAddUI UI = addChildUI.GetComponent<ChildAddUI>();
+            UI.Active(childButton.group);
         }
     }
 
