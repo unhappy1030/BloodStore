@@ -27,12 +27,12 @@ public class NodeInteraction : MonoBehaviour
     public GameObject nodeInfoCanvas; // assign at Inspector
     public GameObject nodeInfoTexts; // assign at Inspector
     public GameObject addChildUI;
+    public GameObject treeManager;
     public Image nodeImg; // assign at Inspector
 
     public NodeShowingStatus nodeShowingStatus;
     public NodeInteractionStatus nodeInteractionStatus;
 
-    public Group currentGroup;
     public Group currentSelectGroup;
     public Group currentParent;
 
@@ -56,6 +56,7 @@ public class NodeInteraction : MonoBehaviour
     
     void Start(){
         // treeManagerTest = FindObjectOfType<TreeManagerTest>();
+        TreeManager tree = treeManager.GetComponent<TreeManager>();
         nodeInfoCanvas.SetActive(false);
 
         wasNodeActived = false;
@@ -65,7 +66,10 @@ public class NodeInteraction : MonoBehaviour
         nodeShowingStatus = NodeShowingStatus.ShowTotal; // test
         nodeInteractionStatus = NodeInteractionStatus.None;
         
-        ShowTotal();
+        // ShowTotal();
+        currentSelectGroup = tree.mainGroup.transform.GetChild(0).gameObject.GetComponent<Group>();
+        ShowFamily(currentSelectGroup);
+        AbleKeyInput(currentSelectGroup);
     }
 
     void Update(){
@@ -98,14 +102,14 @@ public class NodeInteraction : MonoBehaviour
                 Debug.Log("Left");
                 SelectShow(leftGroup);
                 AbleKeyInput(leftGroup);
-                currentGroup = leftGroup;
+                currentSelectGroup = leftGroup;
             }
             else if(h == 1 && rightGroup != null)
             {
                 Debug.Log("Right");
                 SelectShow(rightGroup);
                 AbleKeyInput(rightGroup);
-                currentGroup = rightGroup;
+                currentSelectGroup = rightGroup;
             }
             
             currentH = h;
@@ -117,14 +121,14 @@ public class NodeInteraction : MonoBehaviour
                 Debug.Log("Down");
                 SelectShow(downGroup);
                 AbleKeyInput(downGroup);
-                currentGroup = downGroup;
+                currentSelectGroup = downGroup;
             }
             else if(v == 1 && upGroup != null)
             {
                 Debug.Log("Up");
                 SelectShow(upGroup);
                 AbleKeyInput(upGroup);
-                currentGroup = upGroup;
+                currentSelectGroup = upGroup;
             }
             currentV = v;
         }
@@ -249,7 +253,7 @@ public class NodeInteraction : MonoBehaviour
             EnableNodeCollider(currentSelectGroup, false);
         }
         
-        currentGroup = null;
+        currentSelectGroup = null;
         currentParent = null;
         
         nodeShowingStatus = NodeShowingStatus.ShowTotal;
