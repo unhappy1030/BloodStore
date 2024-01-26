@@ -10,7 +10,9 @@ public enum InteractType
 {
     None,
     CameraControl,
-    NpcInteraction,
+    StartDialogue,
+    FamilyTree,
+    UIOnOff,
     SceneLoad,
     GameExit
 }
@@ -26,6 +28,12 @@ public enum CameraType
     VirtualCamera,
     TargetGroupCamera,
     BlendListCamera
+}
+
+public enum FamilyTreeType{
+    Group,
+    Node,
+    ChildButton
 }
 
 [System.Serializable]
@@ -72,8 +80,14 @@ public class InteractObjInfo : MonoBehaviour
     [SerializeField] public VirtualCameraInfo _virtualCam;
     [SerializeField] public BlendListCameraInfo _blendListCam;
 
-    // NpcInteraction
+    // StartDialogue
     [SerializeField] public string _nodeName;
+
+    // Family Tree
+    public FamilyTreeType _familyTreeType;
+
+    // UI On Off
+    public GameObject UI;
 
     // SceneLoad
     [SerializeField] public bool _isFade;

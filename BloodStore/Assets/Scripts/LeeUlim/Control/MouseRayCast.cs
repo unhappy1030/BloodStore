@@ -44,7 +44,7 @@ public class MouseRayCast : MonoBehaviour
             cameraControl.ChangeCam(interactObjInfo);
         }
 
-        if(interactObjInfo._interactType == InteractType.NpcInteraction)
+        if(interactObjInfo._interactType == InteractType.StartDialogue)
         {
             npcInteract.StartDialogue(interactObjInfo._nodeName);
         }
