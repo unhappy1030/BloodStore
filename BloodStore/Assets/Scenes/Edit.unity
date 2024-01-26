@@ -7345,10 +7345,10 @@ MonoBehaviour:
   nodeInfoCanvas: {fileID: 1582490376}
   nodeInfoTexts: {fileID: 1048937464}
   addChildUI: {fileID: 139006813}
-  nodeImg: {fileID: 0}
+  treeManager: {fileID: 686383031}
+  nodeImg: {fileID: 798279807}
   nodeShowingStatus: 0
   nodeInteractionStatus: 0
-  currentGroup: {fileID: 0}
   currentSelectGroup: {fileID: 0}
   currentParent: {fileID: 0}
   leftGroup: {fileID: 0}

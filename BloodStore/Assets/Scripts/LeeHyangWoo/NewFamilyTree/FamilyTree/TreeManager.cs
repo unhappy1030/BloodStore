@@ -6,7 +6,7 @@ using UnityEngine.Assertions.Must;
 using UnityEngine.UIElements;
 using Cinemachine;
 
-public class TreeManagerTest : MonoBehaviour
+public class TreeManager : MonoBehaviour
 {
     public Pairs pairList;
     public PairTree root;
@@ -15,7 +15,7 @@ public class TreeManagerTest : MonoBehaviour
     public GameObject emptyPrefab;
     public GameObject childButtonPrefab;
     public GameObject childButtonOffPrefab;
-    private GameObject mainGroup;
+    public GameObject mainGroup;
     public float pairOffSet = 0.2f;
     public float offSetX, offSetY;
     private float halfX, halfY;
