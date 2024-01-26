@@ -442,7 +442,7 @@ MonoBehaviour:
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 1861566154}
   m_HorizontalScrollbarVisibility: 2
-  m_VerticalScrollbarVisibility: 2
+  m_VerticalScrollbarVisibility: 1
   m_HorizontalScrollbarSpacing: -3
   m_VerticalScrollbarSpacing: -3
   m_OnValueChanged:
@@ -498,6 +498,7 @@ GameObject:
   - component: {fileID: 119283922}
   - component: {fileID: 119283921}
   - component: {fileID: 119283920}
+  - component: {fileID: 119283923}
   m_Layer: 0
   m_Name: Sell
   m_TagString: Untagged
@@ -631,6 +632,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 119283918}
   m_CullTransparentMesh: 1
+--- !u!114 &119283923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119283918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c099e1c1a98b72644b551495026733ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodPackManager: {fileID: 1031720249}
 --- !u!1 &154212695
 GameObject:
   m_ObjectHideFlags: 0
@@ -2262,6 +2276,10 @@ MonoBehaviour:
   NumofFiltered: {fileID: 1368316902}
   bloodPackUIPrefab: {fileID: 367333933166623263, guid: 0fdda40c6a479a24e9950120052cedb7, type: 3}
   uiContainer: {fileID: 1704766419}
+  categories:
+  - Sex
+  - BloodType
+  - Rh
 --- !u!1 &894048166
 GameObject:
   m_ObjectHideFlags: 0
@@ -2313,6 +2331,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AllowSwitchOff: 1
+--- !u!1 &1031720247
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1031720248}
+  - component: {fileID: 1031720249}
+  m_Layer: 0
+  m_Name: BloodPackManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1031720248
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031720247}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1377.2096, y: 189.43509, z: -2.2776191}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1031720249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031720247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f18a2916eb9997544b3f8b608c43f81d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1130196651
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4007,3 +4069,4 @@ SceneRoots:
   - {fileID: 559100697}
   - {fileID: 2142775524}
   - {fileID: 193522019}
+  - {fileID: 1031720248}

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,9 +17,37 @@ public class ToggleGroups : MonoBehaviour
 
     private List<GameObject> uiInstances = new List<GameObject>();
 
+    public List<string> categories = new List<string> { "Sex", "BloodType", "Rh" };
+    public List<List<Toggle>> categoryToggles = new List<List<Toggle>>();
+    List<BloodPack> filteredBloodPacks;
+
+    public List<Toggle> FindTogglesByCategory(string categoryName)
+    {
+        int index = categories.IndexOf(categoryName);
+
+        if (index != -1)
+        {
+            return categoryToggles[index];
+        }
+        else
+        {
+            Debug.LogError("Invalid category name: " + categoryName);
+            return null;
+        }
+    }
+
+
     void Start()
     {
         this.bloodPackSO = GameManager.Instance.bloodPackList;
+        bloodPackSO.Load();
+        categoryToggles = new List<List<Toggle>>();
+
+        for (int i = 0; i < categories.Count; i++)
+        {
+            categoryToggles.Add(new List<Toggle>());
+        }
+
         ToggleGroup[] toggleGroups = parentObject.GetComponentsInChildren<ToggleGroup>();
 
         foreach (ToggleGroup tg in toggleGroups)
@@ -26,89 +55,121 @@ public class ToggleGroups : MonoBehaviour
             List<Toggle> ts = new List<Toggle>(tg.GetComponentsInChildren<Toggle>());
             foreach (Toggle t in ts)
             {
-                t.onValueChanged.AddListener(delegate { ToggleValueChanged(); });
-            }
-        }
-        ToggleValueChanged();
-    }
-
-    void ToggleValueChanged()
-    {
-        int Count = 0;
-        activeToggles = new List<Toggle>();
-        ToggleGroup[] toggleGroups = parentObject.GetComponentsInChildren<ToggleGroup>();
-
-        foreach (ToggleGroup tg in toggleGroups)
-        {
-            List<Toggle> ts = new List<Toggle>(tg.GetComponentsInChildren<Toggle>());
-            foreach (Toggle t in ts)
-            {
-                if (t.isOn)
-                {
-                    activeToggles.Add(t);
-                }
-            }
-        }
-
-        List<BloodPack> filteredBloodPacks = new List<BloodPack>();
-
-        foreach (BloodPack bloodPack in bloodPackSO.bloodPacks)
-        {
-            bool isSexMatch = false;
-            bool isBloodTypeSignMatch = false;
-            bool isBloodTypeLetterMatch = false;
-
-            bool sexToggleSelected = false;
-            bool bloodTypeSignToggleSelected = false;
-            bool bloodTypeLetterToggleSelected = false;
-
-            foreach (Toggle t in activeToggles)
-            {
+                t.onValueChanged.AddListener(ToggleValueChanged);
                 string toggleName = t.name;
 
                 if (toggleName == "Male" || toggleName == "Female")
                 {
-                    sexToggleSelected = true;
-                    if (toggleName == bloodPack.node.sex)
-                    {
-                        isSexMatch = true;
-                    }
+                    categoryToggles[categories.IndexOf("Sex")].Add(t);
                 }
                 else if (toggleName == "+" || toggleName == "-")
                 {
-                    bloodTypeSignToggleSelected = true;
-                    if (toggleName == bloodPack.node.bloodType[1])
-                    {
-                        isBloodTypeSignMatch = true;
-                    }
+                    categoryToggles[categories.IndexOf("Rh")].Add(t);
                 }
                 else if (toggleName == "A" || toggleName == "B" || toggleName == "AB" || toggleName == "O")
                 {
-                    bloodTypeLetterToggleSelected = true;
-                    if (toggleName == bloodPack.node.bloodType[0])
-                    {
-                        isBloodTypeLetterMatch = true;
-                    }
+                    categoryToggles[categories.IndexOf("BloodType")].Add(t);
                 }
-            }
-
-            // 선택된 토글이 있을 경우에만 검사하고, 그 토글에 맞는 경우에만 추가
-            if ((!sexToggleSelected || isSexMatch) && (!bloodTypeSignToggleSelected || isBloodTypeSignMatch) && (!bloodTypeLetterToggleSelected || isBloodTypeLetterMatch))
-            {
-                filteredBloodPacks.Add(bloodPack);
-                Debug.Log(bloodPack.node.name);
-                Count++;
             }
         }
 
-        string a = "재고 : " + Count + " 개";
-        NumofFiltered.text = a;
+        filteredBloodPacks = new List<BloodPack>();
 
+        foreach (BloodPack bloodPack in bloodPackSO.bloodPacks)
+        {
+            Debug.Log(bloodPack.node.name);
+            filteredBloodPacks.Add(bloodPack);
+        }
         StartCoroutine(DisplayBloodPacks(filteredBloodPacks));
+        
+    }
+
+
+    public void ToggleValueChanged(bool value)
+    {
+        filteredBloodPacks = new List<BloodPack>();
+
+        activeToggles = FindActiveTogglesInActiveCategories();
+
+            foreach (BloodPack bloodPack in bloodPackSO.bloodPacks)
+            {
+                bool satisfiesAllConditions = true;
+
+                // 성별에 해당하는 토글이 활성화되어 있는지 확인
+                List<Toggle> sexToggles = categoryToggles[categories.IndexOf("Sex")];
+                if (sexToggles.Any(toggle => toggle.isOn) && !sexToggles.Any(toggle => toggle.isOn && toggle.name == bloodPack.node.sex))
+                {
+                    satisfiesAllConditions = false;
+                }
+
+                // 혈액형에 해당하는 토글이 활성화되어 있는지 확인
+                List<Toggle> bloodTypeToggles = categoryToggles[categories.IndexOf("BloodType")];
+                if (bloodTypeToggles.Any(toggle => toggle.isOn) && !bloodTypeToggles.Any(toggle => toggle.isOn && toggle.name == bloodPack.node.bloodType[0]))
+                {
+                    satisfiesAllConditions = false;
+                }
+
+                // Rh에 해당하는 토글이 활성화되어 있는지 확인
+                List<Toggle> rhToggles = categoryToggles[categories.IndexOf("Rh")];
+                if (rhToggles.Any(toggle => toggle.isOn) && !rhToggles.Any(toggle => toggle.isOn && toggle.name == bloodPack.node.bloodType[1]))
+                {
+                    satisfiesAllConditions = false;
+                }
+
+                // 모든 토글 조건을 만족하면 필터링된 목록에 추가
+                if(satisfiesAllConditions)
+                {
+                    filteredBloodPacks.Add(bloodPack);
+                }
+
+        }
+
+        Debug.Log("aa");
+        StartCoroutine(DisplayBloodPacks(filteredBloodPacks));
+    }
+
+    bool IsCategorySelected(string category)
+    {
+        foreach (Toggle toggle in activeToggles)
+        {
+            if (toggle.name.Contains(category))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<Toggle> FindActiveTogglesInActiveCategories()
+    {
+        List<Toggle> activeToggles = new List<Toggle>();
+
+        // 카테고리별로 확인
+        foreach (string category in categories)
+        {
+            // 카테고리가 활성화되었는지 확인
+            if (IsCategorySelected(category))
+            {
+                // 해당 카테고리에서 활성화된 토글들을 찾음
+                List<Toggle> togglesInCategory = FindTogglesByCategory(category);
+                foreach (Toggle toggle in togglesInCategory)
+                {
+                    if (toggle.isOn)
+                    {
+                        activeToggles.Add(toggle);
+                    }
+                }
+            }
+        }
+
+        return activeToggles;
     }
 
     IEnumerator DisplayBloodPacks(List<BloodPack> filteredBloodPacks)
     {
+        Debug.Log("bbbb");
+        string a = "재고 : " + filteredBloodPacks.Count + " 개";
+        NumofFiltered.text = a;
         // 기존에 생성된 UI 요소들을 모두 삭제
         foreach (GameObject uiInstance in uiInstances)
         {
@@ -123,11 +184,6 @@ public class ToggleGroups : MonoBehaviour
             GameObject newUI = Instantiate(bloodPackUIPrefab, uiContainer);
 
             yield return null;  // 한 프레임 대기
-
-            Debug.Log("Node Name: " + bloodPack.node.name);
-            Debug.Log("Node Age: " + bloodPack.node.age);
-            Debug.Log("Node Sex: " + bloodPack.node.sex);
-            Debug.Log("Node Blood Type: " + bloodPack.node.bloodType[0] + bloodPack.node.bloodType[1]);
 
             // 텍스트 컴포넌트를 찾습니다.
             TMP_Text nameText = newUI.transform.Find("Name").GetComponent<TMP_Text>();
@@ -145,6 +201,7 @@ public class ToggleGroups : MonoBehaviour
 
             uiInstances.Add(newUI); 
         }
+
     }
 
     // 모든 토글 비활성화(리셋)

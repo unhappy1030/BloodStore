@@ -76,7 +76,8 @@ public class NPCInteract : MonoBehaviour
             yield return new WaitUntil(() => !cameraControl.mainCam.IsBlending); // wait until camera move ends
             
             bloodPackCanvas.SetActive(true);
-            
+            // bloodPackCanvas.GetComponentInChildren<ToggleGroups>().ToggleValueChanged();
+
             selectBlood = false;
             yield return new WaitUntil(() => selectBlood); // wait until select blood -> button in Blood pack canvas
             
@@ -128,7 +129,7 @@ public class NPCInteract : MonoBehaviour
             interactObjInfo = npc.AddComponent<InteractObjInfo>();
         }
 
-        interactObjInfo._interactType = InteractType.NpcInteraction;
+        interactObjInfo._interactType = InteractType.StartDialogue;
         interactObjInfo._nodeName = dialogueSum[npcIndex].dialogueName;
     }
 
