@@ -1,0 +1,63 @@
+﻿title: Npc1Cond0Day1
+tags:
+position: 2,0
+group: Cond0
+---
+<<declare $npc1Cond0 = 0>>
+<<declare $npc1Cond0Count = 0>>
+
+Npc1: Hello!
+Npc1: Do you have Rh+BB blood?
+-> Yes
+    Player: Here you are.
+    Npc1: Thanks!
+    <<set $npc1Cond0Count += 1>>
+-> No
+    Npc1: Umm... Then, Ok.
+===
+title: Npc1Cond0Day4
+position: 2,152
+group: Cond0
+---
+Npc1: Do you have Rh+BB blood?
+-> Yes
+    Player: Here you are.
+    Npc1: Thanks!
+    <<set $npc1Cond0Count += 1>>
+-> No
+    Npc1: ...
+===
+title: Npc1Cond0Day5
+position: 228,152
+group: Cond0
+---
+Npc1: Do you have Rh+BB blood?
+-> Yes
+    Player: Here you are.
+    Npc1: Thanks!
+    <<set $npc1Cond0 = 1>>
+-> No
+    <<if $npc1Cond0Count == 0>>
+        Npc1: ...
+        Npc1: I think you don't have much blood...
+        He left...
+        <<set $npc1Cond0 = -1>>
+    <<else>>
+        Npc1: Ok.
+        <<set $npc1Cond0 = 1>>
+    <<endif>>
+
+<<SetCondition DialogueSystem npc1 {$npc1Cond0}>>
+===
+title: Npc1Cond1Day6
+position: -2,381
+group: Cond1
+---
+Npc1: Do you have Rh+BB blood?
+Npc1: I like your blood.
+-> Yes
+    Player: Here you are.
+    Npc1: Thanks!
+-> No
+    Npc1: Ok.
+===

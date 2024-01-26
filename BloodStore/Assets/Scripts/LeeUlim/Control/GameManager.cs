@@ -22,12 +22,14 @@ public class GameManager : MonoBehaviour
 
     public CameraControl cameraControl; // *** warning : must be in Scene and set "CameraControl" tag
     public NPCInteract npcInteract;
+    public DialogueControl dialogueControl;
     public NodeInteraction nodeInteraction;
     public MouseRayCast mouseRayCast;
     public MoneyControl moneyControl;
     public YarnControl yarnControl;
     public DialogueRunner dialogueRunner;
     public InMemoryVariableStorage variableStorage;
+
     public Pairs pairList;
     public BloodPacks bloodPackList;
 
@@ -85,17 +87,20 @@ public class GameManager : MonoBehaviour
 
         mouseRayCast = GetComponent<MouseRayCast>();
         moneyControl = GetComponent<MoneyControl>();
+        dialogueControl = GetComponent<DialogueControl>();
+        pairList = GetComponent<Pairs>();
+        bloodPackList = GetComponent<BloodPacks>();
 
         yarnControl = GetComponentInChildren<YarnControl>();
         dialogueRunner = GetComponentInChildren<DialogueRunner>();
         variableStorage = GetComponentInChildren<InMemoryVariableStorage>();
-        pairList = GetComponent<Pairs>();
-        bloodPackList = GetComponent<BloodPacks>();
+        
         // assign scripts 
         if(npcInteract != null){
             npcInteract.dialogueRunner = dialogueRunner;
             npcInteract.cameraControl = cameraControl;
             npcInteract.yarnControl = yarnControl;
+            npcInteract.dialogueControl = dialogueControl;
         }
 
         if(nodeInteraction != null){
@@ -113,6 +118,7 @@ public class GameManager : MonoBehaviour
         yarnControl.moneyControl = moneyControl;
         yarnControl.dialogueRunner = dialogueRunner;
         yarnControl.variableStorage = variableStorage;
+        yarnControl.dialogueControl = dialogueControl;
         
         whitePanel.gameObject.SetActive(false);
         blackPanel.gameObject.SetActive(false);

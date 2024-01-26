@@ -10,18 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9cd42481cd8575348b0c8e7e1778d70c, type: 3}
-  m_Name: NPCInfo
+  m_Name: NPC2
   m_EditorClassIdentifier: 
-  infos:
-  - NPCName: Amy
-    sprites:
-    - {fileID: 0}
-  - NPCName: Jenny
-    sprites:
-    - {fileID: 0}
-  - NPCName: James
-    sprites:
-    - {fileID: 0}
-  - NPCName: Henry
-    sprites:
-    - {fileID: 0}
+  npcName: npc2
+  sprites:
+  - {fileID: 391900973, guid: 8a5540b24f50c984bbe6483f83260373, type: 3}
+  startDay: 3
+  dayDialogues:
+  - where: 0
+    when: 0
+    day: 2
+    priority: 0
+    dialogueName: npc2Day3
+  - where: 0
+    when: 0
+    day: 3
+    priority: 0
+    dialogueName: npc2Day3
+  condDialogues: []

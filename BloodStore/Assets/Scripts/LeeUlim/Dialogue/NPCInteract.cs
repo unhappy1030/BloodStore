@@ -6,30 +6,35 @@ using Yarn.Unity;
 
 public class NPCInteract : MonoBehaviour
 {
-    public int count; // assign at Inspector
-    public int npcIndex;
-    public int spriteIndex;
-    public bool finishCreateCam;
-    public bool selectBlood;
-    // public bool isInteractble = true;
+    public GameObject npc; // assign at Inspector
+    public List<GameObject> cameraTarget; // assign at Inspector
 
-    public GameObject npc;
-    public List<Sprite> npcSprite;
-    public List<GameObject> cameraTarget;
-
-    public GameObject bloodPackCanvas;
-    public GameObject nextDayButton;
-
-    public Coroutine npcCoroutine;
+    public GameObject bloodPackCanvas; // assign at Inspector
+    public GameObject nextDayButton; // assign at Inspector
 
     public CameraControl cameraControl;
+    public DialogueControl dialogueControl;
     public YarnControl yarnControl;
     public DialogueRunner dialogueRunner;
 
+    int count;
+    int npcIndex;
+    int spriteIndex;
+    bool selectBlood;
+
+    Coroutine npcCoroutine;
+
+    // List<NPCSO> npcs; // get from DialogueControl
+    List<DialogueInfo> dialogueSum;
+    List<Sprite> npcSprites;
+
     void Start(){
+        // npcs = dialogueControl.npcs; // test
+
+        GetStoreDialogues();
+
         npcIndex = 0;
         spriteIndex = 0;
-        finishCreateCam = false;
         selectBlood = false;
 
         npc.SetActive(false);
@@ -37,7 +42,7 @@ public class NPCInteract : MonoBehaviour
         bloodPackCanvas.SetActive(false);
         nextDayButton.SetActive(false);
 
-        npcCoroutine = StartCoroutine(StartInteraction());
+        npcCoroutine = StartCoroutine(StartCustomer());
     }
 
     private void OnDestroy()
@@ -48,13 +53,17 @@ public class NPCInteract : MonoBehaviour
         }
     }
 
-    IEnumerator StartInteraction(){
-        if(count == 0 || npcSprite.Count == 0)
+    IEnumerator StartCustomer(){
+        if(count == 0){
+            ReadyToMoveNextDay();
+            npcCoroutine = null;
             yield break;
+        }
         
-        spriteIndex = GetSpriteIndex();
+        // spriteIndex = GetSpriteIndex();
+        SetStoreDialogues();
 
-        yield return ActiveSprite(spriteIndex);
+        yield return ActiveSprite();
 
         yield return new WaitUntil(() => dialogueRunner.IsDialogueRunning); // wait until mouse click
         // tell what they want
@@ -81,18 +90,20 @@ public class NPCInteract : MonoBehaviour
             yarnControl.isSell = false;
         }
         
-        StartDialogue(yarnControl.nodeName); // tell their evaluation or end dialogue
-        yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
+        if(yarnControl.nodeName != ""){
+            StartDialogue(yarnControl.nodeName); // tell their evaluation or end dialogue
+            yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
+        }
 
-        DeActiveSprite(spriteIndex);
+        yield return StartCoroutine(DeActiveSprite());
 
-        yield return new WaitForSecondsRealtime(2);
+        yield return new WaitForSecondsRealtime(1);
 
         npcIndex++;
 
         if(npcIndex < count){
             Debug.Log("another NPC Interact triggered...");
-            yield return StartCoroutine(StartInteraction());
+            yield return StartCoroutine(StartCustomer());
         }
         
         if(npcIndex == count){ // for trigger only at final interaction
@@ -101,16 +112,63 @@ public class NPCInteract : MonoBehaviour
             npcCoroutine = null;
         }
     }
-
-    // test
-    int GetSpriteIndex(){
-        int index;
-        index = Random.Range(0, npcSprite.Count);
-        return index;
+    
+    // from DialogueControl
+    void GetStoreDialogues(){
+        dialogueControl.GetAllDialogues(WhereNodeStart.Store, WhenNodeStart.Click);
+        dialogueSum = dialogueControl.allDialogues;
+        count = dialogueSum.Count;
+        Debug.Log("Count : " + count);
     }
 
-    IEnumerator ActiveSprite(int spriteIndex){
-        npc.GetComponent<SpriteRenderer>().sprite = npcSprite[spriteIndex];
+    // to InteractObjInfo
+    void SetStoreDialogues(){
+        InteractObjInfo interactObjInfo = npc.GetComponent<InteractObjInfo>();
+        if(interactObjInfo == null){
+            interactObjInfo = npc.AddComponent<InteractObjInfo>();
+        }
+
+        interactObjInfo._interactType = InteractType.NpcInteraction;
+        interactObjInfo._nodeName = dialogueSum[npcIndex].dialogueName;
+    }
+
+    // int GetSpriteIndex(string npcName){
+    //     bool isExist = false;
+    //     int index = 0;
+        
+    //     foreach(NPCSO npcInfo in npcs){
+    //         if(npcInfo.npcName == npcName){
+    //             isExist = true;
+    //             break;
+    //         }
+    //         index++;
+    //     }
+
+    //     if(!isExist){
+    //         index = -1;
+    //     }
+        
+    //     return index;
+    // }
+    
+    IEnumerator ActiveSprite(){
+        // spriteIndex = GetSpriteIndex(dialogueSum[npcIndex].npcName);
+
+        // if(spriteIndex < 0 || spriteIndex > npcs.Count -1 || npcs[spriteIndex].sprites[0] == null){
+        //     Debug.Log("There is no sprite in npcs...");
+        //     yield break;
+        // }
+
+        // npc.GetComponent<SpriteRenderer>().sprite = npcs[spriteIndex].sprites[0];
+        npcSprites = dialogueSum[npcIndex].sprites;
+
+        if(npcSprites == null || npcSprites.Count == 0){
+            Debug.Log("There is no sprites in index " + npcIndex + " dialogue Info...");
+            yield break;
+        }
+
+        npc.GetComponent<SpriteRenderer>().sprite = npcSprites[0];
+
         npc.SetActive(true);
         
         npc.GetComponent<BoxCollider2D>().enabled = false;
@@ -118,20 +176,24 @@ public class NPCInteract : MonoBehaviour
         npc.GetComponent<BoxCollider2D>().enabled = true;
     }
 
-    void DeActiveSprite(int spriteIndex){
+    IEnumerator DeActiveSprite(){
         npc.GetComponent<BoxCollider2D>().enabled = false;
-        GameManager.Instance.StartCoroutine(GameManager.Instance.FadeInSprite(npc.GetComponent<SpriteRenderer>(), 0.05f));
+        yield return GameManager.Instance.StartCoroutine(GameManager.Instance.FadeInSprite(npc.GetComponent<SpriteRenderer>(), 0.05f));
         npc.SetActive(false);
     }
 
     public void StartDialogue(string nodeName){
-        if(!dialogueRunner.IsDialogueRunning){
+        if(!dialogueRunner.IsDialogueRunning)
+        {
             if(dialogueRunner.NodeExists(nodeName))
                 dialogueRunner.StartDialogue(nodeName);
             else
                 Debug.Log(nodeName + " is not Exist...");
-        }else
+        }
+        else
+        {
             Debug.Log("Other Dialogue is running...");
+        }
     }
 
     void CreateVirtualCamera(int targetIndex){
@@ -151,7 +213,6 @@ public class NPCInteract : MonoBehaviour
         }
 
         interactObjInfo.SetVirtualCameraInfo(cameraTarget[targetIndex], false, null, 5.4f, 0.25f, Cinemachine.CinemachineBlendDefinition.Style.EaseInOut, 1.5f);
-        finishCreateCam = true;
         cameraControl.ChangeCam(interactObjInfo);
     }   
 
@@ -164,6 +225,7 @@ public class NPCInteract : MonoBehaviour
         return 5.0f;
     }
     
+    // test
     void ReadyToMoveNextDay(){
         nextDayButton.SetActive(true);
     }

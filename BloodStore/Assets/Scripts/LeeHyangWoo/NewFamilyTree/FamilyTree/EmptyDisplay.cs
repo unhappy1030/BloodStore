@@ -24,7 +24,9 @@ public class EmptyDisplay : MonoBehaviour
 
     public void MakeBoxCollider(){
         BoxCollider2D box = gameObject.AddComponent<BoxCollider2D>();
-        box.size = new Vector2(1, 1);
+        SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        Vector2 spriteSize = spriteRenderer.sprite.bounds.size;
+        box.size = spriteSize;
     }
     public void ActiveCollider(){
         BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
