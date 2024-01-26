@@ -428,7 +428,7 @@ MonoBehaviour:
       blendTime: 0
   _nodeName: 
   _familyTreeType: 0
-  UI: {fileID: 0}
+  _ui: {fileID: 0}
   _isFade: 1
   _sceneName: Edit
 --- !u!1 &709405921
@@ -653,7 +653,7 @@ MonoBehaviour:
       blendTime: 0
   _nodeName: 
   _familyTreeType: 0
-  UI: {fileID: 0}
+  _ui: {fileID: 0}
   _isFade: 0
   _sceneName: StartEdit
 --- !u!1 &821240111
@@ -1185,7 +1185,7 @@ MonoBehaviour:
       blendTime: 0
   _nodeName: 
   _familyTreeType: 0
-  UI: {fileID: 0}
+  _ui: {fileID: 0}
   _isFade: 1
   _sceneName: Edit
 --- !u!1 &1289085620
@@ -1652,7 +1652,7 @@ MonoBehaviour:
       blendTime: 0
   _nodeName: 
   _familyTreeType: 0
-  UI: {fileID: 0}
+  _ui: {fileID: 0}
   _isFade: 0
   _sceneName: StartEdit
 --- !u!1 &1799124451
@@ -2061,7 +2061,7 @@ MonoBehaviour:
       blendTime: 3
   _nodeName: 
   _familyTreeType: 0
-  UI: {fileID: 0}
+  _ui: {fileID: 0}
   _isFade: 0
   _sceneName: Start
 --- !u!222 &56988350894636757

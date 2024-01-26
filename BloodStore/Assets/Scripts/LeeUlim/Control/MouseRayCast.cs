@@ -12,6 +12,7 @@ public class MouseRayCast : MonoBehaviour
     
     public CameraControl cameraControl; // *** warning : must be in Scene and set "CameraControl" tag
     public NPCInteract npcInteract;
+    public NodeInteraction nodeInteraction;
     public DialogueRunner dialogueRunner;
 
 
@@ -48,6 +49,21 @@ public class MouseRayCast : MonoBehaviour
         {
             npcInteract.StartDialogue(interactObjInfo._nodeName);
         }
+
+        if(interactObjInfo._interactType == InteractType.FamilyTree)
+        {
+            nodeInteraction.MouseInteract(interactObjInfo);
+        }
+
+
+        if(interactObjInfo._interactType == InteractType.UIOnOff)
+        {
+            GameObject ui = interactObjInfo._ui;
+            ui.SetActive(interactObjInfo._isOn);
+            
+            interactObjInfo._isOn = !interactObjInfo._isOn;
+        }
+
 
         if (interactObjInfo._interactType == InteractType.SceneLoad)
         {

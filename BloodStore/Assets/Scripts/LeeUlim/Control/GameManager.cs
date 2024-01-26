@@ -113,6 +113,11 @@ public class GameManager : MonoBehaviour
 
         mouseRayCast.cameraControl = cameraControl;
         mouseRayCast.npcInteract = npcInteract;
+
+        if(nodeInteraction != null){
+            mouseRayCast.nodeInteraction = nodeInteraction;
+        }
+
         mouseRayCast.dialogueRunner = dialogueRunner;
 
         yarnControl.moneyControl = moneyControl;

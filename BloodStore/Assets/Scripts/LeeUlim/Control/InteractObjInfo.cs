@@ -32,6 +32,7 @@ public enum CameraType
 
 public enum FamilyTreeType{
     Group,
+    EmptyNode,
     Node,
     ChildButton
 }
@@ -87,7 +88,8 @@ public class InteractObjInfo : MonoBehaviour
     public FamilyTreeType _familyTreeType;
 
     // UI On Off
-    public GameObject UI;
+    public bool _isOn = true;
+    [SerializeField] public GameObject _ui;
 
     // SceneLoad
     [SerializeField] public bool _isFade;

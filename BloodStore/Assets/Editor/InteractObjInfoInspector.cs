@@ -48,6 +48,10 @@ public class InteractObjInfoInspctor : Editor
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("_nodeName"));
             break;
 
+            case InteractType.UIOnOff:
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("_ui"));
+            break;
+
             case InteractType.SceneLoad:
                 GUILayout.Space(10);
                 GUILayout.Label("Scene Load");
