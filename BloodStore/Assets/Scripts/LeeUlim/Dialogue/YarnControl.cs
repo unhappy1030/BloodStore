@@ -70,6 +70,12 @@ public class YarnControl : MonoBehaviour
         nodeName = _nodeName;
     }
 
+    [YarnFunction("GetBloodTaste")]
+    public static string GetBloodTaste(){
+        string taste = "";
+        return taste;
+    }
+
     // // must use
     // [YarnFunction("GetSellInfo")]
     // public static float GetSellInfo(){
