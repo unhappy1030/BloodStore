@@ -102,6 +102,7 @@ public class NodeInteraction : MonoBehaviour
             return;
         }
         
+        // number
         int index = 0;
         foreach(KeyCode keyCode in AlphakeyCodes){
             if(Input.GetKeyDown(keyCode)){
