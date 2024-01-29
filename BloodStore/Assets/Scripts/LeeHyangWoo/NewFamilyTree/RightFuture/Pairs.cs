@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using UnityEditor.Experimental.GraphView;
 using Unity.VisualScripting.Dependencies.NCalc;
+using Unity.VisualScripting.Dependencies.Sqlite;
 [System.Serializable]
 public class SavePairArray{
     public Pair[] arr;
@@ -93,6 +94,36 @@ public class Pairs : MonoBehaviour
             }
         }
     }
+    public void MakeDead(){
+        foreach(Pair pair in pairs){
+            if(!pair.male.empty){
+                if(CheckDead(pair.male.age)){
+                    pair.male.isDead = true;
+                }
+            }
+            if(!pair.female.empty){
+                if(CheckDead(pair.female.age)){
+                    pair.female.isDead = true;
+                }
+            }
+        }
+    }
+    public bool CheckDead(int age){
+        if(age >= 70){
+            float prob = age / 200f; 
+            float rand = Random.Range(0f,1f);
+            if(rand <= prob){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+    }
+
 }
 [System.Serializable]
 public class Pair
