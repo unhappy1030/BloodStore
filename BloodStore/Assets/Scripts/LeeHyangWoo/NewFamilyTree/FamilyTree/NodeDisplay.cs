@@ -12,6 +12,10 @@ public class NodeDisplay : MonoBehaviour
         data = node;
         textLabel.text = node.name + "(" + node.sex[0] + "/" + node.bloodType[0] + node.bloodType[1] +")";
     }
+    public void SetDeadData(Node node)
+    {
+        data = node;
+    }
     public void MakeBoxCollider(){
         BoxCollider2D box = gameObject.AddComponent<BoxCollider2D>();
         SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
