@@ -12,10 +12,15 @@ public class EmptyDisplay : MonoBehaviour
     }
 
     public void SetNode(){
-        if(group.pairTree.BlankNodeCheck() == nodeSO.node.sex){
-            MakePair();
-            group.button.SetActive(true);
-            ChangeDisplay(nodeSO.node.sex);
+        if(!group.pairTree.pair.male.empty && !group.pairTree.pair.male.isDead){
+
+        }
+        else if(!group.pairTree.pair.female.empty && !group.pairTree.pair.female.isDead){
+            if(group.pairTree.BlankNodeCheck() == nodeSO.node.sex){
+                MakePair();
+                group.button.SetActive(true);
+                ChangeDisplay(nodeSO.node.sex);
+            }
         }
         else{
             DeleteNode();

@@ -13,6 +13,7 @@ public class TreeManager : MonoBehaviour
     public BloodPacks bloodPackList;
     public GameObject nodePrefab;
     public GameObject emptyPrefab;
+    public GameObject deadPrefab;
     public GameObject childButtonPrefab;
     public GameObject childButtonOffPrefab;
     public GameObject mainGroup;
@@ -38,9 +39,10 @@ public class TreeManager : MonoBehaviour
     }
     void OnDestroy() {
         pairList.Serialize(root);
+        pairList.MakeOlder();
+        pairList.MakeDead();
         pairList.Save(pairList.pairs);
         bloodPackList.Packing(pairList);
-        // pairList.Load();
     }
     void SetPrefabData(){
         halfX = nodePrefab.GetComponent<SpriteRenderer>().bounds.extents.x;
@@ -125,7 +127,7 @@ public class TreeManager : MonoBehaviour
         inter._familyTreeType = FamilyTreeType.Group;
         groupObject.layer = LayerMask.NameToLayer("Interact");
         Group group = groupObject.AddComponent<Group>();
-        group.SetPrefab(nodePrefab, emptyPrefab, childButtonPrefab, childButtonOffPrefab);
+        group.SetPrefab(nodePrefab, emptyPrefab, deadPrefab ,childButtonPrefab, childButtonOffPrefab);
         group.SetSizeData(halfX, halfY, pairSize, unit, pairOffSet, offSetX, offSetY);
         group.MakeBoxCollider();
         return group;
