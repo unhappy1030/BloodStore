@@ -24,6 +24,19 @@ public class NodeInteraction : MonoBehaviour
         SelectPair
     }
 
+    KeyCode[] AlphakeyCodes = {
+        KeyCode.Alpha0,
+        KeyCode.Alpha1,
+        KeyCode.Alpha2,
+        KeyCode.Alpha3,
+        KeyCode.Alpha4,
+        KeyCode.Alpha5,
+        KeyCode.Alpha6,
+        KeyCode.Alpha7,
+        KeyCode.Alpha8,
+        KeyCode.Alpha9
+    };
+
     public GameObject nodeInfoCanvas; // assign at Inspector
     public GameObject nodeInfoTexts; // assign at Inspector
     public GameObject addChildUI;
@@ -39,14 +52,13 @@ public class NodeInteraction : MonoBehaviour
     public Group leftGroup;
     public Group rightGroup;
     public Group upGroup;
-    public Group downGroup;
+    public List<Group> downGroup;
 
     int currentH;
     int currentV;
     
     bool wasNodeActived;
     bool wasRoot;
-    bool isFirstInput;
 
     // public TreeManagerTest treeManagerTest;
 
@@ -61,7 +73,6 @@ public class NodeInteraction : MonoBehaviour
 
         wasNodeActived = false;
         wasRoot = false;
-        isFirstInput = true;
         
         nodeShowingStatus = NodeShowingStatus.ShowTotal; // test
         nodeInteractionStatus = NodeInteractionStatus.None;
@@ -90,6 +101,23 @@ public class NodeInteraction : MonoBehaviour
         if(nodeShowingStatus == NodeShowingStatus.ShowTotal){
             return;
         }
+        
+        int index = 0;
+        foreach(KeyCode keyCode in AlphakeyCodes){
+            if(Input.GetKeyDown(keyCode)){
+                if(downGroup != null && downGroup.Count > index-1 && downGroup[index-1] != null)
+                {
+                    Debug.Log("Down : " + keyCode.ToString());
+                    SelectShow(downGroup[index-1]);
+                    currentSelectGroup = downGroup[index-1];
+
+                    AbleKeyInput(downGroup[index-1]);
+                    return;
+                }
+            }
+
+            index++;
+        }
 
         if(h != 0 && v != 0){
             return;
@@ -101,34 +129,38 @@ public class NodeInteraction : MonoBehaviour
             {
                 Debug.Log("Left");
                 SelectShow(leftGroup);
-                AbleKeyInput(leftGroup);
                 currentSelectGroup = leftGroup;
+
+                AbleKeyInput(leftGroup);
             }
             else if(h == 1 && rightGroup != null)
             {
                 Debug.Log("Right");
                 SelectShow(rightGroup);
-                AbleKeyInput(rightGroup);
                 currentSelectGroup = rightGroup;
+
+                AbleKeyInput(rightGroup);
             }
             
             currentH = h;
         }
         else if(v != currentV)
         {
-            if(v == -1 && downGroup != null)
+            if(v == -1 && downGroup != null && downGroup.Count != 0)
             {
                 Debug.Log("Down");
-                SelectShow(downGroup);
-                AbleKeyInput(downGroup);
-                currentSelectGroup = downGroup;
+                SelectShow(downGroup[0]);
+                currentSelectGroup = downGroup[0];
+
+                AbleKeyInput(downGroup[0]);
             }
             else if(v == 1 && upGroup != null)
             {
                 Debug.Log("Up");
                 SelectShow(upGroup);
-                AbleKeyInput(upGroup);
                 currentSelectGroup = upGroup;
+
+                AbleKeyInput(upGroup);
             }
             currentV = v;
         }
@@ -141,7 +173,7 @@ public class NodeInteraction : MonoBehaviour
         downGroup = null;
 
         if(newGroup.childrenGroup != null && newGroup.childrenGroup.Count != 0){
-            downGroup = newGroup.childrenGroup[0];
+            downGroup = newGroup.childrenGroup;
         }
 
         if(newGroup.parentGroup != null){
@@ -219,26 +251,10 @@ public class NodeInteraction : MonoBehaviour
         }
     }
 
-    // void GroupInteract(Group _newgroup){
-    //     ShowGroup(_newgroup);
-
-    //     ShowSelectedGroup(_newgroup);
-    //     currentGroup = _newgroup;
-    // }
-
     void SelectShow(Group group){
         if(group.childrenGroup == null || group.childrenGroup.Count == 0)
         {
             ShowGroup(group);
-
-            // if(group.parentGroup != null)
-            // {
-            //     ShowFamily(group.parentGroup);
-            // }
-            // else
-            // {
-            //     ShowGroup(group);
-            // }
         }
         else
         {
@@ -277,39 +293,6 @@ public class NodeInteraction : MonoBehaviour
         foreach(Group child in _parent.childrenGroup){
             familyTarget.Add(child.gameObject);
         }
-
-        /*
-        if(_group.childrenGroup == null || _group.childrenGroup.Count == 0) // no children(no family) -> show parent's family
-        {
-            Group parent = _group.parentGroup;
-            
-            if(GameManager.Instance.pairList.pairs.Count <= 1 || _group.pairTree.pair == GameManager.Instance.pairList.pairs[0]){ // if root
-                ShowGroup(_group);
-                wasRoot = true;
-                return;
-            }
-
-            List<Group> siblings = parent.childrenGroup;
-
-            familyTarget.Add(parent.gameObject);
-            foreach(Group sibling in siblings){
-                familyTarget.Add(sibling.gameObject);
-            }
-
-            currentParent = _group.parentGroup;
-        }
-        else // show its own family
-        {
-            List<Group> children = _group.childrenGroup;
-
-            familyTarget.Add(_group.gameObject);
-            foreach(Group child in children){
-                familyTarget.Add(child.gameObject);
-            }
-
-            currentParent = _group;
-        }
-        */
 
         CreateTargetCamera(familyTarget);
         
