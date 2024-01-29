@@ -428,6 +428,7 @@ MonoBehaviour:
       blendTime: 0
   _nodeName: 
   _familyTreeType: 0
+  _isOn: 1
   _ui: {fileID: 0}
   _isFade: 1
   _sceneName: Edit
@@ -653,6 +654,7 @@ MonoBehaviour:
       blendTime: 0
   _nodeName: 
   _familyTreeType: 0
+  _isOn: 1
   _ui: {fileID: 0}
   _isFade: 0
   _sceneName: StartEdit
@@ -1185,6 +1187,7 @@ MonoBehaviour:
       blendTime: 0
   _nodeName: 
   _familyTreeType: 0
+  _isOn: 1
   _ui: {fileID: 0}
   _isFade: 1
   _sceneName: Edit
@@ -1460,10 +1463,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeInfoCanvas: {fileID: 0}
   nodeInfoTexts: {fileID: 0}
+  addChildUI: {fileID: 0}
+  treeManager: {fileID: 0}
   nodeImg: {fileID: 0}
   nodeShowingStatus: 0
   nodeInteractionStatus: 0
-  currentGroup: {fileID: 0}
   currentSelectGroup: {fileID: 0}
   currentParent: {fileID: 0}
   leftGroup: {fileID: 0}
@@ -1652,6 +1656,7 @@ MonoBehaviour:
       blendTime: 0
   _nodeName: 
   _familyTreeType: 0
+  _isOn: 1
   _ui: {fileID: 0}
   _isFade: 0
   _sceneName: StartEdit
@@ -2061,6 +2066,7 @@ MonoBehaviour:
       blendTime: 3
   _nodeName: 
   _familyTreeType: 0
+  _isOn: 1
   _ui: {fileID: 0}
   _isFade: 0
   _sceneName: Start
@@ -5648,6 +5654,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraControl: {fileID: 0}
   npcInteract: {fileID: 0}
+  nodeInteraction: {fileID: 0}
   dialogueRunner: {fileID: 0}
 --- !u!114 &8235264872758770939
 MonoBehaviour:

@@ -10,6 +10,7 @@ public class Group : MonoBehaviour
     public PairTree pairTree;
     public GameObject nodePrefab;
     public GameObject emptyPrefab;
+    public GameObject deadPrefab;
     public GameObject childButtonPrefab;
     public GameObject childButtonOffPrefab;
     public Vector2 groupPos;
@@ -27,9 +28,10 @@ public class Group : MonoBehaviour
     public List<Group> childrenGroup;
 
     public float lineWidth = 0.05f;
-    public void SetPrefab(GameObject nodePrefab, GameObject emptyPrefab, GameObject childButtonPrefab, GameObject childButtonOffPrefab){
+    public void SetPrefab(GameObject nodePrefab, GameObject emptyPrefab, GameObject deadPrefab ,GameObject childButtonPrefab, GameObject childButtonOffPrefab){
         this.nodePrefab = nodePrefab;
         this.emptyPrefab = emptyPrefab;
+        this.deadPrefab = deadPrefab;
         this.childButtonPrefab = childButtonPrefab;
         this.childButtonOffPrefab = childButtonOffPrefab;
     }
@@ -53,14 +55,27 @@ public class Group : MonoBehaviour
     public GameObject CreateNode(Node node){
         GameObject display;
         if(!node.empty){
-            display = Instantiate(nodePrefab, new Vector2(0, 0), Quaternion.identity);
-            InteractObjInfo inter = display.AddComponent<InteractObjInfo>();
-            inter._interactType = InteractType.FamilyTree;
-            inter._familyTreeType = FamilyTreeType.Node;
-            NodeDisplay nodeDisplay = display.GetComponent<NodeDisplay>();
-            nodeDisplay.SetNodeData(node);
-            nodeDisplay.MakeBoxCollider();
-            nodeDisplay.DeActiveCollider();
+            if(node.isDead){
+                display = Instantiate(deadPrefab, new Vector2(0, 0), Quaternion.identity);
+                InteractObjInfo inter = display.AddComponent<InteractObjInfo>();
+                inter._interactType = InteractType.FamilyTree;
+                inter._familyTreeType = FamilyTreeType.Node;
+                NodeDisplay nodeDisplay = display.GetComponent<NodeDisplay>();
+                nodeDisplay.SetDeadData(node);
+                nodeDisplay.MakeBoxCollider();
+                nodeDisplay.DeActiveCollider();
+            }
+            else{
+                display = Instantiate(nodePrefab, new Vector2(0, 0), Quaternion.identity);
+                InteractObjInfo inter = display.AddComponent<InteractObjInfo>();
+                inter._interactType = InteractType.FamilyTree;
+                inter._familyTreeType = FamilyTreeType.Node;
+                NodeDisplay nodeDisplay = display.GetComponent<NodeDisplay>();
+                nodeDisplay.SetNodeData(node);
+                nodeDisplay.MakeBoxCollider();
+                nodeDisplay.DeActiveCollider();
+            }
+            
         }
         else{
             display = Instantiate(emptyPrefab, new Vector2(0, 0), Quaternion.identity);
