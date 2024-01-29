@@ -5,6 +5,7 @@ using UnityEngine;
 public class SelectableCardGroup : MonoBehaviour
 {
     public SelectableCardSO cardSO;
+    public List<GameObject> CardList;
     void Start(){
         int cardDisplayNum = transform.childCount;
         cardSO.MakeData(cardDisplayNum);
@@ -15,6 +16,10 @@ public class SelectableCardGroup : MonoBehaviour
             Transform cardDisplayTransfrom = transform.GetChild(i);
             SelectableCardDisplay cardDisplay = cardDisplayTransfrom.GetComponent<SelectableCardDisplay>();
             cardDisplay.SetCardData(cardSO.cards[i], i);
+            CardList.Add(cardDisplay.gameObject);
         }
+    }
+    public void SetOffCard(int index){
+        CardList[index].SetActive(false);
     }
 }

@@ -240,7 +240,7 @@ public class PairTree
             sex = Random.Range(0, 2) == 0 ? "Male" : "Female",
             bloodType = GenerateBloodTypeArr(),
             hp = 50,
-            age = Random.Range(1, 11),
+            age = Random.Range(-9, 0),
             isDead = false,
             empty = false,
         };

@@ -5,6 +5,7 @@ using Cinemachine;
 using Yarn;
 using System.Linq;
 using Unity.VisualScripting;
+using System;
 public class Group : MonoBehaviour
 {
     public PairTree pairTree;
@@ -13,6 +14,7 @@ public class Group : MonoBehaviour
     public GameObject deadPrefab;
     public GameObject childButtonPrefab;
     public GameObject childButtonOffPrefab;
+    public GameObject selectedCard;
     public Vector2 groupPos;
     public Vector2 leftPos;
     public Vector2 rightPos;
@@ -34,6 +36,9 @@ public class Group : MonoBehaviour
         this.deadPrefab = deadPrefab;
         this.childButtonPrefab = childButtonPrefab;
         this.childButtonOffPrefab = childButtonOffPrefab;
+    }
+    public void SetUI(GameObject selectedCard){
+        this.selectedCard = selectedCard;
     }
     public void SetSizeData(float halfX, float halfY, float pairSize, float unit, float pairOffSet, float offSetX, float offSetY){
         this.halfX = halfX;

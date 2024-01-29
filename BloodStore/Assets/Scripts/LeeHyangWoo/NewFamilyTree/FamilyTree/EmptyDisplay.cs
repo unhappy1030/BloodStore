@@ -12,14 +12,14 @@ public class EmptyDisplay : MonoBehaviour
     }
 
     public void SetNode(){
-        if(!group.pairTree.pair.male.empty && !group.pairTree.pair.male.isDead){
-
-        }
-        else if(!group.pairTree.pair.female.empty && !group.pairTree.pair.female.isDead){
-            if(group.pairTree.BlankNodeCheck() == nodeSO.node.sex){
+        if((!group.pairTree.pair.male.empty && !group.pairTree.pair.male.isDead)
+        ||(!group.pairTree.pair.female.empty && !group.pairTree.pair.female.isDead)){
+            if(group.pairTree.BlankNodeCheck() == nodeSO.node.sex && !nodeSO.node.empty){
                 MakePair();
                 group.button.SetActive(true);
+                group.selectedCard.SetActive(false);
                 ChangeDisplay(nodeSO.node.sex);
+                // nodeSO.node.empty = true;
             }
         }
         else{

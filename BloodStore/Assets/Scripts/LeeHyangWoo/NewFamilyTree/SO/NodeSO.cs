@@ -75,9 +75,9 @@ public class Node
 [CreateAssetMenu(fileName = "NodeSo", menuName = "Scriptable Object/NodeSo")]
 public class NodeSO : ScriptableObject
 {
-    public Node node = new Node();
+    public Node node = new();
     public void SetNode(SelectableCard card){
-        node = new Node
+        this.node = new Node
         {
             name = card.name,
             sex = card.sex,
