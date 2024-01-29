@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 615904183}
   - component: {fileID: 615904182}
   - component: {fileID: 615904181}
-  - component: {fileID: 615904180}
+  - component: {fileID: 615904184}
   m_Layer: 5
   m_Name: NextButton
   m_TagString: Untagged
@@ -265,18 +265,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1000, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &615904180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 615904178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a39fa01a216a65b4d9d0fa640c700e01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &615904181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,16 +309,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 615904180}
-        m_TargetAssemblyTypeName: bbNextButton, Assembly-CSharp
-        m_MethodName: OnButtonClick
-        m_Mode: 1
+      - m_Target: {fileID: 615904184}
+        m_TargetAssemblyTypeName: ButtonControl, Assembly-CSharp
+        m_MethodName: SceneLoad
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: NewFamilyTreeTest
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &615904182
@@ -371,6 +359,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 615904178}
   m_CullTransparentMesh: 1
+--- !u!114 &615904184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615904178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64bf3fd46c380d7459bdf489d95d67d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiControl: {fileID: 0}
 --- !u!1 &1063306343
 GameObject:
   m_ObjectHideFlags: 0

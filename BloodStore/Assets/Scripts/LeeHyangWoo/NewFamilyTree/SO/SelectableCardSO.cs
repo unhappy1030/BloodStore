@@ -19,8 +19,8 @@ public class SelectableCard
         this.name = GenerateRandomName();
         this.sex = Random.Range(0, 2) == 0 ? "Male" : "Female";
         this.bloodType = GenerateRandomBloodType();
-        this.hp = Random.Range(50, 101);
-        this.age = Random.Range(20, 60);
+        this.hp = 100;
+        this.age = Random.Range(20, 36);
         this.isDead = false;
     }
     private string GenerateRandomName()

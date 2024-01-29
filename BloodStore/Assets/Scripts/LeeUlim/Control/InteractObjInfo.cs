@@ -4,12 +4,15 @@ using UnityEngine;
 using UnityEditor;
 using Cinemachine;
 using System;
+using Unity.VisualScripting;
 
 public enum InteractType
 {
     None,
     CameraControl,
-    NpcInteraction,
+    StartDialogue,
+    FamilyTree,
+    UIOnOff,
     SceneLoad,
     GameExit
 }
@@ -25,6 +28,13 @@ public enum CameraType
     VirtualCamera,
     TargetGroupCamera,
     BlendListCamera
+}
+
+public enum FamilyTreeType{
+    Group,
+    EmptyNode,
+    Node,
+    ChildButton
 }
 
 [System.Serializable]
@@ -68,13 +78,99 @@ public class InteractObjInfo : MonoBehaviour
     // - ChangeCam
     [SerializeField] public CameraType _cameraType;
 
-    [SerializeField] public VirtualCameraInfo _vertualCam;
+    [SerializeField] public VirtualCameraInfo _virtualCam;
     [SerializeField] public BlendListCameraInfo _blendListCam;
 
-    // NpcInteraction
+    // StartDialogue
     [SerializeField] public string _nodeName;
+
+    // Family Tree
+    public FamilyTreeType _familyTreeType;
+
+    // UI On Off
+    public bool _isOn = true;
+    [SerializeField] public GameObject _ui;
 
     // SceneLoad
     [SerializeField] public bool _isFade;
     [SerializeField] public string _sceneName;
+    
+    public void SetVirtualCameraInfo(GameObject target, bool doseUseBound, Collider2D bound, float lensOthoSize, float hold, CinemachineBlendDefinition.Style blendIn, float blendTime){
+        _interactType = InteractType.CameraControl;
+        _cameraMovementType = CameraControlType.ChangeCamera;
+        _cameraType = CameraType.VirtualCamera;
+
+        if(_virtualCam == null){
+            _virtualCam = new();
+        }
+        
+        if(_virtualCam.targets == null){
+            _virtualCam.targets = new();
+        }
+
+        _virtualCam.targets.Clear();
+        _virtualCam.targets.Add(target);
+
+        _virtualCam.doseUseBound = doseUseBound;
+        
+        if(doseUseBound){
+            _virtualCam.bound = bound;
+        }
+
+        _virtualCam.lensOthoSize = lensOthoSize;
+
+        if(_virtualCam.blendInfo == null){
+            _virtualCam.blendInfo = new();
+        }
+
+        _virtualCam.blendInfo.hold = hold;
+        _virtualCam.blendInfo.blendIn = blendIn;
+        _virtualCam.blendInfo.blendTime = blendTime;
+    }
+
+    public void SetTargetCameraInfo(List<GameObject> targets, float hold, CinemachineBlendDefinition.Style blendIn, float blendTime){
+        _interactType = InteractType.CameraControl;
+        _cameraMovementType = CameraControlType.ChangeCamera;
+        _cameraType = CameraType.TargetGroupCamera;
+
+        if(_virtualCam == null)
+            _virtualCam = new();
+        
+        if(_virtualCam.targets == null)
+            _virtualCam.targets = new();
+        
+        bool isAvailableTarget = AssignCameraTarget(targets);
+
+        if(!isAvailableTarget){
+            Debug.Log("It is not available form of targets...");
+        }
+
+        if(_virtualCam.blendInfo == null)
+            _virtualCam.blendInfo = new();
+        
+        _virtualCam.blendInfo.hold = hold;
+        _virtualCam.blendInfo.blendIn = blendIn;
+        _virtualCam.blendInfo.blendTime = blendTime;
+    }
+
+    bool AssignCameraTarget(List<GameObject> targets){
+        int nullCount = 0;
+        _cameraType = CameraType.TargetGroupCamera;
+
+        if(targets.Count == 0)
+            return false;
+        
+        for(int i=0; i<targets.Count; i++){
+            if(targets[i] == null)
+                nullCount++;
+        }
+
+        if(nullCount == targets.Count)
+            return false;
+
+        _virtualCam.targets = new(targets);
+        return true;
+    }
+
 }
+

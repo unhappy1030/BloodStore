@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public float money = 0;
     public int day = 0;
 
+    public bool isFading = false; 
     bool wasFade = false;
 
     public Image whitePanel;
@@ -21,12 +22,16 @@ public class GameManager : MonoBehaviour
 
     public CameraControl cameraControl; // *** warning : must be in Scene and set "CameraControl" tag
     public NPCInteract npcInteract;
+    public DialogueControl dialogueControl;
+    public NodeInteraction nodeInteraction;
     public MouseRayCast mouseRayCast;
     public MoneyControl moneyControl;
     public YarnControl yarnControl;
     public DialogueRunner dialogueRunner;
     public InMemoryVariableStorage variableStorage;
 
+    public Pairs pairList;
+    public BloodPacks bloodPackList;
 
     private static GameManager _instance;
     public static GameManager Instance
@@ -77,37 +82,64 @@ public class GameManager : MonoBehaviour
             cameraControl = cameraControlObj.AddComponent<CameraControl>();
         }
 
-        npcInteract = FindObjectOfType<NPCInteract>(true);
+        npcInteract = FindObjectOfType<NPCInteract>();
+        nodeInteraction = FindObjectOfType<NodeInteraction>();
 
         mouseRayCast = GetComponent<MouseRayCast>();
         moneyControl = GetComponent<MoneyControl>();
+        dialogueControl = GetComponent<DialogueControl>();
+        pairList = GetComponent<Pairs>();
+        bloodPackList = GetComponent<BloodPacks>();
 
         yarnControl = GetComponentInChildren<YarnControl>();
         dialogueRunner = GetComponentInChildren<DialogueRunner>();
         variableStorage = GetComponentInChildren<InMemoryVariableStorage>();
-
+        
         // assign scripts 
-        if(npcInteract != null)
+        if(npcInteract != null){
             npcInteract.dialogueRunner = dialogueRunner;
+            npcInteract.cameraControl = cameraControl;
+            npcInteract.yarnControl = yarnControl;
+            npcInteract.dialogueControl = dialogueControl;
+        }
+
+        if(nodeInteraction != null){
+            if(cameraControl != null)
+            {
+                nodeInteraction.cameraControl = cameraControl;
+            }
+            nodeInteraction.dialogueRunner = dialogueRunner;
+        }
 
         mouseRayCast.cameraControl = cameraControl;
         mouseRayCast.npcInteract = npcInteract;
 
+        if(nodeInteraction != null){
+            mouseRayCast.nodeInteraction = nodeInteraction;
+        }
+
+        mouseRayCast.dialogueRunner = dialogueRunner;
+
         yarnControl.moneyControl = moneyControl;
         yarnControl.dialogueRunner = dialogueRunner;
         yarnControl.variableStorage = variableStorage;
+        yarnControl.dialogueControl = dialogueControl;
         
         whitePanel.gameObject.SetActive(false);
         blackPanel.gameObject.SetActive(false);
         
         // Fade in
-        if (wasFade)
+        if (wasFade){
             StartCoroutine(FadeInUI(blackPanel, 0.01f));
+        }
     }
 
     void OnSceneUnloaded(Scene currentScene)
     {
-
+        if(dialogueRunner.IsDialogueRunning){
+            dialogueRunner.Stop();
+            Debug.Log("Stop all dialogue...");
+        }
     }
 
     private void OnDisable()
@@ -150,6 +182,7 @@ public class GameManager : MonoBehaviour
     // Fade in & out
     public IEnumerator FadeOutUI(Image _Image, float _fadeSpeed)
     {
+        isFading = true;
         // Debug.Log("Fade out...");
         Color t_color = _Image.color;
         t_color.a = 0;
@@ -163,11 +196,13 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
+        isFading = false;
         wasFade = true;
     }
 
     public IEnumerator FadeInUI(Image _Image, float _fadeSpeed)
     {
+        isFading = true;
         // Debug.Log("Fade in...");
         Color t_color = _Image.color;
         t_color.a = 1;
@@ -182,6 +217,7 @@ public class GameManager : MonoBehaviour
 
         _Image.gameObject.SetActive(false);
 
+        isFading = false;
         wasFade = false;
     }
 

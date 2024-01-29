@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcce787ca0f36946ba23e1c762fa1cc, type: 3}
   m_Name: SelectableCardSo
   m_EditorClassIdentifier: 
-  cards: []
+  cards:
+  - name: 
+    sex: 
+    bloodType: []
+    hp: 0
+    age: 0
+    isDead: 0

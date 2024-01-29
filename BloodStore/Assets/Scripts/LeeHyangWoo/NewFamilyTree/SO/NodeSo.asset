@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc0ba15c8b481754f9d10b2e973d28b1, type: 3}
   m_Name: NodeSo
   m_EditorClassIdentifier: 
-  nodes:
-  - name: Eve
-    sex: Male
+  node:
+    name: Alice
+    sex: Female
     bloodType:
     - O
-    - '-'
+    - +
     - OO
-    hp: 64
-    age: 35
+    hp: 100
+    age: 21
     isDead: 0
     empty: 0

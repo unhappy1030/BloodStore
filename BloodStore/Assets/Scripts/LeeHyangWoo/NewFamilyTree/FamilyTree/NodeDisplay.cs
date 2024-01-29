@@ -5,14 +5,33 @@ using UnityEngine;
 
 public class NodeDisplay : MonoBehaviour
 {
-    public TextMeshPro nameLabel;
-    public TextMeshPro sexLabel;
-    public TextMeshPro bloodTypeLabel;
-
+    public Node data;
+    public TextMeshPro textLabel;
     public void SetNodeData(Node node)
     {
-        nameLabel.text = node.name;
-        sexLabel.text = node.sex;
-        bloodTypeLabel.text = "BloodType : " + node.bloodType[0];
+        data = node;
+        textLabel.text = node.name + "(" + node.sex[0] + "/" + node.bloodType[0] + node.bloodType[1] +")";
+    }
+    public void SetDeadData(Node node)
+    {
+        data = node;
+    }
+    public void MakeBoxCollider(){
+        BoxCollider2D box = gameObject.AddComponent<BoxCollider2D>();
+        SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        Vector2 spriteSize = spriteRenderer.sprite.bounds.size;
+        box.size = spriteSize;
+    }
+    public void ActiveCollider(){
+        BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
+        if(box != null){
+            box.enabled = true;
+        }
+    }
+    public void DeActiveCollider(){
+        BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
+        if(box != null){
+            box.enabled = false;
+        }
     }
 }
