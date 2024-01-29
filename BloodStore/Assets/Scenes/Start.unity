@@ -478,6 +478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 0}
+  cameraList: []
 --- !u!1 &714005071
 GameObject:
   m_ObjectHideFlags: 0

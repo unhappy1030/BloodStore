@@ -3140,6 +3140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 0}
+  cameraList: []
 --- !u!4 &497903255
 Transform:
   m_ObjectHideFlags: 0
@@ -7356,7 +7357,8 @@ MonoBehaviour:
   leftGroup: {fileID: 0}
   rightGroup: {fileID: 0}
   upGroup: {fileID: 0}
-  downGroup: {fileID: 0}
+  downGroup:
+  - {fileID: 0}
   cameraControl: {fileID: 0}
   dialogueRunner: {fileID: 0}
 --- !u!4 &1456928733
