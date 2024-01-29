@@ -7418,6 +7418,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraControl: {fileID: 0}
   npcInteract: {fileID: 0}
+  nodeInteraction: {fileID: 0}
   dialogueRunner: {fileID: 0}
 --- !u!114 &2141061573
 MonoBehaviour:
