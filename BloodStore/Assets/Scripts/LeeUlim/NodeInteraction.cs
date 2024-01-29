@@ -10,8 +10,6 @@ using Yarn.Unity;
 
 public class NodeInteraction : MonoBehaviour
 {
-    // warning : object must be set Layer as "FamilyTree"
-
     public enum NodeShowingStatus{
         ShowTotal,
         ShowFamily,
@@ -91,6 +89,7 @@ public class NodeInteraction : MonoBehaviour
             && !cameraControl.mainCam.IsBlending)
         {
             KeyInteract();
+            MoveCamera();
         }
     }
 
@@ -102,6 +101,7 @@ public class NodeInteraction : MonoBehaviour
             return;
         }
         
+        // number
         int index = 0;
         foreach(KeyCode keyCode in AlphakeyCodes){
             if(Input.GetKeyDown(keyCode)){
@@ -248,6 +248,46 @@ public class NodeInteraction : MonoBehaviour
             ChildButton childButton = info.GetComponent<ChildButton>();
             ChildAddUI UI = addChildUI.GetComponent<ChildAddUI>();
             UI.Active(childButton.group);
+        }
+    }
+    
+    public void MoveCamera(){
+        Vector3 mousePos = Input.mousePosition;
+        Vector3 mouseCamPos = Camera.main.ScreenToViewportPoint(mousePos);
+
+        float temp = 0.2f;
+        
+        GameObject currentCam = cameraControl.cameraList[cameraControl.cameraList.Count-1];
+        CinemachineVirtualCamera camScript = currentCam.GetComponent<CinemachineVirtualCamera>();
+        
+
+        if(mouseCamPos.x <= 0)
+        {
+            camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
+            camScript.m_Follow = null;
+            Vector3 camPos = new Vector3(currentCam.transform.position.x - temp, currentCam.transform.position.y, -10);
+            currentCam.transform.position = camPos;
+        }
+        else if(mouseCamPos.x >= 1)
+        {
+            camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
+            camScript.m_Follow = null;
+            Vector3 camPos = new Vector3(currentCam.transform.position.x + temp, currentCam.transform.position.y, -10);
+            currentCam.transform.position = camPos;
+        }
+        else if(mouseCamPos.y <= 0)
+        {
+            camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
+            camScript.m_Follow = null;
+            Vector3 camPos = new Vector3(currentCam.transform.position.x, currentCam.transform.position.y - temp, -10);
+            currentCam.transform.position = camPos;
+        }
+        else if(mouseCamPos.y >= 1)
+        {
+            camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
+            camScript.m_Follow = null;
+            Vector3 camPos = new Vector3(currentCam.transform.position.x, currentCam.transform.position.y + temp, -10);
+            currentCam.transform.position = camPos;
         }
     }
 

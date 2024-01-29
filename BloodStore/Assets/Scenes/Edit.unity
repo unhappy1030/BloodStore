@@ -3318,6 +3318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 0}
+  cameraList: []
 --- !u!4 &497903255
 Transform:
   m_ObjectHideFlags: 0
