@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEditor.Experimental.GraphView;
+using Unity.VisualScripting.Dependencies.NCalc;
+using Unity.VisualScripting.Dependencies.Sqlite;
 [System.Serializable]
 public class SavePairArray{
     public Pair[] arr;
@@ -91,6 +94,36 @@ public class Pairs : MonoBehaviour
             }
         }
     }
+    public void MakeDead(){
+        foreach(Pair pair in pairs){
+            if(!pair.male.empty){
+                if(CheckDead(pair.male.age)){
+                    pair.male.isDead = true;
+                }
+            }
+            if(!pair.female.empty){
+                if(CheckDead(pair.female.age)){
+                    pair.female.isDead = true;
+                }
+            }
+        }
+    }
+    public bool CheckDead(int age){
+        if(age >= 70){
+            float prob = age / 200f; 
+            float rand = Random.Range(0f,1f);
+            if(rand <= prob){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+    }
+
 }
 [System.Serializable]
 public class Pair
@@ -127,6 +160,46 @@ public class PairTree
             pair.female = node;
         }
     }
+    public void AddChildByValue(float weight, float probability){
+        if(pair.isPair == true && pair.childNum == 0){ //테스트용 조건문
+            pair.childNum = GetChildNum(weight, probability);
+            for(int i = 0; i < pair.childNum; i++){
+                Node node = new Node();
+                node = SetByParent();
+                if(node.sex == "Male"){
+                    Pair child = new Pair
+                    {
+                        male = node,
+                        female = new Node(),
+                        isPair = false,
+                        childNum = 0,
+                    };
+                    AddChild(new PairTree(child));
+                }
+                else{
+                    Pair child = new Pair
+                    {
+                        male = new Node(),
+                        female = node,
+                        isPair = false,
+                        childNum = 0,
+                    };
+                    AddChild(new PairTree(child));
+                }
+            }
+        }
+    }
+    int GetChildNum(float weight, float probability){
+        int num = 0;
+        float random = Random.Range(0f, 1f);
+        float value = probability;
+        while(random <= value){
+            num++;
+            value *= weight;
+            random = Random.Range(0f, 1f);
+        }
+        return num;
+    }
     public void AddChild(){
         if(pair.isPair == true && pair.childNum == 0){ //테스트용 조건문
             pair.childNum = Random.Range(1,5);
@@ -160,7 +233,6 @@ public class PairTree
                 child.AddChild();
             }
         }
-
     }
     private Node SetByParent(){
         Node node = new Node{

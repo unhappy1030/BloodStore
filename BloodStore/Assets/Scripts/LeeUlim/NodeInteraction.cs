@@ -10,8 +10,6 @@ using Yarn.Unity;
 
 public class NodeInteraction : MonoBehaviour
 {
-    // warning : object must be set Layer as "FamilyTree"
-
     public enum NodeShowingStatus{
         ShowTotal,
         ShowFamily,
@@ -24,28 +22,41 @@ public class NodeInteraction : MonoBehaviour
         SelectPair
     }
 
+    KeyCode[] AlphakeyCodes = {
+        KeyCode.Alpha0,
+        KeyCode.Alpha1,
+        KeyCode.Alpha2,
+        KeyCode.Alpha3,
+        KeyCode.Alpha4,
+        KeyCode.Alpha5,
+        KeyCode.Alpha6,
+        KeyCode.Alpha7,
+        KeyCode.Alpha8,
+        KeyCode.Alpha9
+    };
+
     public GameObject nodeInfoCanvas; // assign at Inspector
     public GameObject nodeInfoTexts; // assign at Inspector
+    public GameObject addChildUI;
+    public GameObject treeManager;
     public Image nodeImg; // assign at Inspector
 
     public NodeShowingStatus nodeShowingStatus;
     public NodeInteractionStatus nodeInteractionStatus;
 
-    public Group currentGroup;
     public Group currentSelectGroup;
     public Group currentParent;
 
     public Group leftGroup;
     public Group rightGroup;
     public Group upGroup;
-    public Group downGroup;
+    public List<Group> downGroup;
 
     int currentH;
     int currentV;
     
     bool wasNodeActived;
     bool wasRoot;
-    bool isFirstInput;
 
     // public TreeManagerTest treeManagerTest;
 
@@ -55,42 +66,30 @@ public class NodeInteraction : MonoBehaviour
     
     void Start(){
         // treeManagerTest = FindObjectOfType<TreeManagerTest>();
+        TreeManager tree = treeManager.GetComponent<TreeManager>();
         nodeInfoCanvas.SetActive(false);
 
         wasNodeActived = false;
         wasRoot = false;
-        isFirstInput = true;
         
         nodeShowingStatus = NodeShowingStatus.ShowTotal; // test
         nodeInteractionStatus = NodeInteractionStatus.None;
         
-        ShowTotal();
+        // ShowTotal();
+        currentSelectGroup = tree.mainGroup.transform.GetChild(0).gameObject.GetComponent<Group>();
+        ShowFamily(currentSelectGroup);
+        AbleKeyInput(currentSelectGroup);
     }
 
     void Update(){
-        Debug.Log("node Show Status : " + nodeShowingStatus);
+        // Debug.Log("node Show Status : " + nodeShowingStatus);
 
         if(!dialogueRunner.IsDialogueRunning 
             && !GameManager.Instance.isFading
             && !cameraControl.mainCam.IsBlending)
         {
             KeyInteract();
-
-            if(Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
-            {
-                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                RaycastHit2D ray = Physics2D.Raycast(mousePos, Vector2.zero, 0f, LayerMask.GetMask("FamilyTree"));
-
-                if (ray.collider != null)
-                {
-                    MouseInteract(ray.collider.gameObject);
-                }
-                else
-                {
-                    // 이거 어떻게 처리할지 정해야 함!
-                    // GoBackToCurrentStatus();
-                }
-            }
+            MoveCamera();
         }
     }
 
@@ -100,6 +99,24 @@ public class NodeInteraction : MonoBehaviour
 
         if(nodeShowingStatus == NodeShowingStatus.ShowTotal){
             return;
+        }
+        
+        // number
+        int index = 0;
+        foreach(KeyCode keyCode in AlphakeyCodes){
+            if(Input.GetKeyDown(keyCode)){
+                if(downGroup != null && downGroup.Count > index-1 && downGroup[index-1] != null)
+                {
+                    Debug.Log("Down : " + keyCode.ToString());
+                    SelectShow(downGroup[index-1]);
+                    currentSelectGroup = downGroup[index-1];
+
+                    AbleKeyInput(downGroup[index-1]);
+                    return;
+                }
+            }
+
+            index++;
         }
 
         if(h != 0 && v != 0){
@@ -112,34 +129,38 @@ public class NodeInteraction : MonoBehaviour
             {
                 Debug.Log("Left");
                 SelectShow(leftGroup);
+                currentSelectGroup = leftGroup;
+
                 AbleKeyInput(leftGroup);
-                currentGroup = leftGroup;
             }
             else if(h == 1 && rightGroup != null)
             {
                 Debug.Log("Right");
                 SelectShow(rightGroup);
+                currentSelectGroup = rightGroup;
+
                 AbleKeyInput(rightGroup);
-                currentGroup = rightGroup;
             }
             
             currentH = h;
         }
         else if(v != currentV)
         {
-            if(v == -1 && downGroup != null)
+            if(v == -1 && downGroup != null && downGroup.Count != 0)
             {
                 Debug.Log("Down");
-                SelectShow(downGroup);
-                AbleKeyInput(downGroup);
-                currentGroup = downGroup;
+                SelectShow(downGroup[0]);
+                currentSelectGroup = downGroup[0];
+
+                AbleKeyInput(downGroup[0]);
             }
             else if(v == 1 && upGroup != null)
             {
                 Debug.Log("Up");
                 SelectShow(upGroup);
+                currentSelectGroup = upGroup;
+
                 AbleKeyInput(upGroup);
-                currentGroup = upGroup;
             }
             currentV = v;
         }
@@ -152,7 +173,7 @@ public class NodeInteraction : MonoBehaviour
         downGroup = null;
 
         if(newGroup.childrenGroup != null && newGroup.childrenGroup.Count != 0){
-            downGroup = newGroup.childrenGroup[0];
+            downGroup = newGroup.childrenGroup;
         }
 
         if(newGroup.parentGroup != null){
@@ -183,13 +204,18 @@ public class NodeInteraction : MonoBehaviour
         }
     }
 
-    void MouseInteract(GameObject interactObj){
-        Group group = interactObj.GetComponent<Group>();
-        NodeDisplay node = interactObj.GetComponent<NodeDisplay>();
-        EmptyDisplay emptyNode = interactObj.GetComponent<EmptyDisplay>();
-
-        if(group != null)
+    public void MouseInteract(InteractObjInfo info){
+        FamilyTreeType treeType = info._familyTreeType;
+        
+        if(treeType == FamilyTreeType.Group)
         {
+            Group group = info.GetComponent<Group>();
+
+            if(group == null){
+                Debug.Log("There is no group script...");
+                return;
+            }
+
             if(nodeShowingStatus != NodeShowingStatus.ShowGroup){
                 ShowGroup(group);
                 AbleKeyInput(group);
@@ -197,36 +223,78 @@ public class NodeInteraction : MonoBehaviour
 
             // GroupInteract(group);
         }
-        else if(node != null)
+        else if(treeType == FamilyTreeType.Node)
         {
+            NodeDisplay node = info.GetComponent<NodeDisplay>();
+
+            if(node == null){
+                Debug.Log("There is no node display...");
+                return;
+            }
+
             ShowNodeInfo(node);
         }
-        else if(emptyNode != null)
+        else if(treeType == FamilyTreeType.EmptyNode)
         {
-            SelectPair(emptyNode);    
+            EmptyDisplay emptyNode = info.GetComponent<EmptyDisplay>();
+            if(emptyNode == null){
+                Debug.Log("There is no Empty node display...");
+                return;
+            }
+            SelectPair(emptyNode);
+        }
+        else if(treeType == FamilyTreeType.ChildButton)
+        {
+            ChildButton childButton = info.GetComponent<ChildButton>();
+            ChildAddUI UI = addChildUI.GetComponent<ChildAddUI>();
+            UI.Active(childButton.group);
         }
     }
+    
+    public void MoveCamera(){
+        Vector3 mousePos = Input.mousePosition;
+        Vector3 mouseCamPos = Camera.main.ScreenToViewportPoint(mousePos);
 
-    // void GroupInteract(Group _newgroup){
-    //     ShowGroup(_newgroup);
+        float temp = 0.2f;
+        
+        GameObject currentCam = cameraControl.cameraList[cameraControl.cameraList.Count-1];
+        CinemachineVirtualCamera camScript = currentCam.GetComponent<CinemachineVirtualCamera>();
+        
 
-    //     ShowSelectedGroup(_newgroup);
-    //     currentGroup = _newgroup;
-    // }
+        if(mouseCamPos.x <= 0)
+        {
+            camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
+            camScript.m_Follow = null;
+            Vector3 camPos = new Vector3(currentCam.transform.position.x - temp, currentCam.transform.position.y, -10);
+            currentCam.transform.position = camPos;
+        }
+        else if(mouseCamPos.x >= 1)
+        {
+            camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
+            camScript.m_Follow = null;
+            Vector3 camPos = new Vector3(currentCam.transform.position.x + temp, currentCam.transform.position.y, -10);
+            currentCam.transform.position = camPos;
+        }
+        else if(mouseCamPos.y <= 0)
+        {
+            camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
+            camScript.m_Follow = null;
+            Vector3 camPos = new Vector3(currentCam.transform.position.x, currentCam.transform.position.y - temp, -10);
+            currentCam.transform.position = camPos;
+        }
+        else if(mouseCamPos.y >= 1)
+        {
+            camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
+            camScript.m_Follow = null;
+            Vector3 camPos = new Vector3(currentCam.transform.position.x, currentCam.transform.position.y + temp, -10);
+            currentCam.transform.position = camPos;
+        }
+    }
 
     void SelectShow(Group group){
         if(group.childrenGroup == null || group.childrenGroup.Count == 0)
         {
             ShowGroup(group);
-
-            // if(group.parentGroup != null)
-            // {
-            //     ShowFamily(group.parentGroup);
-            // }
-            // else
-            // {
-            //     ShowGroup(group);
-            // }
         }
         else
         {
@@ -241,7 +309,7 @@ public class NodeInteraction : MonoBehaviour
             EnableNodeCollider(currentSelectGroup, false);
         }
         
-        currentGroup = null;
+        currentSelectGroup = null;
         currentParent = null;
         
         nodeShowingStatus = NodeShowingStatus.ShowTotal;
@@ -265,39 +333,6 @@ public class NodeInteraction : MonoBehaviour
         foreach(Group child in _parent.childrenGroup){
             familyTarget.Add(child.gameObject);
         }
-
-        /*
-        if(_group.childrenGroup == null || _group.childrenGroup.Count == 0) // no children(no family) -> show parent's family
-        {
-            Group parent = _group.parentGroup;
-            
-            if(GameManager.Instance.pairList.pairs.Count <= 1 || _group.pairTree.pair == GameManager.Instance.pairList.pairs[0]){ // if root
-                ShowGroup(_group);
-                wasRoot = true;
-                return;
-            }
-
-            List<Group> siblings = parent.childrenGroup;
-
-            familyTarget.Add(parent.gameObject);
-            foreach(Group sibling in siblings){
-                familyTarget.Add(sibling.gameObject);
-            }
-
-            currentParent = _group.parentGroup;
-        }
-        else // show its own family
-        {
-            List<Group> children = _group.childrenGroup;
-
-            familyTarget.Add(_group.gameObject);
-            foreach(Group child in children){
-                familyTarget.Add(child.gameObject);
-            }
-
-            currentParent = _group;
-        }
-        */
 
         CreateTargetCamera(familyTarget);
         

@@ -85,6 +85,7 @@ public class DialogueControl : MonoBehaviour
                 allDialogues.Add(new());
                 allDialogues[index].npcName = ableNpcInfo.npcName;
                 allDialogues[index].sprites = new(ableNpcInfo.sprites);
+                allDialogues[index].tastes = MakeRandomTastes();
                 allDialogues[index].priority = dialogue.priority;
                 allDialogues[index].dialogueName = dialogue.dialogueName;
                 index++;
@@ -127,6 +128,7 @@ public class DialogueControl : MonoBehaviour
             allDialogues.Add(new());
             allDialogues[index].npcName = "";
             allDialogues[index].sprites = tempSprite;
+            allDialogues[index].tastes = MakeRandomTastes();
             allDialogues[index].priority = 0;
             allDialogues[index].dialogueName = "Normal"; // test
             index++;
@@ -134,6 +136,54 @@ public class DialogueControl : MonoBehaviour
 
         totalCount += addCount;
         Debug.Log("total NPC Count : " + totalCount);
+    }
+
+    List<string> MakeRandomTastes(){ // test
+        List<string> tastes = new();
+        
+        List<string> rh = new() {"+", "-"};
+        List<string> bloodType = new() {"A", "B", "AB", "O"};
+        
+        int randRh = UnityEngine.Random.Range(0, 2);
+        int randBloodType = UnityEngine.Random.Range(0, 4);
+
+        tastes.Add(rh[randRh]);
+        tastes.Add(bloodType[randBloodType]);
+
+        return tastes;
+    }
+
+    string MakeTasteSentence(List<string> list){
+        string sentence = "";
+        
+        foreach(string element in list){
+            if(element == "+")
+            {
+                sentence += "Rh + ";
+            }
+            else if(element == "-")
+            {
+                sentence += "Rh - ";
+            }
+
+            if(element == "A")
+            {
+                sentence += "A";
+            }
+            else if(element == "B")
+            {
+                sentence += "B";
+            }
+            else if(element == "AB")
+            {
+                sentence += "AB";
+            }
+            else if(element == "O"){
+                sentence += "O";
+            }
+        }
+
+        return sentence;
     }
 
     // 내림차순
@@ -331,6 +381,7 @@ public class DialogueControl : MonoBehaviour
 public class DialogueInfo{
     public string npcName;
     public List<Sprite> sprites;
+    public List<string> tastes;
     public int priority;
     public string dialogueName;
 }

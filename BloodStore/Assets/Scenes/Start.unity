@@ -406,7 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf504a0c7fba3554da375faa441ddc07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactType: 3
+  _interactType: 5
   _cameraMovementType: 0
   _cameraType: 0
   _virtualCam:
@@ -427,6 +427,9 @@ MonoBehaviour:
       blendIn: 0
       blendTime: 0
   _nodeName: 
+  _familyTreeType: 0
+  _isOn: 1
+  _ui: {fileID: 0}
   _isFade: 1
   _sceneName: Edit
 --- !u!1 &709405921
@@ -475,6 +478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 0}
+  cameraList: []
 --- !u!1 &714005071
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,6 +654,9 @@ MonoBehaviour:
       blendIn: 0
       blendTime: 0
   _nodeName: 
+  _familyTreeType: 0
+  _isOn: 1
+  _ui: {fileID: 0}
   _isFade: 0
   _sceneName: StartEdit
 --- !u!1 &821240111
@@ -1159,7 +1166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf504a0c7fba3554da375faa441ddc07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactType: 3
+  _interactType: 5
   _cameraMovementType: 0
   _cameraType: 1
   _virtualCam:
@@ -1180,6 +1187,9 @@ MonoBehaviour:
       blendIn: 0
       blendTime: 0
   _nodeName: 
+  _familyTreeType: 0
+  _isOn: 1
+  _ui: {fileID: 0}
   _isFade: 1
   _sceneName: Edit
 --- !u!1 &1289085620
@@ -1454,16 +1464,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeInfoCanvas: {fileID: 0}
   nodeInfoTexts: {fileID: 0}
+  addChildUI: {fileID: 0}
+  treeManager: {fileID: 0}
   nodeImg: {fileID: 0}
   nodeShowingStatus: 0
   nodeInteractionStatus: 0
-  currentGroup: {fileID: 0}
   currentSelectGroup: {fileID: 0}
   currentParent: {fileID: 0}
   leftGroup: {fileID: 0}
   rightGroup: {fileID: 0}
   upGroup: {fileID: 0}
-  downGroup: {fileID: 0}
+  downGroup:
+  - {fileID: 0}
   cameraControl: {fileID: 0}
   dialogueRunner: {fileID: 0}
 --- !u!4 &1530754856
@@ -1645,6 +1657,9 @@ MonoBehaviour:
       blendIn: 0
       blendTime: 0
   _nodeName: 
+  _familyTreeType: 0
+  _isOn: 1
+  _ui: {fileID: 0}
   _isFade: 0
   _sceneName: StartEdit
 --- !u!1 &1799124451
@@ -2052,6 +2067,9 @@ MonoBehaviour:
       blendIn: 1
       blendTime: 3
   _nodeName: 
+  _familyTreeType: 0
+  _isOn: 1
+  _ui: {fileID: 0}
   _isFade: 0
   _sceneName: Start
 --- !u!222 &56988350894636757
@@ -5638,6 +5656,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraControl: {fileID: 0}
   npcInteract: {fileID: 0}
+  nodeInteraction: {fileID: 0}
   dialogueRunner: {fileID: 0}
 --- !u!114 &8235264872758770939
 MonoBehaviour:
