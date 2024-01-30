@@ -21,22 +21,6 @@ public class ToggleGroups : MonoBehaviour
     public List<List<Toggle>> categoryToggles = new List<List<Toggle>>();
     List<BloodPack> filteredBloodPacks;
 
-    public List<Toggle> FindTogglesByCategory(string categoryName)
-    {
-        int index = categories.IndexOf(categoryName);
-
-        if (index != -1)
-        {
-            return categoryToggles[index];
-        }
-        else
-        {
-            Debug.LogError("Invalid category name: " + categoryName);
-            return null;
-        }
-    }
-
-
     void Start()
     {
         this.bloodPackSO = GameManager.Instance.bloodPackList;
@@ -89,7 +73,7 @@ public class ToggleGroups : MonoBehaviour
     {
         filteredBloodPacks = new List<BloodPack>();
 
-        activeToggles = FindActiveTogglesInActiveCategories();
+        activeToggles = GetActiveToggles(parentObject);
 
             foreach (BloodPack bloodPack in bloodPackSO.bloodPacks)
             {
@@ -124,41 +108,23 @@ public class ToggleGroups : MonoBehaviour
 
         }
 
-        Debug.Log("aa");
         StartCoroutine(DisplayBloodPacks(filteredBloodPacks));
     }
 
-    bool IsCategorySelected(string category)
-    {
-        foreach (Toggle toggle in activeToggles)
-        {
-            if (toggle.name.Contains(category))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
 
-    public List<Toggle> FindActiveTogglesInActiveCategories()
+    public List<Toggle> GetActiveToggles(GameObject parent)
     {
         List<Toggle> activeToggles = new List<Toggle>();
 
-        // 카테고리별로 확인
-        foreach (string category in categories)
+        // 부모 GameObject에 부착된 모든 Toggle 컴포넌트를 가져옴
+        Toggle[] toggles = parent.GetComponentsInChildren<Toggle>();
+
+        foreach (Toggle toggle in toggles)
         {
-            // 카테고리가 활성화되었는지 확인
-            if (IsCategorySelected(category))
+            // Toggle이 활성화되어 있다면 리스트에 추가
+            if (toggle.isOn)
             {
-                // 해당 카테고리에서 활성화된 토글들을 찾음
-                List<Toggle> togglesInCategory = FindTogglesByCategory(category);
-                foreach (Toggle toggle in togglesInCategory)
-                {
-                    if (toggle.isOn)
-                    {
-                        activeToggles.Add(toggle);
-                    }
-                }
+                activeToggles.Add(toggle);
             }
         }
 
@@ -167,7 +133,6 @@ public class ToggleGroups : MonoBehaviour
 
     IEnumerator DisplayBloodPacks(List<BloodPack> filteredBloodPacks)
     {
-        Debug.Log("bbbb");
         string a = "재고 : " + filteredBloodPacks.Count + " 개";
         NumofFiltered.text = a;
         // 기존에 생성된 UI 요소들을 모두 삭제
