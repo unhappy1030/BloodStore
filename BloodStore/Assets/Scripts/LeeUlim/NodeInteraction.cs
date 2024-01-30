@@ -255,7 +255,7 @@ public class NodeInteraction : MonoBehaviour
         Vector3 mousePos = Input.mousePosition;
         Vector3 mouseCamPos = Camera.main.ScreenToViewportPoint(mousePos);
 
-        float temp = 0.2f;
+        float temp = 0.025f;
         
         GameObject currentCam = cameraControl.cameraList[cameraControl.cameraList.Count-1];
         CinemachineVirtualCamera camScript = currentCam.GetComponent<CinemachineVirtualCamera>();
