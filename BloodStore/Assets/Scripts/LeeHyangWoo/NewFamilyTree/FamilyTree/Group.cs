@@ -5,14 +5,14 @@ using Cinemachine;
 using Yarn;
 using System.Linq;
 using Unity.VisualScripting;
+using System;
 public class Group : MonoBehaviour
 {
     public PairTree pairTree;
-    public GameObject nodePrefab;
+    public GameObject nodePrefab;//프리펩 전달 안받게 변경
     public GameObject emptyPrefab;
     public GameObject deadPrefab;
-    public GameObject childButtonPrefab;
-    public GameObject childButtonOffPrefab;
+    public GameObject selectedCard;
     public Vector2 groupPos;
     public Vector2 leftPos;
     public Vector2 rightPos;
@@ -28,12 +28,13 @@ public class Group : MonoBehaviour
     public List<Group> childrenGroup;
 
     public float lineWidth = 0.05f;
-    public void SetPrefab(GameObject nodePrefab, GameObject emptyPrefab, GameObject deadPrefab ,GameObject childButtonPrefab, GameObject childButtonOffPrefab){
+    public void SetPrefab(GameObject nodePrefab, GameObject emptyPrefab, GameObject deadPrefab){
         this.nodePrefab = nodePrefab;
         this.emptyPrefab = emptyPrefab;
         this.deadPrefab = deadPrefab;
-        this.childButtonPrefab = childButtonPrefab;
-        this.childButtonOffPrefab = childButtonOffPrefab;
+    }
+    public void SetUI(GameObject selectedCard){
+        this.selectedCard = selectedCard;
     }
     public void SetSizeData(float halfX, float halfY, float pairSize, float unit, float pairOffSet, float offSetX, float offSetY){
         this.halfX = halfX;
@@ -63,7 +64,8 @@ public class Group : MonoBehaviour
                 NodeDisplay nodeDisplay = display.GetComponent<NodeDisplay>();
                 nodeDisplay.SetDeadData(node);
                 nodeDisplay.MakeBoxCollider();
-                nodeDisplay.DeActiveCollider();
+                BoxCollider2D box = nodeDisplay.gameObject.GetComponent<BoxCollider2D>();
+                box.enabled = false;
             }
             else{
                 display = Instantiate(nodePrefab, new Vector2(0, 0), Quaternion.identity);
@@ -73,7 +75,8 @@ public class Group : MonoBehaviour
                 NodeDisplay nodeDisplay = display.GetComponent<NodeDisplay>();
                 nodeDisplay.SetNodeData(node);
                 nodeDisplay.MakeBoxCollider();
-                nodeDisplay.DeActiveCollider();
+                BoxCollider2D box = nodeDisplay.gameObject.GetComponent<BoxCollider2D>();
+                box.enabled = false;
             }
             
         }
@@ -84,7 +87,8 @@ public class Group : MonoBehaviour
             inter._familyTreeType = FamilyTreeType.EmptyNode;
             EmptyDisplay emptyDisplay = display.GetComponent<EmptyDisplay>();
             emptyDisplay.MakeBoxCollider();
-            emptyDisplay.DeActiveCollider();
+            BoxCollider2D box = emptyDisplay.gameObject.GetComponent<BoxCollider2D>();
+            box.enabled = false;
         }
         return display;
     }
@@ -165,7 +169,7 @@ public class Group : MonoBehaviour
         }
     }
 
-    public void MakeChildButton(){
+    public void MakeChildButton(GameObject childButtonPrefab, GameObject childButtonOffPrefab){
         button =  Instantiate(childButtonPrefab, groupPos, Quaternion.identity);
         InteractObjInfo inter = button.AddComponent<InteractObjInfo>();
         inter._interactType = InteractType.FamilyTree;
@@ -181,7 +185,7 @@ public class Group : MonoBehaviour
         box.size = spriteSize;
         button.transform.parent = transform;
         buttonOff.transform.parent = transform;
-        if(pairTree.pair.isPair && pairTree.pair.childNum == 0){
+        if(pairTree.pair.isPair && pairTree.pair.childNum == 0 && pairTree.pair.male.age < 60 && pairTree.pair.male.age < 60){
             button.SetActive(true);
         }
     }

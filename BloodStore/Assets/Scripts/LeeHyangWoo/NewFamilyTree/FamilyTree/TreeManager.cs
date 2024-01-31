@@ -17,6 +17,8 @@ public class TreeManager : MonoBehaviour
     public GameObject childButtonPrefab;
     public GameObject childButtonOffPrefab;
     public GameObject mainGroup;
+    public GameObject selectedCard;
+    public NodeSO nodeSO;
     public float pairOffSet = 0.2f;
     public float offSetX, offSetY;
     private float halfX, halfY;
@@ -24,6 +26,7 @@ public class TreeManager : MonoBehaviour
     private float lastX = 0f, lastY = 0f;
     void Start()
     {
+        nodeSO.node.empty = true;
         this.pairList = GameManager.Instance.pairList;
         this.bloodPackList = GameManager.Instance.bloodPackList;
         this.pairList = pairList.Load();
@@ -43,6 +46,8 @@ public class TreeManager : MonoBehaviour
         pairList.MakeDead();
         pairList.Save(pairList.pairs);
         bloodPackList.Packing(pairList);
+        bloodPackList.UpdateCategory();
+        bloodPackList.ShowAll();
     }
     void SetPrefabData(){
         halfX = nodePrefab.GetComponent<SpriteRenderer>().bounds.extents.x;
@@ -92,7 +97,7 @@ public class TreeManager : MonoBehaviour
                 group.rightDisplay.transform.parent = group.transform;
                 rootGroup.childrenGroup.Add(group);
                 group.parentGroup = rootGroup;
-                group.MakeChildButton();
+                group.MakeChildButton(childButtonPrefab, childButtonOffPrefab);
                 MakeChildren(group);
                 MakeCenter(group);
             }
@@ -114,7 +119,7 @@ public class TreeManager : MonoBehaviour
         group.DisplayNodes();
         group.leftDisplay.transform.parent = group.transform;
         group.rightDisplay.transform.parent = group.transform;
-        group.MakeChildButton();
+        group.MakeChildButton(childButtonPrefab, childButtonOffPrefab);
         return group;
     }
     void MakeMainGroupObject(){
@@ -127,8 +132,9 @@ public class TreeManager : MonoBehaviour
         inter._familyTreeType = FamilyTreeType.Group;
         groupObject.layer = LayerMask.NameToLayer("Interact");
         Group group = groupObject.AddComponent<Group>();
-        group.SetPrefab(nodePrefab, emptyPrefab, deadPrefab ,childButtonPrefab, childButtonOffPrefab);
+        group.SetPrefab(nodePrefab, emptyPrefab, deadPrefab);
         group.SetSizeData(halfX, halfY, pairSize, unit, pairOffSet, offSetX, offSetY);
+        group.SetUI(selectedCard);
         group.MakeBoxCollider();
         return group;
     }

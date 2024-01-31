@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class EmptyDisplay : MonoBehaviour
@@ -12,13 +11,23 @@ public class EmptyDisplay : MonoBehaviour
     }
 
     public void SetNode(){
-        if(!group.pairTree.pair.male.empty && !group.pairTree.pair.male.isDead){
-
-        }
-        else if(!group.pairTree.pair.female.empty && !group.pairTree.pair.female.isDead){
-            if(group.pairTree.BlankNodeCheck() == nodeSO.node.sex){
+        if(!group.pairTree.pair.male.empty && !group.pairTree.pair.male.isDead && group.pairTree.pair.male.age >= 20){
+            if(group.pairTree.BlankNodeCheck() == nodeSO.node.sex && !nodeSO.node.empty){
                 MakePair();
-                group.button.SetActive(true);
+                if(group.pairTree.pair.male.age < 60){
+                    group.button.SetActive(true);
+                }
+                group.selectedCard.SetActive(false);
+                ChangeDisplay(nodeSO.node.sex);
+            }
+        }
+        else if(!group.pairTree.pair.female.empty && !group.pairTree.pair.female.isDead && group.pairTree.pair.female.age >= 20){
+            if(group.pairTree.BlankNodeCheck() == nodeSO.node.sex && !nodeSO.node.empty){
+                MakePair();
+                if(group.pairTree.pair.female.age < 60){
+                    group.button.SetActive(true);
+                }
+                group.selectedCard.SetActive(false);
                 ChangeDisplay(nodeSO.node.sex);
             }
         }
@@ -32,18 +41,6 @@ public class EmptyDisplay : MonoBehaviour
         SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         Vector2 spriteSize = spriteRenderer.sprite.bounds.size;
         box.size = spriteSize;
-    }
-    public void ActiveCollider(){
-        BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
-        if(box != null){
-            box.enabled = true;
-        }
-    }
-    public void DeActiveCollider(){
-        BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
-        if(box != null){
-            box.enabled = false;
-        }
     }
     void ChangeDisplay(string sex){
         if(sex == "Male"){
@@ -59,10 +56,18 @@ public class EmptyDisplay : MonoBehaviour
         Destroy(gameObject);
     }
     void MakePair(){
-        Node node = new Node();
-        node = nodeSO.node;
+        Node node = new Node{
+            name = nodeSO.node.name,
+            sex = nodeSO.node.sex,
+            bloodType = nodeSO.node.bloodType,
+            hp = nodeSO.node.hp,
+            age = nodeSO.node.age,
+            isDead = nodeSO.node.isDead,
+            empty = false
+        };
         group.pairTree.MakePair(node);
         group.pairTree.pair.isPair = true;
+        nodeSO.node.empty = true;
     }
     void DeleteNode(){
         group.pairTree.pair.isPair = false;
