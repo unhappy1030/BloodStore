@@ -132,6 +132,7 @@ public class TreeManager : MonoBehaviour
         Group group = groupObject.AddComponent<Group>();
         group.SetPrefab(nodePrefab, emptyPrefab, deadPrefab);
         group.SetSizeData(halfX, halfY, pairSize, unit, pairOffSet, offSetX, offSetY);
+        group.SetUI(selectedCard);
         group.MakeBoxCollider();
         return group;
     }

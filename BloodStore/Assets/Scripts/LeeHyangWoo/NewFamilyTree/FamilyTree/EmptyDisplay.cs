@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class EmptyDisplay : MonoBehaviour
@@ -19,7 +18,6 @@ public class EmptyDisplay : MonoBehaviour
                 group.button.SetActive(true);
                 group.selectedCard.SetActive(false);
                 ChangeDisplay(nodeSO.node.sex);
-                // nodeSO.node.empty = true;
             }
         }
         else{
@@ -47,10 +45,18 @@ public class EmptyDisplay : MonoBehaviour
         Destroy(gameObject);
     }
     void MakePair(){
-        Node node = new Node();
-        node = nodeSO.node;
+        Node node = new Node{
+            name = nodeSO.node.name,
+            sex = nodeSO.node.sex,
+            bloodType = nodeSO.node.bloodType,
+            hp = nodeSO.node.hp,
+            age = nodeSO.node.age,
+            isDead = nodeSO.node.isDead,
+            empty = false
+        };
         group.pairTree.MakePair(node);
         group.pairTree.pair.isPair = true;
+        nodeSO.node.empty = true;
     }
     void DeleteNode(){
         group.pairTree.pair.isPair = false;

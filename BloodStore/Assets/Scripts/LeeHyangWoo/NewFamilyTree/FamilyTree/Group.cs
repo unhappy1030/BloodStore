@@ -12,6 +12,7 @@ public class Group : MonoBehaviour
     public GameObject nodePrefab;//프리펩 전달 안받게 변경
     public GameObject emptyPrefab;
     public GameObject deadPrefab;
+    public GameObject selectedCard;
     public Vector2 groupPos;
     public Vector2 leftPos;
     public Vector2 rightPos;
