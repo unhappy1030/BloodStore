@@ -3,20 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
+using TreeEditor;
+using UnityEngine.UI;
 
 public class ChangeSelected : MonoBehaviour
 {
     public List<GameObject> childs;
     public List<bool> isActivated;
     public int index;
-    public bool notInteractied = true;
+    public bool notSelected;
 
     private void Start()
     {
+        notSelected = true;
+
+        isActivated = new();
+        
         for(int i=0; i<childs.Count; i++){
-            isActivated = new(){
-                false
-            };
+            isActivated.Add(false);
         }
         
     }
@@ -24,7 +28,7 @@ public class ChangeSelected : MonoBehaviour
     public void Select(int index){
         // all reset
         foreach(GameObject child in childs){
-            TextMeshProUGUI text = child.GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI text = child.GetComponentInChildren<TextMeshProUGUI>();
             text.color = Color.black;
         }
         
@@ -32,12 +36,16 @@ public class ChangeSelected : MonoBehaviour
             isActivated[i] = false;
         }
 
-        if(this.index == index){
-            TextMeshProUGUI indexText = childs[index].GetComponent<TextMeshProUGUI>();
+        if(notSelected || this.index != index){
+            TextMeshProUGUI indexText = childs[index].GetComponentInChildren<TextMeshProUGUI>();
             indexText.color = Color.red;
             isActivated[index] = true;
 
             this.index =index;
+            notSelected = false;
+            return;
         }
+
+        notSelected = true;
     }
 }
