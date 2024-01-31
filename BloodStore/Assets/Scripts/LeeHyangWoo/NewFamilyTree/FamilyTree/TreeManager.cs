@@ -95,7 +95,7 @@ public class TreeManager : MonoBehaviour
                 group.rightDisplay.transform.parent = group.transform;
                 rootGroup.childrenGroup.Add(group);
                 group.parentGroup = rootGroup;
-                group.MakeChildButton();
+                group.MakeChildButton(childButtonPrefab, childButtonOffPrefab);
                 MakeChildren(group);
                 MakeCenter(group);
             }
@@ -117,7 +117,7 @@ public class TreeManager : MonoBehaviour
         group.DisplayNodes();
         group.leftDisplay.transform.parent = group.transform;
         group.rightDisplay.transform.parent = group.transform;
-        group.MakeChildButton();
+        group.MakeChildButton(childButtonPrefab, childButtonOffPrefab);
         return group;
     }
     void MakeMainGroupObject(){
@@ -130,8 +130,7 @@ public class TreeManager : MonoBehaviour
         inter._familyTreeType = FamilyTreeType.Group;
         groupObject.layer = LayerMask.NameToLayer("Interact");
         Group group = groupObject.AddComponent<Group>();
-        group.SetPrefab(nodePrefab, emptyPrefab, deadPrefab ,childButtonPrefab, childButtonOffPrefab);
-        group.SetUI(selectedCard);
+        group.SetPrefab(nodePrefab, emptyPrefab, deadPrefab);
         group.SetSizeData(halfX, halfY, pairSize, unit, pairOffSet, offSetX, offSetY);
         group.MakeBoxCollider();
         return group;

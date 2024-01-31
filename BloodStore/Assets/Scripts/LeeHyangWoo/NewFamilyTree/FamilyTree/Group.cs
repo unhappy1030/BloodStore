@@ -12,9 +12,6 @@ public class Group : MonoBehaviour
     public GameObject nodePrefab;//프리펩 전달 안받게 변경
     public GameObject emptyPrefab;
     public GameObject deadPrefab;
-    public GameObject childButtonPrefab;
-    public GameObject childButtonOffPrefab;
-    public GameObject selectedCard;//Empty로 위치 변경 점검
     public Vector2 groupPos;
     public Vector2 leftPos;
     public Vector2 rightPos;
@@ -30,12 +27,10 @@ public class Group : MonoBehaviour
     public List<Group> childrenGroup;
 
     public float lineWidth = 0.05f;
-    public void SetPrefab(GameObject nodePrefab, GameObject emptyPrefab, GameObject deadPrefab ,GameObject childButtonPrefab, GameObject childButtonOffPrefab){
+    public void SetPrefab(GameObject nodePrefab, GameObject emptyPrefab, GameObject deadPrefab){
         this.nodePrefab = nodePrefab;
         this.emptyPrefab = emptyPrefab;
         this.deadPrefab = deadPrefab;
-        this.childButtonPrefab = childButtonPrefab;
-        this.childButtonOffPrefab = childButtonOffPrefab;
     }
     public void SetUI(GameObject selectedCard){
         this.selectedCard = selectedCard;
@@ -68,7 +63,8 @@ public class Group : MonoBehaviour
                 NodeDisplay nodeDisplay = display.GetComponent<NodeDisplay>();
                 nodeDisplay.SetDeadData(node);
                 nodeDisplay.MakeBoxCollider();
-                nodeDisplay.DeActiveCollider();
+                BoxCollider2D box = nodeDisplay.gameObject.GetComponent<BoxCollider2D>();
+                box.enabled = false;
             }
             else{
                 display = Instantiate(nodePrefab, new Vector2(0, 0), Quaternion.identity);
@@ -78,7 +74,8 @@ public class Group : MonoBehaviour
                 NodeDisplay nodeDisplay = display.GetComponent<NodeDisplay>();
                 nodeDisplay.SetNodeData(node);
                 nodeDisplay.MakeBoxCollider();
-                nodeDisplay.DeActiveCollider();
+                BoxCollider2D box = nodeDisplay.gameObject.GetComponent<BoxCollider2D>();
+                box.enabled = false;
             }
             
         }
@@ -89,7 +86,8 @@ public class Group : MonoBehaviour
             inter._familyTreeType = FamilyTreeType.EmptyNode;
             EmptyDisplay emptyDisplay = display.GetComponent<EmptyDisplay>();
             emptyDisplay.MakeBoxCollider();
-            emptyDisplay.DeActiveCollider();
+            BoxCollider2D box = emptyDisplay.gameObject.GetComponent<BoxCollider2D>();
+            box.enabled = false;
         }
         return display;
     }
@@ -97,7 +95,34 @@ public class Group : MonoBehaviour
         BoxCollider2D box = gameObject.AddComponent<BoxCollider2D>();
         box.size = new Vector2(pairSize, halfY * 2);
     }
+    public void ActiveCollider(){
+        BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
+        if(box != null){
+            box.enabled = true;
+        }
+    }
+    public void DeActiveCollider(){
+        BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
+        if(box != null){
+            box.enabled = false;
+        }
+    }
+    public void CameraSetting(){
+        InteractObjInfo inter = gameObject.AddComponent<InteractObjInfo>();
+        inter.SetTargetCameraInfo(SendFamilyList(), 0.25f, CinemachineBlendDefinition.Style.EaseInOut, 0.5f);
+    }
 
+    public List<GameObject> SendFamilyList(){
+        List<GameObject> familyList = new List<GameObject>();
+        familyList.Add(GetGameObject());
+        if(childrenGroup != null){
+            foreach(Group group in childrenGroup){
+                familyList.Add(group.GetGameObject());
+            }
+        }
+
+        return familyList;
+    }
     public GameObject GetGameObject(){
         return gameObject;
     }
@@ -143,7 +168,7 @@ public class Group : MonoBehaviour
         }
     }
 
-    public void MakeChildButton(){
+    public void MakeChildButton(GameObject childButtonPrefab, GameObject childButtonOffPrefab){
         button =  Instantiate(childButtonPrefab, groupPos, Quaternion.identity);
         InteractObjInfo inter = button.AddComponent<InteractObjInfo>();
         inter._interactType = InteractType.FamilyTree;

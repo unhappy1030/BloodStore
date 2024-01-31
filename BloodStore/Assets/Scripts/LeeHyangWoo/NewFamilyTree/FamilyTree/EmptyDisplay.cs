@@ -33,18 +33,6 @@ public class EmptyDisplay : MonoBehaviour
         Vector2 spriteSize = spriteRenderer.sprite.bounds.size;
         box.size = spriteSize;
     }
-    public void ActiveCollider(){
-        BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
-        if(box != null){
-            box.enabled = true;
-        }
-    }
-    public void DeActiveCollider(){
-        BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
-        if(box != null){
-            box.enabled = false;
-        }
-    }
     void ChangeDisplay(string sex){
         if(sex == "Male"){
             group.leftDisplay = group.CreateNode(group.pairTree.pair.male);
