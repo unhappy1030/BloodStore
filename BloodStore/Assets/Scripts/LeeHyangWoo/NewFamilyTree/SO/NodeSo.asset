@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: NodeSo
   m_EditorClassIdentifier: 
   node:
-    name: Alice
+    name: Hank
     sex: Female
     bloodType:
-    - O
-    - +
-    - OO
+    - AB
+    - '-'
+    - AB
     hp: 100
-    age: 21
+    age: 40
     isDead: 0
-    empty: 0
+    empty: 1

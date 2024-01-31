@@ -17,6 +17,8 @@ public class TreeManager : MonoBehaviour
     public GameObject childButtonPrefab;
     public GameObject childButtonOffPrefab;
     public GameObject mainGroup;
+    public GameObject selectedCard;
+    public NodeSO nodeSO;
     public float pairOffSet = 0.2f;
     public float offSetX, offSetY;
     private float halfX, halfY;
@@ -24,6 +26,7 @@ public class TreeManager : MonoBehaviour
     private float lastX = 0f, lastY = 0f;
     void Start()
     {
+        nodeSO.node.empty = true;
         this.pairList = GameManager.Instance.pairList;
         this.bloodPackList = GameManager.Instance.bloodPackList;
         this.pairList = pairList.Load();
@@ -129,6 +132,7 @@ public class TreeManager : MonoBehaviour
         Group group = groupObject.AddComponent<Group>();
         group.SetPrefab(nodePrefab, emptyPrefab, deadPrefab);
         group.SetSizeData(halfX, halfY, pairSize, unit, pairOffSet, offSetX, offSetY);
+        group.SetUI(selectedCard);
         group.MakeBoxCollider();
         return group;
     }

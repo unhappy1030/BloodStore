@@ -5,12 +5,14 @@ using Cinemachine;
 using Yarn;
 using System.Linq;
 using Unity.VisualScripting;
+using System;
 public class Group : MonoBehaviour
 {
     public PairTree pairTree;
-    public GameObject nodePrefab;
+    public GameObject nodePrefab;//프리펩 전달 안받게 변경
     public GameObject emptyPrefab;
     public GameObject deadPrefab;
+    public GameObject selectedCard;
     public Vector2 groupPos;
     public Vector2 leftPos;
     public Vector2 rightPos;
@@ -30,6 +32,9 @@ public class Group : MonoBehaviour
         this.nodePrefab = nodePrefab;
         this.emptyPrefab = emptyPrefab;
         this.deadPrefab = deadPrefab;
+    }
+    public void SetUI(GameObject selectedCard){
+        this.selectedCard = selectedCard;
     }
     public void SetSizeData(float halfX, float halfY, float pairSize, float unit, float pairOffSet, float offSetX, float offSetY){
         this.halfX = halfX;
@@ -91,6 +96,38 @@ public class Group : MonoBehaviour
         BoxCollider2D box = gameObject.AddComponent<BoxCollider2D>();
         box.size = new Vector2(pairSize, halfY * 2);
     }
+    public void ActiveCollider(){
+        BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
+        if(box != null){
+            box.enabled = true;
+        }
+    }
+    public void DeActiveCollider(){
+        BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
+        if(box != null){
+            box.enabled = false;
+        }
+    }
+    public void CameraSetting(){
+        InteractObjInfo inter = gameObject.AddComponent<InteractObjInfo>();
+        inter.SetTargetCameraInfo(SendFamilyList(), 0.25f, CinemachineBlendDefinition.Style.EaseInOut, 0.5f);
+    }
+
+    public List<GameObject> SendFamilyList(){
+        List<GameObject> familyList = new List<GameObject>();
+        familyList.Add(GetGameObject());
+        if(childrenGroup != null){
+            foreach(Group group in childrenGroup){
+                familyList.Add(group.GetGameObject());
+            }
+        }
+
+        return familyList;
+    }
+    public GameObject GetGameObject(){
+        return gameObject;
+    }
+
     public void PairLine(){
         GameObject pairLine = new("PairLine");
         LineRenderer line = pairLine.AddComponent<LineRenderer>();

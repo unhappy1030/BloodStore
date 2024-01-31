@@ -18,7 +18,7 @@ public class CameraControl : MonoBehaviour
     private void Awake()
     {
         mainCam = Camera.main.GetComponent<CinemachineBrain>();
-        cameraList = new();
+        // cameraList = new();
     }
 
     public void ChangeCam(InteractObjInfo interObj)
