@@ -7,12 +7,15 @@ public class BloodPackUITest : MonoBehaviour
     public string sex;
     public string[] bloodType;
 
-    public void SetSex(string sex){
-        this.sex = sex;
+    public List<ChangeSelected> togles;
+
+    void Start(){
+        togles = new(GetComponentsInChildren<ChangeSelected>());
     }
 
-    public void SetBloodType(string rh, string bloodType){
-        this.bloodType[0] = bloodType;
-        this.bloodType[1] = rh;
+    public void CollectTogleInfo(){
+        foreach(ChangeSelected change in togles){
+            ;
+        }
     }
 }
