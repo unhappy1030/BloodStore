@@ -185,7 +185,7 @@ public class Group : MonoBehaviour
         box.size = spriteSize;
         button.transform.parent = transform;
         buttonOff.transform.parent = transform;
-        if(pairTree.pair.isPair && pairTree.pair.childNum == 0){
+        if(pairTree.pair.isPair && pairTree.pair.childNum == 0 && pairTree.pair.male.age < 60 && pairTree.pair.male.age < 60){
             button.SetActive(true);
         }
     }
