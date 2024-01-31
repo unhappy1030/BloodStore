@@ -134,6 +134,8 @@ public class BloodPacks : MonoBehaviour
         }
     }
     public void UpdateCategory(){
+        Deserialize();
+        
         this.UpdateSumList();
         categoryNum = new();
         categoryNum.Add("Male", 0);
@@ -217,11 +219,11 @@ public class BloodPackLink
         }
     }
     public void Sum(){
-        sum = pack.num;
+        sum = 0;
         BloodPackLink nowLink = this;
-        while(pack.existNext){
-            nowLink = this.next;
+        while(nowLink.pack.existNext){
             sum += nowLink.pack.num;
+            nowLink = this.next;
         }
     }
 }
