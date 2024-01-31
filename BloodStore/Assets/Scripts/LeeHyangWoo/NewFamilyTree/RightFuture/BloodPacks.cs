@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using Unity.VisualScripting;
 [System.Serializable]
 public class SaveBloodPackArray{
     public BloodPack[] arr;
@@ -10,9 +11,9 @@ public class SaveBloodPackArray{
 public class BloodPacks : MonoBehaviour
 {
     public List<BloodPack> bloodPacks = new();
-
-    public List<BloodPackLink> bloodPackList = new();
+    public List<BloodPackLink> bloodPackLinks = new();
     public SaveBloodPackArray saveArray;
+    public Dictionary<string,int> categoryNum;
     public void Save(List<BloodPack> bloodPackLinks){
         string _path = Application.dataPath + "/BloodPack.json"; 
         saveArray = new();
@@ -41,9 +42,9 @@ public class BloodPacks : MonoBehaviour
     }
     public void Serialize()
     {
-        if(bloodPackList.Count == 0) return ;
+        if(bloodPackLinks.Count == 0) return ;
         bloodPacks.Clear();
-        foreach(BloodPackLink current in bloodPackList){
+        foreach(BloodPackLink current in bloodPackLinks){
             Local_SerializeAll(current);
         }
         void Local_SerializeAll(BloodPackLink current)
@@ -59,14 +60,14 @@ public class BloodPacks : MonoBehaviour
     {
         if (bloodPacks.Count == 0) return ;
         int index = 0;
-        bloodPackList.Clear();
+        bloodPackLinks.Clear();
         Local_DeserializeAll();
 
         void Local_DeserializeAll()
         {
             BloodPackLink current = bloodPacks[index].Deserialize();
             if(current.before == null){
-                bloodPackList.Add(current);
+                bloodPackLinks.Add(current);
                 BloodPackLink before = current;
                 index++;
                 while(current.pack.existNext){
@@ -98,16 +99,16 @@ public class BloodPacks : MonoBehaviour
     }
     public void AddBloodPack(Node node){
         if(bloodPacks.Count == 0){
-            bloodPackList.Add(new BloodPackLink(NodeToBloodPack(node)));
+            bloodPackLinks.Add(new BloodPackLink(NodeToBloodPack(node)));
         }
         else{
-            foreach(BloodPackLink packLink in bloodPackList){
+            foreach(BloodPackLink packLink in bloodPackLinks){
                 if(packLink.pack.node == node){
                     packLink.AddLast(NodeToBloodPack(node));
                     return;
                 }
             }
-            bloodPackList.Add(new BloodPackLink(NodeToBloodPack(node)));
+            bloodPackLinks.Add(new BloodPackLink(NodeToBloodPack(node)));
         }
     }
     public BloodPack NodeToBloodPack(Node nodeConvert){
@@ -125,6 +126,55 @@ public class BloodPacks : MonoBehaviour
             date = date,
         };
         return pack;
+    }
+
+    public void UpdateSumList(){
+        foreach(BloodPackLink link in bloodPackLinks){
+            link.Sum();
+        }
+    }
+    public void UpdateCategory(){
+        this.UpdateSumList();
+        categoryNum = new();
+        categoryNum.Add("Male", 0);
+        categoryNum.Add("Female", 0);
+        categoryNum.Add("A", 0);
+        categoryNum.Add("B", 0);
+        categoryNum.Add("AB", 0);
+        categoryNum.Add("O", 0);
+        categoryNum.Add("-", 0);
+        categoryNum.Add("+", 0);
+        foreach(BloodPackLink link in bloodPackLinks){
+            if(link.pack.node.sex == "Male"){
+                categoryNum["Male"] += link.sum;
+            }
+            else{
+                categoryNum["Female"] += link.sum;
+            }
+            if(link.pack.node.bloodType[0] == "A"){
+                categoryNum["A"] += link.sum;
+            }
+            else if(link.pack.node.bloodType[0] == "B"){
+                categoryNum["B"] += link.sum;
+            }
+            else if(link.pack.node.bloodType[0] == "AB"){
+                categoryNum["AB"] += link.sum;
+            }
+            else if(link.pack.node.bloodType[0] == "O"){
+                categoryNum["O"] += link.sum;
+            }
+            if(link.pack.node.bloodType[1] == "+"){
+                categoryNum["+"] += link.sum;
+            }
+            else{
+                categoryNum["-"] += link.sum;
+            }
+        }
+    }
+    public void ShowAll(){
+        foreach(string key in categoryNum.Keys){
+            Debug.Log(key + ": " + categoryNum[key].ToString());
+        }
     }
 }
 
@@ -145,6 +195,7 @@ public class BloodPackLink
     public BloodPack pack;
     public BloodPackLink before;
     public BloodPackLink next;
+    public int sum;
     public BloodPackLink(BloodPack data){
         this.pack = data;
         this.before = null;
@@ -163,6 +214,14 @@ public class BloodPackLink
         else{
             this.next = new BloodPackLink(pack);
             this.next.before = this;
+        }
+    }
+    public void Sum(){
+        sum = pack.num;
+        BloodPackLink nowLink = this;
+        while(pack.existNext){
+            nowLink = this.next;
+            sum += nowLink.pack.num;
         }
     }
 }
