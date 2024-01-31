@@ -7,6 +7,7 @@ using Cinemachine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Yarn.Unity;
+using System.Xml.Serialization;
 
 public class NodeInteraction : MonoBehaviour
 {
@@ -46,12 +47,12 @@ public class NodeInteraction : MonoBehaviour
 
     public Group currentSelectGroup;
     public Group currentParent;
-
     public Group leftGroup;
     public Group rightGroup;
     public Group upGroup;
     public List<Group> downGroup;
-
+    TreeManager tree;
+    bool mouseMoveCheck;
     int currentH;
     int currentV;
     
@@ -66,12 +67,12 @@ public class NodeInteraction : MonoBehaviour
     
     void Start(){
         // treeManagerTest = FindObjectOfType<TreeManagerTest>();
-        TreeManager tree = treeManager.GetComponent<TreeManager>();
+        tree = treeManager.GetComponent<TreeManager>();
         nodeInfoCanvas.SetActive(false);
 
         wasNodeActived = false;
         wasRoot = false;
-        
+        mouseMoveCheck = false;
         nodeShowingStatus = NodeShowingStatus.ShowTotal; // test
         nodeInteractionStatus = NodeInteractionStatus.None;
         
@@ -159,7 +160,8 @@ public class NodeInteraction : MonoBehaviour
                 Debug.Log("Up");
                 SelectShow(upGroup);
                 currentSelectGroup = upGroup;
-
+                //전체 그룹 콜라이더 켜기 & 켜져있는 node콜라이더 끄기
+                OnAllGroupColliderOffAllNodeCollider();
                 AbleKeyInput(upGroup);
             }
             currentV = v;
@@ -167,6 +169,7 @@ public class NodeInteraction : MonoBehaviour
     }
 
     void AbleKeyInput(Group newGroup){
+        mouseMoveCheck = false;
         leftGroup = null;
         rightGroup = null;
         upGroup = null;
@@ -216,10 +219,10 @@ public class NodeInteraction : MonoBehaviour
                 return;
             }
 
-            if(nodeShowingStatus != NodeShowingStatus.ShowGroup){
-                ShowGroup(group);
-                AbleKeyInput(group);
-            }
+            // if(nodeShowingStatus != NodeShowingStatus.ShowGroup){
+            ShowGroup(group);
+            AbleKeyInput(group);
+            // }
 
             // GroupInteract(group);
         }
@@ -267,6 +270,10 @@ public class NodeInteraction : MonoBehaviour
             camScript.m_Follow = null;
             Vector3 camPos = new Vector3(currentCam.transform.position.x - temp, currentCam.transform.position.y, -10);
             currentCam.transform.position = camPos;
+            if(!mouseMoveCheck){
+                OnAllGroupColliderOffAllNodeCollider();
+                mouseMoveCheck = true;
+            }
         }
         else if(mouseCamPos.x >= 1)
         {
@@ -274,6 +281,10 @@ public class NodeInteraction : MonoBehaviour
             camScript.m_Follow = null;
             Vector3 camPos = new Vector3(currentCam.transform.position.x + temp, currentCam.transform.position.y, -10);
             currentCam.transform.position = camPos;
+            if(!mouseMoveCheck){
+                OnAllGroupColliderOffAllNodeCollider();
+                mouseMoveCheck = true;
+            }
         }
         else if(mouseCamPos.y <= 0)
         {
@@ -281,6 +292,10 @@ public class NodeInteraction : MonoBehaviour
             camScript.m_Follow = null;
             Vector3 camPos = new Vector3(currentCam.transform.position.x, currentCam.transform.position.y - temp, -10);
             currentCam.transform.position = camPos;
+            if(!mouseMoveCheck){
+                OnAllGroupColliderOffAllNodeCollider();
+                mouseMoveCheck = true;
+            }
         }
         else if(mouseCamPos.y >= 1)
         {
@@ -288,6 +303,10 @@ public class NodeInteraction : MonoBehaviour
             camScript.m_Follow = null;
             Vector3 camPos = new Vector3(currentCam.transform.position.x, currentCam.transform.position.y + temp, -10);
             currentCam.transform.position = camPos;
+            if(!mouseMoveCheck){
+                OnAllGroupColliderOffAllNodeCollider();
+                mouseMoveCheck = true;
+            }
         }
     }
 
@@ -464,6 +483,44 @@ public class NodeInteraction : MonoBehaviour
         interactObjInfo.SetTargetCameraInfo(targets, 0.25f, CinemachineBlendDefinition.Style.EaseInOut, 0.5f);
         cameraControl.ChangeCam(interactObjInfo);
     }
-
+    void OnAllGroupColliderOffAllNodeCollider(){
+        Group rootGroup = tree.mainGroup.transform.GetChild(0).gameObject.GetComponent<Group>();
+        BoxCollider2D boxCollider = rootGroup.GetComponent<BoxCollider2D>();
+        boxCollider.enabled = true;
+        BoxCollider2D[] nodeColliders = rootGroup.GetComponentsInChildren<BoxCollider2D>();
+        foreach(BoxCollider2D collider in nodeColliders){
+            if(collider.gameObject != rootGroup.gameObject){
+                collider.enabled = false;
+            }
+        }
+        if(rootGroup.childrenGroup != null){
+            foreach(Group group in rootGroup.childrenGroup){
+                boxCollider = group.GetComponent<BoxCollider2D>();
+                boxCollider.enabled = true;
+                nodeColliders = group.GetComponentsInChildren<BoxCollider2D>();
+                foreach(BoxCollider2D collider in nodeColliders){
+                    if(collider.gameObject != group.gameObject){
+                        collider.enabled = false;
+                    }
+                }
+                OnAllGroupColliderOffAllNodeCollider(group);
+            }
+        }
+    }
+    void OnAllGroupColliderOffAllNodeCollider(Group rootGroup){
+        if(rootGroup.childrenGroup != null){
+            foreach(Group group in rootGroup.childrenGroup){
+                BoxCollider2D boxCollider = group.GetComponent<BoxCollider2D>();
+                boxCollider.enabled = true;
+                BoxCollider2D[] nodeColliders = group.GetComponentsInChildren<BoxCollider2D>();
+                foreach(BoxCollider2D collider in nodeColliders){
+                    if(collider.gameObject != group.gameObject){
+                        collider.enabled = false;
+                    }
+                }
+                OnAllGroupColliderOffAllNodeCollider(group);
+            }
+        }
+    }
 }
 
