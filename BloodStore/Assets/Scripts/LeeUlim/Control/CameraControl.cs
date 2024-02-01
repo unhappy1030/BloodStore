@@ -98,6 +98,7 @@ public class CameraControl : MonoBehaviour
         newTargetCam.m_Follow = group.transform;
         newTargetCam.AddCinemachineComponent<CinemachineFramingTransposer>();
         
+        Debug.Log("usebound : " + targetCamInfo.doseUseBound.ToString());
         if(targetCamInfo.doseUseBound && targetCamInfo.bound != null){
             CinemachineConfiner2D bound = newCamera.AddComponent<CinemachineConfiner2D>();
             bound.m_BoundingShape2D = targetCamInfo.bound;

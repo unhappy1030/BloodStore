@@ -40,6 +40,7 @@ public class NodeInteraction : MonoBehaviour
     public GameObject nodeInfoTexts; // assign at Inspector
     public GameObject addChildUI;
     public GameObject treeManager;
+    public GameObject cameraCollider;
     public Image nodeImg; // assign at Inspector
 
     public NodeShowingStatus nodeShowingStatus;
@@ -78,7 +79,7 @@ public class NodeInteraction : MonoBehaviour
         
         // ShowTotal();
         currentSelectGroup = tree.mainGroup.transform.GetChild(0).gameObject.GetComponent<Group>();
-        ShowFamily(currentSelectGroup);
+        ShowGroup(currentSelectGroup);
         AbleKeyInput(currentSelectGroup);
     }
 
@@ -480,7 +481,7 @@ public class NodeInteraction : MonoBehaviour
         if(interactObjInfo == null)
             interactObjInfo = gameObject.AddComponent<InteractObjInfo>();
 
-        interactObjInfo.SetTargetCameraInfo(targets, 0f, CinemachineBlendDefinition.Style.EaseInOut, 0.35f);
+        interactObjInfo.SetTargetCameraInfo(targets, true, cameraCollider.GetComponent<PolygonCollider2D>(), 0f, CinemachineBlendDefinition.Style.EaseInOut, 0.35f);
         cameraControl.ChangeCam(interactObjInfo);
     }
     void OnAllGroupColliderOffAllNodeCollider(){

@@ -24,7 +24,7 @@ public class TreeManager : MonoBehaviour
     private float halfX, halfY;
     private float pairSize, unit;
     private float lastX = 0f, lastY = 0f;
-    void Start()
+    void Awake()
     {
         nodeSO.node.empty = true;
         this.pairList = GameManager.Instance.pairList;

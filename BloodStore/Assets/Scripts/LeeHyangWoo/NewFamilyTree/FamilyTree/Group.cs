@@ -108,22 +108,6 @@ public class Group : MonoBehaviour
             box.enabled = false;
         }
     }
-    public void CameraSetting(){
-        InteractObjInfo inter = gameObject.AddComponent<InteractObjInfo>();
-        inter.SetTargetCameraInfo(SendFamilyList(), 0.25f, CinemachineBlendDefinition.Style.EaseInOut, 0.5f);
-    }
-
-    public List<GameObject> SendFamilyList(){
-        List<GameObject> familyList = new List<GameObject>();
-        familyList.Add(GetGameObject());
-        if(childrenGroup != null){
-            foreach(Group group in childrenGroup){
-                familyList.Add(group.GetGameObject());
-            }
-        }
-
-        return familyList;
-    }
     public GameObject GetGameObject(){
         return gameObject;
     }
@@ -192,5 +176,51 @@ public class Group : MonoBehaviour
     public void ChangeButton(){
         button.SetActive(false);
         buttonOff.SetActive(true);
+    }
+    public Vector2[] GetCameraColliderPos(){
+        Vector2 pos = transform.position;
+        float top = 0, bottom = 0, left = 0, right = 0;
+        top = this.transform.TransformPoint(pos).y;
+        Group rootGroup = this;
+        Group nowGroup = rootGroup;
+        if(nowGroup.childrenGroup != null){
+            while(nowGroup.childrenGroup != null && nowGroup.childrenGroup.Count != 0){
+                nowGroup = nowGroup.childrenGroup[0];
+            }
+            left = this.transform.TransformPoint(nowGroup.transform.position).x;
+            nowGroup = rootGroup;
+            while(nowGroup.childrenGroup != null && nowGroup.childrenGroup.Count != 0){
+                nowGroup = nowGroup.childrenGroup[nowGroup.childrenGroup.Count - 1];
+            }
+            right = this.transform.TransformPoint(nowGroup.transform.position).x;
+            bottom = GetBottom(rootGroup);
+        }
+        Debug.Log("Top/Bottom/Left/Right" + top.ToString() +"/" + bottom.ToString() +"/" + left.ToString() +"/" + right.ToString());
+        top += halfY * 3f;
+        bottom -= halfY * 3f;
+        left -= unit;
+        right += unit;
+        Vector2[] colliderPos = new Vector2[]{
+            new(left, bottom),
+            new(right, bottom),
+            new(right, top),
+            new(left, top),
+        };
+        return colliderPos;
+    }
+    float GetBottom(Group nowGroup){
+        float min = this.transform.TransformPoint(nowGroup.transform.position).y;
+        if(nowGroup.childrenGroup != null){
+            foreach(Group group in nowGroup.childrenGroup){
+                float yPos = this.transform.TransformPoint(group.transform.position).y;
+                if(group.childrenGroup != null && group.childrenGroup.Count != 0){
+                    yPos = GetBottom(group);
+                }
+                if(min > yPos){
+                    min = yPos;
+                }
+            }
+        }
+        return min;
     }
 }
