@@ -169,6 +169,46 @@ public class BloodPacks : MonoBehaviour
             }
         }
     }
+    public int GetCondition(string sex ,string bloodType, string rh){
+        UpdateSumList();
+        int num = 0;
+        foreach(BloodPackLink link in bloodPackLinks){
+            if(sex == "" && link.pack.node.sex == sex){
+                if(bloodType != "" && link.pack.node.bloodType[0] == bloodType){
+                    if(rh != "" && link.pack.node.bloodType[1] == rh){
+                        num += link.pack.num;
+                    }
+                    else{
+                        num += link.pack.num;
+                    }
+                }
+                else{
+                    if(rh != "" && link.pack.node.bloodType[1] == rh){
+                        num += link.pack.num;
+                    }
+                    else{
+                        num += link.pack.num;
+                    }
+                }
+            }
+            else{
+                if(bloodType != "" && link.pack.node.bloodType[0] == bloodType){
+                    if(rh != "" && link.pack.node.bloodType[1] == rh){
+                        num += link.pack.num;
+                    }
+                    else{
+                        num += link.pack.num;
+                    }
+                }
+                else{
+                    if(rh != "" && link.pack.node.bloodType[1] == rh){
+                        num += link.pack.num;
+                    }
+                }
+            }
+        }
+        return num;
+    }
     public void ShowAll(){
         foreach(string key in categoryNum.Keys){
             Debug.Log(key + ": " + categoryNum[key].ToString());
