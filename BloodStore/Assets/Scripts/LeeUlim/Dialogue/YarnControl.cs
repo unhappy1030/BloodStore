@@ -11,11 +11,13 @@ public class YarnControl : MonoBehaviour
     public InMemoryVariableStorage variableStorage;
     public MoneyControl moneyControl;
     public DialogueControl dialogueControl;
+    public CameraControl cameraControl;
 
     public int targetIndex;
     public string nodeName;
     public static float sellInfo = 0;
     public bool isSell;
+    public static bool isSelect;
 
     private void OnEnable()
     {
@@ -75,6 +77,18 @@ public class YarnControl : MonoBehaviour
         string taste = "";
         taste = NPCInteract.tasteStr;
         return taste;
+    }
+
+    [YarnCommand("WaitUntilSell")]
+    public static IEnumerator WaitUntilSell(){
+        isSelect = false;
+        yield return new WaitUntil(() => isSelect);
+        isSelect = false;
+    }
+
+    // button
+    public void ChangeIsSelect(){
+        isSelect = true;
     }
 
     // // must use
