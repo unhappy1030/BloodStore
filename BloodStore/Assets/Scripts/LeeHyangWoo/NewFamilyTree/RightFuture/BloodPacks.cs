@@ -132,6 +132,9 @@ public class BloodPacks : MonoBehaviour
         }
     }
     public void UpdateCategory(){
+        Load();
+        Deserialize();
+
         UpdateSumList();
         categoryNum = new();
         categoryNum.Add("Male", 0);

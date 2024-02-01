@@ -9,8 +9,7 @@ public class BloodPackCount : MonoBehaviour
     BloodPacks bloodPacks;
 
     void Start(){
-        bloodPacks = GameManager.Instance.GetComponent<BloodPacks>();
-        bloodPacks.Load();
+        bloodPacks = GameManager.Instance.bloodPackList;
         SetCount();
     }
     void SetCount(){
