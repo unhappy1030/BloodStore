@@ -16,7 +16,7 @@ public class Pairs : MonoBehaviour
     SavePairArray saveArray = new();
 
     public void Save(List<Pair> pairList){
-        string _path = Application.dataPath + "/FamilyTree.json"; 
+        string _path = Application.persistentDataPath + "/FamilyTree.json"; 
         saveArray = new();
         saveArray.arr = pairList.ToArray();
         string json = JsonUtility.ToJson(saveArray);
@@ -24,7 +24,7 @@ public class Pairs : MonoBehaviour
         Debug.Log("RightFuture");
     }
     public Pairs Load(){
-        string _path = Application.dataPath + "/FamilyTree.json";
+        string _path = Application.persistentDataPath + "/FamilyTree.json";
         if(File.Exists(_path)){
             string jsonData = File.ReadAllText(_path);
             saveArray = JsonUtility.FromJson<SavePairArray>(jsonData);
