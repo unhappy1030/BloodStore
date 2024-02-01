@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -8,6 +9,7 @@ public class NPCInteract : MonoBehaviour
 {
     public GameObject npc; // assign at Inspector
     public List<GameObject> cameraTarget; // assign at Inspector
+    public static string tasteStr; // static warning
 
     public GameObject bloodPackCanvas; // assign at Inspector
     public GameObject nextDayButton; // assign at Inspector
@@ -60,8 +62,8 @@ public class NPCInteract : MonoBehaviour
             yield break;
         }
         
-        // spriteIndex = GetSpriteIndex();
-        SetStoreDialogues();
+        SetStoreDialogues(npcIndex);
+        GetBloodTaste(npcIndex);
 
         yield return ActiveSprite();
 
@@ -76,7 +78,6 @@ public class NPCInteract : MonoBehaviour
             yield return new WaitUntil(() => !cameraControl.mainCam.IsBlending); // wait until camera move ends
             
             bloodPackCanvas.SetActive(true);
-            // bloodPackCanvas.GetComponentInChildren<ToggleGroups>().ToggleValueChanged();
 
             selectBlood = false;
             yield return new WaitUntil(() => selectBlood); // wait until select blood -> button in Blood pack canvas
@@ -119,48 +120,30 @@ public class NPCInteract : MonoBehaviour
         dialogueControl.GetAllDialogues(WhereNodeStart.Store, WhenNodeStart.Click);
         dialogueSum = dialogueControl.allDialogues;
         count = dialogueSum.Count;
-        Debug.Log("Count : " + count);
     }
 
     // to InteractObjInfo
-    void SetStoreDialogues(){
+    void SetStoreDialogues(int index){
         InteractObjInfo interactObjInfo = npc.GetComponent<InteractObjInfo>();
         if(interactObjInfo == null){
             interactObjInfo = npc.AddComponent<InteractObjInfo>();
         }
 
         interactObjInfo._interactType = InteractType.StartDialogue;
-        interactObjInfo._nodeName = dialogueSum[npcIndex].dialogueName;
+        interactObjInfo._nodeName = dialogueSum[index].dialogueName;
+    }
+    
+    void GetBloodTaste(int index){
+        tasteStr = ""; // reset
+
+        List<string> allTastes = new (dialogueSum[index].tastes);
+        foreach(string taste in allTastes){
+            tasteStr += taste;
+            tasteStr += " ";
+        }
     }
 
-    // int GetSpriteIndex(string npcName){
-    //     bool isExist = false;
-    //     int index = 0;
-        
-    //     foreach(NPCSO npcInfo in npcs){
-    //         if(npcInfo.npcName == npcName){
-    //             isExist = true;
-    //             break;
-    //         }
-    //         index++;
-    //     }
-
-    //     if(!isExist){
-    //         index = -1;
-    //     }
-        
-    //     return index;
-    // }
-    
     IEnumerator ActiveSprite(){
-        // spriteIndex = GetSpriteIndex(dialogueSum[npcIndex].npcName);
-
-        // if(spriteIndex < 0 || spriteIndex > npcs.Count -1 || npcs[spriteIndex].sprites[0] == null){
-        //     Debug.Log("There is no sprite in npcs...");
-        //     yield break;
-        // }
-
-        // npc.GetComponent<SpriteRenderer>().sprite = npcs[spriteIndex].sprites[0];
         npcSprites = dialogueSum[npcIndex].sprites;
 
         if(npcSprites == null || npcSprites.Count == 0){
