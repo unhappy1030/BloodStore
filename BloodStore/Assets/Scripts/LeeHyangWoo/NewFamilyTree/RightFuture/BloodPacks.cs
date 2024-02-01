@@ -175,41 +175,51 @@ public class BloodPacks : MonoBehaviour
     public int GetCondition(string sex ,string bloodType, string rh){
         UpdateSumList();
         int num = 0;
+
+        List<BloodPackLink> sexList = new();
+
         foreach(BloodPackLink link in bloodPackLinks){
-            if(sex == "" && link.pack.node.sex == sex){
-                if(bloodType != "" && link.pack.node.bloodType[0] == bloodType){
-                    if(rh != "" && link.pack.node.bloodType[1] == rh){
-                        num += link.pack.num;
-                    }
-                    else{
-                        num += link.pack.num;
-                    }
-                }
-                else{
-                    if(rh != "" && link.pack.node.bloodType[1] == rh){
-                        num += link.pack.num;
-                    }
-                    else{
-                        num += link.pack.num;
-                    }
-                }
+            if(sex == ""){
+                sexList = new(bloodPackLinks);
+                break;
             }
-            else{
-                if(bloodType != "" && link.pack.node.bloodType[0] == bloodType){
-                    if(rh != "" && link.pack.node.bloodType[1] == rh){
-                        num += link.pack.num;
-                    }
-                    else{
-                        num += link.pack.num;
-                    }
-                }
-                else{
-                    if(rh != "" && link.pack.node.bloodType[1] == rh){
-                        num += link.pack.num;
-                    }
-                }
+
+            if(link.pack.node.sex == sex){
+                sexList.Add(link);
             }
         }
+
+        List<BloodPackLink> bloodList = new();
+
+        foreach(BloodPackLink link in sexList){
+            if(bloodType == ""){
+                bloodList = new(sexList);
+                break;
+            }
+
+            if(link.pack.node.bloodType[0] == bloodType){
+                bloodList.Add(link);
+            }
+
+        }
+
+        List<BloodPackLink> rhList = new();
+
+        foreach(BloodPackLink link in bloodList){
+            if(rh == ""){
+                rhList = new(bloodList);
+                break;
+            }
+
+            if(link.pack.node.bloodType[1] == rh){
+                rhList.Add(link);
+            }
+        }
+
+        foreach(BloodPackLink link in rhList){
+            num += link.sum;
+        }
+
         return num;
     }
     public void ShowAll(){

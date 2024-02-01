@@ -55,6 +55,7 @@ public class BloodPackUITest : MonoBehaviour
 
     public void ChangeCount(){
         CollectTogleInfo();
+        Debug.Log(sex + " " + bloodType + " " + rh);
         GetTotalCount();
     }
 
@@ -90,8 +91,7 @@ public class BloodPackUITest : MonoBehaviour
     }
 
     public void GetTotalCount(){
-        int count = 0;
-        int flag = 0;
+        int count = bloodPacks.GetCondition(sex, bloodType, rh);
 
         countText.text = count.ToString();
     }
