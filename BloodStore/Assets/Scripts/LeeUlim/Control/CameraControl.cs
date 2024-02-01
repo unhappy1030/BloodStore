@@ -183,16 +183,14 @@ public class CameraControl : MonoBehaviour
 
     IEnumerator MoveTopOfCam(CinemachineVirtualCameraBase cam, float hold){
         yield return new WaitForSecondsRealtime(hold);
-        Debug.Log("Waiting...");
         cam.gameObject.SetActive(true);
         cam.MoveToTopOfPrioritySubqueue();
     }
 
     IEnumerator AddAndDeleteCam(GameObject newCamera){
         cameraList.Add(newCamera);
-        if(cameraList.Count >= 3){
+        if(cameraList.Count > 3){
             if(mainCam.IsBlending){
-                Debug.Log("Blend Waiting...");
                 yield return new WaitUntil(() => !mainCam.IsBlending);
             }
             
