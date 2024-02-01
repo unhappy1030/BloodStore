@@ -128,7 +128,7 @@ public class InteractObjInfo : MonoBehaviour
         _virtualCam.blendInfo.blendTime = blendTime;
     }
 
-    public void SetTargetCameraInfo(List<GameObject> targets, float hold, CinemachineBlendDefinition.Style blendIn, float blendTime){
+    public void SetTargetCameraInfo(List<GameObject> targets, bool doseUseBound, Collider2D bound, float hold, CinemachineBlendDefinition.Style blendIn, float blendTime){
         _interactType = InteractType.CameraControl;
         _cameraMovementType = CameraControlType.ChangeCamera;
         _cameraType = CameraType.TargetGroupCamera;
@@ -138,7 +138,13 @@ public class InteractObjInfo : MonoBehaviour
         
         if(_virtualCam.targets == null)
             _virtualCam.targets = new();
+
+        _virtualCam.doseUseBound = doseUseBound;
         
+        if(doseUseBound){
+            _virtualCam.bound = bound;
+        }
+
         bool isAvailableTarget = AssignCameraTarget(targets);
 
         if(!isAvailableTarget){
