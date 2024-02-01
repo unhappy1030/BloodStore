@@ -385,7 +385,7 @@ public class NodeInteraction : MonoBehaviour
             return;
         }
 
-        PairTree pairTree = group.pairTree;
+        PairTree pairTree = group.pairTree; // 삭제
         Node node = nodeDisplay.data;
 
 
@@ -480,7 +480,7 @@ public class NodeInteraction : MonoBehaviour
         if(interactObjInfo == null)
             interactObjInfo = gameObject.AddComponent<InteractObjInfo>();
 
-        interactObjInfo.SetTargetCameraInfo(targets, 0.25f, CinemachineBlendDefinition.Style.EaseInOut, 0.5f);
+        interactObjInfo.SetTargetCameraInfo(targets, 0f, CinemachineBlendDefinition.Style.EaseInOut, 0.35f);
         cameraControl.ChangeCam(interactObjInfo);
     }
     void OnAllGroupColliderOffAllNodeCollider(){

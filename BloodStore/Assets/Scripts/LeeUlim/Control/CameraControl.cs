@@ -43,12 +43,7 @@ public class CameraControl : MonoBehaviour
                 break;
         }
 
-        cameraList.Add(newCamera);
-        if(cameraList.Count >= 3){
-            Destroy(cameraList[0]);
-            cameraList.RemoveAt(0);
-        }
-        camCount++;
+        StartCoroutine(AddAndDeleteCam(newCamera));
     }
 
     // create and active new camera
@@ -188,8 +183,20 @@ public class CameraControl : MonoBehaviour
 
     IEnumerator MoveTopOfCam(CinemachineVirtualCameraBase cam, float hold){
         yield return new WaitForSecondsRealtime(hold);
-        Debug.Log("Waiting...");
         cam.gameObject.SetActive(true);
         cam.MoveToTopOfPrioritySubqueue();
+    }
+
+    IEnumerator AddAndDeleteCam(GameObject newCamera){
+        cameraList.Add(newCamera);
+        if(cameraList.Count > 3){
+            if(mainCam.IsBlending){
+                yield return new WaitUntil(() => !mainCam.IsBlending);
+            }
+            
+            Destroy(cameraList[0]);
+            cameraList.RemoveAt(0);
+        }
+        camCount++;
     }
 }
