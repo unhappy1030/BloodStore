@@ -15,14 +15,14 @@ public class BloodPacks : MonoBehaviour
     public SaveBloodPackArray saveArray;
     public Dictionary<string,int> categoryNum;
     public void Save(List<BloodPack> bloodPackLinks){
-        string _path = Application.dataPath + "/BloodPack.json"; 
+        string _path = Application.persistentDataPath + "/BloodPack.json"; 
         saveArray = new();
         saveArray.arr = bloodPackLinks.ToArray();
         string json = JsonUtility.ToJson(saveArray);
         File.WriteAllText(_path, json);
     }
     public BloodPacks Load(){
-        string _path = Application.dataPath + "/BloodPack.json";
+        string _path = Application.persistentDataPath + "/BloodPack.json";
         if(File.Exists(_path)){
             string jsonData = File.ReadAllText(_path);
             saveArray = JsonUtility.FromJson<SaveBloodPackArray>(jsonData);
