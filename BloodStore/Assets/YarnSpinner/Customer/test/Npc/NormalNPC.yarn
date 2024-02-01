@@ -1,5 +1,10 @@
 ﻿title: Normal
 tags:
+position: 0,0
 ---
+<<declare $taste = "">>
+
+<<set $taste = GetBloodTaste()>>
 This is normal NPC test.
+Taste : {$taste}
 ===
