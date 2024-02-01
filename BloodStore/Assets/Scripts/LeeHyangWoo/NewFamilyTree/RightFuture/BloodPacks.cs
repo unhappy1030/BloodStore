@@ -20,7 +20,6 @@ public class BloodPacks : MonoBehaviour
         saveArray.arr = bloodPackLinks.ToArray();
         string json = JsonUtility.ToJson(saveArray);
         File.WriteAllText(_path, json);
-        Debug.Log("RightFuture");
     }
     public BloodPacks Load(){
         string _path = Application.dataPath + "/BloodPack.json";
@@ -103,7 +102,7 @@ public class BloodPacks : MonoBehaviour
         }
         else{
             foreach(BloodPackLink packLink in bloodPackLinks){
-                if(packLink.pack.node == node){
+                if( packLink.pack.node.sex == node.sex && packLink.pack.node.bloodType[0] == node.bloodType[0] && packLink.pack.node.bloodType[1] == node.bloodType[1] && packLink.pack.node.bloodType[2] == node.bloodType[2]){
                     packLink.AddLast(NodeToBloodPack(node));
                     return;
                 }
@@ -117,10 +116,8 @@ public class BloodPacks : MonoBehaviour
             node = new Node{
                 name = nodeConvert.name,
                 sex = nodeConvert.sex,
-                bloodType = nodeConvert.bloodType,
                 age = nodeConvert.age,
-                hp = nodeConvert.hp,
-                type = nodeConvert.type
+                bloodType = nodeConvert.bloodType,
             },
             num = Random.Range(1,5),
             date = date,
@@ -129,14 +126,13 @@ public class BloodPacks : MonoBehaviour
     }
 
     public void UpdateSumList(){
-        foreach(BloodPackLink link in bloodPackLinks){
-            link.Sum();
+        Debug.Log("bloodPackLinks : " + bloodPackLinks.Count.ToString());
+        for(int i = 0; i < bloodPackLinks.Count; i++){
+            bloodPackLinks[i].Sum();
         }
     }
     public void UpdateCategory(){
-        Deserialize();
-        
-        this.UpdateSumList();
+        UpdateSumList();
         categoryNum = new();
         categoryNum.Add("Male", 0);
         categoryNum.Add("Female", 0);
@@ -210,20 +206,22 @@ public class BloodPackLink
         this.next = next;
     }
     public void AddLast(BloodPack pack){
-        if(this.next != null){
+        if(this.pack.existNext){
             this.next.AddLast(pack);
         }
         else{
             this.next = new BloodPackLink(pack);
+            this.pack.existNext =true;
             this.next.before = this;
         }
     }
     public void Sum(){
         sum = 0;
         BloodPackLink nowLink = this;
+        sum = nowLink.pack.num;
         while(nowLink.pack.existNext){
-            sum += nowLink.pack.num;
-            nowLink = this.next;
+            nowLink = nowLink.next;
+            this.sum += nowLink.pack.num;
         }
     }
 }
