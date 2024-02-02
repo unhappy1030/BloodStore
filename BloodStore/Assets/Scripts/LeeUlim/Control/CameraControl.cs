@@ -13,10 +13,13 @@ public class CameraControl : MonoBehaviour
 
     public List<GameObject> cameraList;
 
+    public bool isFinish;
+
     int camCount = 0;
 
     private void Awake()
     {
+        isFinish = false;
         mainCam = Camera.main.GetComponent<CinemachineBrain>();
         // cameraList = new();
     }
@@ -24,6 +27,7 @@ public class CameraControl : MonoBehaviour
     public void ChangeCam(InteractObjInfo interObj)
     {
         // create new object for main Camera and set this as Parent
+        isFinish = false;
         GameObject newCamera = new("CreatedCam"+camCount);
         newCamera.SetActive(false);
         newCamera.transform.SetParent(transform);
@@ -186,6 +190,11 @@ public class CameraControl : MonoBehaviour
         yield return new WaitForSecondsRealtime(hold);
         cam.gameObject.SetActive(true);
         cam.MoveToTopOfPrioritySubqueue();
+
+        yield return new WaitUntil(() => mainCam.IsBlending);
+        yield return new WaitUntil(() => !mainCam.IsBlending);
+
+        isFinish = true;
     }
 
     IEnumerator AddAndDeleteCam(GameObject newCamera){
