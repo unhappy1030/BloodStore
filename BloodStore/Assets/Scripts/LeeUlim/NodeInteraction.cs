@@ -99,6 +99,30 @@ public class NodeInteraction : MonoBehaviour
         int h = (int)Input.GetAxisRaw("Horizontal");
         int v = (int)Input.GetAxisRaw("Vertical");
 
+        bool isQ = Input.GetKeyDown(KeyCode.Q);
+        bool isE = Input.GetKeyDown(KeyCode.E);
+
+        bool isSpace = Input.GetKeyDown(KeyCode.Space);
+
+
+        if(Input.anyKeyDown){
+            mouseMoveCheck = false;
+        }
+
+        if(isQ){
+            ZoomOut();
+        }
+
+        if(isE){
+            ShowGroup(currentSelectGroup);
+            AbleKeyInput(currentSelectGroup);
+        }
+
+        if(isSpace){
+            SelectShow(currentSelectGroup);
+            AbleKeyInput(currentSelectGroup);
+        }
+
         if(nodeShowingStatus == NodeShowingStatus.ShowTotal){
             return;
         }
@@ -170,7 +194,6 @@ public class NodeInteraction : MonoBehaviour
     }
 
     void AbleKeyInput(Group newGroup){
-        mouseMoveCheck = false;
         leftGroup = null;
         rightGroup = null;
         upGroup = null;
@@ -208,6 +231,24 @@ public class NodeInteraction : MonoBehaviour
         }
     }
 
+    void SelectShow(Group group){
+        if(nodeShowingStatus == NodeShowingStatus.ShowFamily)
+        {
+            if(group.childrenGroup != null && group.childrenGroup.Count != 0)
+            {
+                ShowFamily(group);
+            }
+            else if(group.parentGroup != null)
+            {
+                ShowFamily(group.parentGroup);
+            }
+        }
+        else if(nodeShowingStatus == NodeShowingStatus.ShowGroup)
+        {
+            ShowGroup(group);
+        }
+
+    }
     public void MouseInteract(InteractObjInfo info){
         FamilyTreeType treeType = info._familyTreeType;
         
@@ -220,12 +261,9 @@ public class NodeInteraction : MonoBehaviour
                 return;
             }
 
-            // if(nodeShowingStatus != NodeShowingStatus.ShowGroup){
+            currentSelectGroup = group;
             ShowGroup(group);
             AbleKeyInput(group);
-            // }
-
-            // GroupInteract(group);
         }
         else if(treeType == FamilyTreeType.Node)
         {
@@ -311,16 +349,6 @@ public class NodeInteraction : MonoBehaviour
         }
     }
 
-    void SelectShow(Group group){
-        if(group.childrenGroup == null || group.childrenGroup.Count == 0)
-        {
-            ShowGroup(group);
-        }
-        else
-        {
-            ShowFamily(group);
-        }
-    }
 
     void ShowTotal(){
         Debug.Log("ShowTotal...");
@@ -440,26 +468,25 @@ public class NodeInteraction : MonoBehaviour
     }
 
 
-    void GoBackToCurrentStatus(){
+    void ZoomOut(){
         Debug.Log("Go back to current Status....");
         switch(nodeShowingStatus){
-            case NodeShowingStatus.ShowFamily:
-                ShowTotal();
-            break;
             case NodeShowingStatus.ShowGroup:
-                if(wasRoot)
+                if(currentSelectGroup.childrenGroup != null && currentSelectGroup.childrenGroup.Count != 0)
                 {
-                    ShowTotal();
-                    wasRoot = false;
+                    ShowFamily(currentSelectGroup);
+                    AbleKeyInput(currentSelectGroup);
                 }
                 else
                 {
-                    ShowFamily(currentParent);
+                    if(currentSelectGroup.parentGroup != null){
+                        ShowFamily(currentSelectGroup.parentGroup);
+                        AbleKeyInput(currentSelectGroup);
+                    }
                 }
             break;
         }
     }
-    
     void EnableNodeCollider(Group _group, bool enable){
         BoxCollider2D boxCollider2D = _group.GetComponent<BoxCollider2D>();
         if(boxCollider2D != null){
