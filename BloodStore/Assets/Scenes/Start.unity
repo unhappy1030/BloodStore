@@ -431,7 +431,7 @@ MonoBehaviour:
   _isOn: 1
   _ui: {fileID: 0}
   _isFade: 1
-  _sceneName: Edit
+  _sceneName: FamilyTree
 --- !u!1 &709405921
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,6 +479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCam: {fileID: 0}
   cameraList: []
+  isFinish: 0
 --- !u!1 &714005071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1191,7 +1192,7 @@ MonoBehaviour:
   _isOn: 1
   _ui: {fileID: 0}
   _isFade: 1
-  _sceneName: Edit
+  _sceneName: FamilyTree
 --- !u!1 &1289085620
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,6 +1467,7 @@ MonoBehaviour:
   nodeInfoTexts: {fileID: 0}
   addChildUI: {fileID: 0}
   treeManager: {fileID: 0}
+  cameraCollider: {fileID: 0}
   nodeImg: {fileID: 0}
   nodeShowingStatus: 0
   nodeInteractionStatus: 0
@@ -2030,7 +2032,7 @@ MonoBehaviour:
     - {fileID: 988220463}
     doseUseBound: 0
     bound: {fileID: 0}
-    lensOthoSize: 0
+    lensOthoSize: 5.4
     blendInfo:
       hold: 0
       blendIn: 1
@@ -4678,9 +4680,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneNamesInBuild:
   - Start
-  - StartEdit
-  - Edit
-  - StartStore
+  - ResultFamilyTree
+  - FamilyTree
+  - ResultStore
   - Store
   startSceneName: Start
   money: 0
