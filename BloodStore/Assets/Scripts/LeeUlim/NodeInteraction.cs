@@ -90,8 +90,8 @@ public class NodeInteraction : MonoBehaviour
             && !GameManager.Instance.isFading
             && !cameraControl.mainCam.IsBlending)
         {
+            StartCoroutine(MoveCamera());
             KeyInteract();
-            MoveCamera();
         }
     }
 
@@ -109,16 +109,17 @@ public class NodeInteraction : MonoBehaviour
             mouseMoveCheck = false;
         }
 
+        
         if(isQ){
             ZoomOut();
         }
 
-        if(isE){
+        else if(isE){
             ShowGroup(currentSelectGroup);
             AbleKeyInput(currentSelectGroup);
         }
 
-        if(isSpace){
+        else if(isSpace){
             SelectShow(currentSelectGroup);
             AbleKeyInput(currentSelectGroup);
         }
@@ -293,7 +294,13 @@ public class NodeInteraction : MonoBehaviour
         }
     }
     
-    public void MoveCamera(){
+    public IEnumerator MoveCamera(){
+        yield return new WaitForSeconds(0.1f);
+
+        if(!cameraControl.isFinish){
+            yield break;
+        }
+
         Vector3 mousePos = Input.mousePosition;
         Vector3 mouseCamPos = Camera.main.ScreenToViewportPoint(mousePos);
 
