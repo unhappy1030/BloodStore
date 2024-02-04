@@ -11,13 +11,15 @@ public class SelectButton : MonoBehaviour
     public SelectableCardSO cardSO;
     public void OnButtonClick()
     {
-        SelectCardUI UI = GetComponentInParent<SelectCardUI>();
-        SelectableCardGroup group = selectableCardGroup.GetComponent<SelectableCardGroup>();
-        UI.DeActiveSelectableCards();
-        nodeSO.SetNode(cardSO.cards[index.GetIndex()]);
-        group.SetOffCard(index.GetIndex());
-        SelectedCardDisplay cardDisplay = selectedCard.GetComponent<SelectedCardDisplay>();
-        cardDisplay.SetCardData(nodeSO.node, index.GetIndex());
-        UI.ActiveSelectedCard();
+        if(index.buttonCheck){
+            SelectCardUI UI = GetComponentInParent<SelectCardUI>();
+            SelectableCardGroup group = selectableCardGroup.GetComponent<SelectableCardGroup>();
+            UI.DeActiveSelectableCards();
+            nodeSO.SetNode(cardSO.cards[index.GetIndex()]);
+            group.SetOffCard(index.GetIndex());
+            SelectedCardDisplay cardDisplay = selectedCard.GetComponent<SelectedCardDisplay>();
+            cardDisplay.SetCardData(nodeSO.node, index.GetIndex());
+            UI.ActiveSelectedCard();
+        }
     }
 }
