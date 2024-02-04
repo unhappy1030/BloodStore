@@ -7,8 +7,8 @@ using UnityEngine;
 
 public class SelectCardUI : MonoBehaviour
 {
+    public Index index;
     public GameObject view;
-
     public GameObject selectedCard;
     void Start(){
         if (view.activeSelf){
@@ -19,6 +19,7 @@ public class SelectCardUI : MonoBehaviour
         }
     }
     public void ActiveSelectableCards(){
+        index.buttonCheck = false;
         view.SetActive(true);
     }
     public void DeActiveSelectableCards(){
