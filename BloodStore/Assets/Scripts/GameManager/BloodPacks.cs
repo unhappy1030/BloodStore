@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using Unity.VisualScripting;
+using UnityEngine.Assertions.Must;
 [System.Serializable]
 public class SaveBloodPackArray{
     public BloodPack[] arr;
@@ -110,6 +111,26 @@ public class BloodPacks : MonoBehaviour
             bloodPackLinks.Add(new BloodPackLink(NodeToBloodPack(node)));
         }
     }
+    public void DeleteBloodPack(string sex ,string bloodType, string rh, int num){
+        int idx = 0;
+        BloodPackLink head = bloodPackLinks[idx];
+        for(int i = 0; i < bloodPackLinks.Count; i++){
+            if(bloodPackLinks[i].pack.node.sex == sex && bloodPackLinks[i].pack.node.bloodType[0] == bloodType && bloodPackLinks[i].pack.node.bloodType[1] == rh){
+                head = bloodPackLinks[i];
+                idx = i;
+                break;
+            }
+        }
+        if(head.pack.num > num){
+            head.pack.num -= num;
+        }
+        else{
+            num -= head.pack.num;
+            head = head.next;
+            head.pack.num -= num;
+            bloodPackLinks[idx] = head;
+        }
+    }
     public BloodPack NodeToBloodPack(Node nodeConvert){
         int date =GameManager.Instance.day;
         BloodPack pack = new BloodPack{
@@ -124,7 +145,6 @@ public class BloodPacks : MonoBehaviour
         };
         return pack;
     }
-
     public void UpdateSumList(){
         for(int i = 0; i < bloodPackLinks.Count; i++){
             bloodPackLinks[i].Sum();
