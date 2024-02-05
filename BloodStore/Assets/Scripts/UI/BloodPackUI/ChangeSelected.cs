@@ -13,7 +13,7 @@ public class ChangeSelected : MonoBehaviour
     public int index;
     public bool notSelected;
 
-    private void Start()
+    private void OnEnable()
     {
         notSelected = true;
 
@@ -21,6 +21,11 @@ public class ChangeSelected : MonoBehaviour
         
         for(int i=0; i<childs.Count; i++){
             isActivated.Add(false);
+        }
+
+        foreach(GameObject child in childs){
+            TextMeshProUGUI text = child.GetComponentInChildren<TextMeshProUGUI>();
+            text.color = Color.black;
         }
         
     }
