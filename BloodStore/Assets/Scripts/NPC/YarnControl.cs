@@ -16,6 +16,7 @@ public class YarnControl : MonoBehaviour
 
     public int targetIndex;
     public string nodeName;
+    public bool isSell;
     public static float sellInfo = 0;
     public static bool isSelect;
 
@@ -26,6 +27,7 @@ public class YarnControl : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
         targetIndex = 0;
+        isSell = false;
     }
 
     private void OnDisable()
@@ -63,6 +65,11 @@ public class YarnControl : MonoBehaviour
     [YarnCommand("SetNodeName")]
     public void SetNodeName(string _nodeName){
         nodeName = _nodeName;
+    }
+
+    [YarnCommand("SetIsSell")]
+    public void SetIsSell(bool _isTrue){
+        isSell = _isTrue;
     }
 
     [YarnFunction("GetBloodTaste")]

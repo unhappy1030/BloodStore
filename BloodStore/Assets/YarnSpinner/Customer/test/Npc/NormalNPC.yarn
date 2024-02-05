@@ -9,13 +9,13 @@ This is normal NPC test.
 Taste - {$taste}
 
 <<WaitUntilVirtualCamBlend 1>>
-<<WaitUntilSell>>
-<<WaitUntilVirtualCamBlend 0>>
-
-<<jump SellTest>>
+<<SetIsSell DialogueSystem true>>
+<<SetNodeName DialogueSystem SellTest>>
 ===
 title: SellTest
 position: -104,0
 ---
+<<WaitUntilVirtualCamBlend 0>>
+
 npc: end dialogue...
 ===

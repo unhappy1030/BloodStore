@@ -22,18 +22,12 @@ public class NPCInteract : MonoBehaviour
     int count;
     int npcIndex;
     int spriteIndex;
-    public bool selectBlood;
 
     Coroutine npcCoroutine;
 
     // List<NPCSO> npcs; // get from DialogueControl
     List<DialogueInfo> dialogueSum;
     List<Sprite> npcSprites;
-
-    // test
-    public void ChangeSelectBlood(bool isSelect){
-        selectBlood = isSelect;
-    }
 
     void Start(){
         // npcs = dialogueControl.npcs; // test
@@ -43,7 +37,6 @@ public class NPCInteract : MonoBehaviour
 
         npcIndex = 0;
         spriteIndex = 0;
-        selectBlood = false;
 
         npc.SetActive(false);
 
@@ -77,31 +70,19 @@ public class NPCInteract : MonoBehaviour
         // tell what they want
         yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning); // wait until dialogue ends
         
-        // // if sellect sell
-        // if(yarnControl.isSell){
-        //     CreateVirtualCamera(yarnControl.targetIndex); // move camera
-        //     yield return new WaitUntil(() => cameraControl.mainCam.IsBlending);
-        //     yield return new WaitUntil(() => !cameraControl.mainCam.IsBlending); // wait until camera move ends
-            
-        //     bloodPackCanvas.SetActive(true);
+        // if sellect sell
+        if(yarnControl.isSell){
+            yield return new WaitUntil(() => YarnControl.isSelect);
+            YarnControl.isSelect = false;
+            yarnControl.isSell = false;
 
-        //     selectBlood = false;
-        //     yield return new WaitUntil(() => selectBlood); // wait until select blood -> button in Blood pack canvas
-            
-        //     // YarnControl.sellInfo = CalculateSellInfo(); // Evaluate about blood pack
-        //     bloodPackCanvas.SetActive(false);
-            
-        //     CreateVirtualCamera(0); // camera move to default target
-        //     yield return new WaitUntil(() => cameraControl.mainCam.IsBlending);
-        //     yield return new WaitUntil(() => !cameraControl.mainCam.IsBlending); // wait until camera move ends
-        
-        //     yarnControl.isSell = false;
-        // }
-        
-        // if(yarnControl.nodeName != ""){
-        //     StartDialogue(yarnControl.nodeName); // tell their evaluation or end dialogue
-        //     yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
-        // }
+                
+            if(yarnControl.nodeName != ""){
+                StartDialogue(yarnControl.nodeName); // tell their evaluation or end dialogue
+                yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
+                yarnControl.nodeName = "";
+            }
+        }
 
         yield return StartCoroutine(DeActiveSprite());
 
@@ -203,10 +184,6 @@ public class NPCInteract : MonoBehaviour
     //     interactObjInfo.SetVirtualCameraInfo(cameraTarget[targetIndex], false, null, 5.4f, 0.25f, Cinemachine.CinemachineBlendDefinition.Style.EaseInOut, 1.5f);
     //     cameraControl.ChangeCam(interactObjInfo);
     // }   
-
-    public void ChangeSelectBloodAsTrue(){
-        selectBlood = true;
-    }
 
     // test
     float CalculateSellInfo(){
