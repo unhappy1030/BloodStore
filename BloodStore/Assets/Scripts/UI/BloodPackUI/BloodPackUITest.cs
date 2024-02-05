@@ -59,6 +59,10 @@ public class BloodPackUITest : MonoBehaviour
         GetTotalCount();
     }
 
+    public void SelectBloodPack(){
+        YarnControl.isSelect = true;
+    }
+
     public void CollectTogleInfo(){
         if(togles[0].notSelected)
         {

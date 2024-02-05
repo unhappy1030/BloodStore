@@ -22,13 +22,17 @@ public class NPCInteract : MonoBehaviour
     int count;
     int npcIndex;
     int spriteIndex;
-    bool selectBlood;
+    public bool selectBlood;
 
     Coroutine npcCoroutine;
 
     // List<NPCSO> npcs; // get from DialogueControl
     List<DialogueInfo> dialogueSum;
     List<Sprite> npcSprites;
+
+    public void ChangeSelectBlood(bool isSelect){
+        selectBlood = isSelect;
+    }
 
     void Start(){
         // npcs = dialogueControl.npcs; // test
