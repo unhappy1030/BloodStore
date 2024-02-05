@@ -22,7 +22,8 @@ public class MouseRayCast : MonoBehaviour
             && !EventSystem.current.IsPointerOverGameObject() 
             && !dialogueRunner.IsDialogueRunning
             && !GameManager.Instance.isFading
-            && !cameraControl.mainCam.IsBlending)
+            && !cameraControl.mainCam.IsBlending
+            && !UIControl.isPause)
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D ray = Physics2D.Raycast(mousePos, Vector2.zero, 0f, LayerMask.GetMask("Interact"));

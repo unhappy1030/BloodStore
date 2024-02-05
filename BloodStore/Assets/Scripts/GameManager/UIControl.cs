@@ -12,6 +12,8 @@ public class UIControl : MonoBehaviour
     public GameObject pausePanel;
     public GameObject settingPanel;
 
+    public static bool isPause;
+
     public enum AlwaysOnUIStatus
     {
         Nothing,
@@ -24,6 +26,8 @@ public class UIControl : MonoBehaviour
 
     private void Awake()
     {
+        isPause = false;
+
         pauseButton.SetActive(false);
         pausePanel.SetActive(false);
         settingPanel.SetActive(false);
@@ -68,7 +72,7 @@ public class UIControl : MonoBehaviour
         {
             ChangeAlwaysOnCanvasUIStatusEnum();
             ControlAlwaysOnCanvasUI();
-        }
+        }   
     }
 
     void ChangeAlwaysOnCanvasUIStatusEnum()
@@ -98,12 +102,14 @@ public class UIControl : MonoBehaviour
                 break;
 
             case AlwaysOnUIStatus.PauseButtonOn:
+                EscapePasue();
                 pauseButton.SetActive(true);
                 pausePanel.SetActive(false);
                 settingPanel.SetActive(false);
                 break;
 
             case AlwaysOnUIStatus.Pause:
+                Pause();
                 pauseButton.SetActive(false);
                 pausePanel.SetActive(true);
                 settingPanel.SetActive(false);
@@ -117,4 +123,15 @@ public class UIControl : MonoBehaviour
         }
 
     }
+    
+    void Pause(){
+        Time.timeScale = 0f;
+        isPause = true;
+    }
+
+    void EscapePasue(){
+        Time.timeScale = 1f;
+        isPause = false;
+    } 
+
 }

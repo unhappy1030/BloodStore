@@ -50,17 +50,20 @@ public class BloodPackUITest : MonoBehaviour
 
     private void Update()
     {
-        if(!togles[0].notSelected || !togles[1].notSelected || !togles[2].notSelected){
-            if(!isZero)
-            {
-                selectButton.SetActive(true);
-            }
-            else
-            {
+        if(!UIControl.isPause)
+        {
+            if(!togles[0].notSelected || !togles[1].notSelected || !togles[2].notSelected){
+                if(!isZero)
+                {
+                    selectButton.SetActive(true);
+                }
+                else
+                {
+                    selectButton.SetActive(false);
+                }
+            }else{
                 selectButton.SetActive(false);
             }
-        }else{
-            selectButton.SetActive(false);
         }
     }
 
