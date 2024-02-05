@@ -16,8 +16,8 @@ public class YarnControl : MonoBehaviour
 
     public int targetIndex;
     public string nodeName;
-    public static float sellInfo = 0;
     public bool isSell;
+    public static float sellInfo = 0;
     public static bool isSelect;
 
     private void OnEnable()
@@ -56,21 +56,20 @@ public class YarnControl : MonoBehaviour
     // ---< Sell blood >---
 
     // must use
-    [YarnCommand("SellBlood")]
-    public void SellBlood(bool _isSell){
-        isSell = _isSell;
-    }
-
-    // must use
-    [YarnCommand("SetCamTargetIndex")]
-    public void SetCamTargetIndex(int _targetIndex){
-        targetIndex = _targetIndex;
-    }
+    // [YarnCommand("SetCamTargetIndex")]
+    // public void SetCamTargetIndex(int _targetIndex){
+    //     targetIndex = _targetIndex;
+    // }
 
     // must use
     [YarnCommand("SetNodeName")]
     public void SetNodeName(string _nodeName){
         nodeName = _nodeName;
+    }
+
+    [YarnCommand("SetIsSell")]
+    public void SetIsSell(bool _isTrue){
+        isSell = _isTrue;
     }
 
     [YarnFunction("GetBloodTaste")]
@@ -100,10 +99,10 @@ public class YarnControl : MonoBehaviour
         isSelect = true;
     }
 
-    // // must use
-    // [YarnFunction("GetSellInfo")]
-    // public static float GetSellInfo(){
-    //     return sellInfo;
-    // }
+    // must use
+    [YarnFunction("GetSellInfo")]
+    public static float GetSellInfo(){
+        return sellInfo;
+    }
 
 }

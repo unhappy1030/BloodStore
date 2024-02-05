@@ -22,18 +22,12 @@ public class NPCInteract : MonoBehaviour
     int count;
     int npcIndex;
     int spriteIndex;
-    public bool selectBlood;
 
     Coroutine npcCoroutine;
 
     // List<NPCSO> npcs; // get from DialogueControl
     List<DialogueInfo> dialogueSum;
     List<Sprite> npcSprites;
-
-    // test
-    public void ChangeSelectBlood(bool isSelect){
-        selectBlood = isSelect;
-    }
 
     void Start(){
         // npcs = dialogueControl.npcs; // test
@@ -43,7 +37,6 @@ public class NPCInteract : MonoBehaviour
 
         npcIndex = 0;
         spriteIndex = 0;
-        selectBlood = false;
 
         npc.SetActive(false);
 
@@ -77,31 +70,22 @@ public class NPCInteract : MonoBehaviour
         // tell what they want
         yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning); // wait until dialogue ends
         
-        // // if sellect sell
-        // if(yarnControl.isSell){
-        //     CreateVirtualCamera(yarnControl.targetIndex); // move camera
-        //     yield return new WaitUntil(() => cameraControl.mainCam.IsBlending);
-        //     yield return new WaitUntil(() => !cameraControl.mainCam.IsBlending); // wait until camera move ends
-            
-        //     bloodPackCanvas.SetActive(true);
+        // if sellect sell
+        if(yarnControl.isSell){
+            yield return new WaitUntil(() => YarnControl.isSelect);
+            YarnControl.isSelect = false;
+            yarnControl.isSell = false;
 
-        //     selectBlood = false;
-        //     yield return new WaitUntil(() => selectBlood); // wait until select blood -> button in Blood pack canvas
-            
-        //     // YarnControl.sellInfo = CalculateSellInfo(); // Evaluate about blood pack
-        //     bloodPackCanvas.SetActive(false);
-            
-        //     CreateVirtualCamera(0); // camera move to default target
-        //     yield return new WaitUntil(() => cameraControl.mainCam.IsBlending);
-        //     yield return new WaitUntil(() => !cameraControl.mainCam.IsBlending); // wait until camera move ends
-        
-        //     yarnControl.isSell = false;
-        // }
-        
-        // if(yarnControl.nodeName != ""){
-        //     StartDialogue(yarnControl.nodeName); // tell their evaluation or end dialogue
-        //     yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
-        // }
+            YarnControl.sellInfo = CalculateSellInfo(npcIndex);
+                
+            if(yarnControl.nodeName != ""){
+                StartDialogue(yarnControl.nodeName); // tell their evaluation or end dialogue
+                yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
+                yarnControl.nodeName = "";
+            }
+
+            YarnControl.sellInfo = 0;
+        }
 
         yield return StartCoroutine(DeActiveSprite());
 
@@ -184,33 +168,53 @@ public class NPCInteract : MonoBehaviour
         }
     }
 
-    void CreateVirtualCamera(int targetIndex){
-        InteractObjInfo interactObjInfo = gameObject.GetComponent<InteractObjInfo>();
-        if(interactObjInfo == null){
-            interactObjInfo = gameObject.AddComponent<InteractObjInfo>();
-        }
+    // void CreateVirtualCamera(int targetIndex){
+    //     InteractObjInfo interactObjInfo = gameObject.GetComponent<InteractObjInfo>();
+    //     if(interactObjInfo == null){
+    //         interactObjInfo = gameObject.AddComponent<InteractObjInfo>();
+    //     }
         
-        if(cameraTarget == null || cameraTarget.Count == 0){
-            Debug.Log("Target list is empty...");
-            return;
-        }
+    //     if(cameraTarget == null || cameraTarget.Count == 0){
+    //         Debug.Log("Target list is empty...");
+    //         return;
+    //     }
 
-        if(targetIndex > cameraTarget.Count -1 || cameraTarget[targetIndex] == null){
-            Debug.Log("There is no camera target in list...");
-            return;
-        }
+    //     if(targetIndex > cameraTarget.Count -1 || cameraTarget[targetIndex] == null){
+    //         Debug.Log("There is no camera target in list...");
+    //         return;
+    //     }
 
-        interactObjInfo.SetVirtualCameraInfo(cameraTarget[targetIndex], false, null, 5.4f, 0.25f, Cinemachine.CinemachineBlendDefinition.Style.EaseInOut, 1.5f);
-        cameraControl.ChangeCam(interactObjInfo);
-    }   
-
-    public void ChangeSelectBloodAsTrue(){
-        selectBlood = true;
-    }
+    //     interactObjInfo.SetVirtualCameraInfo(cameraTarget[targetIndex], false, null, 5.4f, 0.25f, Cinemachine.CinemachineBlendDefinition.Style.EaseInOut, 1.5f);
+    //     cameraControl.ChangeCam(interactObjInfo);
+    // }   
 
     // test
-    float CalculateSellInfo(){
-        return 5.0f;
+    float CalculateSellInfo(int index){
+        BloodPackUITest bloodPackUI = bloodPackCanvas.GetComponentInChildren<BloodPackUITest>();
+
+        if(bloodPackUI == null){
+            Debug.Log("There is no bloodPackUITest...");
+            return -1;
+        }
+
+        List<string> select = bloodPackUI.GetTogleCondition();
+        
+        int count = 0;
+        foreach(string taste in dialogueSum[index].tastes){
+            for(int i=0; i<3; i++){
+                if(select[i] == taste){
+                    count++;            
+                    break;
+                }
+            }
+        }
+        Debug.Log("correct select Count : " + count);
+
+        if(count == dialogueSum[index].tastes.Count){
+            return 5.0f;
+        }else{
+            return 0;
+        }
     }
     
     // test
