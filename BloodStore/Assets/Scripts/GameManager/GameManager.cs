@@ -163,6 +163,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void CreateVirtualCamera(GameObject target, bool doesUSeBound, Collider2D bound, float lensOthoSize, float hold, Cinemachine.CinemachineBlendDefinition.Style style, float blendTime){
+        InteractObjInfo interactObjInfo = cameraControl.gameObject.GetComponent<InteractObjInfo>();
+        if(interactObjInfo == null){
+            interactObjInfo = cameraControl.gameObject.AddComponent<InteractObjInfo>();
+        }
+
+        interactObjInfo.SetVirtualCameraInfo(target, doesUSeBound, bound, lensOthoSize, hold, style, blendTime);
+        cameraControl.ChangeCam(interactObjInfo);
+    }
+
+    public void CreateTargetCamera(List<GameObject> targets, bool doesUSeBound, Collider2D bound, float hold, Cinemachine.CinemachineBlendDefinition.Style style, float blendTime){
+        InteractObjInfo interactObjInfo = cameraControl.gameObject.GetComponent<InteractObjInfo>();
+        if(interactObjInfo == null){
+            interactObjInfo = cameraControl.gameObject.AddComponent<InteractObjInfo>();
+        }
+
+        if(targets == null || targets.Count == 0){
+            Debug.Log("Target List is empty...");
+            return;
+        }
+
+        interactObjInfo.SetTargetCameraInfo(targets, doesUSeBound, bound, hold, style, blendTime);
+        cameraControl.ChangeCam(interactObjInfo);
+    }
+
     public IEnumerator FadeOutAndLoadScene(string sceneName, float speed)
     {
         if (Application.CanStreamedLevelBeLoaded(sceneName))
