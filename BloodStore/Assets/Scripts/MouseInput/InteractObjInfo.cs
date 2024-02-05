@@ -88,7 +88,6 @@ public class InteractObjInfo : MonoBehaviour
     public FamilyTreeType _familyTreeType;
 
     // UI On Off
-    public bool _isOn = true;
     [SerializeField] public GameObject _ui;
 
     // SceneLoad
