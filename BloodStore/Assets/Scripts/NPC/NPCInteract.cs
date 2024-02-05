@@ -76,12 +76,15 @@ public class NPCInteract : MonoBehaviour
             YarnControl.isSelect = false;
             yarnControl.isSell = false;
 
+            YarnControl.sellInfo = CalculateSellInfo(npcIndex);
                 
             if(yarnControl.nodeName != ""){
                 StartDialogue(yarnControl.nodeName); // tell their evaluation or end dialogue
                 yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
                 yarnControl.nodeName = "";
             }
+
+            YarnControl.sellInfo = 0;
         }
 
         yield return StartCoroutine(DeActiveSprite());
@@ -186,8 +189,32 @@ public class NPCInteract : MonoBehaviour
     // }   
 
     // test
-    float CalculateSellInfo(){
-        return 5.0f;
+    float CalculateSellInfo(int index){
+        BloodPackUITest bloodPackUI = bloodPackCanvas.GetComponentInChildren<BloodPackUITest>();
+
+        if(bloodPackUI == null){
+            Debug.Log("There is no bloodPackUITest...");
+            return -1;
+        }
+
+        List<string> select = bloodPackUI.GetTogleCondition();
+        
+        int count = 0;
+        foreach(string taste in dialogueSum[index].tastes){
+            for(int i=0; i<3; i++){
+                if(select[i] == taste){
+                    count++;            
+                    break;
+                }
+            }
+        }
+        Debug.Log("correct select Count : " + count);
+
+        if(count == dialogueSum[index].tastes.Count){
+            return 5.0f;
+        }else{
+            return 0;
+        }
     }
     
     // test

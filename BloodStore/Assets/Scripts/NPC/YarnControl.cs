@@ -99,10 +99,10 @@ public class YarnControl : MonoBehaviour
         isSelect = true;
     }
 
-    // // must use
-    // [YarnFunction("GetSellInfo")]
-    // public static float GetSellInfo(){
-    //     return sellInfo;
-    // }
+    // must use
+    [YarnFunction("GetSellInfo")]
+    public static float GetSellInfo(){
+        return sellInfo;
+    }
 
 }
