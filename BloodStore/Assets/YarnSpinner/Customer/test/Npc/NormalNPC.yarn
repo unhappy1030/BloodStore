@@ -7,9 +7,10 @@ position: -1,0
 <<set $taste = GetBloodTaste()>>
 This is normal NPC test.
 Taste - {$taste}
-<<SetCamTargetIndex DialogueSystem 1>>
-<<SellBlood DialogueSystem true>>
-<<SetNodeName DialogueSystem SellTest>>
+
+<<WaitUntilVirtualCamBlend 1>>
+
+<<WaitUntilVirtualCamBlend 0>>
 ===
 title: SellTest
 position: -104,0
