@@ -72,12 +72,12 @@ public class YarnControl : MonoBehaviour
         return taste;
     }
 
-    // [YarnCommand("WaitUntilSell")]
-    // public static IEnumerator WaitUntilSell(){
-    //     isSelect = false;
-    //     yield return new WaitUntil(() => isSelect);
-    //     isSelect = false;
-    // }
+    [YarnCommand("WaitUntilSell")]
+    public static IEnumerator WaitUntilSell(){
+        isSelect = false;
+        yield return new WaitUntil(() => isSelect);
+        isSelect = false;
+    }
 
     
     [YarnCommand("WaitUntilVirtualCamBlend")]
