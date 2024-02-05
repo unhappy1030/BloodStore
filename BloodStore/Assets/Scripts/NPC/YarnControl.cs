@@ -9,6 +9,7 @@ public class YarnControl : MonoBehaviour
 {
     public DialogueRunner dialogueRunner;
     public InMemoryVariableStorage variableStorage;
+
     public MoneyControl moneyControl;
     public DialogueControl dialogueControl;
     public CameraControl cameraControl;
@@ -85,6 +86,14 @@ public class YarnControl : MonoBehaviour
         yield return new WaitUntil(() => isSelect);
         isSelect = false;
     }
+
+    
+    [YarnCommand("WaitUntilVirtualCamBlend")]
+    public static IEnumerator WaitUntilVirtualCamBlend(int _targetIndex){
+        GameManager.Instance.CreateVirtualCamera(CameraControl.targetsForYarn[_targetIndex], false, null, 5.4f, 0.25f, Cinemachine.CinemachineBlendDefinition.Style.EaseInOut, 1f);
+        yield return new WaitUntil(() => CameraControl.isFinish);
+    }
+    
 
     // button
     public void ChangeIsSelect(){

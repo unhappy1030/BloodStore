@@ -30,12 +30,14 @@ public class NPCInteract : MonoBehaviour
     List<DialogueInfo> dialogueSum;
     List<Sprite> npcSprites;
 
+    // test
     public void ChangeSelectBlood(bool isSelect){
         selectBlood = isSelect;
     }
 
     void Start(){
         // npcs = dialogueControl.npcs; // test
+        CameraControl.targetsForYarn = new(cameraTarget);
 
         GetStoreDialogues();
 
@@ -75,31 +77,31 @@ public class NPCInteract : MonoBehaviour
         // tell what they want
         yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning); // wait until dialogue ends
         
-        // if sellect sell
-        if(yarnControl.isSell){
-            CreateVirtualCamera(yarnControl.targetIndex); // move camera
-            yield return new WaitUntil(() => cameraControl.mainCam.IsBlending);
-            yield return new WaitUntil(() => !cameraControl.mainCam.IsBlending); // wait until camera move ends
+        // // if sellect sell
+        // if(yarnControl.isSell){
+        //     CreateVirtualCamera(yarnControl.targetIndex); // move camera
+        //     yield return new WaitUntil(() => cameraControl.mainCam.IsBlending);
+        //     yield return new WaitUntil(() => !cameraControl.mainCam.IsBlending); // wait until camera move ends
             
-            bloodPackCanvas.SetActive(true);
+        //     bloodPackCanvas.SetActive(true);
 
-            selectBlood = false;
-            yield return new WaitUntil(() => selectBlood); // wait until select blood -> button in Blood pack canvas
+        //     selectBlood = false;
+        //     yield return new WaitUntil(() => selectBlood); // wait until select blood -> button in Blood pack canvas
             
-            // YarnControl.sellInfo = CalculateSellInfo(); // Evaluate about blood pack
-            bloodPackCanvas.SetActive(false);
+        //     // YarnControl.sellInfo = CalculateSellInfo(); // Evaluate about blood pack
+        //     bloodPackCanvas.SetActive(false);
             
-            CreateVirtualCamera(0); // camera move to default target
-            yield return new WaitUntil(() => cameraControl.mainCam.IsBlending);
-            yield return new WaitUntil(() => !cameraControl.mainCam.IsBlending); // wait until camera move ends
+        //     CreateVirtualCamera(0); // camera move to default target
+        //     yield return new WaitUntil(() => cameraControl.mainCam.IsBlending);
+        //     yield return new WaitUntil(() => !cameraControl.mainCam.IsBlending); // wait until camera move ends
         
-            yarnControl.isSell = false;
-        }
+        //     yarnControl.isSell = false;
+        // }
         
-        if(yarnControl.nodeName != ""){
-            StartDialogue(yarnControl.nodeName); // tell their evaluation or end dialogue
-            yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
-        }
+        // if(yarnControl.nodeName != ""){
+        //     StartDialogue(yarnControl.nodeName); // tell their evaluation or end dialogue
+        //     yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
+        // }
 
         yield return StartCoroutine(DeActiveSprite());
 
