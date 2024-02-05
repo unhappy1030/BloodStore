@@ -17,7 +17,6 @@ public class YarnControl : MonoBehaviour
     public int targetIndex;
     public string nodeName;
     public static float sellInfo = 0;
-    public bool isSell;
     public static bool isSelect;
 
     private void OnEnable()
@@ -27,7 +26,6 @@ public class YarnControl : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
         targetIndex = 0;
-        isSell = false;
     }
 
     private void OnDisable()
@@ -56,16 +54,10 @@ public class YarnControl : MonoBehaviour
     // ---< Sell blood >---
 
     // must use
-    [YarnCommand("SellBlood")]
-    public void SellBlood(bool _isSell){
-        isSell = _isSell;
-    }
-
-    // must use
-    [YarnCommand("SetCamTargetIndex")]
-    public void SetCamTargetIndex(int _targetIndex){
-        targetIndex = _targetIndex;
-    }
+    // [YarnCommand("SetCamTargetIndex")]
+    // public void SetCamTargetIndex(int _targetIndex){
+    //     targetIndex = _targetIndex;
+    // }
 
     // must use
     [YarnCommand("SetNodeName")]
@@ -80,12 +72,12 @@ public class YarnControl : MonoBehaviour
         return taste;
     }
 
-    [YarnCommand("WaitUntilSell")]
-    public static IEnumerator WaitUntilSell(){
-        isSelect = false;
-        yield return new WaitUntil(() => isSelect);
-        isSelect = false;
-    }
+    // [YarnCommand("WaitUntilSell")]
+    // public static IEnumerator WaitUntilSell(){
+    //     isSelect = false;
+    //     yield return new WaitUntil(() => isSelect);
+    //     isSelect = false;
+    // }
 
     
     [YarnCommand("WaitUntilVirtualCamBlend")]

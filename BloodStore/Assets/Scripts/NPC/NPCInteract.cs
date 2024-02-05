@@ -184,25 +184,25 @@ public class NPCInteract : MonoBehaviour
         }
     }
 
-    void CreateVirtualCamera(int targetIndex){
-        InteractObjInfo interactObjInfo = gameObject.GetComponent<InteractObjInfo>();
-        if(interactObjInfo == null){
-            interactObjInfo = gameObject.AddComponent<InteractObjInfo>();
-        }
+    // void CreateVirtualCamera(int targetIndex){
+    //     InteractObjInfo interactObjInfo = gameObject.GetComponent<InteractObjInfo>();
+    //     if(interactObjInfo == null){
+    //         interactObjInfo = gameObject.AddComponent<InteractObjInfo>();
+    //     }
         
-        if(cameraTarget == null || cameraTarget.Count == 0){
-            Debug.Log("Target list is empty...");
-            return;
-        }
+    //     if(cameraTarget == null || cameraTarget.Count == 0){
+    //         Debug.Log("Target list is empty...");
+    //         return;
+    //     }
 
-        if(targetIndex > cameraTarget.Count -1 || cameraTarget[targetIndex] == null){
-            Debug.Log("There is no camera target in list...");
-            return;
-        }
+    //     if(targetIndex > cameraTarget.Count -1 || cameraTarget[targetIndex] == null){
+    //         Debug.Log("There is no camera target in list...");
+    //         return;
+    //     }
 
-        interactObjInfo.SetVirtualCameraInfo(cameraTarget[targetIndex], false, null, 5.4f, 0.25f, Cinemachine.CinemachineBlendDefinition.Style.EaseInOut, 1.5f);
-        cameraControl.ChangeCam(interactObjInfo);
-    }   
+    //     interactObjInfo.SetVirtualCameraInfo(cameraTarget[targetIndex], false, null, 5.4f, 0.25f, Cinemachine.CinemachineBlendDefinition.Style.EaseInOut, 1.5f);
+    //     cameraControl.ChangeCam(interactObjInfo);
+    // }   
 
     public void ChangeSelectBloodAsTrue(){
         selectBlood = true;
