@@ -59,9 +59,7 @@ public class MouseRayCast : MonoBehaviour
         if(interactObjInfo._interactType == InteractType.UIOnOff)
         {
             GameObject ui = interactObjInfo._ui;
-            ui.SetActive(interactObjInfo._isOn);
-            
-            interactObjInfo._isOn = !interactObjInfo._isOn;
+            ui.SetActive(true);
         }
 
 
