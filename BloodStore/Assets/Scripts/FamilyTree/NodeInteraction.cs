@@ -88,7 +88,8 @@ public class NodeInteraction : MonoBehaviour
 
         if(!dialogueRunner.IsDialogueRunning 
             && !GameManager.Instance.isFading
-            && !cameraControl.mainCam.IsBlending)
+            && !cameraControl.mainCam.IsBlending
+            && !UIControl.isPause)
         {
             StartCoroutine(MoveCamera());
             KeyInteract();

@@ -89,7 +89,7 @@ public class NPCInteract : MonoBehaviour
 
         yield return StartCoroutine(DeActiveSprite());
 
-        yield return new WaitForSecondsRealtime(1);
+        yield return new WaitForSeconds(1);
 
         npcIndex++;
 
