@@ -96,6 +96,7 @@ public class UIControl : MonoBehaviour
         switch (status)
         {
             case AlwaysOnUIStatus.Nothing:
+                EscapePasue();
                 pauseButton.SetActive(false);
                 pausePanel.SetActive(false);
                 settingPanel.SetActive(false);
