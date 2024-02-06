@@ -10,7 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef039957bfd6bd74f9d85d8c9e41c341, type: 3}
-  m_Name: A
+  m_Name: Sex
   m_EditorClassIdentifier: 
-  group: 
-  bloodTastes: []
+  group: Sex
+  tastes:
+  - name: Male
+    words:
+    - male
+    - mango
+    sentences:
+    - I'm want Male's blood.
+  - name: Female
+    words:
+    - female
+    sentences:
+    - I'm want Female's blood.

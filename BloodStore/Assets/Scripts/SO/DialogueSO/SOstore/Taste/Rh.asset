@@ -13,21 +13,21 @@ MonoBehaviour:
   m_Name: Rh
   m_EditorClassIdentifier: 
   group: Rh
-  bloodTastes:
-  - tastes:
-    - +
+  tastes:
+  - name: +
     words:
-    - Rh+
+    - RH +
     - positive
-    - something not negative
+    - something positive
     sentences:
     - I want to be more positive!
     - I'm depressed...
-  - tastes:
-    - '-'
+  - name: '-'
     words:
-    - Rh-
+    - RH -
     - negative
-    - something not positive
+    - more negative
+    - something negative
     sentences:
+    - I'm negative person.
     - I want to be more negative...
