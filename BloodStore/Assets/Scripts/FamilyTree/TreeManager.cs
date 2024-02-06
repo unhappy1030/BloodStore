@@ -45,7 +45,7 @@ public class TreeManager : MonoBehaviour
         pairList.MakeOlder();
         pairList.MakeDead();
         pairList.Save(pairList.pairs);
-        bloodPackList.Packing(pairList);
+        bloodPackList.PackingResult(pairList);
     }
     void SetPrefabData(){
         halfX = nodePrefab.GetComponent<SpriteRenderer>().bounds.extents.x;
