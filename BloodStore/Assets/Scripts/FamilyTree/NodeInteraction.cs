@@ -39,6 +39,8 @@ public class NodeInteraction : MonoBehaviour
     public GameObject nodeInfoCanvas; // assign at Inspector
     public GameObject nodeInfoTexts; // assign at Inspector
     public GameObject addChildUI;
+    public GameObject checkPairUI;
+    public GameObject noticeUI;
     public GameObject treeManager;
     public GameObject cameraCollider;
     public Image nodeImg; // assign at Inspector
@@ -449,7 +451,7 @@ public class NodeInteraction : MonoBehaviour
             return;
         }
 
-        emptyNode.SetNode();
+        emptyNode.SetNode(checkPairUI, noticeUI);
         nodeInteractionStatus = NodeInteractionStatus.SelectPair;
     }
 

@@ -2083,7 +2083,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 235814997}
-        m_TargetAssemblyTypeName: CheckPair, Assembly-CSharp
+        m_TargetAssemblyTypeName: CheckPairButton, Assembly-CSharp
         m_MethodName: BackClick
         m_Mode: 1
         m_Arguments:
@@ -2141,7 +2141,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 235814992}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a040ca655c6c0f4888a2a8fd2f0a924, type: 3}
+  m_Script: {fileID: 11500000, guid: d50821212f3285244892743c46909040, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &248256258
@@ -3809,7 +3809,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 491332174}
-        m_TargetAssemblyTypeName: CheckPair, Assembly-CSharp
+        m_TargetAssemblyTypeName: CheckPairButton, Assembly-CSharp
         m_MethodName: ConfirmClick
         m_Mode: 1
         m_Arguments:
@@ -3867,7 +3867,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 491332169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a040ca655c6c0f4888a2a8fd2f0a924, type: 3}
+  m_Script: {fileID: 11500000, guid: d50821212f3285244892743c46909040, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &497903253
@@ -3902,7 +3902,6 @@ MonoBehaviour:
   mainCam: {fileID: 0}
   cameraList:
   - {fileID: 42806959}
-  isFinish: 0
 --- !u!4 &497903255
 Transform:
   m_ObjectHideFlags: 0
@@ -7054,6 +7053,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a040ca655c6c0f4888a2a8fd2f0a924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptyDisplay: {fileID: 0}
 --- !u!1 &1048937464
 GameObject:
   m_ObjectHideFlags: 0
@@ -9233,6 +9233,8 @@ MonoBehaviour:
   nodeInfoCanvas: {fileID: 1582490376}
   nodeInfoTexts: {fileID: 1048937464}
   addChildUI: {fileID: 139006813}
+  checkPairUI: {fileID: 1016614824}
+  noticeUI: {fileID: 1925585025}
   treeManager: {fileID: 686383031}
   cameraCollider: {fileID: 339863507}
   nodeImg: {fileID: 798279807}

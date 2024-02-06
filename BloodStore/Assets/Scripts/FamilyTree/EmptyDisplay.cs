@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class EmptyDisplay : MonoBehaviour
 {
-    public GameObject checkPairUI;
-    public GameObject noticeUI;
     public NodeSO nodeSO;
     Group group;
     void Start(){
         group = gameObject.transform.parent.GetComponent<Group>();
     }
 
-    public void SetNode(){
+    public void SetNode(GameObject checkPairUI, GameObject noticeUI){
         if(!group.pairTree.pair.male.empty && !group.pairTree.pair.male.isDead && group.pairTree.pair.male.age >= 20){
             if(group.pairTree.BlankNodeCheck() == nodeSO.node.sex && !nodeSO.node.empty){
                 CheckPair checkPair = checkPairUI.GetComponent<CheckPair>();
