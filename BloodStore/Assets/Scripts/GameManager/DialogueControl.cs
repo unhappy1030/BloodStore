@@ -10,6 +10,7 @@ public class DialogueControl : MonoBehaviour
     int maxCount = 6;
 
     public List<NPCSO> npcs; // assign at inspector
+    public List<BloodTasteSO> tasteSOs; // assign at inspector
     Dictionary<string, int> npcConditions;
 
     public NormalNPCSO normalNPCs;
@@ -83,6 +84,7 @@ public class DialogueControl : MonoBehaviour
                 allDialogues.Add(new());
                 allDialogues[index].npcName = ableNpcInfo.npcName;
                 allDialogues[index].sprites = new(ableNpcInfo.sprites);
+                allDialogues[index].tasteLine = "";
                 allDialogues[index].tastes = MakeRandomTastes();
                 allDialogues[index].priority = dialogue.priority;
                 allDialogues[index].dialogueName = dialogue.dialogueName;
@@ -123,6 +125,7 @@ public class DialogueControl : MonoBehaviour
             allDialogues.Add(new());
             allDialogues[index].npcName = "";
             allDialogues[index].sprites = tempSprite;
+            allDialogues[index].tasteLine = "";
             allDialogues[index].tastes = MakeRandomTastes();
             allDialogues[index].priority = 0;
             allDialogues[index].dialogueName = "Normal"; // test
@@ -134,28 +137,71 @@ public class DialogueControl : MonoBehaviour
 
     List<string> MakeRandomTastes(){ // test
         List<string> tastes = new();
-        List<string> randomTaste = new();
-        
+        List<bool> isSelected = new();
+        List<string> randomTaste = new(); // sex + rh + bloodType
+
         Node random = new Node();
         random.SetAllRandom();
 
         tastes.Add(random.sex);
-        tastes.Add(random.bloodType[0]);
-        tastes.Add(random.bloodType[1]);
+        tastes.Add(random.bloodType[1]); // Rh
+        tastes.Add(random.bloodType[0]); // bloodType
 
         int count = tastes.Count;
 
-        int randomCount = UnityEngine.Random.Range(1, count);
+        for(int i=0; i<count; i++){
+            isSelected.Add(false);
+        }
 
-        ListShuffle<string>(tastes);
+        int randomCount = UnityEngine.Random.Range(1, count); // at least more than 1
 
-        for(int i=0; i<randomCount; i++){
-            randomTaste.Add(tastes[i]);
+        int add=0;
+        while(add < randomCount){
+            int index = UnityEngine.Random.Range(0, count);
+            if(!isSelected[index]){
+                isSelected[index] = true;
+                add++;
+            }
+        }
+
+        for(int i=0; i<count; i++){
+            if(isSelected[i])
+            {
+                randomTaste.Add(tastes[i]);
+            }
+            else
+            {
+                randomTaste.Add("");
+            }
         }
 
         return randomTaste;
     }
 
+    string MakeTasteLine(List<string> tastes){
+        string line = "";
+        
+        List<string> allTastes = new (tastes);
+
+        bool isLine = (UnityEngine.Random.Range(0, 2) == 0); // random select between line and word
+        
+        if(allTastes.Count > 2){ // if more than two options, line must be words
+            isLine = false;
+        }
+
+
+        if(isLine)
+        {
+            
+        }
+        else
+        {
+
+        }
+
+        return line;
+    }
+    
     // 내림차순
     int ComparePriority(DialogueInfo dialogue1, DialogueInfo dialogue2){
         if(dialogue1.priority > dialogue2.priority)
@@ -188,6 +234,7 @@ public class DialogueControl : MonoBehaviour
 public class DialogueInfo{
     public string npcName;
     public List<Sprite> sprites;
+    public string tasteLine;
     public List<string> tastes;
     public int priority;
     public string dialogueName;
