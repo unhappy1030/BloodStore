@@ -10,32 +10,32 @@ public class EmptyDisplay : MonoBehaviour
         group = gameObject.transform.parent.GetComponent<Group>();
     }
 
-    public void SetNode(){
+    public void SetNode(GameObject checkPairUI, GameObject noticeUI){
         if(!group.pairTree.pair.male.empty && !group.pairTree.pair.male.isDead && group.pairTree.pair.male.age >= 20){
             if(group.pairTree.BlankNodeCheck() == nodeSO.node.sex && !nodeSO.node.empty){
-                MakePair();
-                if(group.pairTree.pair.male.age < 60){
-                    group.button.SetActive(true);
-                }
-                group.selectedCard.SetActive(false);
-                ChangeDisplay(nodeSO.node.sex);
+                CheckPair checkPair = checkPairUI.GetComponent<CheckPair>();
+                checkPair.ConfirmCheck(this);
+                return ;
             }
         }
         else if(!group.pairTree.pair.female.empty && !group.pairTree.pair.female.isDead && group.pairTree.pair.female.age >= 20){
             if(group.pairTree.BlankNodeCheck() == nodeSO.node.sex && !nodeSO.node.empty){
-                MakePair();
-                if(group.pairTree.pair.female.age < 60){
-                    group.button.SetActive(true);
-                }
-                group.selectedCard.SetActive(false);
-                ChangeDisplay(nodeSO.node.sex);
+                CheckPair checkPair = checkPairUI.GetComponent<CheckPair>();
+                checkPair.ConfirmCheck(this);
+                return ;
             }
         }
-        else{
-            DeleteNode();
-        }
+        noticeUI.SetActive(true);
+        DeleteNode();
     }
-
+    public void ChangeConfirmed(){
+        MakePair();
+        if(group.pairTree.pair.male.age < 60){
+            group.button.SetActive(true);
+        }
+        group.selectedCard.SetActive(false);
+        ChangeDisplay(nodeSO.node.sex);
+    }
     public void MakeBoxCollider(){
         BoxCollider2D box = gameObject.AddComponent<BoxCollider2D>();
         SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
