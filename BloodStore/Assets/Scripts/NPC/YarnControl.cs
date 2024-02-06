@@ -9,14 +9,15 @@ public class YarnControl : MonoBehaviour
 {
     public DialogueRunner dialogueRunner;
     public InMemoryVariableStorage variableStorage;
+
     public MoneyControl moneyControl;
     public DialogueControl dialogueControl;
     public CameraControl cameraControl;
 
     public int targetIndex;
     public string nodeName;
-    public static float sellInfo = 0;
     public bool isSell;
+    public static float sellInfo = 0;
     public static bool isSelect;
 
     private void OnEnable()
@@ -55,21 +56,20 @@ public class YarnControl : MonoBehaviour
     // ---< Sell blood >---
 
     // must use
-    [YarnCommand("SellBlood")]
-    public void SellBlood(bool _isSell){
-        isSell = _isSell;
-    }
-
-    // must use
-    [YarnCommand("SetCamTargetIndex")]
-    public void SetCamTargetIndex(int _targetIndex){
-        targetIndex = _targetIndex;
-    }
+    // [YarnCommand("SetCamTargetIndex")]
+    // public void SetCamTargetIndex(int _targetIndex){
+    //     targetIndex = _targetIndex;
+    // }
 
     // must use
     [YarnCommand("SetNodeName")]
     public void SetNodeName(string _nodeName){
         nodeName = _nodeName;
+    }
+
+    [YarnCommand("SetIsSell")]
+    public void SetIsSell(bool _isTrue){
+        isSell = _isTrue;
     }
 
     [YarnFunction("GetBloodTaste")]
@@ -86,15 +86,23 @@ public class YarnControl : MonoBehaviour
         isSelect = false;
     }
 
+    
+    [YarnCommand("WaitUntilVirtualCamBlend")]
+    public static IEnumerator WaitUntilVirtualCamBlend(int _targetIndex){
+        GameManager.Instance.CreateVirtualCamera(CameraControl.targetsForYarn[_targetIndex], false, null, 5.4f, 0.25f, Cinemachine.CinemachineBlendDefinition.Style.EaseInOut, 1f);
+        yield return new WaitUntil(() => CameraControl.isFinish);
+    }
+    
+
     // button
     public void ChangeIsSelect(){
         isSelect = true;
     }
 
-    // // must use
-    // [YarnFunction("GetSellInfo")]
-    // public static float GetSellInfo(){
-    //     return sellInfo;
-    // }
+    // must use
+    [YarnFunction("GetSellInfo")]
+    public static float GetSellInfo(){
+        return sellInfo;
+    }
 
 }

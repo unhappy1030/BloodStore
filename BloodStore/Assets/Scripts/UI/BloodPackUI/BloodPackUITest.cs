@@ -20,6 +20,8 @@ public class BloodPackUITest : MonoBehaviour
     Dictionary<string, int> counts;
     BloodPacks bloodPacks;
 
+    bool isZero;
+
     void Start(){
         bloodPacks = GameManager.Instance.bloodPackList;
         bloodPacks.UpdateCategory();
@@ -41,15 +43,27 @@ public class BloodPackUITest : MonoBehaviour
 
         GetTotalCount();
 
+        isZero = false;
+
         selectButton.SetActive(false);
     }
 
     private void Update()
     {
-        if(!togles[0].notSelected || !togles[1].notSelected || !togles[2].notSelected){
-            selectButton.SetActive(true);
-        }else{
-            selectButton.SetActive(false);
+        if(!UIControl.isPause)
+        {
+            if(!togles[0].notSelected || !togles[1].notSelected || !togles[2].notSelected){
+                if(!isZero)
+                {
+                    selectButton.SetActive(true);
+                }
+                else
+                {
+                    selectButton.SetActive(false);
+                }
+            }else{
+                selectButton.SetActive(false);
+            }
         }
     }
 
@@ -57,6 +71,10 @@ public class BloodPackUITest : MonoBehaviour
         CollectTogleInfo();
         Debug.Log(sex + " " + bloodType + " " + rh);
         GetTotalCount();
+    }
+
+    public void SelectBloodPack(){
+        YarnControl.isSelect = true;
     }
 
     public void CollectTogleInfo(){
@@ -90,8 +108,21 @@ public class BloodPackUITest : MonoBehaviour
         // Debug.Log(sex + " "+ rh + " " + bloodType);
     }
 
+    public List<string> GetTogleCondition(){
+        List<string> togles = new(){sex, rh, bloodType};
+        return togles;
+    }
+
     public void GetTotalCount(){
         int count = bloodPacks.GetCondition(sex, bloodType, rh);
+        
+        if(count == 0)
+        {
+            isZero = true;
+        }else
+        {
+            isZero = false;
+        }
 
         countText.text = count.ToString();
     }

@@ -1,11 +1,28 @@
 ﻿title: Normal
 tags:
-position: 0,0
+position: -1,0
 ---
 <<declare $taste = "">>
 
 <<set $taste = GetBloodTaste()>>
 This is normal NPC test.
-Taste : {$taste}
-<<WaitUntilSell>>
+Taste - {$taste}
+
+<<WaitUntilVirtualCamBlend 1>>
+<<SetIsSell DialogueSystem true>>
+<<SetNodeName DialogueSystem SellTest>>
+===
+title: SellTest
+position: -104,0
+---
+<<WaitUntilVirtualCamBlend 0>>
+<<if GetSellInfo() >= 2.5>>
+    npc: more than 2.5
+<<elseif GetSellInfo() >= 0>>
+    npc: less than 2.5
+<<else>>
+    npc: something worng...
+<<endif>>
+
+npc: end dialogue...
 ===

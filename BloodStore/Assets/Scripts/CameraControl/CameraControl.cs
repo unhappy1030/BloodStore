@@ -12,8 +12,9 @@ public class CameraControl : MonoBehaviour
     public CinemachineBrain mainCam;
 
     public List<GameObject> cameraList;
+    public static List<GameObject> targetsForYarn;
 
-    public bool isFinish;
+    public static bool isFinish;
 
     int camCount = 0;
 
