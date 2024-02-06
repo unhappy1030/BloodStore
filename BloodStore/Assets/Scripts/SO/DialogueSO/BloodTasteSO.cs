@@ -13,7 +13,7 @@ public class BloodTasteSO : ScriptableObject
 
 [Serializable]
 public class Taste{
-    public string name;
+    public string tasteName;
     public List<string> words;
     public List<string> sentences;
 }

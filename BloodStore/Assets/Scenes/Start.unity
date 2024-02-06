@@ -1462,6 +1462,8 @@ MonoBehaviour:
   nodeInfoCanvas: {fileID: 0}
   nodeInfoTexts: {fileID: 0}
   addChildUI: {fileID: 0}
+  checkPairUI: {fileID: 0}
+  noticeUI: {fileID: 0}
   treeManager: {fileID: 0}
   cameraCollider: {fileID: 0}
   nodeImg: {fileID: 0}
@@ -3016,6 +3018,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a716690538c38a44cbb93e393572f73c, type: 2}
   - {fileID: 11400000, guid: 1a6bbc5b766e992489e6b370aac47921, type: 2}
   - {fileID: 11400000, guid: 8b371e9ab20b75f45bb2083f8bfb8fac, type: 2}
+  tasteSOs:
+  - {fileID: 11400000, guid: ca7e33b73b0ad9c4ca35026a409e1982, type: 2}
+  - {fileID: 11400000, guid: aa11d5c3aad43164589a9da5f619aa8f, type: 2}
+  - {fileID: 11400000, guid: 24c15aa27ec0b5a4e8e4cacc5544c2b2, type: 2}
   normalNPCs: {fileID: 11400000, guid: 0677e91525f60c642aed92f2ba852e4b, type: 2}
   allDialogues: []
 --- !u!222 &2285833837629613683

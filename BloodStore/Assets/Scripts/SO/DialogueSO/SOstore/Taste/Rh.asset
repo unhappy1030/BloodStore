@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   group: Rh
   tastes:
-  - name: +
+  - tasteName: +
     words:
     - RH +
     - positive
@@ -22,7 +22,7 @@ MonoBehaviour:
     sentences:
     - I want to be more positive!
     - I'm depressed...
-  - name: '-'
+  - tasteName: '-'
     words:
     - RH -
     - negative

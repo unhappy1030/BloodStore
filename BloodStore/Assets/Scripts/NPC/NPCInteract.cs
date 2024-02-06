@@ -123,12 +123,7 @@ public class NPCInteract : MonoBehaviour
     
     void GetBloodTaste(int index){
         tasteStr = ""; // reset
-
-        List<string> allTastes = new (dialogueSum[index].tastes);
-        foreach(string taste in allTastes){
-            tasteStr += taste;
-            tasteStr += " ";
-        }
+        tasteStr = dialogueSum[index].tasteLine;
     }
 
     IEnumerator ActiveSprite(){

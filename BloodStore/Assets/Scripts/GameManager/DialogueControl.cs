@@ -10,6 +10,8 @@ public class DialogueControl : MonoBehaviour
     int maxCount = 6;
 
     public List<NPCSO> npcs; // assign at inspector
+
+    [Tooltip("sex - Rh - BloodType")]
     public List<BloodTasteSO> tasteSOs; // assign at inspector
     Dictionary<string, int> npcConditions;
 
@@ -125,8 +127,8 @@ public class DialogueControl : MonoBehaviour
             allDialogues.Add(new());
             allDialogues[index].npcName = "";
             allDialogues[index].sprites = tempSprite;
-            allDialogues[index].tasteLine = "";
             allDialogues[index].tastes = MakeRandomTastes();
+            allDialogues[index].tasteLine = MakeTasteLine(allDialogues[index].tastes);
             allDialogues[index].priority = 0;
             allDialogues[index].dialogueName = "Normal"; // test
             index++;
@@ -171,32 +173,58 @@ public class DialogueControl : MonoBehaviour
             }
             else
             {
-                randomTaste.Add("");
+                randomTaste.Add(""); // add ""
             }
         }
 
         return randomTaste;
     }
 
-    string MakeTasteLine(List<string> tastes){
+    string MakeTasteLine(List<string> npcRandomTastes){
         string line = "";
         
-        List<string> allTastes = new (tastes);
+        if(tasteSOs == null || tasteSOs.Count == 0){
+            Debug.Log("TastesSO is empty...");
+            return null;
+        }
 
-        bool isLine = (UnityEngine.Random.Range(0, 2) == 0); // random select between line and word
+        bool isLine = !(npcRandomTastes.Count > 2);
         
-        if(allTastes.Count > 2){ // if more than two options, line must be words
-            isLine = false;
+        foreach(string randomTaste in npcRandomTastes){
+            if(randomTaste == ""){
+                continue;
+            }
+
+            Taste lineInfo = null;
+            foreach(BloodTasteSO tasteSO in tasteSOs){
+                foreach(Taste tasteInfo in tasteSO.tastes){
+                    if(randomTaste == tasteInfo.tasteName){
+                        lineInfo = tasteInfo;
+                        break;
+                    }
+                }
+            }
+
+            if(lineInfo == null){
+                Debug.Log("There is no correct Taste in BloodTasteSOs...");
+                return null;
+            }
+
+            if(isLine)
+            {
+                int randIndex = UnityEngine.Random.Range(0, lineInfo.sentences.Count);
+                line = lineInfo.sentences[randIndex];
+                break;
+            }
+            else
+            {
+                int randIndex = UnityEngine.Random.Range(0, lineInfo.words.Count);
+                line += " " + lineInfo.words[randIndex];
+            }
         }
 
-
-        if(isLine)
-        {
-            
-        }
-        else
-        {
-
+        if(!isLine){
+            line = "Do you have" + line + "?";
         }
 
         return line;

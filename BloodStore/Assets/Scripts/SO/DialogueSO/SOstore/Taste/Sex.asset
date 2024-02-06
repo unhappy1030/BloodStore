@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   group: Sex
   tastes:
-  - name: Male
+  - tasteName: Male
     words:
     - male
     - mango
     sentences:
     - I'm want Male's blood.
-  - name: Female
+  - tasteName: Female
     words:
     - female
     sentences:

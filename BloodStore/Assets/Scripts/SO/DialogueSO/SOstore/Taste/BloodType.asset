@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   group: BloodType
   tastes:
-  - name: A
+  - tasteName: A
     words:
     - A
     - apple
@@ -22,7 +22,7 @@ MonoBehaviour:
     sentences:
     - I want A.
     - I like apple.
-  - name: B
+  - tasteName: B
     words:
     - B
     - banana
@@ -30,14 +30,14 @@ MonoBehaviour:
     sentences:
     - I want B.
     - I like banana.
-  - name: AB
+  - tasteName: AB
     words:
     - AB
     - apple banana juice
     sentences:
     - I want AB.
     - I like apple banana juice.
-  - name: O
+  - tasteName: O
     words:
     - O
     - orange
