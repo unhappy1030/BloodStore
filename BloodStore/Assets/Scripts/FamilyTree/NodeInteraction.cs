@@ -88,7 +88,8 @@ public class NodeInteraction : MonoBehaviour
 
         if(!dialogueRunner.IsDialogueRunning 
             && !GameManager.Instance.isFading
-            && !cameraControl.mainCam.IsBlending)
+            && !cameraControl.mainCam.IsBlending
+            && !UIControl.isPause)
         {
             StartCoroutine(MoveCamera());
             KeyInteract();
@@ -293,7 +294,7 @@ public class NodeInteraction : MonoBehaviour
     public IEnumerator MoveCamera(){
         yield return new WaitForSeconds(0.1f);
 
-        if(!cameraControl.isFinish){
+        if(!CameraControl.isFinish){
             yield break;
         }
 
@@ -370,7 +371,7 @@ public class NodeInteraction : MonoBehaviour
             familyTarget.Add(child.gameObject);
         }
 
-        CreateTargetCamera(familyTarget);
+        GameManager.Instance.CreateTargetCamera(familyTarget, true, cameraCollider.GetComponent<PolygonCollider2D>(), 0f, CinemachineBlendDefinition.Style.EaseInOut, 0.35f);
         
         currentParent = _parent;
 
@@ -383,7 +384,7 @@ public class NodeInteraction : MonoBehaviour
         List<GameObject> groupTarget = new();
         groupTarget.Add(_group.gameObject);
 
-        CreateTargetCamera(groupTarget);
+        GameManager.Instance.CreateTargetCamera(groupTarget, true, cameraCollider.GetComponent<PolygonCollider2D>(), 0f, CinemachineBlendDefinition.Style.EaseInOut, 0.35f);
 
         EnableNodeCollider(_group, true); // setActive Node collider
 
@@ -487,14 +488,15 @@ public class NodeInteraction : MonoBehaviour
         wasNodeActived = enable;
     }
 
-    void CreateTargetCamera(List<GameObject> targets){
-        InteractObjInfo interactObjInfo = gameObject.GetComponent<InteractObjInfo>();
-        if(interactObjInfo == null)
-            interactObjInfo = gameObject.AddComponent<InteractObjInfo>();
+    // void CreateTargetCamera(List<GameObject> targets){
+    //     InteractObjInfo interactObjInfo = gameObject.GetComponent<InteractObjInfo>();
+    //     if(interactObjInfo == null)
+    //         interactObjInfo = gameObject.AddComponent<InteractObjInfo>();
 
-        interactObjInfo.SetTargetCameraInfo(targets, true, cameraCollider.GetComponent<PolygonCollider2D>(), 0f, CinemachineBlendDefinition.Style.EaseInOut, 0.35f);
-        cameraControl.ChangeCam(interactObjInfo);
-    }
+    //     interactObjInfo.SetTargetCameraInfo(targets, true, cameraCollider.GetComponent<PolygonCollider2D>(), 0f, CinemachineBlendDefinition.Style.EaseInOut, 0.35f);
+    //     cameraControl.ChangeCam(interactObjInfo);
+    // }
+
     void OnAllGroupColliderOffAllNodeCollider(){
         Group rootGroup = tree.mainGroup.transform.GetChild(0).gameObject.GetComponent<Group>();
         BoxCollider2D boxCollider = rootGroup.GetComponent<BoxCollider2D>();

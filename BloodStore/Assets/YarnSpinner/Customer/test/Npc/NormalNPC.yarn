@@ -7,12 +7,22 @@ position: -1,0
 <<set $taste = GetBloodTaste()>>
 This is normal NPC test.
 Taste - {$taste}
-<<SetCamTargetIndex DialogueSystem 1>>
-<<SellBlood DialogueSystem true>>
+
+<<WaitUntilVirtualCamBlend 1>>
+<<SetIsSell DialogueSystem true>>
 <<SetNodeName DialogueSystem SellTest>>
 ===
 title: SellTest
 position: -104,0
 ---
+<<WaitUntilVirtualCamBlend 0>>
+<<if GetSellInfo() >= 2.5>>
+    npc: more than 2.5
+<<elseif GetSellInfo() >= 0>>
+    npc: less than 2.5
+<<else>>
+    npc: something worng...
+<<endif>>
+
 npc: end dialogue...
 ===

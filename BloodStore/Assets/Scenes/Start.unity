@@ -428,7 +428,6 @@ MonoBehaviour:
       blendTime: 0
   _nodeName: 
   _familyTreeType: 0
-  _isOn: 1
   _ui: {fileID: 0}
   _isFade: 1
   _sceneName: FamilyTree
@@ -479,7 +478,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCam: {fileID: 0}
   cameraList: []
-  isFinish: 0
 --- !u!1 &714005071
 GameObject:
   m_ObjectHideFlags: 0
@@ -656,7 +654,6 @@ MonoBehaviour:
       blendTime: 0
   _nodeName: 
   _familyTreeType: 0
-  _isOn: 1
   _ui: {fileID: 0}
   _isFade: 0
   _sceneName: StartEdit
@@ -1189,7 +1186,6 @@ MonoBehaviour:
       blendTime: 0
   _nodeName: 
   _familyTreeType: 0
-  _isOn: 1
   _ui: {fileID: 0}
   _isFade: 1
   _sceneName: FamilyTree
@@ -1660,7 +1656,6 @@ MonoBehaviour:
       blendTime: 0
   _nodeName: 
   _familyTreeType: 0
-  _isOn: 1
   _ui: {fileID: 0}
   _isFade: 0
   _sceneName: StartEdit
@@ -2070,7 +2065,6 @@ MonoBehaviour:
       blendTime: 3
   _nodeName: 
   _familyTreeType: 0
-  _isOn: 1
   _ui: {fileID: 0}
   _isFade: 0
   _sceneName: Start
@@ -2902,6 +2896,7 @@ MonoBehaviour:
   variableStorage: {fileID: 0}
   moneyControl: {fileID: 0}
   dialogueControl: {fileID: 0}
+  cameraControl: {fileID: 0}
   targetIndex: 0
   nodeName: 
   isSell: 0
@@ -3890,8 +3885,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -25, y: 50}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -50, y: 50}
+  m_SizeDelta: {x: 37.5, y: 21.875}
   m_Pivot: {x: 1, y: 0}
 --- !u!1 &3951427344999552021
 GameObject:
@@ -4271,7 +4266,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: -20, y: -10, z: -10, w: -50}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -6108,7 +6103,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4693604842451340164}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2546715037479121340}
+        m_TargetAssemblyTypeName: Yarn.Unity.LineView, YarnSpinner.Unity
+        m_MethodName: OnContinueClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8739144598402466544
 MonoBehaviour:
   m_ObjectHideFlags: 0
