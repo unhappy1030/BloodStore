@@ -327,6 +327,7 @@ public class NodeInteraction : MonoBehaviour
             if(camScript.m_Lens.OrthographicSize > 1.875f){
                 camScript.m_Lens.OrthographicSize -= wheelSpeed;
             }
+            OnAllGroupColliderOffAllNodeCollider();
         }
         else if(wheel < 0)
         {
@@ -336,8 +337,10 @@ public class NodeInteraction : MonoBehaviour
                 camScript.m_Follow = null;
             }
 
-            if(camScript.m_Lens.OrthographicSize < 10)
-            camScript.m_Lens.OrthographicSize += wheelSpeed;
+            if(camScript.m_Lens.OrthographicSize < 10){
+                camScript.m_Lens.OrthographicSize += wheelSpeed;
+            }
+            OnAllGroupColliderOffAllNodeCollider();
         }
     }
 
