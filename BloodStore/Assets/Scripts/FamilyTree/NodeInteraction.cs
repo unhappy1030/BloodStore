@@ -353,15 +353,25 @@ public class NodeInteraction : MonoBehaviour
         
         GameObject currentCam = cameraControl.cameraList[cameraControl.cameraList.Count-1];
         CinemachineVirtualCamera camScript = currentCam.GetComponent<CinemachineVirtualCamera>();
-        
+
+        // float halfX = Camera.main.orthographicSize * 100; // *** 100 = ppu
+        // float halfY = halfX * Camera.main.aspect;
+
         float camSpeed = 0.025f * (camScript.m_Lens.OrthographicSize / 1.875f);
 
         if(mouseCamPos.x <= 0)
         {
+            if(currentCam.transform.position.x + 0.25f < Camera.main.transform.position.x){
+                currentCam.transform.position = Camera.main.transform.position;
+                Debug.Log("Left");
+                yield break;
+            }
+
             camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
             camScript.m_Follow = null;
             Vector3 camPos = new Vector3(currentCam.transform.position.x - camSpeed, currentCam.transform.position.y, -10);
             currentCam.transform.position = camPos;
+            
             if(!mouseMoveCheck){
                 OnAllGroupColliderOffAllNodeCollider();
                 mouseMoveCheck = true;
@@ -369,6 +379,12 @@ public class NodeInteraction : MonoBehaviour
         }
         else if(mouseCamPos.x >= 1)
         {
+            if(currentCam.transform.position.x - 0.25f > Camera.main.transform.position.x){
+                currentCam.transform.position = Camera.main.transform.position;
+                Debug.Log("Right");
+                yield break;
+            }
+
             camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
             camScript.m_Follow = null;
             Vector3 camPos = new Vector3(currentCam.transform.position.x + camSpeed, currentCam.transform.position.y, -10);
@@ -380,6 +396,12 @@ public class NodeInteraction : MonoBehaviour
         }
         else if(mouseCamPos.y <= 0)
         {
+            if(currentCam.transform.position.y + 0.25f < Camera.main.transform.position.y){
+                currentCam.transform.position = Camera.main.transform.position;
+                Debug.Log("Down");
+                yield break;
+            }
+
             camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
             camScript.m_Follow = null;
             Vector3 camPos = new Vector3(currentCam.transform.position.x, currentCam.transform.position.y - camSpeed, -10);
@@ -391,6 +413,12 @@ public class NodeInteraction : MonoBehaviour
         }
         else if(mouseCamPos.y >= 1)
         {
+            if(currentCam.transform.position.y - 0.25f > Camera.main.transform.position.y){
+                currentCam.transform.position = Camera.main.transform.position;
+                Debug.Log("Up");
+                yield break;
+            }
+         
             camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
             camScript.m_Follow = null;
             Vector3 camPos = new Vector3(currentCam.transform.position.x, currentCam.transform.position.y + camSpeed, -10);
