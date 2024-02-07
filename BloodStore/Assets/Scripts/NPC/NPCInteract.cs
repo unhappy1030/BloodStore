@@ -123,12 +123,7 @@ public class NPCInteract : MonoBehaviour
     
     void GetBloodTaste(int index){
         tasteStr = ""; // reset
-
-        List<string> allTastes = new (dialogueSum[index].tastes);
-        foreach(string taste in allTastes){
-            tasteStr += taste;
-            tasteStr += " ";
-        }
+        tasteStr = dialogueSum[index].tasteLine;
     }
 
     IEnumerator ActiveSprite(){
@@ -198,11 +193,18 @@ public class NPCInteract : MonoBehaviour
         }
 
         List<string> select = bloodPackUI.GetTogleCondition();
+
+        int totalCount = 0;
+        foreach(string taste in dialogueSum[index].tastes){
+            if(taste != ""){
+                totalCount++;
+            }
+        }
         
         int count = 0;
         foreach(string taste in dialogueSum[index].tastes){
             for(int i=0; i<3; i++){
-                if(select[i] == taste){
+                if(taste != "" && select[i] == taste){
                     count++;            
                     break;
                 }
@@ -210,9 +212,12 @@ public class NPCInteract : MonoBehaviour
         }
         Debug.Log("correct select Count : " + count);
 
-        if(count == dialogueSum[index].tastes.Count){
+        if(count == totalCount)
+        {
             return 5.0f;
-        }else{
+        }
+        else
+        {
             return 0;
         }
     }
