@@ -96,7 +96,12 @@ public class NodeInteraction : MonoBehaviour
             // && !cameraControl.mainCam.IsBlending
             && !UIControl.isPause)
         {
-            StartCoroutine(MoveCamera());
+            
+            if(!cameraControl.mainCam.IsBlending){
+                StartCoroutine(MoveCamera());
+                CameraZoom();
+            }
+
             KeyInteract();
         }
     }
@@ -303,6 +308,43 @@ public class NodeInteraction : MonoBehaviour
         }
     }
     
+    public void CameraZoom(){
+        float wheel = Input.GetAxis("Mouse ScrollWheel");
+        
+        float wheelSpeed = 0.3f;
+
+        GameObject currentCam = cameraControl.cameraList[cameraControl.cameraList.Count-1];
+        CinemachineVirtualCamera camScript = currentCam.GetComponent<CinemachineVirtualCamera>();
+
+        if(wheel > 0)
+        {
+            // zoom in
+            if(camScript.m_Follow != null){
+                camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
+                camScript.m_Follow = null;
+            }
+
+            if(camScript.m_Lens.OrthographicSize > 1.875f){
+                camScript.m_Lens.OrthographicSize -= wheelSpeed;
+            }
+
+            Debug.Log("Zoom in");
+        }
+        else if(wheel < 0)
+        {
+            // zoom out
+            if(camScript.m_Follow != null){
+                camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
+                camScript.m_Follow = null;
+            }
+
+            if(camScript.m_Lens.OrthographicSize < 10)
+            camScript.m_Lens.OrthographicSize += wheelSpeed;
+
+            Debug.Log("Zoom out");
+        }
+    }
+
     public IEnumerator MoveCamera(){
         yield return new WaitForSeconds(0.1f);
 
