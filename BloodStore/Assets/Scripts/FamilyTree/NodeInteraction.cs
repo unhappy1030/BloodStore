@@ -41,6 +41,7 @@ public class NodeInteraction : MonoBehaviour
     public GameObject addChildUI;
     public GameObject checkPairUI;
     public GameObject noticeUI;
+    public GameObject nodeDirectionUI;
     public GameObject treeManager;
     public GameObject cameraCollider;
     public Image nodeImg; // assign at Inspector
@@ -194,6 +195,7 @@ public class NodeInteraction : MonoBehaviour
     }
 
     void AbleKeyInput(Group newGroup){
+        int[] direction = {0, 0, 0, 0};
         leftGroup = null;
         rightGroup = null;
         upGroup = null;
@@ -201,10 +203,12 @@ public class NodeInteraction : MonoBehaviour
 
         if(newGroup.childrenGroup != null && newGroup.childrenGroup.Count != 0){
             downGroup = newGroup.childrenGroup;
+            direction[3] = newGroup.childrenGroup.Count;
         }
 
         if(newGroup.parentGroup != null){
             upGroup = newGroup.parentGroup;
+            direction[0] = 1;
         }
 
         if(newGroup.parentGroup != null){
@@ -221,14 +225,18 @@ public class NodeInteraction : MonoBehaviour
                 if(siblingIndex > 0)
                 {
                     leftGroup = parent.childrenGroup[siblingIndex - 1];
+                    direction[1] = 1;
                 }
                 
                 if(siblingIndex < parent.childrenGroup.Count - 1)
                 {
                     rightGroup = parent.childrenGroup[siblingIndex + 1];
+                    direction[2] = 1;
                 }
             }
         }
+        NodeDirectionUI nodeDirection = nodeDirectionUI.GetComponent<NodeDirectionUI>();
+        nodeDirection.UpdateDirection(direction);
     }
 
     void SelectShow(Group group){
