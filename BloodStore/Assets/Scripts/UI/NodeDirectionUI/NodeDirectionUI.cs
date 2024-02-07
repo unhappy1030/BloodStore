@@ -26,13 +26,18 @@ public class NodeDirectionUI : MonoBehaviour
                 downUI[0].SetActive(true);
             }
             else{
-                foreach(GameObject down in downUI){
-                    down.SetActive(true);
-                }
                 if(downUI.Count < direction[3]){
+                    foreach(GameObject down in downUI){
+                        down.SetActive(true);
+                    }
                     Downs downs = downGroup.GetComponent<Downs>();
                     for(int i = downUI.Count + 1; i <= direction[3]; i++){
                         downUI.Add(downs.AddDown(i));
+                    }
+                }
+                else{
+                    for(int i = 0; i < direction[3]; i++){
+                        downUI[i].SetActive(true);
                     }
                 }
                 
