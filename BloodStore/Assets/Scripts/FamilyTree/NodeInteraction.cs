@@ -327,8 +327,6 @@ public class NodeInteraction : MonoBehaviour
             if(camScript.m_Lens.OrthographicSize > 1.875f){
                 camScript.m_Lens.OrthographicSize -= wheelSpeed;
             }
-
-            Debug.Log("Zoom in");
         }
         else if(wheel < 0)
         {
@@ -340,8 +338,6 @@ public class NodeInteraction : MonoBehaviour
 
             if(camScript.m_Lens.OrthographicSize < 10)
             camScript.m_Lens.OrthographicSize += wheelSpeed;
-
-            Debug.Log("Zoom out");
         }
     }
 
