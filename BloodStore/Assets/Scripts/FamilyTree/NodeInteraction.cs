@@ -68,7 +68,9 @@ public class NodeInteraction : MonoBehaviour
     public CameraControl cameraControl;
     public DialogueRunner dialogueRunner;
 
-    
+    private bool isFirstKeyPress = true;
+    private float currentValue = 0.0f;
+    private float timeOfLastKeyPress = 0.0f;
     void Start(){
         // treeManagerTest = FindObjectOfType<TreeManagerTest>();
         tree = treeManager.GetComponent<TreeManager>();
@@ -91,7 +93,7 @@ public class NodeInteraction : MonoBehaviour
 
         if(!dialogueRunner.IsDialogueRunning 
             && !GameManager.Instance.isFading
-            && !cameraControl.mainCam.IsBlending
+            // && !cameraControl.mainCam.IsBlending
             && !UIControl.isPause)
         {
             StartCoroutine(MoveCamera());

@@ -10,7 +10,7 @@ public class Downs : MonoBehaviour
         GameObject downUI = Instantiate(downPrefab,new Vector2(0, 0), Quaternion.identity);
         Down down = downUI.GetComponent<Down>();
         down.numberLabel.text = num.ToString();
-        downUI.transform.parent = transform;
+        downUI.transform.SetParent(transform, false);
         return downUI;
     }
 }
