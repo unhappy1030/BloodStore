@@ -42,10 +42,10 @@ public class TreeManager : MonoBehaviour
     }
     void OnDestroy() {
         pairList.Serialize(root);
+        bloodPackList.PackingResult(pairList);
         pairList.MakeOlder();
         pairList.MakeDead();
         pairList.Save(pairList.pairs);
-        bloodPackList.PackingResult(pairList);
     }
     void SetPrefabData(){
         halfX = nodePrefab.GetComponent<SpriteRenderer>().bounds.extents.x;
