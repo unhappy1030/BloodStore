@@ -40,6 +40,10 @@ public class Pairs : MonoBehaviour
         }
         return this;
     }
+    public Pairs LoadNew(){
+        pairs = new();
+        return this;
+    }
     public void Serialize(PairTree pairTree)
     {
         pairs.Clear();

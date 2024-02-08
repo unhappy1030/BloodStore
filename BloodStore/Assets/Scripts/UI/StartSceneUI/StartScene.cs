@@ -37,11 +37,15 @@ public class StartScene : MonoBehaviour
 
     // button
     public void StartNewGame(string sceneName){
+        GameManager.Instance.pairList = GameManager.Instance.pairList.LoadNew();
+        GameManager.Instance.bloodPackList = GameManager.Instance.bloodPackList.LoadNew();
         GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(sceneName, 0.25f));
     }
 
     // button
     public void StartCurrentGame(string sceneName){
+        GameManager.Instance.pairList = GameManager.Instance.pairList.Load();
+        GameManager.Instance.bloodPackList = GameManager.Instance.bloodPackList.Load();
         GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(sceneName, 0.25f));
     }
 
