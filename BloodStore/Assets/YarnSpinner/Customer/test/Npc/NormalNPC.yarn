@@ -6,7 +6,7 @@ position: -1,0
 
 <<set $taste = GetBloodTaste()>>
 This is normal NPC test.
-Taste - {$taste}
+npc: {$taste}
 
 <<WaitUntilVirtualCamBlend 1>>
 <<SetIsSell DialogueSystem true>>

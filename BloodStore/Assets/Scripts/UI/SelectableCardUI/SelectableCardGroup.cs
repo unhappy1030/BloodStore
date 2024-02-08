@@ -7,6 +7,9 @@ public class SelectableCardGroup : MonoBehaviour
     public SelectableCardSO cardSO;
     public List<GameObject> CardList;
     void Start(){
+        SetCardAll();
+    }
+    public void SetCardAll(){
         int cardDisplayNum = transform.childCount;
         cardSO.MakeData(cardDisplayNum);
         SetCardDisplayData(cardDisplayNum);
@@ -16,6 +19,7 @@ public class SelectableCardGroup : MonoBehaviour
             Transform cardDisplayTransfrom = transform.GetChild(i);
             SelectableCardDisplay cardDisplay = cardDisplayTransfrom.GetComponent<SelectableCardDisplay>();
             cardDisplay.SetCardData(cardSO.cards[i], i);
+            cardDisplay.gameObject.SetActive(true);
             CardList.Add(cardDisplay.gameObject);
         }
     }

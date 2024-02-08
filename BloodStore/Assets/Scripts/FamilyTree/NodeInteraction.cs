@@ -41,6 +41,7 @@ public class NodeInteraction : MonoBehaviour
     public GameObject addChildUI;
     public GameObject checkPairUI;
     public GameObject noticeUI;
+    public GameObject nodeDirectionUI;
     public GameObject treeManager;
     public GameObject cameraCollider;
     public Image nodeImg; // assign at Inspector
@@ -67,7 +68,9 @@ public class NodeInteraction : MonoBehaviour
     public CameraControl cameraControl;
     public DialogueRunner dialogueRunner;
 
-    
+    private bool isFirstKeyPress = true;
+    private float currentValue = 0.0f;
+    private float timeOfLastKeyPress = 0.0f;
     void Start(){
         // treeManagerTest = FindObjectOfType<TreeManagerTest>();
         tree = treeManager.GetComponent<TreeManager>();
@@ -90,10 +93,15 @@ public class NodeInteraction : MonoBehaviour
 
         if(!dialogueRunner.IsDialogueRunning 
             && !GameManager.Instance.isFading
-            && !cameraControl.mainCam.IsBlending
+            // && !cameraControl.mainCam.IsBlending
             && !UIControl.isPause)
         {
-            StartCoroutine(MoveCamera());
+            
+            if(!cameraControl.mainCam.IsBlending){
+                StartCoroutine(MoveCamera());
+                CameraZoom();
+            }
+
             KeyInteract();
         }
     }
@@ -194,6 +202,7 @@ public class NodeInteraction : MonoBehaviour
     }
 
     void AbleKeyInput(Group newGroup){
+        int[] direction = {0, 0, 0, 0};
         leftGroup = null;
         rightGroup = null;
         upGroup = null;
@@ -201,10 +210,12 @@ public class NodeInteraction : MonoBehaviour
 
         if(newGroup.childrenGroup != null && newGroup.childrenGroup.Count != 0){
             downGroup = newGroup.childrenGroup;
+            direction[3] = newGroup.childrenGroup.Count;
         }
 
         if(newGroup.parentGroup != null){
             upGroup = newGroup.parentGroup;
+            direction[0] = 1;
         }
 
         if(newGroup.parentGroup != null){
@@ -221,14 +232,18 @@ public class NodeInteraction : MonoBehaviour
                 if(siblingIndex > 0)
                 {
                     leftGroup = parent.childrenGroup[siblingIndex - 1];
+                    direction[1] = 1;
                 }
                 
                 if(siblingIndex < parent.childrenGroup.Count - 1)
                 {
                     rightGroup = parent.childrenGroup[siblingIndex + 1];
+                    direction[2] = 1;
                 }
             }
         }
+        NodeDirectionUI nodeDirection = nodeDirectionUI.GetComponent<NodeDirectionUI>();
+        nodeDirection.UpdateDirection(direction);
     }
 
     void SelectShow(Group group){
@@ -293,6 +308,42 @@ public class NodeInteraction : MonoBehaviour
         }
     }
     
+    public void CameraZoom(){
+        float wheel = Input.GetAxis("Mouse ScrollWheel");
+        
+        float wheelSpeed = 0.3f;
+
+        GameObject currentCam = cameraControl.cameraList[cameraControl.cameraList.Count-1];
+        CinemachineVirtualCamera camScript = currentCam.GetComponent<CinemachineVirtualCamera>();
+
+        if(wheel > 0)
+        {
+            // zoom in
+            if(camScript.m_Follow != null){
+                camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
+                camScript.m_Follow = null;
+            }
+
+            if(camScript.m_Lens.OrthographicSize > 1.875f){
+                camScript.m_Lens.OrthographicSize -= wheelSpeed;
+            }
+            OnAllGroupColliderOffAllNodeCollider();
+        }
+        else if(wheel < 0)
+        {
+            // zoom out
+            if(camScript.m_Follow != null){
+                camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
+                camScript.m_Follow = null;
+            }
+
+            if(camScript.m_Lens.OrthographicSize < 10){
+                camScript.m_Lens.OrthographicSize += wheelSpeed;
+            }
+            OnAllGroupColliderOffAllNodeCollider();
+        }
+    }
+
     public IEnumerator MoveCamera(){
         yield return new WaitForSeconds(0.1f);
 
@@ -302,19 +353,28 @@ public class NodeInteraction : MonoBehaviour
 
         Vector3 mousePos = Input.mousePosition;
         Vector3 mouseCamPos = Camera.main.ScreenToViewportPoint(mousePos);
-
-        float temp = 0.025f;
         
         GameObject currentCam = cameraControl.cameraList[cameraControl.cameraList.Count-1];
         CinemachineVirtualCamera camScript = currentCam.GetComponent<CinemachineVirtualCamera>();
-        
+
+        // float halfX = Camera.main.orthographicSize * 100; // *** 100 = ppu
+        // float halfY = halfX * Camera.main.aspect;
+
+        float camSpeed = 0.025f * (camScript.m_Lens.OrthographicSize / 1.875f);
 
         if(mouseCamPos.x <= 0)
         {
+            if(currentCam.transform.position.x + 0.25f < Camera.main.transform.position.x){
+                currentCam.transform.position = Camera.main.transform.position;
+                Debug.Log("Left");
+                yield break;
+            }
+
             camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
             camScript.m_Follow = null;
-            Vector3 camPos = new Vector3(currentCam.transform.position.x - temp, currentCam.transform.position.y, -10);
+            Vector3 camPos = new Vector3(currentCam.transform.position.x - camSpeed, currentCam.transform.position.y, -10);
             currentCam.transform.position = camPos;
+            
             if(!mouseMoveCheck){
                 OnAllGroupColliderOffAllNodeCollider();
                 mouseMoveCheck = true;
@@ -322,9 +382,15 @@ public class NodeInteraction : MonoBehaviour
         }
         else if(mouseCamPos.x >= 1)
         {
+            if(currentCam.transform.position.x - 0.25f > Camera.main.transform.position.x){
+                currentCam.transform.position = Camera.main.transform.position;
+                Debug.Log("Right");
+                yield break;
+            }
+
             camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
             camScript.m_Follow = null;
-            Vector3 camPos = new Vector3(currentCam.transform.position.x + temp, currentCam.transform.position.y, -10);
+            Vector3 camPos = new Vector3(currentCam.transform.position.x + camSpeed, currentCam.transform.position.y, -10);
             currentCam.transform.position = camPos;
             if(!mouseMoveCheck){
                 OnAllGroupColliderOffAllNodeCollider();
@@ -333,9 +399,15 @@ public class NodeInteraction : MonoBehaviour
         }
         else if(mouseCamPos.y <= 0)
         {
+            if(currentCam.transform.position.y + 0.25f < Camera.main.transform.position.y){
+                currentCam.transform.position = Camera.main.transform.position;
+                Debug.Log("Down");
+                yield break;
+            }
+
             camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
             camScript.m_Follow = null;
-            Vector3 camPos = new Vector3(currentCam.transform.position.x, currentCam.transform.position.y - temp, -10);
+            Vector3 camPos = new Vector3(currentCam.transform.position.x, currentCam.transform.position.y - camSpeed, -10);
             currentCam.transform.position = camPos;
             if(!mouseMoveCheck){
                 OnAllGroupColliderOffAllNodeCollider();
@@ -344,9 +416,15 @@ public class NodeInteraction : MonoBehaviour
         }
         else if(mouseCamPos.y >= 1)
         {
+            if(currentCam.transform.position.y - 0.25f > Camera.main.transform.position.y){
+                currentCam.transform.position = Camera.main.transform.position;
+                Debug.Log("Up");
+                yield break;
+            }
+         
             camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
             camScript.m_Follow = null;
-            Vector3 camPos = new Vector3(currentCam.transform.position.x, currentCam.transform.position.y + temp, -10);
+            Vector3 camPos = new Vector3(currentCam.transform.position.x, currentCam.transform.position.y + camSpeed, -10);
             currentCam.transform.position = camPos;
             if(!mouseMoveCheck){
                 OnAllGroupColliderOffAllNodeCollider();
