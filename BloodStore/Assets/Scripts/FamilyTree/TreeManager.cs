@@ -29,7 +29,6 @@ public class TreeManager : MonoBehaviour
         nodeSO.node.empty = true;
         this.pairList = GameManager.Instance.pairList;
         this.bloodPackList = GameManager.Instance.bloodPackList;
-        this.pairList = pairList.Load();
         root = pairList.Deserialize();
         if(pairList.pairs.Count == 0)
         {

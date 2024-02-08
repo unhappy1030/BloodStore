@@ -40,6 +40,10 @@ public class BloodPacks : MonoBehaviour
         }
         return this;
     }
+    public BloodPacks LoadNew(){
+        bloodPacks = new();
+        return this;
+    }
     public void Serialize()
     {
         if(bloodPackLinks.Count == 0) return ;
