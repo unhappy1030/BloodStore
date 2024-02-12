@@ -10,8 +10,4 @@ public class CheckPairButton : MonoBehaviour
         emptyDisplay.ChangeConfirmed();
         checkPair.gameObject.SetActive(false);
     }
-    public void BackClick(){
-        CheckPair checkPair = GetComponentInParent<CheckPair>();
-        checkPair.gameObject.SetActive(false);
-    }
 }

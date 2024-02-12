@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Profiling.Memory.Experimental;
 using UnityEngine;
 
 public class SelectableCardGroup : MonoBehaviour
 {
     public SelectableCardSO cardSO;
-    public List<GameObject> CardList;
+    public List<GameObject> cardList;
     void Start(){
         SetCardAll();
     }
@@ -20,10 +21,16 @@ public class SelectableCardGroup : MonoBehaviour
             SelectableCardDisplay cardDisplay = cardDisplayTransfrom.GetComponent<SelectableCardDisplay>();
             cardDisplay.SetCardData(cardSO.cards[i], i);
             cardDisplay.gameObject.SetActive(true);
-            CardList.Add(cardDisplay.gameObject);
+            cardList.Add(cardDisplay.gameObject);
+        }
+    }
+    public void UpdateCardData(){
+        for(int i = 0; i < cardList.Count; i++){
+            SelectableCardDisplay dp = cardList[i].GetComponent<SelectableCardDisplay>();
+            dp.CheckCost(cardSO.cards[i]);
         }
     }
     public void SetOffCard(int index){
-        CardList[index].SetActive(false);
+        cardList[index].SetActive(false);
     }
 }

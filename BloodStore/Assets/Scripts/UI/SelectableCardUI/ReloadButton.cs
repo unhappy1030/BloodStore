@@ -7,7 +7,9 @@ public class ReloadButton : MonoBehaviour
     public GameObject selectableCardGroupUI;
 
     public void Reload(){
-        SelectableCardGroup selectableCardGroup = selectableCardGroupUI.GetComponent<SelectableCardGroup>();
-        selectableCardGroup.SetCardAll();
+        if(GameManager.Instance.money > 5){
+            SelectableCardGroup selectableCardGroup = selectableCardGroupUI.GetComponent<SelectableCardGroup>();
+            selectableCardGroup.SetCardAll();
+        }
     }
 }
