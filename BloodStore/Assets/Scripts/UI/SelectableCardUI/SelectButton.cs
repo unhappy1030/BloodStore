@@ -13,6 +13,7 @@ public class SelectButton : MonoBehaviour
     {
         if(index.buttonCheck){
             if(cardSO.cards[index.GetIndex()].cost < GameManager.Instance.money){ // 중매비 체크
+                GameManager.Instance.money -= cardSO.cards[index.GetIndex()].cost;
                 SelectCardUI UI = GetComponentInParent<SelectCardUI>();
                 SelectableCardGroup group = selectableCardGroup.GetComponent<SelectableCardGroup>();
                 UI.DeActiveSelectableCards();

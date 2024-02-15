@@ -8,6 +8,7 @@ public class ReloadButton : MonoBehaviour
 
     public void Reload(){
         if(GameManager.Instance.money > 5){
+            GameManager.Instance.money -= 5;
             SelectableCardGroup selectableCardGroup = selectableCardGroupUI.GetComponent<SelectableCardGroup>();
             selectableCardGroup.SetCardAll();
         }

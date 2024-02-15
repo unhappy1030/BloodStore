@@ -44,7 +44,7 @@ public class SelectableCardDisplay : MonoBehaviour
         else{
             button.image.color = Color.white;
             for(int i = 0; i < gameObject.transform.childCount; i++){
-                gameObject.transform.GetChild(i).gameObject.SetActive(false);
+                gameObject.transform.GetChild(i).gameObject.SetActive(true);
             }
             costCheck = true;
         }
