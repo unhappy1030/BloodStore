@@ -5,12 +5,19 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Yarn.Unity;
 
+public enum BloodSellStatus{
+    None,
+    SelectBlood,
+    Filtered
+}
+
 public class NPCInteract : MonoBehaviour
 {
     public GameObject npc; // assign at Inspector
     public List<GameObject> cameraTarget; // assign at Inspector
     public static string tasteStr; // static warning
 
+    public GameObject filteringCanvas; // assign at Inspector
     public GameObject bloodPackCanvas; // assign at Inspector
     public GameObject nextDayButton; // assign at Inspector
 
@@ -18,6 +25,7 @@ public class NPCInteract : MonoBehaviour
     public DialogueControl dialogueControl;
     public YarnControl yarnControl;
     public DialogueRunner dialogueRunner;
+    public BloodSellProcess bloodSellProcess; // assign at inspector
 
     int count;
     int npcIndex;
@@ -29,7 +37,11 @@ public class NPCInteract : MonoBehaviour
     List<DialogueInfo> dialogueSum;
     List<Sprite> npcSprites;
 
+    BloodSellStatus sellStatus;
+
     void Start(){
+        sellStatus = BloodSellStatus.None;
+
         // npcs = dialogueControl.npcs; // test
         CameraControl.targetsForYarn = new(cameraTarget);
 
@@ -40,6 +52,7 @@ public class NPCInteract : MonoBehaviour
 
         npc.SetActive(false);
 
+        filteringCanvas.SetActive(false);
         bloodPackCanvas.SetActive(false);
         nextDayButton.SetActive(false);
 
@@ -72,9 +85,17 @@ public class NPCInteract : MonoBehaviour
         
         // if sellect sell
         if(yarnControl.isSell){
-            yield return new WaitUntil(() => YarnControl.isSelect);
-            YarnControl.isSelect = false;
+            // yield return new WaitUntil(() => YarnControl.isSelect);
+            // YarnControl.isSelect = false;
+            
             yarnControl.isSell = false;
+            filteringCanvas.SetActive(true);
+
+            yield return new WaitUntil(() => bloodSellProcess.isBloodSellFinish);
+            bloodSellProcess.isBloodSellFinish = false;
+            filteringCanvas.SetActive(false);
+
+            ChangeSellStatus();
 
             YarnControl.sellInfo = CalculateSellInfo(npcIndex);
                 
@@ -85,6 +106,7 @@ public class NPCInteract : MonoBehaviour
             }
 
             YarnControl.sellInfo = 0;
+            bloodSellProcess.ResetAllBloodSellStatus();
         }
 
         yield return StartCoroutine(DeActiveSprite());
@@ -163,6 +185,18 @@ public class NPCInteract : MonoBehaviour
         }
     }
 
+    public void ChangeSellStatus(){
+        if(bloodSellProcess.isBloodSelected){
+            sellStatus = BloodSellStatus.SelectBlood;
+
+            if(bloodSellProcess.isFiltered){
+                sellStatus = BloodSellStatus.Filtered;
+            }
+        }
+
+        // YarnControl.sellStatus = sellStatus;
+    }
+
     // void CreateVirtualCamera(int targetIndex){
     //     InteractObjInfo interactObjInfo = gameObject.GetComponent<InteractObjInfo>();
     //     if(interactObjInfo == null){
@@ -182,9 +216,15 @@ public class NPCInteract : MonoBehaviour
     //     interactObjInfo.SetVirtualCameraInfo(cameraTarget[targetIndex], false, null, 5.4f, 0.25f, Cinemachine.CinemachineBlendDefinition.Style.EaseInOut, 1.5f);
     //     cameraControl.ChangeCam(interactObjInfo);
     // }   
-
+    
     // test
     float CalculateSellInfo(int index){
+        float point = 0;
+
+        if(sellStatus == BloodSellStatus.None){
+            return point;
+        }
+
         BloodPackUITest bloodPackUI = bloodPackCanvas.GetComponentInChildren<BloodPackUITest>();
 
         if(bloodPackUI == null){
@@ -212,14 +252,21 @@ public class NPCInteract : MonoBehaviour
         }
         Debug.Log("correct select Count : " + count);
 
+        
         if(count == totalCount)
         {
-            return 5.0f;
+            point = 4.0f;
         }
         else
         {
-            return 0;
+            point = 0;
         }
+
+        if(sellStatus == BloodSellStatus.Filtered){
+            point *= 1.5f;
+        }
+
+        return point;
     }
     
     // test

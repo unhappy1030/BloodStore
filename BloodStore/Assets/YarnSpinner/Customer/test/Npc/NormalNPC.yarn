@@ -15,14 +15,17 @@ npc: {$taste}
 title: SellTest
 position: -104,0
 ---
+<<declare $sellStatus = 0>>
+
 <<WaitUntilVirtualCamBlend 0>>
-<<if GetSellInfo() >= 2.5>>
-    npc: more than 2.5
-<<elseif GetSellInfo() >= 0>>
-    npc: less than 2.5
-<<else>>
-    npc: something worng...
-<<endif>>
+npc: Total Point is {GetSellInfo()}
+// <<if GetSellInfo() >= 2.5>>
+//     npc: more than 2.5
+// <<elseif GetSellInfo() >= 0>>
+//     npc: less than 2.5
+// <<else>>
+//     npc: something worng...
+// <<endif>>
 
 npc: end dialogue...
 ===
