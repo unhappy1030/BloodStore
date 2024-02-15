@@ -8,6 +8,8 @@ public class BloodSellProcess : MonoBehaviour
     public bool isFiltered;
     public bool isBloodSellFinish;
 
+    public BloodPackUITest bloodPackUITest; // assign at inspector
+
     void Start(){
         isBloodSelected = false;
         isFiltered = false;
@@ -23,6 +25,7 @@ public class BloodSellProcess : MonoBehaviour
 
     // button
     public void SelecteBlood(){
+        GameManager.Instance.bloodPackList.SubtractBloodPack(bloodPackUITest.sex, bloodPackUITest.bloodType, bloodPackUITest.rh, 1);
         isBloodSelected = true;
     } 
 
