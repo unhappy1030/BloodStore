@@ -11,6 +11,7 @@ public class SelectableCard
     public string[] bloodType;
     public int hp;
     public int age;
+    public int cost;
     public bool isDead;
 
     // public Dictionary<string,string>[] type;
@@ -21,6 +22,7 @@ public class SelectableCard
         this.bloodType = GenerateRandomBloodType();
         this.hp = 100;
         this.age = Random.Range(20, 36);
+        this.cost = Random.Range(5, 21);
         this.isDead = false;
     }
     private string GenerateRandomName()

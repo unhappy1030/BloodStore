@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackButton : MonoBehaviour
+public class SetSelectedCardBackButton : MonoBehaviour
 {
     public NodeSO nodeSO;
     public GameObject selectableCardUI;
-    public void OffUI(){
+    public void SetSelectedCard(){
         SelectCardUI UI = selectableCardUI.GetComponent<SelectCardUI>();
-        UI.DeActiveSelectableCards();
         if(!nodeSO.node.empty){
             UI.ActiveSelectedCard();
         }

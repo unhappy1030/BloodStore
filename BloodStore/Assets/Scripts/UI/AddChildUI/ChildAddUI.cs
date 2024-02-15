@@ -14,9 +14,15 @@ public class ChildAddUI : MonoBehaviour
     }
     public void Active(Group group){
         this.group = group;
-        A.GetComponent<ValueButton>().SetValueRandom();
-        B.GetComponent<ValueButton>().SetValueRandom();
-        C.GetComponent<ValueButton>().SetValueRandom();
+        ValueButton aValue = A.GetComponent<ValueButton>();
+        ValueButton bValue = B.GetComponent<ValueButton>();
+        ValueButton cValue = C.GetComponent<ValueButton>();
+        aValue.SetValueRandom();
+        aValue.CheckCost();
+        bValue.SetValueRandom();
+        bValue.CheckCost();
+        cValue.SetValueRandom();
+        cValue.CheckCost();
         gameObject.SetActive(true);
     }
     public void DeActive(){
