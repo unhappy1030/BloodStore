@@ -3939,7 +3939,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Start
+          m_StringArgument: StartMenu
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &206686344544955045
@@ -6489,6 +6489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneNamesInBuild:
   - Start
+  - StartMenu
   - ResultFamilyTree
   - FamilyTree
   - ResultStore
