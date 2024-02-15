@@ -67,7 +67,6 @@ public class NodeInteraction : MonoBehaviour
 
     public CameraControl cameraControl;
     public DialogueRunner dialogueRunner;
-
     void Start(){
         // treeManagerTest = FindObjectOfType<TreeManagerTest>();
         tree = treeManager.GetComponent<TreeManager>();
@@ -81,6 +80,7 @@ public class NodeInteraction : MonoBehaviour
         
         // ShowTotal();
         currentSelectGroup = tree.mainGroup.transform.GetChild(0).gameObject.GetComponent<Group>();
+        currentSelectGroup.highLight.SetActive(true);
         ShowGroup(currentSelectGroup);
         AbleKeyInput(currentSelectGroup);
     }
@@ -144,8 +144,9 @@ public class NodeInteraction : MonoBehaviour
                 {
                     Debug.Log("Down : " + keyCode.ToString());
                     SelectShow(downGroup[index-1]);
+                    currentSelectGroup.highLight.SetActive(false);
                     currentSelectGroup = downGroup[index-1];
-
+                    currentSelectGroup.highLight.SetActive(true);
                     AbleKeyInput(downGroup[index-1]);
                     return;
                 }
@@ -163,14 +164,20 @@ public class NodeInteraction : MonoBehaviour
             if(h == -1 && leftGroup != null)
             {
                 SelectShow(leftGroup);
+
+                currentSelectGroup.highLight.SetActive(false);
                 currentSelectGroup = leftGroup;
+                currentSelectGroup.highLight.SetActive(true);
 
                 AbleKeyInput(leftGroup);
             }
             else if(h == 1 && rightGroup != null)
             {
                 SelectShow(rightGroup);
+
+                currentSelectGroup.highLight.SetActive(false);
                 currentSelectGroup = rightGroup;
+                currentSelectGroup.highLight.SetActive(true);
 
                 AbleKeyInput(rightGroup);
             }
@@ -182,14 +189,20 @@ public class NodeInteraction : MonoBehaviour
             if(v == -1 && downGroup != null && downGroup.Count != 0)
             {
                 SelectShow(downGroup[0]);
+
+                currentSelectGroup.highLight.SetActive(false);
                 currentSelectGroup = downGroup[0];
+                currentSelectGroup.highLight.SetActive(true);
 
                 AbleKeyInput(downGroup[0]);
             }
             else if(v == 1 && upGroup != null)
             {
                 SelectShow(upGroup);
+
+                currentSelectGroup.highLight.SetActive(false);
                 currentSelectGroup = upGroup;
+                currentSelectGroup.highLight.SetActive(true);
                 //전체 그룹 콜라이더 켜기 & 켜져있는 node콜라이더 끄기
                 OnAllGroupColliderOffAllNodeCollider();
                 AbleKeyInput(upGroup);
@@ -204,7 +217,7 @@ public class NodeInteraction : MonoBehaviour
         rightGroup = null;
         upGroup = null;
         downGroup = null;
-
+        
         if(newGroup.childrenGroup != null && newGroup.childrenGroup.Count != 0){
             downGroup = newGroup.childrenGroup;
             direction[3] = newGroup.childrenGroup.Count;
@@ -273,7 +286,10 @@ public class NodeInteraction : MonoBehaviour
                 return;
             }
 
+            currentSelectGroup.highLight.SetActive(false);
             currentSelectGroup = group;
+            currentSelectGroup.highLight.SetActive(true);
+
             ShowGroup(group);
             AbleKeyInput(group);
         }
@@ -465,7 +481,9 @@ public class NodeInteraction : MonoBehaviour
 
         EnableNodeCollider(_group, true); // setActive Node collider
 
+        currentSelectGroup.highLight.SetActive(false);
         currentSelectGroup = _group;
+        currentSelectGroup.highLight.SetActive(true);
         
         nodeShowingStatus = NodeShowingStatus.ShowGroup;
         nodeInteractionStatus = NodeInteractionStatus.None;
