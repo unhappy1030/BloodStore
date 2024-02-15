@@ -8,6 +8,9 @@ public class PackingUIButtons : MonoBehaviour
     public void Confirm(){
         PackingUI UI = packingUI.GetComponent<PackingUI>();
         UI.PackingConfirm();
+        ButtonControl buttonControl = this.GetComponent<ButtonControl>();
+        buttonControl.DayIncrease();
+        buttonControl.SceneLoad("ResultFamilyTree");
     }
     public void CountUp(){
         PackingUI UI = packingUI.GetComponent<PackingUI>();

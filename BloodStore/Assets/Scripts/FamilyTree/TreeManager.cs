@@ -40,7 +40,7 @@ public class TreeManager : MonoBehaviour
         SetPrefabData();
         MakeFamilyTree();
     }
-    void OnDestroy() {
+    public void SavePairData() {
         pairList.Serialize(root);
         pairList.MakeOlder();
         pairList.MakeDead();
