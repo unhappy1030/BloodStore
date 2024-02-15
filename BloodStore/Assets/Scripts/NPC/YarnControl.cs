@@ -18,7 +18,7 @@ public class YarnControl : MonoBehaviour
     public string nodeName;
     public bool isSell;
     public static float sellInfo = 0;
-    public static bool isSelect;
+    // public static bool isSelect;
 
     private void OnEnable()
     {
@@ -67,6 +67,7 @@ public class YarnControl : MonoBehaviour
         nodeName = _nodeName;
     }
 
+    // only for sell
     [YarnCommand("SetIsSell")]
     public void SetIsSell(bool _isTrue){
         isSell = _isTrue;
@@ -84,12 +85,12 @@ public class YarnControl : MonoBehaviour
         return taste;
     }
 
-    [YarnCommand("WaitUntilSell")]
-    public static IEnumerator WaitUntilSell(){
-        isSelect = false;
-        yield return new WaitUntil(() => isSelect);
-        isSelect = false;
-    }
+    // [YarnCommand("WaitUntilSell")]
+    // public static IEnumerator WaitUntilSell(){
+    //     isSelect = false;
+    //     yield return new WaitUntil(() => isSelect);
+    //     isSelect = false;
+    // }
 
     
     [YarnCommand("WaitUntilVirtualCamBlend")]
@@ -100,9 +101,9 @@ public class YarnControl : MonoBehaviour
     
 
     // button
-    public void ChangeIsSelect(){
-        isSelect = true;
-    }
+    // public void ChangeIsSelect(){
+    //     isSelect = true;
+    // }
 
     // must use
     [YarnFunction("GetSellInfo")]

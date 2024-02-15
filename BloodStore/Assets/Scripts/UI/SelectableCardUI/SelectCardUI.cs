@@ -8,27 +8,30 @@ using UnityEngine;
 public class SelectCardUI : MonoBehaviour
 {
     public Index index;
-    public GameObject view;
-    public GameObject selectedCard;
+    public GameObject viewUI;
+    public GameObject selectableCardGroupUI;
+    public GameObject selectedCardUI;
     void Start(){
-        if (view.activeSelf){
-            view.SetActive(false);
+        if (viewUI.activeSelf){
+            viewUI.SetActive(false);
         }
-        if(selectedCard.activeSelf){
-            selectedCard.SetActive(false);
+        if(selectedCardUI.activeSelf){
+            selectedCardUI.SetActive(false);
         }
     }
     public void ActiveSelectableCards(){
         index.buttonCheck = false;
-        view.SetActive(true);
+        SelectableCardGroup selectableCardGroup = selectableCardGroupUI.GetComponent<SelectableCardGroup>();
+        selectableCardGroup.UpdateCardData();
+        viewUI.SetActive(true);
     }
     public void DeActiveSelectableCards(){
-        view.SetActive(false);
+        viewUI.SetActive(false);
     }
     public void ActiveSelectedCard(){
-        selectedCard.SetActive(true);
+        selectedCardUI.SetActive(true);
     }
     public void DeActiveSelectedCard(){
-        selectedCard.SetActive(false);
+        selectedCardUI.SetActive(false);
     }
 }
