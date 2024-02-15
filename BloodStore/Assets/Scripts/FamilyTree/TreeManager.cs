@@ -16,6 +16,7 @@ public class TreeManager : MonoBehaviour
     public GameObject deadPrefab;
     public GameObject childButtonPrefab;
     public GameObject childButtonOffPrefab;
+    public GameObject highLightPrefab;
     public GameObject mainGroup;
     public GameObject selectedCard;
     public NodeSO nodeSO;
@@ -132,6 +133,10 @@ public class TreeManager : MonoBehaviour
         group.SetSizeData(halfX, halfY, pairSize, unit, pairOffSet, offSetX, offSetY);
         group.SetUI(selectedCard);
         group.MakeBoxCollider();
+        group.highLight = Instantiate(highLightPrefab, new Vector2(0, 0), Quaternion.identity);
+        group.highLight.transform.localScale = new Vector3(pairSize, halfY * 2);
+        group.highLight.transform.SetParent(groupObject.transform);
+        group.highLight.SetActive(false);
         return group;
     }
 

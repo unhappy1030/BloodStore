@@ -20,6 +20,7 @@ public class Group : MonoBehaviour
     public GameObject rightDisplay;
     public GameObject button;
     public GameObject buttonOff;
+    public GameObject highLight;
     private float pairOffSet;
     private float halfX, halfY;
     private float pairSize, unit;
