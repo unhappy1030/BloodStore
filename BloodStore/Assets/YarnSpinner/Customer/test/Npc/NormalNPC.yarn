@@ -19,6 +19,7 @@ position: -104,0
 
 <<WaitUntilVirtualCamBlend 0>>
 npc: Total Point is {GetSellInfo()}
+<<CalculateMoney DialogueSystem 2>>
 // <<if GetSellInfo() >= 2.5>>
 //     npc: more than 2.5
 // <<elseif GetSellInfo() >= 0>>
