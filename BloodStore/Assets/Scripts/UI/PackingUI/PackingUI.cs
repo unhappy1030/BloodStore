@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.CommandLine;
 using Cinemachine.Utility;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PackingUI : MonoBehaviour
@@ -25,8 +26,9 @@ public class PackingUI : MonoBehaviour
     public void PackingConfirm(){
         tree.SavePairData();
         if(count != 0){
-            GameManager.Instance.money = GameManager.Instance.money - yearCost * count - addtionalCost;
-            GameManager.Instance.bloodPackList.Packing(GameManager.Instance.pairList);
+            MoneyControl moneyControl = GameManager.Instance.gameObject.GetComponent<MoneyControl>();
+            moneyControl.CalculateMoney((yearCost * count + addtionalCost) * -1);
+            GameManager.Instance.bloodPackList.PackingResult(GameManager.Instance.pairList);
         }
     }
     public void SetCountUp(){

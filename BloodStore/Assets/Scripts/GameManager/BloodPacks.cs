@@ -4,6 +4,8 @@ using UnityEngine;
 using System.IO;
 using Unity.VisualScripting;
 using UnityEngine.Assertions.Must;
+using JetBrains.Annotations;
+using System.Security.Cryptography;
 [System.Serializable]
 public class SaveBloodPackArray{
     public BloodPack[] arr;
@@ -15,6 +17,7 @@ public class BloodPacks : MonoBehaviour
     public List<BloodPackLink> bloodPackLinks = new();
     public SaveBloodPackArray saveArray;
     public Dictionary<string,int> categoryNum;
+    public Dictionary<string, int> before, after, gap;
     public void Save(List<BloodPack> bloodPackList){
         string _path = Application.persistentDataPath + "/BloodPack.json"; 
         saveArray = new();
@@ -89,6 +92,18 @@ public class BloodPacks : MonoBehaviour
             }
         }
     }
+    public void PackingResult(Pairs pairList){
+        Load();
+        Deserialize();
+        before = ShowAllDic();
+        Packing(pairList);
+        after = ShowAllDic();
+        gap = GetGap(before, after);
+        // Debug.Log("Show Gap");
+        // foreach(string key in gap.Keys){
+        //     Debug.Log(key + " : " + gap[key].ToString());
+        // }
+    }
     public void Packing(Pairs pairList){
         Load();
         Deserialize();
@@ -104,6 +119,9 @@ public class BloodPacks : MonoBehaviour
         Save(bloodPacks);
     }
     public void AddBloodPack(Node node){
+        if(node.isDead){
+            return;
+        }
         if(bloodPacks.Count == 0){
             bloodPackLinks.Add(new BloodPackLink(NodeToBloodPack(node)));
         }
@@ -215,32 +233,32 @@ public class BloodPacks : MonoBehaviour
     }
     public void ShowAll(){
         UpdateSumList();
-        // string[] sexs = {"Male", "Female"};
-        // string[] bloodTypes = {"A", "B", "AB", "O"};
-        // string[] rhs = {"+", "-"};
-        // Dictionary<string, int> total = new();
-        // foreach(string sex in sexs){
-        //         foreach(string bloodType in bloodTypes){
-        //             foreach(string rh in rhs){
-        //                 total.Add(sex+bloodType+rh, 0);
-        //         }
-        //     }
-        // }
-        // foreach(BloodPackLink link in bloodPackLinks){
-        //     foreach(string sex in sexs){
-        //         foreach(string bloodType in bloodTypes){
-        //             foreach(string rh in rhs){
-        //                 if(link.pack.node.sex == sex && link.pack.node.bloodType[0] == bloodType && link.pack.node.bloodType[1] == rh){
-        //                     total[sex+bloodType+rh] += link.sum;
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
         Debug.Log("ShowAll");
         foreach(BloodPackLink link in bloodPackLinks){
-            Debug.Log(link.pack.node.sex + link.pack.node.bloodType[0] + link.pack.node.bloodType[1] + " : " + link.sum);
+            Debug.Log(link.pack.node.sex + link.pack.node.bloodType[0] + link.pack.node.bloodType[1] + " : " + link.sum.ToString());
         }
+    }
+    public Dictionary<string, int> ShowAllDic(){
+        UpdateSumList();
+        // Debug.Log("ShowAllDictionary");
+        Dictionary<string, int> result = new();
+        foreach(BloodPackLink link in bloodPackLinks){
+            result.Add(link.pack.node.sex + link.pack.node.bloodType[0] + link.pack.node.bloodType[1], link.sum);
+            // Debug.Log(link.pack.node.sex + link.pack.node.bloodType[0] + link.pack.node.bloodType[1] + " : " + link.sum.ToString());
+        }
+        return result;
+    }
+    public Dictionary<string, int> GetGap(Dictionary<string, int> before,Dictionary<string, int> after){
+        Dictionary<string, int> gap = new();
+        foreach(string key in after.Keys){
+            if(!before.ContainsKey(key)){
+                gap.Add(key, after[key]);
+            }
+            else{
+                gap.Add(key, after[key] - before[key]);
+            }
+        }
+        return gap;
     }
     public int GetCondition(string sex ,string bloodType, string rh){
         UpdateSumList();
