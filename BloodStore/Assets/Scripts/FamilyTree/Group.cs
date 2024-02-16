@@ -26,19 +26,36 @@ public class Group : MonoBehaviour
     public float offSetX, offSetY;
     public Group parentGroup;
     public List<Group> childrenGroup;
-
     public List<float[]> value;
-
+    public List<string> content;
     public float lineWidth = 0.05f;
-
-    public void SetValues(){
+    public void SetValues(AddChildSO addChildSO){
         float weight, probability, cost;
         value = new();
-        for(int i = 0; i < 3; i++){
-            weight = Random.Range(0.8f, 0.9f);
-            probability = Random.Range(0.75f, 1f);
-            cost = Random.Range(10, 16);
+        content = new();
+        List<int> check = new();
+        int i = 0;
+        while(i < 3){
+            int idx = Random.Range(0, addChildSO.values.Count);
+            if(check != null && check.Count != 0){
+                bool same = false;
+                foreach(int n in check){
+                    if(n == idx){
+                        same = true;
+                        break;
+                    }
+                }
+                if(same){
+                    continue;
+                }
+            }
+            weight = addChildSO.values[idx].weight;
+            probability = addChildSO.values[idx].probability;
+            cost = addChildSO.values[idx].cost;
             value.Add(new float[3] {weight, probability, cost});
+            int sentenceIndex = Random.Range(0,addChildSO.values[idx].sentences.Count);
+            content.Add(addChildSO.values[idx].sentences[sentenceIndex] + " : " + cost.ToString());
+            i++;
         }
     }
     public void SetPrefab(GameObject nodePrefab, GameObject emptyPrefab, GameObject deadPrefab){

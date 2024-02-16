@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,13 +14,16 @@ public class ValueButton : MonoBehaviour
 
     public GameObject addChildUI;
 
+    public TextMeshProUGUI contentLabel;
+
     public Color disabledColor; // 비활성화 될 때의 색상
     public bool costCheck = false; // 조건 충족 여부
 
-    public void SetValueRandom(float[] values){
+    public void SetValueRandom(float[] values, string content){
         weight = values[0];
         probability = values[1];
         cost = values[2];
+        contentLabel.text = content;
     }
     public void CheckCost(){
         Button button = this.GetComponent<Button>();
