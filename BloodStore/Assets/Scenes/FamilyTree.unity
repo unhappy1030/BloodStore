@@ -905,7 +905,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &139006814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5260,6 +5260,7 @@ MonoBehaviour:
   mainGroup: {fileID: 0}
   selectedCard: {fileID: 609877843}
   nodeSO: {fileID: 11400000, guid: fa128063b10c6c0499750c3ad2ce886c, type: 2}
+  addChildSO: {fileID: 11400000, guid: fef2d6b482f02fc4b9b4f4e057e05a95, type: 2}
   pairOffSet: 0.2
   offSetX: 1.2
   offSetY: 1.2
@@ -5314,6 +5315,7 @@ MonoBehaviour:
   probability: 0
   cost: 0
   addChildUI: {fileID: 139006813}
+  contentLabel: {fileID: 1691622942}
   disabledColor: {r: 0.6150943, g: 0.6150943, b: 0.6150943, a: 1}
   costCheck: 0
 --- !u!114 &715565884
@@ -6740,13 +6742,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -7914,13 +7916,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -10614,13 +10616,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -11257,7 +11259,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1828620687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12661,6 +12663,7 @@ MonoBehaviour:
   probability: 0
   cost: 0
   addChildUI: {fileID: 139006813}
+  contentLabel: {fileID: 1305089439}
   disabledColor: {r: 0.6150943, g: 0.6150943, b: 0.6150943, a: 1}
   costCheck: 0
 --- !u!114 &2041547241
@@ -13521,6 +13524,7 @@ MonoBehaviour:
   probability: 0
   cost: 0
   addChildUI: {fileID: 139006813}
+  contentLabel: {fileID: 1000848107}
   disabledColor: {r: 0.6150943, g: 0.6150943, b: 0.6150943, a: 1}
   costCheck: 0
 --- !u!114 &2144928971

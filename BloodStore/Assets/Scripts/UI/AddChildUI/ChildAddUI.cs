@@ -17,11 +17,11 @@ public class ChildAddUI : MonoBehaviour
         ValueButton aValue = A.GetComponent<ValueButton>();
         ValueButton bValue = B.GetComponent<ValueButton>();
         ValueButton cValue = C.GetComponent<ValueButton>();
-        aValue.SetValueRandom(group.value[0]);
+        aValue.SetValueRandom(group.value[0], group.content[0]);
         aValue.CheckCost();
-        bValue.SetValueRandom(group.value[1]);
+        bValue.SetValueRandom(group.value[1], group.content[1]);
         bValue.CheckCost();
-        cValue.SetValueRandom(group.value[2]);
+        cValue.SetValueRandom(group.value[2], group.content[2]);
         cValue.CheckCost();
         gameObject.SetActive(true);
     }
