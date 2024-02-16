@@ -23,8 +23,10 @@ public class PackingUI : MonoBehaviour
         }
     }
     public void PackingConfirm(){
+        tree.SavePairData();
         if(count != 0){
             GameManager.Instance.money = GameManager.Instance.money - yearCost * count - addtionalCost;
+            GameManager.Instance.bloodPackList.Packing(GameManager.Instance.pairList);
         }
     }
     public void SetCountUp(){

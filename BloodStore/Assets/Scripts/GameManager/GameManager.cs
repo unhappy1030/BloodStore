@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public YarnControl yarnControl;
     public DialogueRunner dialogueRunner;
     public InMemoryVariableStorage variableStorage;
+    public ResultStore resultStore;
 
     public Pairs pairList;
     public BloodPacks bloodPackList;
@@ -84,6 +85,7 @@ public class GameManager : MonoBehaviour
 
         npcInteract = FindObjectOfType<NPCInteract>();
         nodeInteraction = FindObjectOfType<NodeInteraction>();
+        resultStore = FindObjectOfType<ResultStore>();
 
         mouseRayCast = GetComponent<MouseRayCast>();
         moneyControl = GetComponent<MoneyControl>();
@@ -109,6 +111,10 @@ public class GameManager : MonoBehaviour
                 nodeInteraction.cameraControl = cameraControl;
             }
             nodeInteraction.dialogueRunner = dialogueRunner;
+        }
+
+        if(resultStore != null){
+            resultStore.moneyControl = moneyControl;
         }
 
         mouseRayCast.cameraControl = cameraControl;

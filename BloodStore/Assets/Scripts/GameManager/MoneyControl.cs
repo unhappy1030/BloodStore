@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEditor.Tilemaps;
 
 public class MoneyControl : MonoBehaviour
 {
-    public float money;
+    public float earning;
+    public float spending;
     public TextMeshProUGUI moneyText;
 
     private void OnEnable()
@@ -17,13 +19,12 @@ public class MoneyControl : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        GetMoney();
         UpdateMoneyUI();
     }
 
     void OnSceneUnloaded(Scene currentScene)
     {
-        SetMoney();
+
     }
 
     private void OnDisable()
@@ -39,21 +40,28 @@ public class MoneyControl : MonoBehaviour
     }
 
     void UpdateMoneyUI(){
-        moneyText.text = money.ToString();
+        moneyText.text = GameManager.Instance.money.ToString();
     }
 
     public float CalculateMoney(float amount){
-        money += amount;
-        SetMoney();
+        GameManager.Instance.money += amount;
+
+        if(amount > 0)
+        {
+            earning += amount;
+        }
+        else
+        {
+            spending += amount;
+        }
+
         UpdateMoneyUI();
-        return money;
+        return GameManager.Instance.money;
     }
 
-    public void GetMoney(){
-        money = GameManager.Instance.money;
+    public void ResetEarnAndSpend(){
+        earning = 0;
+        spending = 0;
     }
 
-    public void SetMoney(){
-        GameManager.Instance.money = money;
-    }
 }

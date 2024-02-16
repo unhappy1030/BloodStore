@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StartScene : MonoBehaviour
 {
@@ -11,9 +12,17 @@ public class StartScene : MonoBehaviour
 
     void Start()
     {
-        startCanvas.SetActive(false);
-        gameCanvas.SetActive(false);
-        StartCoroutine(WaitUntilIntro(time));
+        if(SceneManager.GetActiveScene().name == "Start")
+        {
+            startCanvas.SetActive(false);
+            gameCanvas.SetActive(false);
+            StartCoroutine(WaitUntilIntro(time));
+        }
+        else
+        {
+            startCanvas.SetActive(true);
+            gameCanvas.SetActive(false);
+        }
     }
 
     IEnumerator WaitUntilIntro(float time){
