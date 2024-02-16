@@ -95,6 +95,7 @@ public class BloodPacks : MonoBehaviour
     public void PackingResult(Pairs pairList){
         Load();
         Deserialize();
+        ShowAll();
         before = ShowAllDic();
         Packing(pairList);
         after = ShowAllDic();
@@ -127,7 +128,7 @@ public class BloodPacks : MonoBehaviour
         }
         else{
             foreach(BloodPackLink packLink in bloodPackLinks){
-                if( packLink.pack.node.sex == node.sex && packLink.pack.node.bloodType[0] == node.bloodType[0] && packLink.pack.node.bloodType[1] == node.bloodType[1] && packLink.pack.node.bloodType[2] == node.bloodType[2]){
+                if( packLink.pack.node.sex == node.sex && packLink.pack.node.bloodType[0] == node.bloodType[0] && packLink.pack.node.bloodType[1] == node.bloodType[1]){
                     packLink.AddLast(NodeToBloodPack(node));
                     return;
                 }
@@ -240,11 +241,11 @@ public class BloodPacks : MonoBehaviour
     }
     public Dictionary<string, int> ShowAllDic(){
         UpdateSumList();
-        // Debug.Log("ShowAllDictionary");
+        Debug.Log("ShowAllDictionary");
         Dictionary<string, int> result = new();
         foreach(BloodPackLink link in bloodPackLinks){
+            Debug.Log(link.pack.node.sex + link.pack.node.bloodType[0] + link.pack.node.bloodType[1] + " : " + link.sum.ToString());
             result.Add(link.pack.node.sex + link.pack.node.bloodType[0] + link.pack.node.bloodType[1], link.sum);
-            // Debug.Log(link.pack.node.sex + link.pack.node.bloodType[0] + link.pack.node.bloodType[1] + " : " + link.sum.ToString());
         }
         return result;
     }
