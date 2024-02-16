@@ -17,7 +17,6 @@ public class BloodPackUITest : MonoBehaviour
     List<string> bloodString = new() {"A", "B", "AB", "O"};
 
     public List<ChangeSelected> togles;
-    Dictionary<string, int> counts;
     BloodPacks bloodPacks;
 
     bool isZero;
@@ -26,17 +25,6 @@ public class BloodPackUITest : MonoBehaviour
         bloodPacks = GameManager.Instance.bloodPackList;
         bloodPacks.UpdateCategory();
 
-        counts = new(){
-            {"Male", bloodPacks.categoryNum["Male"]},
-            {"Famale", bloodPacks.categoryNum["Male"]},
-            {"+", bloodPacks.categoryNum["Male"]},
-            {"-", bloodPacks.categoryNum["Male"]},
-            {"A", bloodPacks.categoryNum["Male"]},
-            {"B", bloodPacks.categoryNum["Male"]},
-            {"AB", bloodPacks.categoryNum["Male"]},
-            {"O", bloodPacks.categoryNum["Male"]}
-        };
-        
         sex = "";
         rh = "";
         bloodType = "";
@@ -52,7 +40,7 @@ public class BloodPackUITest : MonoBehaviour
     {
         if(!UIControl.isPause)
         {
-            if(!togles[0].notSelected || !togles[1].notSelected || !togles[2].notSelected){
+            if(!togles[0].notSelected && !togles[1].notSelected && !togles[2].notSelected){
                 if(!isZero)
                 {
                     selectButton.SetActive(true);
@@ -69,14 +57,11 @@ public class BloodPackUITest : MonoBehaviour
 
     public void ChangeCount(){
         CollectTogleInfo();
-        Debug.Log(sex + " " + bloodType + " " + rh);
+        // Debug.Log(sex + " " + bloodType + " " + rh);
         GetTotalCount();
     }
-
-    // public void SelectBloodPack(){
-    //     YarnControl.isSelect = true;
-    // }
-
+    
+    // button
     public void CollectTogleInfo(){
         if(togles[0].notSelected)
         {
