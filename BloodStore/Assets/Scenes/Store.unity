@@ -9253,9 +9253,8 @@ MonoBehaviour:
   isBloodSelected: 0
   isFiltered: 0
   isBloodSellFinish: 0
-  selectBloodPackObj: {fileID: 856154378}
-  filteringObj: {fileID: 1986493965}
-  filteringCanvas: {fileID: 79403490}
+  selectBloodPackObj: {fileID: 856154382}
+  filteringObj: {fileID: 1986493968}
   bloodPackUITest: {fileID: 0}
 --- !u!4 &1568789504
 Transform:
@@ -11492,6 +11491,7 @@ GameObject:
   - component: {fileID: 1986493966}
   - component: {fileID: 1986493969}
   - component: {fileID: 1986493968}
+  - component: {fileID: 1986493970}
   m_Layer: 7
   m_Name: Square (1)
   m_TagString: Untagged
@@ -11611,6 +11611,43 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1986493970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986493965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf504a0c7fba3554da375faa441ddc07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactType: 4
+  _cameraMovementType: 0
+  _cameraType: 0
+  _virtualCam:
+    targets: []
+    doseUseBound: 0
+    bound: {fileID: 0}
+    lensOthoSize: 0
+    blendInfo:
+      hold: 0
+      blendIn: 0
+      blendTime: 0
+  _blendListCam:
+    subCams: []
+    doseUseBound: 0
+    bound: {fileID: 0}
+    blendInfo:
+      hold: 0
+      blendIn: 0
+      blendTime: 0
+  _nodeName: 
+  _familyTreeType: 0
+  _ui: {fileID: 79403490}
+  _isFade: 0
+  _sceneName: 
 --- !u!1 &2008921643
 GameObject:
   m_ObjectHideFlags: 0
