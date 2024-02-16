@@ -38,7 +38,8 @@ public class ValueButton : MonoBehaviour
     }
     public void AddChildByUI(){
         if(costCheck){
-            GameManager.Instance.money -= cost;
+            MoneyControl moneyControl = GameManager.Instance.gameObject.GetComponent<MoneyControl>();
+            moneyControl.CalculateMoney(cost * -1);
             ChildAddUI UI = addChildUI.GetComponent<ChildAddUI>();
             Group group = UI.group;
             group.pairTree.AddChildByValue(weight, probability);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ResultStore : MonoBehaviour
+public class ResultMoney : MonoBehaviour
 {
     public TextMeshProUGUI earningText; // assign at inspector
     public TextMeshProUGUI spendingText; // assign at inpsector

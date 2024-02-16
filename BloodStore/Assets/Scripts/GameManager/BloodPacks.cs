@@ -17,6 +17,7 @@ public class BloodPacks : MonoBehaviour
     public List<BloodPackLink> bloodPackLinks = new();
     public SaveBloodPackArray saveArray;
     public Dictionary<string,int> categoryNum;
+    public Dictionary<string, int> before, after, gap;
     public void Save(List<BloodPack> bloodPackList){
         string _path = Application.persistentDataPath + "/BloodPack.json"; 
         saveArray = new();
@@ -94,15 +95,14 @@ public class BloodPacks : MonoBehaviour
     public void PackingResult(Pairs pairList){
         Load();
         Deserialize();
-        Dictionary<string, int> before, after, gap;
         before = ShowAllDic();
         Packing(pairList);
         after = ShowAllDic();
         gap = GetGap(before, after);
-        Debug.Log("Show Gap");
-        foreach(string key in gap.Keys){
-            Debug.Log(key + " : " + gap[key].ToString());
-        }
+        // Debug.Log("Show Gap");
+        // foreach(string key in gap.Keys){
+        //     Debug.Log(key + " : " + gap[key].ToString());
+        // }
     }
     public void Packing(Pairs pairList){
         Load();
@@ -237,11 +237,11 @@ public class BloodPacks : MonoBehaviour
     }
     public Dictionary<string, int> ShowAllDic(){
         UpdateSumList();
-        Debug.Log("ShowAllDictionary");
+        // Debug.Log("ShowAllDictionary");
         Dictionary<string, int> result = new();
         foreach(BloodPackLink link in bloodPackLinks){
             result.Add(link.pack.node.sex + link.pack.node.bloodType[0] + link.pack.node.bloodType[1], link.sum);
-            Debug.Log(link.pack.node.sex + link.pack.node.bloodType[0] + link.pack.node.bloodType[1] + " : " + link.sum.ToString());
+            // Debug.Log(link.pack.node.sex + link.pack.node.bloodType[0] + link.pack.node.bloodType[1] + " : " + link.sum.ToString());
         }
         return result;
     }
