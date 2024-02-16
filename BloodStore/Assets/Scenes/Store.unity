@@ -763,7 +763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f94fc12f13a0b4393203c7b0c09376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bloodSellProcess: {fileID: 1159324195}
+  bloodSellProcess: {fileID: 1568789503}
 --- !u!1 &81042681
 GameObject:
   m_ObjectHideFlags: 0
@@ -3034,7 +3034,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1159324195}
+      - m_Target: {fileID: 1568789503}
         m_TargetAssemblyTypeName: BloodSellProcess, Assembly-CSharp
         m_MethodName: EndBloodProcess
         m_Mode: 1
@@ -3712,8 +3712,8 @@ GameObject:
   m_Component:
   - component: {fileID: 856154379}
   - component: {fileID: 856154380}
-  - component: {fileID: 856154381}
   - component: {fileID: 856154382}
+  - component: {fileID: 856154381}
   m_Layer: 7
   m_Name: Square
   m_TagString: Untagged
@@ -4897,7 +4897,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1159324194}
   - component: {fileID: 1159324193}
-  - component: {fileID: 1159324195}
   m_Layer: 0
   m_Name: NPCInteractionInfo
   m_TagString: Untagged
@@ -4928,7 +4927,7 @@ MonoBehaviour:
   dialogueControl: {fileID: 0}
   yarnControl: {fileID: 0}
   dialogueRunner: {fileID: 0}
-  bloodSellProcess: {fileID: 1159324195}
+  bloodSellProcess: {fileID: 1568789503}
 --- !u!4 &1159324194
 Transform:
   m_ObjectHideFlags: 0
@@ -4945,22 +4944,6 @@ Transform:
   - {fileID: 529723176}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1159324195
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1159324192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b3fa14806409fa46852e2b44effcb29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isBloodSelected: 0
-  isFiltered: 0
-  isBloodSellFinish: 0
-  bloodPackUITest: {fileID: 0}
 --- !u!1 &1164796743
 GameObject:
   m_ObjectHideFlags: 0
@@ -6441,6 +6424,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1534494608}
   m_CullTransparentMesh: 1
+--- !u!1 &1568789502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1568789504}
+  - component: {fileID: 1568789503}
+  m_Layer: 0
+  m_Name: BloodSellProcess
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1568789503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568789502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b3fa14806409fa46852e2b44effcb29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBloodSelected: 0
+  isFiltered: 0
+  isBloodSellFinish: 0
+  selectBloodPackObj: {fileID: 856154378}
+  filteringObj: {fileID: 1986493965}
+  filteringCanvas: {fileID: 79403490}
+  bloodPackUITest: {fileID: 0}
+--- !u!4 &1568789504
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568789502}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1093.526, y: 533.0005, z: 5.4057965}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1627269996
 GameObject:
   m_ObjectHideFlags: 0
@@ -6670,9 +6704,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1159324195}
+      - m_Target: {fileID: 1568789503}
         m_TargetAssemblyTypeName: BloodSellProcess, Assembly-CSharp
-        m_MethodName: SelecteBlood
+        m_MethodName: SelectBlood
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7680,7 +7714,6 @@ GameObject:
   - component: {fileID: 1986493966}
   - component: {fileID: 1986493969}
   - component: {fileID: 1986493968}
-  - component: {fileID: 1986493967}
   m_Layer: 7
   m_Name: Square (1)
   m_TagString: Untagged
@@ -7703,43 +7736,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 559100697}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1986493967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1986493965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf504a0c7fba3554da375faa441ddc07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interactType: 4
-  _cameraMovementType: 0
-  _cameraType: 0
-  _virtualCam:
-    targets: []
-    doseUseBound: 0
-    bound: {fileID: 0}
-    lensOthoSize: 0
-    blendInfo:
-      hold: 0
-      blendIn: 0
-      blendTime: 0
-  _blendListCam:
-    subCams: []
-    doseUseBound: 0
-    bound: {fileID: 0}
-    blendInfo:
-      hold: 0
-      blendIn: 0
-      blendTime: 0
-  _nodeName: 
-  _familyTreeType: 0
-  _ui: {fileID: 79403490}
-  _isFade: 0
-  _sceneName: 
 --- !u!61 &1986493968
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8778,6 +8774,7 @@ SceneRoots:
   - {fileID: 1824524785}
   - {fileID: 832206743}
   - {fileID: 1159324194}
+  - {fileID: 1568789504}
   - {fileID: 1883985745}
   - {fileID: 559100697}
   - {fileID: 2142775524}
