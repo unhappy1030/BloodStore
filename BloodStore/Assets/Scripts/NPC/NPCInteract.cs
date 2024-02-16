@@ -98,6 +98,8 @@ public class NPCInteract : MonoBehaviour
             ChangeSellStatus();
 
             YarnControl.sellInfo = CalculateSellInfo(npcIndex);
+            GameManager.Instance.sellCount++;
+            GameManager.Instance.totalPoint += YarnControl.sellInfo;
                 
             if(yarnControl.nodeName != ""){
                 StartDialogue(yarnControl.nodeName); // tell their evaluation or end dialogue
