@@ -43,7 +43,13 @@ public class BloodSellProcess : MonoBehaviour
         isBloodSelected = true;
     } 
 
-    public void FilterBlood(){   
+    public void FilterBlood(){
+        InteractObjInfo filterObjInfo = filteringObj.GetComponent<InteractObjInfo>();
+        
+        if(filterObjInfo != null){
+            Destroy(filterObjInfo);
+        }
+
         isFiltered = true;
     }
     
