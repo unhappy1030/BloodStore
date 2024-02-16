@@ -119,6 +119,9 @@ public class BloodPacks : MonoBehaviour
         Save(bloodPacks);
     }
     public void AddBloodPack(Node node){
+        if(node.isDead){
+            return;
+        }
         if(bloodPacks.Count == 0){
             bloodPackLinks.Add(new BloodPackLink(NodeToBloodPack(node)));
         }
