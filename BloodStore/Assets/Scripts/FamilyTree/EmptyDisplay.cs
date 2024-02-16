@@ -47,11 +47,13 @@ public class EmptyDisplay : MonoBehaviour
             group.leftDisplay = group.CreateNode(group.pairTree.pair.male);
             group.leftDisplay.transform.parent = group.transform;
             group.leftDisplay.transform.position = this.transform.position;
+            group.leftDisplay.GetComponent<BoxCollider2D>().enabled = true;
         }
         else{
             group.rightDisplay = group.CreateNode(group.pairTree.pair.female);
             group.rightDisplay.transform.parent = group.transform;
             group.rightDisplay.transform.position = this.transform.position;
+            group.rightDisplay.GetComponent<BoxCollider2D>().enabled = true;
         }
         Destroy(gameObject);
     }
