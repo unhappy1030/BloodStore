@@ -130,6 +130,7 @@ public class TreeManager : MonoBehaviour
         inter._familyTreeType = FamilyTreeType.Group;
         groupObject.layer = LayerMask.NameToLayer("Interact");
         Group group = groupObject.AddComponent<Group>();
+        group.SetValues();
         group.SetPrefab(nodePrefab, emptyPrefab, deadPrefab);
         group.SetSizeData(halfX, halfY, pairSize, unit, pairOffSet, offSetX, offSetY);
         group.SetUI(selectedCard);
