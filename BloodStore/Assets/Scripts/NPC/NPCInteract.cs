@@ -250,22 +250,32 @@ public class NPCInteract : MonoBehaviour
                 }
             }
         }
-        Debug.Log("correct select Count : " + count);
 
-        
-        if(count == totalCount)
+        float ratio = (float)count/totalCount;
+
+        if(ratio > 0.5f)
         {
-            point = 4.0f;
+            point = 5;
+        }
+        else if(ratio > 0.25f)
+        {
+            point = 3;
         }
         else
         {
-            point = 0;
+            point = 2;
         }
+
+        point *= dialogueSum[index].weight;
 
         if(sellStatus == BloodSellStatus.Filtered){
-            point *= 1.5f;
+            float extraPoint = UnityEngine.Random.Range(0, 5-point);
+            float newWeight = UnityEngine.Random.Range(0.8f, 1f);
+            point += extraPoint * newWeight;
         }
 
+        point = Mathf.Round(point * 100.0f)/100.0f;
+        
         return point;
     }
     
