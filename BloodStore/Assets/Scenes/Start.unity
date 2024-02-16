@@ -1815,9 +1815,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a580f3f2352214fba3590bee70d903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 16
-  height: 9
-  _camera: {fileID: 1099360180}
 --- !u!1 &1140978843
 GameObject:
   m_ObjectHideFlags: 0
@@ -6495,7 +6492,7 @@ MonoBehaviour:
   - ResultStore
   - Store
   startSceneName: Start
-  money: 0
+  money: 100000
   day: 0
   isFading: 0
   whitePanel: {fileID: 8235264872758770939}
@@ -6509,6 +6506,8 @@ MonoBehaviour:
   yarnControl: {fileID: 0}
   dialogueRunner: {fileID: 0}
   variableStorage: {fileID: 0}
+  resultStore: {fileID: 0}
+  resultMoney: {fileID: 0}
   pairList: {fileID: 0}
   bloodPackList: {fileID: 0}
 --- !u!114 &5512024270147873474
@@ -6913,7 +6912,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c20b4d55300f3c4c9fd3e29bddebcfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  money: 0
+  earning: 0
+  spending: 0
   moneyText: {fileID: 8586578006959048707}
 --- !u!114 &6793876338757677109
 MonoBehaviour:

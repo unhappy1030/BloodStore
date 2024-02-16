@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
-using Yarn;
 using System.Linq;
-using Unity.VisualScripting;
-using System;
+using Unity.VisualScripting.Dependencies.NCalc;
+using System.Net;
+
 public class Group : MonoBehaviour
 {
     public PairTree pairTree;
@@ -28,7 +27,20 @@ public class Group : MonoBehaviour
     public Group parentGroup;
     public List<Group> childrenGroup;
 
+    public List<float[]> value;
+
     public float lineWidth = 0.05f;
+
+    public void SetValues(){
+        float weight, probability, cost;
+        value = new();
+        for(int i = 0; i < 3; i++){
+            weight = Random.Range(0.8f, 0.9f);
+            probability = Random.Range(0.75f, 1f);
+            cost = Random.Range(10, 16);
+            value.Add(new float[3] {weight, probability, cost});
+        }
+    }
     public void SetPrefab(GameObject nodePrefab, GameObject emptyPrefab, GameObject deadPrefab){
         this.nodePrefab = nodePrefab;
         this.emptyPrefab = emptyPrefab;
