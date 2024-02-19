@@ -8,10 +8,8 @@ public class BloodSellProcess : MonoBehaviour
     public bool isFiltered;
     public bool isBloodSellFinish;
 
-    public GameObject selectBloodPackObj;
-
-    public GameObject filteringObj;
-    public GameObject filteringCanvas;
+    public BoxCollider2D selectBloodPackObj;
+    public BoxCollider2D filteringObj;
 
     public BloodPackUITest bloodPackUITest; // assign at inspector
 
@@ -31,30 +29,23 @@ public class BloodSellProcess : MonoBehaviour
     public void SelectBlood(){
         // GameManager.Instance.bloodPackList.SubtractBloodPack(bloodPackUITest.sex, bloodPackUITest.bloodType, bloodPackUITest.rh, 1);
 
-        InteractObjInfo selectBloodObjInfo = selectBloodPackObj.GetComponent<InteractObjInfo>();
-        if(selectBloodObjInfo != null){
-            Destroy(selectBloodObjInfo);
-        }
-
-        InteractObjInfo filterObjInfo = filteringObj.AddComponent<InteractObjInfo>();
-        filterObjInfo._interactType = InteractType.UIOnOff;
-        filterObjInfo._ui = filteringCanvas;
+        selectBloodPackObj.enabled = false;
+        filteringObj.enabled = true;
         
         isBloodSelected = true;
     } 
 
     public void FilterBlood(){
-        InteractObjInfo filterObjInfo = filteringObj.GetComponent<InteractObjInfo>();
-        
-        if(filterObjInfo != null){
-            Destroy(filterObjInfo);
-        }
+        filteringObj.enabled = false;
 
         isFiltered = true;
     }
     
     // button
     public void EndBloodProcess(){
+        selectBloodPackObj.enabled = true;
+        filteringObj.enabled = false;
+
         isBloodSellFinish = true;
     }
 }

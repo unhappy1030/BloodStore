@@ -89,6 +89,7 @@ public class DialogueControl : MonoBehaviour
                 allDialogues[index].tasteLine = "";
                 allDialogues[index].tastes = MakeRandomTastes();
                 allDialogues[index].priority = dialogue.priority;
+                allDialogues[index].weight = UnityEngine.Random.Range(0.8f, 0.95f); // test
                 allDialogues[index].dialogueName = dialogue.dialogueName;
                 index++;
             }
@@ -130,6 +131,7 @@ public class DialogueControl : MonoBehaviour
             allDialogues[index].tastes = MakeRandomTastes();
             allDialogues[index].tasteLine = MakeTasteLine(allDialogues[index].tastes);
             allDialogues[index].priority = 0;
+            allDialogues[index].weight = UnityEngine.Random.Range(0.8f, 0.95f);
             allDialogues[index].dialogueName = "Normal"; // test
             index++;
         }
@@ -265,5 +267,6 @@ public class DialogueInfo{
     public string tasteLine;
     public List<string> tastes;
     public int priority;
+    public float weight;
     public string dialogueName;
 }

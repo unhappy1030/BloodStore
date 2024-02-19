@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour
 
     public string startSceneName = "Start"; // set start Scene name
 
+    public int sellCount = 0;
+    public float totalPoint = 0;
+    public float currentAveragePoint = 0;
+
     public float money = 0;
     public int day = 0;
 

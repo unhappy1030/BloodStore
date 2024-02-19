@@ -98,6 +98,8 @@ public class NPCInteract : MonoBehaviour
             ChangeSellStatus();
 
             YarnControl.sellInfo = CalculateSellInfo(npcIndex);
+            GameManager.Instance.sellCount++;
+            GameManager.Instance.totalPoint += YarnControl.sellInfo;
                 
             if(yarnControl.nodeName != ""){
                 StartDialogue(yarnControl.nodeName); // tell their evaluation or end dialogue
@@ -250,22 +252,45 @@ public class NPCInteract : MonoBehaviour
                 }
             }
         }
-        Debug.Log("correct select Count : " + count);
 
-        
-        if(count == totalCount)
+        float ratio = (float)count/totalCount;
+
+        if(ratio > 0.6f || count == totalCount)
         {
-            point = 4.0f;
+            point = 5;
+        }
+        else if(ratio > 0.3f)
+        {
+            point = 4;
         }
         else
         {
-            point = 0;
+            point = 2;
         }
+
+        Debug.Log("Point before weight : " + point);
+        point *= dialogueSum[index].weight;
+        Debug.Log("Point after weight : " + point);
 
         if(sellStatus == BloodSellStatus.Filtered){
-            point *= 1.5f;
+            float pointRatio = point/5;
+            float extraPoint = pointRatio * (1- pointRatio) * point;
+            
+            float newWeight = UnityEngine.Random.Range(0.8f, 1.1f);
+            if(newWeight > 1){
+                newWeight = 1;
+            }
+
+            point += extraPoint * newWeight;
+            Debug.Log("Point after filtering : " + point);
         }
 
+        point = Mathf.Round(point * 100.0f)/100.0f;
+        
+        if(point > 5){
+            point = 5;
+        }
+        
         return point;
     }
     
