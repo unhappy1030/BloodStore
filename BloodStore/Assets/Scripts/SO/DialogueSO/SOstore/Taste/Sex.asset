@@ -15,13 +15,17 @@ MonoBehaviour:
   group: Sex
   tastes:
   - tasteName: Male
-    words:
+    a:
+    - maniac
+    n:
     - male
     - mango
     sentences:
     - I'm want Male's blood.
   - tasteName: Female
-    words:
+    a:
+    - fast
+    n:
     - female
     sentences:
     - I'm want Female's blood.

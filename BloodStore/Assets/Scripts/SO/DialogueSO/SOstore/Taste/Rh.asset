@@ -15,19 +15,24 @@ MonoBehaviour:
   group: Rh
   tastes:
   - tasteName: +
-    words:
-    - RH +
+    a:
     - positive
-    - something positive
+    - powerful
+    - potential
+    n:
+    - RH +
+    - +
+    - plus
     sentences:
     - I want to be more positive!
     - I'm depressed...
   - tasteName: '-'
-    words:
-    - RH -
+    a:
     - negative
-    - more negative
-    - something negative
+    - depressed
+    n:
+    - RH -
+    - '-'
     sentences:
     - I'm negative person.
     - I want to be more negative...
