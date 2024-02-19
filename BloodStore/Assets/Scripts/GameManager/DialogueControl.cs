@@ -183,7 +183,7 @@ public class DialogueControl : MonoBehaviour
     }
 
     string MakeTasteLine(List<string> npcRandomTastes){
-        string line = "";
+        string line;
         
         if(tasteSOs == null || tasteSOs.Count == 0){
             Debug.Log("TastesSO is empty...");
@@ -191,57 +191,105 @@ public class DialogueControl : MonoBehaviour
         }
 
         int tasteCount = 0;
+        List<string> randomTastes = new();
         for(int i=0; i<npcRandomTastes.Count; i++){
             if(npcRandomTastes[i] != ""){
+                randomTastes.Add(npcRandomTastes[i]);
                 tasteCount++;
             }
         }
 
-        bool isLine = false;
+        bool isLine = (tasteCount == 1);
         
-        if(tasteCount == 1){
-            int rand = UnityEngine.Random.Range(0, 2);
-            isLine = (rand == 0);
-        }
-        
-        foreach(string randomTaste in npcRandomTastes){
-            if(randomTaste == ""){
-                continue;
-            }
-
-            Taste lineInfo = null;
+        List<Taste> lineInfos = new();
+        foreach(string taste in randomTastes){
             foreach(BloodTasteSO tasteSO in tasteSOs){
                 foreach(Taste tasteInfo in tasteSO.tastes){
-                    if(randomTaste == tasteInfo.tasteName){
-                        lineInfo = tasteInfo;
+                    if(taste == tasteInfo.tasteName){
+                        lineInfos.Add(tasteInfo);
                         break;
                     }
                 }
             }
-
-            if(lineInfo == null){
-                Debug.Log("There is no correct Taste in BloodTasteSOs...");
-                return null;
-            }
-
-            if(isLine)
-            {
-                int randIndex = UnityEngine.Random.Range(0, lineInfo.sentences.Count);
-                line = lineInfo.sentences[randIndex];
-                break;
-            }
-            else
-            {
-                // int randIndex = UnityEngine.Random.Range(0, lineInfo.words.Count);
-                // line += " " + lineInfo.words[randIndex];
-            }
         }
 
-        if(!isLine){
-            line = "Do you have" + line + "?";
+        if(isLine)
+        {
+            int randIndex = (int)UnityEngine.Random.Range(0, lineInfos[0].sentences.Count);
+            line = lineInfos[0].sentences[randIndex];
+        }
+        else
+        {
+            int nIndex = (int)UnityEngine.Random.Range(0, lineInfos.Count);
+            int index = 0;
+            string n = "";
+            string a = "";
+            foreach(Taste lineInfo in lineInfos){
+                if(index == nIndex)
+                {
+                    int randNIndex = (int)UnityEngine.Random.Range(0, lineInfo.n.Count);
+                    if(lineInfo.n[randNIndex] == ""){
+                        Debug.Log("There is no content in " + lineInfo.tasteName + " n...");
+                        return null;
+                    }
+
+                    n = lineInfo.n[randNIndex];
+                }
+                else
+                {
+                    int randAIndex = UnityEngine.Random.Range(0, lineInfo.a.Count);
+                    if(lineInfo.a[randAIndex] == ""){
+                        Debug.Log("There is no content in " + lineInfo.tasteName + " a...");
+                        return null;
+                    }
+
+                    a += lineInfo.a[randAIndex] + " ";
+                }
+
+                index++;
+            }
+
+            line = "Do you have " + a + n + "?";
         }
 
         return line;
+
+        // foreach(string randomTaste in npcRandomTastes){
+        //     if(randomTaste == ""){
+        //         continue;
+        //     }
+
+        //     Taste lineInfo = null;
+        //     foreach(BloodTasteSO tasteSO in tasteSOs){
+        //         foreach(Taste tasteInfo in tasteSO.tastes){
+        //             if(randomTaste == tasteInfo.tasteName){
+        //                 lineInfo = tasteInfo;
+        //                 break;
+        //             }
+        //         }
+        //     }
+
+        //     if(lineInfo == null){
+        //         Debug.Log("There is no correct Taste in BloodTasteSOs...");
+        //         return null;
+        //     }
+
+        //     if(isLine)
+        //     {
+        //         int randIndex = UnityEngine.Random.Range(0, lineInfo.sentences.Count);
+        //         line = lineInfo.sentences[randIndex];
+        //         break;
+        //     }
+        //     else
+        //     {
+        //         // int randIndex = UnityEngine.Random.Range(0, lineInfo.words.Count);
+        //         // line += " " + lineInfo.words[randIndex];
+        //     }
+        // }
+
+        // if(!isLine){
+        //     line = "Do you have" + line + "?";
+        // }
     }
     
     // 내림차순
