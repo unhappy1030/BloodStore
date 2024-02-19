@@ -52,6 +52,7 @@ public class Group : MonoBehaviour
             weight = addChildSO.values[idx].weight;
             probability = addChildSO.values[idx].probability;
             cost = addChildSO.values[idx].cost;
+            check.Add(idx);
             value.Add(new float[3] {weight, probability, cost});
             int sentenceIndex = Random.Range(0,addChildSO.values[idx].sentences.Count);
             content.Add(addChildSO.values[idx].sentences[sentenceIndex] + " : " + cost.ToString());
