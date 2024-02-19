@@ -166,6 +166,9 @@ public class PairTree
     public void AddChildByValue(float weight, float probability){
         if(pair.isPair == true && pair.childNum == 0){ //테스트용 조건문
             pair.childNum = GetChildNum(weight, probability);
+            if(pair.childNum > 5){
+                pair.childNum = 5;
+            }
             for(int i = 0; i < pair.childNum; i++){
                 Node node = new Node();
                 node = SetByParent();

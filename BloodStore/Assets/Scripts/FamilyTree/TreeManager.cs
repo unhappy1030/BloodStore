@@ -20,6 +20,7 @@ public class TreeManager : MonoBehaviour
     public GameObject mainGroup;
     public GameObject selectedCard;
     public NodeSO nodeSO;
+    public AddChildSO addChildSO;
     public float pairOffSet = 0.2f;
     public float offSetX, offSetY;
     private float halfX, halfY;
@@ -130,6 +131,7 @@ public class TreeManager : MonoBehaviour
         inter._familyTreeType = FamilyTreeType.Group;
         groupObject.layer = LayerMask.NameToLayer("Interact");
         Group group = groupObject.AddComponent<Group>();
+        group.SetValues(addChildSO);
         group.SetPrefab(nodePrefab, emptyPrefab, deadPrefab);
         group.SetSizeData(halfX, halfY, pairSize, unit, pairOffSet, offSetX, offSetY);
         group.SetUI(selectedCard);

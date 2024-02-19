@@ -6,13 +6,15 @@ MonoImporter:
   defaultReferences:
   - nodePrefab: {fileID: 4066454781233555869, guid: 0a0e85bbe5f2eeb40afe91827c112767, type: 3}
   - emptyPrefab: {fileID: 8718197429054370660, guid: 3b736b6025e4f464ebba10c9000fb0f0, type: 3}
-  - childButtonPrefab: {fileID: 3364876195097649735, guid: 8e63d875ba2986943871af4694a1adc6, type: 3}
-  - childButtonOffPrefab: {fileID: 931226082578005030, guid: 1bcbffe7ae9edc641bb3f2d90f143be6, type: 3}
+  - deadPrefab: {instanceID: 0}
+  - selectedCard: {instanceID: 0}
   - leftDisplay: {instanceID: 0}
   - rightDisplay: {instanceID: 0}
   - button: {instanceID: 0}
   - buttonOff: {instanceID: 0}
+  - highLight: {instanceID: 0}
   - parentGroup: {instanceID: 0}
+  - addChildSO: {fileID: 11400000, guid: fef2d6b482f02fc4b9b4f4e057e05a95, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

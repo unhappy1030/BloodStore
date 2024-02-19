@@ -45,7 +45,7 @@ public class BloodPacks : MonoBehaviour
     }
     public BloodPacks LoadNew(){
         bloodPacks = new();
-        Serialize();
+        bloodPackLinks = new();
         Save(bloodPacks);
         return this;
     }
