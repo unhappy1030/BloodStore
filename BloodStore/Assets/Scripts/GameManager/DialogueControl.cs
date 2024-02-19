@@ -232,8 +232,8 @@ public class DialogueControl : MonoBehaviour
             }
             else
             {
-                int randIndex = UnityEngine.Random.Range(0, lineInfo.words.Count);
-                line += " " + lineInfo.words[randIndex];
+                // int randIndex = UnityEngine.Random.Range(0, lineInfo.words.Count);
+                // line += " " + lineInfo.words[randIndex];
             }
         }
 
