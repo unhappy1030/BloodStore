@@ -255,28 +255,41 @@ public class NPCInteract : MonoBehaviour
 
         float ratio = (float)count/totalCount;
 
-        if(ratio > 0.5f)
+        if(ratio > 0.6f || count == totalCount)
         {
             point = 5;
         }
-        else if(ratio > 0.25f)
+        else if(ratio > 0.3f)
         {
-            point = 3;
+            point = 4;
         }
         else
         {
             point = 2;
         }
 
+        Debug.Log("Point before weight : " + point);
         point *= dialogueSum[index].weight;
+        Debug.Log("Point after weight : " + point);
 
         if(sellStatus == BloodSellStatus.Filtered){
-            float extraPoint = UnityEngine.Random.Range(0, 5-point);
-            float newWeight = UnityEngine.Random.Range(0.8f, 1f);
+            float pointRatio = point/5;
+            float extraPoint = pointRatio * (1- pointRatio) * point;
+            
+            float newWeight = UnityEngine.Random.Range(0.8f, 1.1f);
+            if(newWeight > 1){
+                newWeight = 1;
+            }
+
             point += extraPoint * newWeight;
+            Debug.Log("Point after filtering : " + point);
         }
 
         point = Mathf.Round(point * 100.0f)/100.0f;
+        
+        if(point > 5){
+            point = 5;
+        }
         
         return point;
     }
