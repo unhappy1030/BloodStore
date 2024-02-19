@@ -14,12 +14,7 @@ public class BloodTasteSO : ScriptableObject
 [Serializable]
 public class Taste{
     public string tasteName;
-    public List<string> words;
-    public List<string> sentences;
-}
-
-[Serializable]
-public class BloodTasteInfo{
-    public List<string> words;
+    public List<string> a;
+    public List<string> n;
     public List<string> sentences;
 }
