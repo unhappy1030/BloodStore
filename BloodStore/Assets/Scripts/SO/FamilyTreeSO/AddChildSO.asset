@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   values:
   - weight: 0.99
-    probability: 0.99
+    probability: 1
     cost: 100
     sentences:
     - Absolutely guaranteed.
