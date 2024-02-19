@@ -190,7 +190,19 @@ public class DialogueControl : MonoBehaviour
             return null;
         }
 
-        bool isLine = !(npcRandomTastes.Count > 2);
+        int tasteCount = 0;
+        for(int i=0; i<npcRandomTastes.Count; i++){
+            if(npcRandomTastes[i] != ""){
+                tasteCount++;
+            }
+        }
+
+        bool isLine = false;
+        
+        if(tasteCount == 1){
+            int rand = UnityEngine.Random.Range(0, 2);
+            isLine = (rand == 0);
+        }
         
         foreach(string randomTaste in npcRandomTastes){
             if(randomTaste == ""){
