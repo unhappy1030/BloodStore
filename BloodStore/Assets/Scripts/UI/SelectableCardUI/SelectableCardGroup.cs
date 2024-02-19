@@ -16,6 +16,7 @@ public class SelectableCardGroup : MonoBehaviour
         SetCardDisplayData(cardDisplayNum);
     }
     void SetCardDisplayData(int cardDisplayNum){
+        cardList = new();
         for(int i = 0; i < cardDisplayNum; i++){
             Transform cardDisplayTransfrom = transform.GetChild(i);
             SelectableCardDisplay cardDisplay = cardDisplayTransfrom.GetComponent<SelectableCardDisplay>();
