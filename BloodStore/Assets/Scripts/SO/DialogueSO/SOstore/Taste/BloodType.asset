@@ -15,32 +15,50 @@ MonoBehaviour:
   group: BloodType
   tastes:
   - tasteName: A
-    words:
+    a:
+    - amazing
+    - angry
+    - alive
+    n:
     - A
     - apple
     - Andy
+    - arrow
     sentences:
     - I want A.
     - I like apple.
   - tasteName: B
-    words:
+    a:
+    - bitter
+    - brave
+    - blue
+    n:
     - B
     - banana
+    - balloon
     - bird
     sentences:
     - I want B.
     - I like banana.
   - tasteName: AB
-    words:
+    a:
+    - abstract
+    - abnormal
+    n:
     - AB
     - apple banana juice
     sentences:
     - I want AB.
     - I like apple banana juice.
   - tasteName: O
-    words:
+    a:
+    - outstanding
+    - odd
+    - organic
+    n:
     - O
     - orange
+    - onion
     sentences:
     - I want O.
     - I'm orange.
