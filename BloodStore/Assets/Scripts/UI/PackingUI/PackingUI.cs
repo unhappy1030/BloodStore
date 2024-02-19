@@ -30,6 +30,7 @@ public class PackingUI : MonoBehaviour
             moneyControl.CalculateMoney((yearCost * count + addtionalCost) * -1);
             GameManager.Instance.bloodPackList.PackingResult(GameManager.Instance.pairList);
         }
+        tree.SaveAndChangeData();
     }
     public void SetCountUp(){
         this.money = GameManager.Instance.money;

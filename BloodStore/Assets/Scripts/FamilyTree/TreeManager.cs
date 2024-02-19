@@ -43,7 +43,10 @@ public class TreeManager : MonoBehaviour
     }
     public void SavePairData() {
         pairList.Serialize(root);
-        bloodPackList.PackingResult(pairList);
+        pairList.Save(pairList.pairs);
+    }
+    public void SaveAndChangeData(){
+        pairList.Serialize(root);
         pairList.MakeOlder();
         pairList.MakeDead();
         pairList.Save(pairList.pairs);
