@@ -19,10 +19,23 @@ public class BloodPacks : MonoBehaviour
     public Dictionary<string,int> categoryNum;
     public Dictionary<string, int> before, after, gap;
     public void Save(List<BloodPack> bloodPackList){
+        Serialize();
         string _path = Application.persistentDataPath + "/BloodPack.json"; 
         saveArray = new();
         saveArray.arr = bloodPackList.ToArray();
         string json = JsonUtility.ToJson(saveArray);
+        File.WriteAllText(_path, json);
+    }
+    public void SaveFile(List<BloodPack> bloodPackList, string folderName){
+        Serialize();
+        string folderPath = Path.Combine(Application.persistentDataPath, folderName);
+        string _path = folderPath + "/BloodPack.json"; 
+        saveArray = new();
+        saveArray.arr = bloodPackList.ToArray();
+        string json = JsonUtility.ToJson(saveArray);
+        if(!Directory.Exists(folderPath)){
+            Directory.CreateDirectory(folderPath);
+        }
         File.WriteAllText(_path, json);
     }
     public BloodPacks Load(){
@@ -47,6 +60,25 @@ public class BloodPacks : MonoBehaviour
         bloodPacks = new();
         bloodPackLinks = new();
         Save(bloodPacks);
+        return this;
+    }
+    public BloodPacks LoadFile(string folderName){
+        string folderPath = Path.Combine(Application.persistentDataPath, folderName);
+        string _path = folderPath + "/BloodPack.json";
+        if(File.Exists(_path)){
+            string jsonData = File.ReadAllText(_path);
+            saveArray = JsonUtility.FromJson<SaveBloodPackArray>(jsonData);
+            if(saveArray == null){
+                Debug.Log("NewGame Start!");
+            }
+            else{
+                Debug.Log("Save Data Load!");
+                bloodPacks = new List<BloodPack>(saveArray.arr);
+            }
+        }
+        else{
+            bloodPacks = new();
+        }
         return this;
     }
     public void Serialize()
@@ -116,7 +148,6 @@ public class BloodPacks : MonoBehaviour
                 AddBloodPack(pair.female);
             }
         }
-        Serialize();
         Save(bloodPacks);
     }
     public void AddBloodPack(Node node){
@@ -151,7 +182,6 @@ public class BloodPacks : MonoBehaviour
                 head.pack.num -= num;
                 bloodPackLinks[idx] = head;
             }
-            Serialize();
             Save(bloodPacks);
         }
     }

@@ -14,12 +14,22 @@ public class Pairs : MonoBehaviour
 {
     public List<Pair> pairs = new();
     SavePairArray saveArray = new();
-
     public void Save(List<Pair> pairList){
         string _path = Application.persistentDataPath + "/FamilyTree.json"; 
         saveArray = new();
         saveArray.arr = pairList.ToArray();
         string json = JsonUtility.ToJson(saveArray);
+        File.WriteAllText(_path, json);
+    }
+    public void SaveFile(List<Pair> pairList, string folderName){
+        string folderPath = Path.Combine(Application.persistentDataPath, folderName);
+        string _path = folderName + "/FamilyTree.json"; 
+        saveArray = new();
+        saveArray.arr = pairList.ToArray();
+        string json = JsonUtility.ToJson(saveArray);
+        if(!Directory.Exists(folderPath)){
+            Directory.CreateDirectory(folderPath);
+        }
         File.WriteAllText(_path, json);
     }
     public Pairs Load(){
@@ -42,6 +52,25 @@ public class Pairs : MonoBehaviour
     }
     public Pairs LoadNew(){
         pairs = new();
+        return this;
+    }
+    public Pairs LoadFile(string folderName){
+        string folderPath = Path.Combine(Application.persistentDataPath, folderName);
+        string _path = folderName + "/FamilyTree.json"; 
+        if(File.Exists(_path)){
+            string jsonData = File.ReadAllText(_path);
+            saveArray = JsonUtility.FromJson<SavePairArray>(jsonData);
+            if(saveArray == null){
+                Debug.Log("NewGame Start!");
+            }
+            else{
+                Debug.Log("Save Data Load!");
+                pairs = new List<Pair>(saveArray.arr);
+            }
+        }
+        else{
+            pairs = new();
+        }
         return this;
     }
     public void Serialize(PairTree pairTree)
