@@ -126,12 +126,14 @@ public class BloodPacks : MonoBehaviour
             }
         }
     }
-    public void PackingResult(Pairs pairList){
+    public void PackingResult(Pairs pairList, int count){
         Load();
         Deserialize();
         ShowAll();
         before = ShowAllDic();
-        Packing(pairList);
+        for(int i = 0; i < count; i++){
+            Packing(pairList);
+        }
         after = ShowAllDic();
         gap = GetGap(before, after);
         // Debug.Log("Show Gap");
@@ -214,7 +216,7 @@ public class BloodPacks : MonoBehaviour
                 age = nodeConvert.age,
                 bloodType = nodeConvert.bloodType,
             },
-            num = Random.Range(1,5),
+            num = Random.Range(1,4),
             date = date,
         };
         return pack;

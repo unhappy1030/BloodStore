@@ -12,7 +12,8 @@ public class PackingUI : MonoBehaviour
     public float money;
     public float yearCost = 50;
     public float addtionalCost;
-    public TextMeshProUGUI numberTMP;
+    public TextMeshProUGUI yearTMP;
+    public TextMeshProUGUI yearCostTMP;
     public TextMeshProUGUI addtionalCostTMP;
     public GameObject treeManager;
     private TreeManager tree;
@@ -28,32 +29,32 @@ public class PackingUI : MonoBehaviour
         if(count != 0){
             MoneyControl moneyControl = GameManager.Instance.gameObject.GetComponent<MoneyControl>();
             moneyControl.CalculateMoney((yearCost * count + addtionalCost) * -1);
-            GameManager.Instance.bloodPackList.PackingResult(GameManager.Instance.pairList);
+            GameManager.Instance.bloodPackList.PackingResult(GameManager.Instance.pairList, count);
         }
         tree.SaveAndChangeData();
     }
     public void SetCountUp(){
         this.money = GameManager.Instance.money;
-        addtionalCost = GetAddtionalCost();
+        addtionalCost = GetAdditionalCost();
         if(money >= addtionalCost){
             money -= addtionalCost;
             int maxCount = (int)money / (int)yearCost;
             if(maxCount > count && count < 10){
                 count++;
-                numberTMP.text = count.ToString();
+                SetYearTMP();
             }
         }
     }
     public void SetCountDown(){
         if(count > 0){
             count--;
-            numberTMP.text = count.ToString();
+            SetYearTMP();
         }
     }
     public void SetFirstValue(){
         this.money = GameManager.Instance.money;
         count = 0;
-        addtionalCost = GetAddtionalCost();
+        addtionalCost = GetAdditionalCost();
         if(money >= addtionalCost){
             money -= addtionalCost;
             count = (int)money / (int)yearCost;
@@ -61,20 +62,26 @@ public class PackingUI : MonoBehaviour
                 count = 10;
             }
         }
-        numberTMP.text = count.ToString();
-        addtionalCostTMP.text = addtionalCost.ToString();
+        SetYearTMP();
+        addtionalCostTMP.text = "< " +addtionalCost.ToString() + " >";
 
     }
-    private float GetAddtionalCost(){
+    void SetYearTMP(){
+        yearTMP.text = "< " + count.ToString() + " >";
+        yearCostTMP.text = "Cost :" + (count * yearCost).ToString();
+    }
+
+    //Additional Cost Part
+    private float GetAdditionalCost(){
         tree = treeManager.GetComponent<TreeManager>();
         root = tree.mainGroup.transform.GetChild(0).GetComponent<Group>().pairTree;
-        return GetAddtionalCost(root);
+        return GetAdditionalCost(root);
     }
-    private float GetAddtionalCost(PairTree rootPair){
+    private float GetAdditionalCost(PairTree rootPair){
         float costSum = CheckPairCost(rootPair.pair);
         if(rootPair.pair.childNum != 0){
             foreach(PairTree nowPair in rootPair.children){
-                costSum += GetAddtionalCost(nowPair);
+                costSum += GetAdditionalCost(nowPair);
             }
         }
         return costSum;
