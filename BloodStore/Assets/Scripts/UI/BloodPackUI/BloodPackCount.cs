@@ -12,7 +12,7 @@ public class BloodPackCount : MonoBehaviour
         bloodPacks = GameManager.Instance.bloodPackList;
         SetCount();
     }
-    void SetCount(){
+    public void SetCount(){
         bloodPacks.UpdateCategory();
 
         texts[0].text = bloodPacks.categoryNum["Male"].ToString();

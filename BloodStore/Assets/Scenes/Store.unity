@@ -10824,7 +10824,8 @@ MonoBehaviour:
   selectBloodPackObj: {fileID: 856154382}
   filteringObj: {fileID: 1986493968}
   moneyControl: {fileID: 0}
-  bloodPackUITest: {fileID: 0}
+  bloodPackUITest: {fileID: 1167024180}
+  bloodPackCount: {fileID: 2018299558}
 --- !u!4 &1568789504
 Transform:
   m_ObjectHideFlags: 0
@@ -12110,6 +12111,7 @@ MonoBehaviour:
   filterDurability: 100
   money: 100000
   day: 0
+  loadfileName: 
   isFading: 0
   whitePanel: {fileID: 1148159719}
   blackPanel: {fileID: 1304530032}

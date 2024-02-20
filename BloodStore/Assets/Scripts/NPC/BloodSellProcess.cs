@@ -19,6 +19,7 @@ public class BloodSellProcess : MonoBehaviour
 
     public MoneyControl moneyControl;
     public BloodPackUITest bloodPackUITest; // assign at inspector
+    public BloodPackCount bloodPackCount; // assign at inspector
     
 
     void Start(){
@@ -37,7 +38,7 @@ public class BloodSellProcess : MonoBehaviour
 
     // button
     public void SelectBlood(){
-        // GameManager.Instance.bloodPackList.SubtractBloodPack(bloodPackUITest.sex, bloodPackUITest.bloodType, bloodPackUITest.rh, 1);
+        GameManager.Instance.bloodPackList.SubtractBloodPack(bloodPackUITest.sex, bloodPackUITest.bloodType, bloodPackUITest.rh, 1);
 
         selectBloodPackObj.enabled = false;
         CheckFilterAvailable();
@@ -51,6 +52,8 @@ public class BloodSellProcess : MonoBehaviour
         }
         
         isBloodSelected = true;
+
+        bloodPackCount.SetCount();
     } 
 
     public void CheckFilterAvailable(){

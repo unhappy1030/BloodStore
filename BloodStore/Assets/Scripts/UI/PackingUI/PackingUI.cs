@@ -26,11 +26,9 @@ public class PackingUI : MonoBehaviour
     }
     public void PackingConfirm(){
         tree.SavePairData();
-        if(count != 0){
-            MoneyControl moneyControl = GameManager.Instance.gameObject.GetComponent<MoneyControl>();
-            moneyControl.CalculateMoney((yearCost * count + addtionalCost) * -1);
-            GameManager.Instance.bloodPackList.PackingResult(GameManager.Instance.pairList, count);
-        }
+        MoneyControl moneyControl = GameManager.Instance.gameObject.GetComponent<MoneyControl>();
+        moneyControl.CalculateMoney((yearCost * count + addtionalCost) * -1);
+        GameManager.Instance.bloodPackList.PackingResult(GameManager.Instance.pairList, count);
         tree.SaveAndChangeData();
         string folderName = GameManager.Instance.loadfileName;
         if(folderName != ""){
