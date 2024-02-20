@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     public float money = 0;
     public int day = 0;
-
+    public string loadfileName = "";
     public bool isFading = false; 
     bool wasFade = false;
 
