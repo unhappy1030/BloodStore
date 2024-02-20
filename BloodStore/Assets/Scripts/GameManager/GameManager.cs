@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public int sellCount = 0;
     public float totalPoint = 0;
     public float currentAveragePoint = 0;
+    public float filterDurability = 100;
 
     public float money = 0;
     public int day = 0;
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour
     public DialogueRunner dialogueRunner;
     public InMemoryVariableStorage variableStorage;
     public ResultStore resultStore;
+    public BloodSellProcess bloodSellProcess;
 
     public ResultMoney resultMoney;
 
@@ -93,6 +95,7 @@ public class GameManager : MonoBehaviour
         nodeInteraction = FindObjectOfType<NodeInteraction>();
         resultStore = FindObjectOfType<ResultStore>();
         resultMoney = FindObjectOfType<ResultMoney>();
+        bloodSellProcess = FindObjectOfType<BloodSellProcess>();
 
         mouseRayCast = GetComponent<MouseRayCast>();
         moneyControl = GetComponent<MoneyControl>();
@@ -126,6 +129,10 @@ public class GameManager : MonoBehaviour
 
         if(resultMoney != null){
             resultMoney.moneyControl = moneyControl;
+        }
+
+        if(bloodSellProcess != null){
+            bloodSellProcess.moneyControl = moneyControl;
         }
         
         mouseRayCast.cameraControl = cameraControl;

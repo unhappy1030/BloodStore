@@ -18,6 +18,7 @@ public class YarnControl : MonoBehaviour
     public string nodeName;
     public bool isSell;
     public static float sellInfo = 0;
+    public static float sellPrice = 0;
     // public static bool isSelect;
 
     private void OnEnable()
@@ -40,6 +41,11 @@ public class YarnControl : MonoBehaviour
     public static float UpdateMoney(){
         float money = GameManager.Instance.money;        
         return money;
+    }
+
+    [YarnFunction("GetSellPrice")]
+    public static float GetSellPrice(){
+        return sellPrice;
     }
 
     [YarnCommand("CalculateMoney")]
