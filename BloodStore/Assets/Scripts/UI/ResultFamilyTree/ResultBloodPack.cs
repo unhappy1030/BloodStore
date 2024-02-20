@@ -11,12 +11,6 @@ public class ResultBloodPack : MonoBehaviour
         Dictionary<string, int> after, gap;
         after = GameManager.Instance.bloodPackList.after;
         gap = GameManager.Instance.bloodPackList.gap;
-        // foreach(string key in after.Keys){
-        //     GameObject TMPObj = transform.GetChild(i).gameObject;
-        //     TextMeshProUGUI TMP = TMPObj.GetComponent<TextMeshProUGUI>();
-        //     TMP.text = key + " : " + after[key].ToString() + " (+" + gap[key].ToString() + ")";
-        //     i++;
-        // }
         string[] sexes = {"Male", "Female"};
         string[] bloodTypes = {"A", "B", "AB", "O"};
         string[] rhs = {"+", "-"};
