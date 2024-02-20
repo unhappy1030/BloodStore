@@ -98,7 +98,6 @@ public class NodeInteraction : MonoBehaviour
                 StartCoroutine(MoveCamera());
                 CameraZoom();
             }
-
             KeyInteract();
         }
     }
@@ -322,6 +321,10 @@ public class NodeInteraction : MonoBehaviour
     }
     
     public void CameraZoom(){
+        if(!CameraControl.isFinish){
+            return ;
+        }
+
         float wheel = Input.GetAxis("Mouse ScrollWheel");
         
         float wheelSpeed = 0.3f;
