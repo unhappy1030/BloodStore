@@ -17,7 +17,7 @@ public class NPCInteract : MonoBehaviour
     public List<GameObject> cameraTarget; // assign at Inspector
     public static string tasteStr; // static warning
 
-    public GameObject filteringCanvas; // assign at Inspector
+    public GameObject endSellProcessButton; // assign at Inspector
     public GameObject bloodPackCanvas; // assign at Inspector
     public GameObject nextDayButton; // assign at Inspector
 
@@ -52,7 +52,7 @@ public class NPCInteract : MonoBehaviour
 
         npc.SetActive(false);
 
-        filteringCanvas.SetActive(false);
+        endSellProcessButton.SetActive(false);
         bloodPackCanvas.SetActive(false);
         nextDayButton.SetActive(false);
 
@@ -89,18 +89,21 @@ public class NPCInteract : MonoBehaviour
             // YarnControl.isSelect = false;
             
             yarnControl.isSell = false;
-            filteringCanvas.SetActive(true);
+            endSellProcessButton.SetActive(true);
 
             yield return new WaitUntil(() => bloodSellProcess.isBloodSellFinish);
             bloodSellProcess.isBloodSellFinish = false;
-            filteringCanvas.SetActive(false);
+            endSellProcessButton.SetActive(false);
 
             ChangeSellStatus();
 
             YarnControl.sellInfo = CalculateSellInfo(npcIndex);
             GameManager.Instance.sellCount++;
             GameManager.Instance.totalPoint += YarnControl.sellInfo;
-                
+
+            YarnControl.sellPrice = CalculatePrice(YarnControl.sellInfo);
+            sellStatus = BloodSellStatus.None;
+            
             if(yarnControl.nodeName != ""){
                 StartDialogue(yarnControl.nodeName); // tell their evaluation or end dialogue
                 yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
@@ -195,8 +198,6 @@ public class NPCInteract : MonoBehaviour
                 sellStatus = BloodSellStatus.Filtered;
             }
         }
-
-        // YarnControl.sellStatus = sellStatus;
     }
 
     // void CreateVirtualCamera(int targetIndex){
@@ -219,7 +220,6 @@ public class NPCInteract : MonoBehaviour
     //     cameraControl.ChangeCam(interactObjInfo);
     // }   
     
-    // test
     float CalculateSellInfo(int index){
         float point = 0;
 
@@ -294,6 +294,18 @@ public class NPCInteract : MonoBehaviour
         return point;
     }
     
+    float CalculatePrice(float sellInfo){        
+        if(sellStatus == BloodSellStatus.None){
+            return 0;
+        }
+
+        float randPriceBase = sellInfo * 10 * sellInfo/5 + 50;
+
+        float price = randPriceBase * UnityEngine.Random.Range(0.8f, 1f);
+        price = (float)Math.Round(price, 1);
+        return price;
+    }
+
     // test
     void ReadyToMoveNextDay(){
         nextDayButton.SetActive(true);

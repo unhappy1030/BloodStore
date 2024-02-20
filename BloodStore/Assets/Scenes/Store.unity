@@ -7997,7 +7997,7 @@ MonoBehaviour:
   cameraTarget:
   - {fileID: 1883985743}
   - {fileID: 559100695}
-  filteringCanvas: {fileID: 625989964}
+  endSellProcessButton: {fileID: 625989964}
   bloodPackCanvas: {fileID: 281990388}
   nextDayButton: {fileID: 166274612}
   cameraControl: {fileID: 0}
@@ -9361,10 +9361,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 625989965}
   - {fileID: 281990389}
   - {fileID: 79403491}
   - {fileID: 650510517}
-  - {fileID: 625989965}
   - {fileID: 166274613}
   m_Father: {fileID: 193522019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

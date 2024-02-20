@@ -15,11 +15,14 @@ npc: {$taste}
 title: SellTest
 position: -104,0
 ---
-<<declare $sellStatus = 0>>
+<<declare $price = 0>>
+<<set $price = GetSellPrice()>>
+
 
 <<WaitUntilVirtualCamBlend 0>>
 npc: Total Point is {GetSellInfo()}
-<<CalculateMoney DialogueSystem 2>>
+npc: Earn {$price}
+<<CalculateMoney DialogueSystem {$price}>>
 // <<if GetSellInfo() >= 2.5>>
 //     npc: more than 2.5
 // <<elseif GetSellInfo() >= 0>>
