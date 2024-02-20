@@ -23,7 +23,7 @@ public class Pairs : MonoBehaviour
     }
     public void SaveFile(List<Pair> pairList, string folderName){
         string folderPath = Path.Combine(Application.persistentDataPath, folderName);
-        string _path = folderName + "/FamilyTree.json"; 
+        string _path = Path.Combine(folderPath, "FamilyTree.json");
         saveArray = new();
         saveArray.arr = pairList.ToArray();
         string json = JsonUtility.ToJson(saveArray);
@@ -56,7 +56,7 @@ public class Pairs : MonoBehaviour
     }
     public Pairs LoadFile(string folderName){
         string folderPath = Path.Combine(Application.persistentDataPath, folderName);
-        string _path = folderName + "/FamilyTree.json"; 
+        string _path = Path.Combine(folderPath, "FamilyTree.json");
         if(File.Exists(_path)){
             string jsonData = File.ReadAllText(_path);
             saveArray = JsonUtility.FromJson<SavePairArray>(jsonData);
@@ -71,6 +71,7 @@ public class Pairs : MonoBehaviour
         else{
             pairs = new();
         }
+        Save(pairs);
         return this;
     }
     public void Serialize(PairTree pairTree)

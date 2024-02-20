@@ -29,7 +29,7 @@ public class BloodPacks : MonoBehaviour
     public void SaveFile(List<BloodPack> bloodPackList, string folderName){
         Serialize();
         string folderPath = Path.Combine(Application.persistentDataPath, folderName);
-        string _path = folderPath + "/BloodPack.json"; 
+        string _path = Path.Combine(folderPath, "BloodPack.json");
         saveArray = new();
         saveArray.arr = bloodPackList.ToArray();
         string json = JsonUtility.ToJson(saveArray);
@@ -54,6 +54,7 @@ public class BloodPacks : MonoBehaviour
         else{
             bloodPacks = new();
         }
+        Save(bloodPacks);
         return this;
     }
     public BloodPacks LoadNew(){
@@ -64,7 +65,7 @@ public class BloodPacks : MonoBehaviour
     }
     public BloodPacks LoadFile(string folderName){
         string folderPath = Path.Combine(Application.persistentDataPath, folderName);
-        string _path = folderPath + "/BloodPack.json";
+        string _path = Path.Combine(folderPath, "BloodPack.json");
         if(File.Exists(_path)){
             string jsonData = File.ReadAllText(_path);
             saveArray = JsonUtility.FromJson<SaveBloodPackArray>(jsonData);
@@ -79,6 +80,7 @@ public class BloodPacks : MonoBehaviour
         else{
             bloodPacks = new();
         }
+        Save(bloodPacks);
         return this;
     }
     public void Serialize()
