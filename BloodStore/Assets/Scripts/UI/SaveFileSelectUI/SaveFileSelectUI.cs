@@ -25,6 +25,7 @@ public class SaveFileSelectUI : MonoBehaviour
             string folderPath = Path.Combine(Application.persistentDataPath, folderName);
             Pairs pair = GameManager.Instance.pairList;
             BloodPacks bloodPack = GameManager.Instance.bloodPackList;
+            GameManager.Instance.loadfileName = folderName;
             pair.LoadFile(folderName);
             bloodPack.LoadFile(folderName);
             gameObject.SetActive(false);

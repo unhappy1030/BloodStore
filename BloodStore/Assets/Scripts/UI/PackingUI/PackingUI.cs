@@ -32,6 +32,13 @@ public class PackingUI : MonoBehaviour
             GameManager.Instance.bloodPackList.PackingResult(GameManager.Instance.pairList, count);
         }
         tree.SaveAndChangeData();
+        string folderName = GameManager.Instance.loadfileName;
+        if(folderName != ""){
+            Pairs pair = GameManager.Instance.pairList;
+            BloodPacks bloodPack = GameManager.Instance.bloodPackList;
+            pair.SaveFile(pair.pairs, folderName);
+            bloodPack.SaveFile(bloodPack.bloodPacks, folderName);
+        }
     }
     public void SetCountUp(){
         this.money = GameManager.Instance.money;
