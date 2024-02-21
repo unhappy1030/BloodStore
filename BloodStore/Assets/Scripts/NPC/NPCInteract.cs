@@ -133,6 +133,9 @@ public class NPCInteract : MonoBehaviour
     // from DialogueControl
     void GetStoreDialogues(){
         dialogueControl.GetAllDialogues(WhereNodeStart.Store, WhenNodeStart.Click);
+        dialogueControl.AddRandomNPC();
+        dialogueControl.ShuffleAndSortDialogue();
+        
         dialogueSum = dialogueControl.allDialogues;
         count = dialogueSum.Count;
     }

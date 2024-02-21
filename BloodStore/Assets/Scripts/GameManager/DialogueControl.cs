@@ -94,14 +94,10 @@ public class DialogueControl : MonoBehaviour
                 index++;
             }
         }
-
-        AddRandomNPC(); // test
-
-        ListShuffle<DialogueInfo>(allDialogues);
-        allDialogues.Sort(ComparePriority);
     }
 
-    void AddRandomNPC(){
+    // must use in Store
+    public void AddRandomNPC(){
         List<Sprite> normalSprites = new(normalNPCs.normalNPCSprites);
 
         if(normalSprites == null || normalSprites.Count == 0){
@@ -137,6 +133,12 @@ public class DialogueControl : MonoBehaviour
         }
 
         totalCount += addCount;
+    }
+
+    // must use in Store
+    public void ShuffleAndSortDialogue(){
+        ListShuffle<DialogueInfo>(allDialogues);
+        allDialogues.Sort(ComparePriority);
     }
 
     List<string> MakeRandomTastes(){ // test
