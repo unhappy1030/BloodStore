@@ -20,7 +20,7 @@ public class BloodPacks : MonoBehaviour
     public Dictionary<string, int> before, after, gap;
     public void Save(List<BloodPack> bloodPackList){
         Serialize();
-        string _path = Application.persistentDataPath + "/BloodPack.json"; 
+        string _path = Path.Combine(Application.persistentDataPath, "BloodPack.json");
         saveArray = new();
         saveArray.arr = bloodPackList.ToArray();
         string json = JsonUtility.ToJson(saveArray);
@@ -39,7 +39,7 @@ public class BloodPacks : MonoBehaviour
         File.WriteAllText(_path, json);
     }
     public BloodPacks Load(){
-        string _path = Application.persistentDataPath + "/BloodPack.json";
+        string _path = Path.Combine(Application.persistentDataPath, "BloodPack.json");
         if(File.Exists(_path)){
             string jsonData = File.ReadAllText(_path);
             saveArray = JsonUtility.FromJson<SaveBloodPackArray>(jsonData);
