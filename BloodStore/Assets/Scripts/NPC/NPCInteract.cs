@@ -29,12 +29,10 @@ public class NPCInteract : MonoBehaviour
 
     int count;
     int npcIndex;
-    int spriteIndex;
 
     Coroutine npcCoroutine;
 
     // List<NPCSO> npcs; // get from DialogueControl
-    List<DialogueInfo> startDialogues;
     List<DialogueInfo> dialogueSum;
     List<Sprite> npcSprites;
 
@@ -47,7 +45,6 @@ public class NPCInteract : MonoBehaviour
         CameraControl.targetsForYarn = new(cameraTarget);
 
         npcIndex = 0;
-        spriteIndex = 0;
 
         npc.SetActive(false);
 
@@ -68,23 +65,27 @@ public class NPCInteract : MonoBehaviour
     
     IEnumerator GetStoreDialogues(){
         dialogueControl.GetAllDialogues(WhereNodeStart.Store, WhenNodeStart.SceneLoad);
-        startDialogues = dialogueControl.allDialogues;
-        int startCount = startDialogues.Count;
+        dialogueControl.ShuffleAndSortDialogue();
 
-        if(startCount > 0){
-            int index = 0;
+        dialogueSum = dialogueControl.allDialogues;
+        count = dialogueSum.Count;
 
-            while(index < startCount){
-                GameManager.Instance.StartDialogue(startDialogues[index].dialogueName);
+        if(count > 0){
+            npcIndex = 0;
+
+            while(npcIndex < count){
+                yarnControl.ChangeUIImg(0);
+                GameManager.Instance.StartDialogue(dialogueSum[npcIndex].dialogueName);
                 yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
                 
-                yield return new WaitForSeconds(1f); 
-                index++;
+                yield return new WaitForSeconds(1.5f); 
+                npcIndex++;
             }
         }
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         
+        npcIndex = 0;
         GetCustomerDialogues();
         npcCoroutine = StartCoroutine(StartCustomer());
     }
@@ -199,6 +200,10 @@ public class NPCInteract : MonoBehaviour
         npc.GetComponent<BoxCollider2D>().enabled = false;
         yield return GameManager.Instance.StartCoroutine(GameManager.Instance.FadeInSprite(npc.GetComponent<SpriteRenderer>(), 0.05f));
         npc.SetActive(false);
+    }
+
+    public Sprite GetSpriteForDialogueView(int spriteIndex){
+        return dialogueSum[npcIndex].sprites[spriteIndex];
     }
 
     // public void StartDialogue(string nodeName){

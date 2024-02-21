@@ -147,6 +147,9 @@ public class GameManager : MonoBehaviour
         yarnControl.dialogueRunner = dialogueRunner;
         yarnControl.variableStorage = variableStorage;
         yarnControl.dialogueControl = dialogueControl;
+        if(npcInteract != null){
+            yarnControl.npcInteract = npcInteract;
+        }
         
         whitePanel.gameObject.SetActive(false);
         blackPanel.gameObject.SetActive(false);
