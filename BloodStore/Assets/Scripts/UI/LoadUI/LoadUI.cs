@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.IO;
-using System;
-public class SavetUI : MonoBehaviour
+public class LoadUI : MonoBehaviour
 {
     public GameObject selectedFile;
     public List<GameObject> files;
     public GameObject addNewFileUI;
     public GameObject deleteCheckUI;
-    public GameObject saveCheckUI;
+    public GameObject loadCheckUI;
     public TextMeshProUGUI description;
     public TextMeshProUGUI deleteCheckText;
-    public TextMeshProUGUI saveCheckText;
+    public TextMeshProUGUI loadCheckText;
     public TMP_InputField fileNameInput;
     void Start()
     {
@@ -23,8 +22,8 @@ public class SavetUI : MonoBehaviour
         if(deleteCheckUI.activeSelf){
             deleteCheckUI.SetActive(false);
         }
-        if(saveCheckUI.activeSelf){
-            saveCheckUI.SetActive(false);
+        if(loadCheckUI.activeSelf){
+            loadCheckUI.SetActive(false);
         }
         if(addNewFileUI.activeSelf){
             addNewFileUI.SetActive(false);
@@ -33,28 +32,38 @@ public class SavetUI : MonoBehaviour
     }
     void ResetAllFiles(){
         foreach(GameObject file in files){
-            file.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "(Empty)";
+            file.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "(New Game)";
         }
     }
-    //Save Part
-    public void SetSaveCheckUI(){
+    //Load Part
+    public void SetloadCheckUI(){
         if(selectedFile != null){
             string folderName = selectedFile.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
-            saveCheckText.text = "Save on " + "\"" + folderName + "\"File?";
-            saveCheckUI.SetActive(true);
+            loadCheckText.text = "Load  " + "\"" + folderName + "\"File?";
+            loadCheckUI.SetActive(true);
+        }
+    }
+    public void LoadFile(){
+        if(selectedFile != null){
+            string folderName = selectedFile.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
+            string folderPath = Path.Combine(Application.persistentDataPath, folderName);
+            Pairs pair = GameManager.Instance.pairList;
+            BloodPacks bloodPack = GameManager.Instance.bloodPackList;
+            GameManager.Instance.loadfileName = folderName;
+            pair.LoadFile(folderName);
+            bloodPack.LoadFile(folderName);
+            gameObject.SetActive(false);
         }
     }
     public void SaveFile(){
         if(selectedFile != null){
             string folderName = selectedFile.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
-            GameManager.Instance.loadfileName = folderName;
             Pairs pair = GameManager.Instance.pairList;
             BloodPacks bloodPack = GameManager.Instance.bloodPackList;
             pair.SaveFile(pair.pairs, folderName);
             bloodPack.SaveFile(bloodPack.bloodPacks, folderName);
-            GameManager.Instance.loadfileName = folderName;
             selectedFile = null;
-            saveCheckUI.SetActive(false);
+            loadCheckUI.SetActive(false);
             gameObject.SetActive(false);
         }
     }
@@ -161,5 +170,9 @@ public class SavetUI : MonoBehaviour
             default:
                 break;
         }
+        if(selectedFile.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text == "(New Game)"){
+            AddNewFile();
+        }
     }
+
 }
