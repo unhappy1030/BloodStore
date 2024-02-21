@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.IO;
+using System.Linq;
 public class LoadUI : MonoBehaviour
 {
     public GameObject selectedFile;
@@ -83,7 +84,6 @@ public class LoadUI : MonoBehaviour
             {
                 Directory.Delete(folderPath, true);
             }
-            selectedFile.SetActive(false);
             ShowFiles();
             deleteCheckUI.SetActive(false);
         }
@@ -103,9 +103,12 @@ public class LoadUI : MonoBehaviour
     List<string> GetDirectories(string path)
     {
         List<string> directoryNames = new List<string>();
+        
         if (Directory.Exists(path))
         {
-            string[] directories = Directory.GetDirectories(path);
+            string[] files = Directory.GetDirectories(path);
+            List<string> directories = files.OrderBy(f => new FileInfo(f).LastWriteTime).ToList();
+
             foreach (string directory in directories)
             {
                 string directoryName = Path.GetFileName(directory);

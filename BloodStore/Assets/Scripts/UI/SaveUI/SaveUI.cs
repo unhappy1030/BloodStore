@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using System.IO;
 using System;
+using UnityEngine.UI;
+using System.Linq;
 public class SavetUI : MonoBehaviour
 {
     public GameObject selectedFile;
@@ -30,10 +32,22 @@ public class SavetUI : MonoBehaviour
             addNewFileUI.SetActive(false);
         }
         ShowFiles();
+        NowFile();
+    }
+    void NowFile(){
+        selectedFile = null;
+        foreach(GameObject file in files){
+            string fileName = file.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
+            file.transform.GetChild(1).gameObject.SetActive(false);
+            if(fileName == GameManager.Instance.loadfileName){
+                selectedFile = file;
+                file.transform.GetChild(1).gameObject.SetActive(true);
+            }
+        }
     }
     void ResetAllFiles(){
         foreach(GameObject file in files){
-            file.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "(Empty)";
+            file.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "(New Game)";
         }
     }
     //Save Part
@@ -74,7 +88,6 @@ public class SavetUI : MonoBehaviour
             {
                 Directory.Delete(folderPath, true);
             }
-            selectedFile.SetActive(false);
             ShowFiles();
             deleteCheckUI.SetActive(false);
         }
@@ -94,9 +107,12 @@ public class SavetUI : MonoBehaviour
     List<string> GetDirectories(string path)
     {
         List<string> directoryNames = new List<string>();
+        
         if (Directory.Exists(path))
         {
-            string[] directories = Directory.GetDirectories(path);
+            string[] files = Directory.GetDirectories(path);
+            List<string> directories = files.OrderBy(f => new FileInfo(f).LastWriteTime).ToList();
+
             foreach (string directory in directories)
             {
                 string directoryName = Path.GetFileName(directory);
@@ -160,6 +176,9 @@ public class SavetUI : MonoBehaviour
                 break;
             default:
                 break;
+        }
+        if(selectedFile.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text == "(New Game)"){
+            AddNewFile();
         }
     }
 }
