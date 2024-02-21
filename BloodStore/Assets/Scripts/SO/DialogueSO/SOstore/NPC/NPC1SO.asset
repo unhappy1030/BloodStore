@@ -22,7 +22,7 @@ MonoBehaviour:
     deadLine: 5
     dialogues:
     - where: 0
-      when: 0
+      when: 1
       day: 1
       priority: 0
       dialogueName: Npc1Cond0Day1

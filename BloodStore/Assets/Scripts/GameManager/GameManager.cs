@@ -136,7 +136,6 @@ public class GameManager : MonoBehaviour
         }
         
         mouseRayCast.cameraControl = cameraControl;
-        mouseRayCast.npcInteract = npcInteract;
 
         if(nodeInteraction != null){
             mouseRayCast.nodeInteraction = nodeInteraction;
@@ -172,6 +171,19 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
 
+    public void StartDialogue(string nodeName){
+        if(!dialogueRunner.IsDialogueRunning)
+        {
+            if(dialogueRunner.NodeExists(nodeName))
+                dialogueRunner.StartDialogue(nodeName);
+            else
+                Debug.Log(nodeName + " is not Exist...");
+        }
+        else
+        {
+            Debug.Log("Other Dialogue is running...");
+        }
+    }
 
     // Scene Load
     public void SceneLoad(string sceneName)
@@ -187,6 +199,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public IEnumerator FadeOutAndLoadScene(string sceneName, float speed)
+    {
+        if (Application.CanStreamedLevelBeLoaded(sceneName))
+        {
+            yield return StartCoroutine(FadeOutUI(blackPanel, speed));
+            wasFade = true;
+            SceneManager.LoadScene(sceneName);
+        }
+        else
+        {
+            Debug.Log("There is no scene in build...");
+        }
+    }
+    
     public void CreateVirtualCamera(GameObject target, bool doesUSeBound, Collider2D bound, float lensOthoSize, float hold, Cinemachine.CinemachineBlendDefinition.Style style, float blendTime){
         InteractObjInfo interactObjInfo = cameraControl.gameObject.GetComponent<InteractObjInfo>();
         if(interactObjInfo == null){
@@ -211,21 +237,6 @@ public class GameManager : MonoBehaviour
         interactObjInfo.SetTargetCameraInfo(targets, doesUSeBound, bound, hold, style, blendTime);
         cameraControl.ChangeCam(interactObjInfo);
     }
-
-    public IEnumerator FadeOutAndLoadScene(string sceneName, float speed)
-    {
-        if (Application.CanStreamedLevelBeLoaded(sceneName))
-        {
-            yield return StartCoroutine(FadeOutUI(blackPanel, speed));
-            wasFade = true;
-            SceneManager.LoadScene(sceneName);
-        }
-        else
-        {
-            Debug.Log("There is no scene in build...");
-        }
-    }
-
 
     // Fade in & out
     public IEnumerator FadeOutUI(Image _Image, float _fadeSpeed)
