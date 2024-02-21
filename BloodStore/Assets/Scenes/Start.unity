@@ -3517,6 +3517,7 @@ GameObject:
   - component: {fileID: 763940030}
   - component: {fileID: 763940029}
   - component: {fileID: 763940028}
+  - component: {fileID: 763940031}
   m_Layer: 5
   m_Name: ConfirmButton
   m_TagString: Untagged
@@ -3588,9 +3589,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SavetUI, Assembly-CSharp
-        m_MethodName: SaveFile
+      - m_Target: {fileID: 1251966774}
+        m_TargetAssemblyTypeName: LoadUI, Assembly-CSharp
+        m_MethodName: LoadFile
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3598,6 +3599,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 763940031}
+        m_TargetAssemblyTypeName: ButtonControl, Assembly-CSharp
+        m_MethodName: SceneLoad
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: FamilyTree
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &763940029
@@ -3638,6 +3651,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 763940026}
   m_CullTransparentMesh: 1
+--- !u!114 &763940031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763940026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64bf3fd46c380d7459bdf489d95d67d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiControl: {fileID: 0}
 --- !u!1 &778488119
 GameObject:
   m_ObjectHideFlags: 0
@@ -8985,7 +9011,6 @@ GameObject:
   - component: {fileID: 1841603215}
   - component: {fileID: 1841603214}
   - component: {fileID: 1841603213}
-  - component: {fileID: 1841603212}
   m_Layer: 5
   m_Name: LoadButton
   m_TagString: Untagged
@@ -9013,19 +9038,6 @@ RectTransform:
   m_AnchoredPosition: {x: 290, y: -280}
   m_SizeDelta: {x: 130, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1841603212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1841603210}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64bf3fd46c380d7459bdf489d95d67d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiControl: {fileID: 0}
 --- !u!114 &1841603213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9072,7 +9084,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1251966774}
         m_TargetAssemblyTypeName: LoadUI, Assembly-CSharp
-        m_MethodName: LoadFile
+        m_MethodName: SetloadCheckUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9080,18 +9092,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1841603212}
-        m_TargetAssemblyTypeName: ButtonControl, Assembly-CSharp
-        m_MethodName: SceneLoad
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: FamilyTree
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1841603214

@@ -26,17 +26,14 @@ public class SavetUI : MonoBehaviour
         if(saveCheckUI.activeSelf){
             saveCheckUI.SetActive(false);
         }
-        SetAllOff();
         if(addNewFileUI.activeSelf){
             addNewFileUI.SetActive(false);
         }
         ShowFiles();
     }
-    void SetAllOff(){
+    void ResetAllFiles(){
         foreach(GameObject file in files){
-            if(file.activeSelf){
-                file.SetActive(false);
-            }
+            file.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "(Empty)";
         }
     }
     //Save Part
@@ -50,10 +47,12 @@ public class SavetUI : MonoBehaviour
     public void SaveFile(){
         if(selectedFile != null){
             string folderName = selectedFile.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
+            GameManager.Instance.loadfileName = folderName;
             Pairs pair = GameManager.Instance.pairList;
             BloodPacks bloodPack = GameManager.Instance.bloodPackList;
             pair.SaveFile(pair.pairs, folderName);
             bloodPack.SaveFile(bloodPack.bloodPacks, folderName);
+            GameManager.Instance.loadfileName = folderName;
             selectedFile = null;
             saveCheckUI.SetActive(false);
             gameObject.SetActive(false);
@@ -76,7 +75,6 @@ public class SavetUI : MonoBehaviour
                 Directory.Delete(folderPath, true);
             }
             selectedFile.SetActive(false);
-            SetAllOff();
             ShowFiles();
             deleteCheckUI.SetActive(false);
         }
@@ -87,9 +85,9 @@ public class SavetUI : MonoBehaviour
     }
     void ShowFiles(){
         List<string> directoryNames = GetDirectories(Application.persistentDataPath);
+        ResetAllFiles();
         for(int i = 0; i < directoryNames.Count; i++){
             files[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = directoryNames[i];
-            files[i].SetActive(true);
         }
         selectedFile = null;
     }
@@ -124,12 +122,15 @@ public class SavetUI : MonoBehaviour
             description.text = "File Name Already Exists, Write New FileName.";
             description.color = Color.red;
         }
+        else if(folderName == "(New Game)"){
+            description.text = "The file name (New Game) cannot be used.";
+            description.color = Color.red;
+        }
         else{
             Pairs pair = GameManager.Instance.pairList;
             BloodPacks bloodPack = GameManager.Instance.bloodPackList;
             pair.SaveFile(pair.pairs, folderName);
             bloodPack.SaveFile(bloodPack.bloodPacks, folderName);
-            SetAllOff();
             ShowFiles();
             addNewFileUI.SetActive(false);
         }
