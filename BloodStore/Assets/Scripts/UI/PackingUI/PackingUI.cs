@@ -15,6 +15,7 @@ public class PackingUI : MonoBehaviour
     public TextMeshProUGUI yearTMP;
     public TextMeshProUGUI yearCostTMP;
     public TextMeshProUGUI addtionalCostTMP;
+    public TextMeshProUGUI totalCostTMP;
     public GameObject treeManager;
     private TreeManager tree;
     private PairTree root;
@@ -61,12 +62,13 @@ public class PackingUI : MonoBehaviour
             }
         }
         SetYearTMP();
-        addtionalCostTMP.text = "< " +addtionalCost.ToString() + " >";
+        addtionalCostTMP.text = addtionalCost.ToString() + " $";
 
     }
     void SetYearTMP(){
         yearTMP.text = "< " + count.ToString() + " >";
-        yearCostTMP.text = "Cost :" + (count * yearCost).ToString();
+        yearCostTMP.text = "Cost :" + (count * yearCost).ToString() + " $";
+        totalCostTMP.text = ((count * yearCost) + addtionalCost).ToString() + " $";
     }
 
     //Additional Cost Part
