@@ -14,18 +14,18 @@ public class Pairs : MonoBehaviour
 {
     public List<Pair> pairs = new();
     SavePairArray saveArray = new();
-    public void Save(List<Pair> pairList){
+    public void Save(){
         string _path = Application.persistentDataPath + "/FamilyTree.json"; 
         saveArray = new();
-        saveArray.arr = pairList.ToArray();
+        saveArray.arr = pairs.ToArray();
         string json = JsonUtility.ToJson(saveArray);
         File.WriteAllText(_path, json);
     }
-    public void SaveFile(List<Pair> pairList, string folderName){
+    public void SaveFile(string folderName){
         string folderPath = Path.Combine(Application.persistentDataPath, folderName);
         string _path = Path.Combine(folderPath, "FamilyTree.json");
         saveArray = new();
-        saveArray.arr = pairList.ToArray();
+        saveArray.arr = pairs.ToArray();
         string json = JsonUtility.ToJson(saveArray);
         if(!Directory.Exists(folderPath)){
             Directory.CreateDirectory(folderPath);
@@ -71,7 +71,7 @@ public class Pairs : MonoBehaviour
         else{
             pairs = new();
         }
-        Save(pairs);
+        Save();
         return this;
     }
     public void Serialize(PairTree pairTree)

@@ -43,13 +43,13 @@ public class TreeManager : MonoBehaviour
     }
     public void SavePairData() {
         pairList.Serialize(root);
-        pairList.Save(pairList.pairs);
+        pairList.Save();
     }
     public void SaveAndChangeData(){
         pairList.Serialize(root);
         pairList.MakeOlder();
         pairList.MakeDead();
-        pairList.Save(pairList.pairs);
+        pairList.Save();
     }
     void SetPrefabData(){
         halfX = nodePrefab.GetComponent<SpriteRenderer>().bounds.extents.x;

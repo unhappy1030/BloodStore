@@ -6,13 +6,16 @@ using System.IO;
 using System;
 using UnityEngine.UI;
 using System.Linq;
-public class SavetUI : MonoBehaviour
+using UnityEngine.EventSystems;
+public class SaveUI : MonoBehaviour
 {
+    private EventSystem eventSystem;
     public GameObject selectedFile;
     public List<GameObject> files;
     public GameObject addNewFileUI;
     public GameObject deleteCheckUI;
     public GameObject saveCheckUI;
+    public List<GameObject> buttons;
     public TextMeshProUGUI description;
     public TextMeshProUGUI deleteCheckText;
     public TextMeshProUGUI saveCheckText;
@@ -31,17 +34,47 @@ public class SavetUI : MonoBehaviour
         if(addNewFileUI.activeSelf){
             addNewFileUI.SetActive(false);
         }
+        MakeButtonsOff();
         ShowFiles();
-        NowFile();
+        eventSystem = FindObjectOfType<EventSystem>();
     }
-    void NowFile(){
-        selectedFile = null;
+    void Update(){
+        GameObject selectedObject = eventSystem.currentSelectedGameObject;
+
+        // 선택된 오브젝트가 버튼인지 확인합니다.
+        if (selectedObject != null && selectedObject.GetComponent<Button>() != null)
+        {
+            foreach(GameObject file in files){
+                if(selectedObject == file){
+                    Button selectedButton = selectedObject.GetComponent<Button>();
+                    selectedButton.onClick.Invoke();
+                }
+            }
+        }
+    }
+    void MakeButtonsOff(){
+        foreach(GameObject buttonUI in buttons){
+            Button button = buttonUI.GetComponent<Button>();
+            button.interactable = false;
+        }
+    }
+    void MakeButtonsOn(){
+        foreach(GameObject buttonUI in buttons){
+            Button button = buttonUI.GetComponent<Button>();
+            button.interactable = true;
+        }
+    }
+    //Arrow Control
+    public void NowFile(){
         foreach(GameObject file in files){
             string fileName = file.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
             file.transform.GetChild(1).gameObject.SetActive(false);
             if(fileName == GameManager.Instance.loadfileName){
                 selectedFile = file;
                 file.transform.GetChild(1).gameObject.SetActive(true);
+                Button button = selectedFile.GetComponent<Button>();
+                button.Select();
+                button.onClick.Invoke();
             }
         }
     }
@@ -64,7 +97,7 @@ public class SavetUI : MonoBehaviour
             GameManager.Instance.loadfileName = folderName;
             Pairs pair = GameManager.Instance.pairList;
             BloodPacks bloodPack = GameManager.Instance.bloodPackList;
-            pair.SaveFile(pair.pairs, folderName);
+            pair.SaveFile(folderName);
             bloodPack.SaveFile(bloodPack.bloodPacks, folderName);
             GameManager.Instance.loadfileName = folderName;
             selectedFile = null;
@@ -94,13 +127,30 @@ public class SavetUI : MonoBehaviour
     }
     //Files Update
     public void ResetSelectedFile(){
+        MakeButtonsOff();
         selectedFile = null;
     }
     void ShowFiles(){
         List<string> directoryNames = GetDirectories(Application.persistentDataPath);
         ResetAllFiles();
-        for(int i = 0; i < directoryNames.Count; i++){
-            files[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = directoryNames[i];
+        for(int i = 0; i < files.Count; i++){
+            Button button = files[i].GetComponent<Button>();
+            if(i < directoryNames.Count){
+                files[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = directoryNames[i];
+                Navigation navigation = button.navigation;
+                navigation.mode = Navigation.Mode.Explicit;
+                if(i != 0){
+                    navigation.selectOnUp = files[i-1].GetComponent<Button>().GetComponent<Selectable>();
+                }
+                if(i != files.Count -1 && i + 1 < directoryNames.Count){
+                    navigation.selectOnDown = files[i+1].GetComponent<Button>().GetComponent<Selectable>();
+                }
+                button.navigation = navigation;
+                button.interactable = true;
+            }
+            else{
+                button.interactable = false;
+            }
         }
         selectedFile = null;
     }
@@ -145,16 +195,24 @@ public class SavetUI : MonoBehaviour
         else{
             Pairs pair = GameManager.Instance.pairList;
             BloodPacks bloodPack = GameManager.Instance.bloodPackList;
-            pair.SaveFile(pair.pairs, folderName);
+            pair.SaveFile(folderName);
             bloodPack.SaveFile(bloodPack.bloodPacks, folderName);
             ShowFiles();
+            foreach(GameObject file in files){
+                if(file.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text == folderName){
+                    selectedFile = file;
+                }
+            }
             addNewFileUI.SetActive(false);
+            Button button = selectedFile.GetComponent<Button>();
+            button.Select();
+            button.onClick.Invoke();
         }
     }
     public void AddNewFile(){
         fileNameInput.text = "";
-        fileNameInput.Select();
         addNewFileUI.SetActive(true);
+        fileNameInput.ActivateInputField();
     }
     //Select File Part
     public void SelectFile()
@@ -177,8 +235,8 @@ public class SavetUI : MonoBehaviour
             default:
                 break;
         }
-        if(selectedFile.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text == "(New Game)"){
-            AddNewFile();
+        if(selectedFile != null){
+            MakeButtonsOn();
         }
     }
 }
