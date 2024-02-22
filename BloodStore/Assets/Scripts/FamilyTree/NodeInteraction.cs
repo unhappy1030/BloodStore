@@ -104,6 +104,8 @@ public class NodeInteraction : MonoBehaviour
                 CameraZoom();
             }
             KeyInteract();
+
+            MakeSamePositionOfMainCamera();
         }
     }
 
@@ -353,6 +355,7 @@ public class NodeInteraction : MonoBehaviour
 
         GameObject currentCam = cameraControl.cameraList[cameraControl.cameraList.Count-1];
         CinemachineVirtualCamera camScript = currentCam.GetComponent<CinemachineVirtualCamera>();
+        CinemachineConfiner2D confiner = currentCam.GetComponent<CinemachineConfiner2D>();
 
         if(wheel > 0)
         {
@@ -364,6 +367,13 @@ public class NodeInteraction : MonoBehaviour
 
             if(camScript.m_Lens.OrthographicSize > 1.875f){
                 camScript.m_Lens.OrthographicSize -= wheelSpeed;
+
+                if(confiner == null){
+                    Debug.Log("There is no confiner in camera...");
+                    return;
+                }
+
+                confiner.InvalidateCache();
             }
             OnAllGroupColliderOffAllNodeCollider();
         }
@@ -377,6 +387,13 @@ public class NodeInteraction : MonoBehaviour
 
             if(camScript.m_Lens.OrthographicSize < 10){
                 camScript.m_Lens.OrthographicSize += wheelSpeed;
+                
+                if(confiner == null){
+                    Debug.Log("There is no confiner in camera...");
+                    return;
+                }
+
+                confiner.InvalidateCache();
             }
             OnAllGroupColliderOffAllNodeCollider();
         }
@@ -402,11 +419,11 @@ public class NodeInteraction : MonoBehaviour
 
         if(mouseCamPos.x <= 0)
         {
-            if(currentCam.transform.position.x + 0.25f < Camera.main.transform.position.x){
-                currentCam.transform.position = Camera.main.transform.position;
-                Debug.Log("Left");
-                yield break;
-            }
+            // if(currentCam.transform.position.x + 0.25f < Camera.main.transform.position.x){
+            //     currentCam.transform.position = Camera.main.transform.position;
+            //     // Debug.Log("Left");
+            //     yield break;
+            // }
 
             camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
             camScript.m_Follow = null;
@@ -420,12 +437,6 @@ public class NodeInteraction : MonoBehaviour
         }
         else if(mouseCamPos.x >= 1)
         {
-            if(currentCam.transform.position.x - 0.25f > Camera.main.transform.position.x){
-                currentCam.transform.position = Camera.main.transform.position;
-                Debug.Log("Right");
-                yield break;
-            }
-
             camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
             camScript.m_Follow = null;
             Vector3 camPos = new Vector3(currentCam.transform.position.x + camSpeed, currentCam.transform.position.y, -10);
@@ -437,12 +448,6 @@ public class NodeInteraction : MonoBehaviour
         }
         else if(mouseCamPos.y <= 0)
         {
-            if(currentCam.transform.position.y + 0.25f < Camera.main.transform.position.y){
-                currentCam.transform.position = Camera.main.transform.position;
-                Debug.Log("Down");
-                yield break;
-            }
-
             camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
             camScript.m_Follow = null;
             Vector3 camPos = new Vector3(currentCam.transform.position.x, currentCam.transform.position.y - camSpeed, -10);
@@ -454,12 +459,6 @@ public class NodeInteraction : MonoBehaviour
         }
         else if(mouseCamPos.y >= 1)
         {
-            if(currentCam.transform.position.y - 0.25f > Camera.main.transform.position.y){
-                currentCam.transform.position = Camera.main.transform.position;
-                Debug.Log("Up");
-                yield break;
-            }
-         
             camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
             camScript.m_Follow = null;
             Vector3 camPos = new Vector3(currentCam.transform.position.x, currentCam.transform.position.y + camSpeed, -10);
@@ -471,6 +470,14 @@ public class NodeInteraction : MonoBehaviour
         }
     }
 
+    public void MakeSamePositionOfMainCamera(){
+        GameObject currentCam = cameraControl.cameraList[cameraControl.cameraList.Count-1];
+        
+        if(currentCam.transform.position != Camera.main.transform.position){
+            Debug.Log("Change Camera Pos...");
+            currentCam.transform.position = Camera.main.transform.position;
+        }
+    }
 
     void ShowFamily(Group _parent){       
         if(currentSelectGroup != null){
