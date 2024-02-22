@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ public class DialogueControl : MonoBehaviour
 {
     int totalCount = 0;
     int maxCount = 6;
+    public int npcIndex = 0;
+    public int count = 0;
 
     public List<NPCSO> npcs; // assign at inspector
 
@@ -23,6 +26,31 @@ public class DialogueControl : MonoBehaviour
     void Awake(){
         ResetCondition();
     }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        npcIndex = 0;
+        count = 0;
+    }
+
+    void OnSceneUnloaded(Scene currentScene)
+    {
+
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+    }
+
+
 
     void ResetCondition(){
         npcConditions = new();
@@ -55,7 +83,7 @@ public class DialogueControl : MonoBehaviour
         }
     }
 
-    public void GetAllDialogues(WhereNodeStart where, WhenNodeStart when){
+    public void GetAllDialogues(WhereNodeStart where, WhenNodeStart when, bool isAddRandom){
         GetAbleNPC();
 
         if(allDialogues == null) // reset
@@ -95,13 +123,18 @@ public class DialogueControl : MonoBehaviour
             }
         }
 
-        AddRandomNPC(); // test
+        if(isAddRandom){
+            AddRandomNPC();
+        }
 
-        ListShuffle<DialogueInfo>(allDialogues);
-        allDialogues.Sort(ComparePriority);
+        ShuffleAndSortDialogue();
+
+        count = allDialogues.Count;
+        npcIndex = 0;
     }
 
-    void AddRandomNPC(){
+    // must use in Store
+    public void AddRandomNPC(){
         List<Sprite> normalSprites = new(normalNPCs.normalNPCSprites);
 
         if(normalSprites == null || normalSprites.Count == 0){
@@ -137,6 +170,12 @@ public class DialogueControl : MonoBehaviour
         }
 
         totalCount += addCount;
+    }
+
+    // must use in Store
+    public void ShuffleAndSortDialogue(){
+        ListShuffle<DialogueInfo>(allDialogues);
+        allDialogues.Sort(ComparePriority);
     }
 
     List<string> MakeRandomTastes(){ // test
@@ -318,6 +357,9 @@ public class DialogueControl : MonoBehaviour
         Debug.Log("Set "+ name.ToString() + " Condition to " + condition.ToString() + "...");
     }
 
+    public Sprite GetSpriteForDialogueView(int spriteIndex){
+        return allDialogues[npcIndex].sprites[spriteIndex];
+    }
 }
 
 [Serializable]

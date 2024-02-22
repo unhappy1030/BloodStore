@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Yarn.Unity;
 
 public class YarnControl : MonoBehaviour
 {
     public DialogueRunner dialogueRunner;
     public InMemoryVariableStorage variableStorage;
+
+    public Image lineViewUIImg;
 
     public MoneyControl moneyControl;
     public DialogueControl dialogueControl;
@@ -24,18 +28,34 @@ public class YarnControl : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
         targetIndex = 0;
         isSell = false;
+        lineViewUIImg.gameObject.SetActive(false);
+        lineViewUIImg.sprite = null;
+    }
+
+    private void OnSceneUnloaded(Scene scene){
+        lineViewUIImg.gameObject.SetActive(false);
+        lineViewUIImg.sprite = null;
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
 
+    // add SetActive false event in 'On Node Complete' of Dialogue Runner
+    [YarnCommand("ChangeUIImg")]
+    public void ChangeUIImg(int index){
+        Sprite sprite = dialogueControl.GetSpriteForDialogueView(index);
+        lineViewUIImg.sprite = sprite;
+        lineViewUIImg.gameObject.SetActive(true);
+    }
 
     [YarnFunction("UpdateMoney")]
     public static float UpdateMoney(){
