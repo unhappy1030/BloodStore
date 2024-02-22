@@ -65,7 +65,9 @@ public class Dialogue{
 [Serializable]
 public enum WhereNodeStart{
     Store,
-    Edit
+    ResultStore,
+    FamilyTree,
+    ResultFamilyTree
 }
 
 [Serializable]

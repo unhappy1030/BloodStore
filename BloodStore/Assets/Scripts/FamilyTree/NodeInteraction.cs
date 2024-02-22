@@ -67,6 +67,9 @@ public class NodeInteraction : MonoBehaviour
 
     public CameraControl cameraControl;
     public DialogueRunner dialogueRunner;
+    public DialogueControl dialogueControl;
+    public YarnControl yarnControl;
+
     void Start(){
         // treeManagerTest = FindObjectOfType<TreeManagerTest>();
         tree = treeManager.GetComponent<TreeManager>();
@@ -83,6 +86,8 @@ public class NodeInteraction : MonoBehaviour
         currentSelectGroup.highLight.SetActive(true);
         ShowGroup(currentSelectGroup);
         AbleKeyInput(currentSelectGroup);
+
+        StartCoroutine(StartFamilyTreeDialogues());
     }
 
     void Update(){
@@ -99,6 +104,23 @@ public class NodeInteraction : MonoBehaviour
                 CameraZoom();
             }
             KeyInteract();
+        }
+    }
+
+    IEnumerator StartFamilyTreeDialogues(){
+        dialogueControl.GetAllDialogues(WhereNodeStart.FamilyTree, WhenNodeStart.SceneLoad, false);
+
+        if(dialogueControl.count > 0){
+            dialogueControl.npcIndex = 0;
+
+            while(dialogueControl.npcIndex < dialogueControl.count){
+                yarnControl.ChangeUIImg(0);
+                GameManager.Instance.StartDialogue(dialogueControl.allDialogues[dialogueControl.npcIndex].dialogueName);
+                yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
+                
+                yield return new WaitForSeconds(1.5f); 
+                dialogueControl.npcIndex++;
+            }
         }
     }
 

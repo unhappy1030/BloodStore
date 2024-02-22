@@ -27,14 +27,9 @@ public class NPCInteract : MonoBehaviour
     public DialogueRunner dialogueRunner;
     public BloodSellProcess bloodSellProcess; // assign at inspector
 
-    int count;
-    int npcIndex;
-    int spriteIndex;
-
     Coroutine npcCoroutine;
 
     // List<NPCSO> npcs; // get from DialogueControl
-    List<DialogueInfo> dialogueSum;
     List<Sprite> npcSprites;
 
     BloodSellStatus sellStatus;
@@ -45,18 +40,13 @@ public class NPCInteract : MonoBehaviour
         // npcs = dialogueControl.npcs; // test
         CameraControl.targetsForYarn = new(cameraTarget);
 
-        GetStoreDialogues();
-
-        npcIndex = 0;
-        spriteIndex = 0;
-
         npc.SetActive(false);
 
         endSellProcessButton.SetActive(false);
         bloodPackCanvas.SetActive(false);
         nextDayButton.SetActive(false);
 
-        npcCoroutine = StartCoroutine(StartCustomer());
+        StartCoroutine(GetStoreDialogues());
     }
 
     private void OnDestroy()
@@ -66,16 +56,37 @@ public class NPCInteract : MonoBehaviour
             npcCoroutine = null;
         }
     }
+    
+    IEnumerator GetStoreDialogues(){
+        dialogueControl.GetAllDialogues(WhereNodeStart.Store, WhenNodeStart.SceneLoad, false);
+
+        if(dialogueControl.count > 0){
+            while(dialogueControl.npcIndex < dialogueControl.count){
+                yarnControl.ChangeUIImg(0);
+                GameManager.Instance.StartDialogue(dialogueControl.allDialogues[dialogueControl.npcIndex].dialogueName);
+                yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
+                
+                yield return new WaitForSeconds(1.5f); 
+                dialogueControl.npcIndex++;
+            }
+        }
+
+        yield return new WaitForSeconds(1.5f);
+        
+        dialogueControl.npcIndex = 0;
+        dialogueControl.GetAllDialogues(WhereNodeStart.Store, WhenNodeStart.Click, true);
+        npcCoroutine = StartCoroutine(StartCustomer());
+    }
 
     IEnumerator StartCustomer(){
-        if(count == 0){
+        if(dialogueControl.count == 0){
             ReadyToMoveNextDay();
             npcCoroutine = null;
             yield break;
         }
         
-        SetStoreDialogues(npcIndex);
-        GetBloodTaste(npcIndex);
+        SetStoreDialogues(dialogueControl.npcIndex);
+        GetBloodTaste(dialogueControl.npcIndex);
 
         yield return ActiveSprite();
 
@@ -97,7 +108,7 @@ public class NPCInteract : MonoBehaviour
 
             ChangeSellStatus();
 
-            YarnControl.sellInfo = CalculateSellInfo(npcIndex);
+            YarnControl.sellInfo = CalculateSellInfo(dialogueControl.npcIndex);
             GameManager.Instance.sellCount++;
             GameManager.Instance.totalPoint += YarnControl.sellInfo;
 
@@ -105,7 +116,7 @@ public class NPCInteract : MonoBehaviour
             sellStatus = BloodSellStatus.None;
             
             if(yarnControl.nodeName != ""){
-                StartDialogue(yarnControl.nodeName); // tell their evaluation or end dialogue
+                GameManager.Instance.StartDialogue(yarnControl.nodeName); // tell their evaluation or end dialogue
                 yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
                 yarnControl.nodeName = "";
             }
@@ -118,25 +129,18 @@ public class NPCInteract : MonoBehaviour
 
         yield return new WaitForSeconds(1);
 
-        npcIndex++;
+        dialogueControl.npcIndex++;
 
-        if(npcIndex < count){
+        if(dialogueControl.npcIndex < dialogueControl.count){
             yield return StartCoroutine(StartCustomer());
         }
         
-        if(npcIndex == count){ // for trigger only at final interaction
+        if(dialogueControl.npcIndex == dialogueControl.count){ // for trigger only at final interaction
             ReadyToMoveNextDay();
             npcCoroutine = null;
         }
     }
     
-    // from DialogueControl
-    void GetStoreDialogues(){
-        dialogueControl.GetAllDialogues(WhereNodeStart.Store, WhenNodeStart.Click);
-        dialogueSum = dialogueControl.allDialogues;
-        count = dialogueSum.Count;
-    }
-
     // to InteractObjInfo
     void SetStoreDialogues(int index){
         InteractObjInfo interactObjInfo = npc.GetComponent<InteractObjInfo>();
@@ -145,19 +149,19 @@ public class NPCInteract : MonoBehaviour
         }
 
         interactObjInfo._interactType = InteractType.StartDialogue;
-        interactObjInfo._nodeName = dialogueSum[index].dialogueName;
+        interactObjInfo._nodeName = dialogueControl.allDialogues[index].dialogueName;
     }
     
     void GetBloodTaste(int index){
         tasteStr = ""; // reset
-        tasteStr = dialogueSum[index].tasteLine;
+        tasteStr = dialogueControl.allDialogues[index].tasteLine;
     }
 
     IEnumerator ActiveSprite(){
-        npcSprites = dialogueSum[npcIndex].sprites;
+        npcSprites = dialogueControl.allDialogues[dialogueControl.npcIndex].sprites;
 
         if(npcSprites == null || npcSprites.Count == 0){
-            Debug.Log("There is no sprites in index " + npcIndex + " dialogue Info...");
+            Debug.Log("There is no sprites in index " + dialogueControl.npcIndex + " dialogue Info...");
             yield break;
         }
 
@@ -176,19 +180,19 @@ public class NPCInteract : MonoBehaviour
         npc.SetActive(false);
     }
 
-    public void StartDialogue(string nodeName){
-        if(!dialogueRunner.IsDialogueRunning)
-        {
-            if(dialogueRunner.NodeExists(nodeName))
-                dialogueRunner.StartDialogue(nodeName);
-            else
-                Debug.Log(nodeName + " is not Exist...");
-        }
-        else
-        {
-            Debug.Log("Other Dialogue is running...");
-        }
-    }
+    // public void StartDialogue(string nodeName){
+    //     if(!dialogueRunner.IsDialogueRunning)
+    //     {
+    //         if(dialogueRunner.NodeExists(nodeName))
+    //             dialogueRunner.StartDialogue(nodeName);
+    //         else
+    //             Debug.Log(nodeName + " is not Exist...");
+    //     }
+    //     else
+    //     {
+    //         Debug.Log("Other Dialogue is running...");
+    //     }
+    // }
 
     public void ChangeSellStatus(){
         if(bloodSellProcess.isBloodSelected){
@@ -237,14 +241,14 @@ public class NPCInteract : MonoBehaviour
         List<string> select = bloodPackUI.GetTogleCondition();
 
         int totalCount = 0;
-        foreach(string taste in dialogueSum[index].tastes){
+        foreach(string taste in dialogueControl.allDialogues[index].tastes){
             if(taste != ""){
                 totalCount++;
             }
         }
         
         int count = 0;
-        foreach(string taste in dialogueSum[index].tastes){
+        foreach(string taste in dialogueControl.allDialogues[index].tastes){
             for(int i=0; i<3; i++){
                 if(taste != "" && select[i] == taste){
                     count++;            
@@ -269,7 +273,7 @@ public class NPCInteract : MonoBehaviour
         }
 
         Debug.Log("Point before weight : " + point);
-        point *= dialogueSum[index].weight;
+        point *= dialogueControl.allDialogues[index].weight;
         Debug.Log("Point after weight : " + point);
 
         if(sellStatus == BloodSellStatus.Filtered){

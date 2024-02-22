@@ -11,7 +11,6 @@ public class MouseRayCast : MonoBehaviour
     // warning : object must be set Layer as "Interact"
     
     public CameraControl cameraControl; // *** warning : must be in Scene and set "CameraControl" tag
-    public NPCInteract npcInteract;
     public NodeInteraction nodeInteraction;
     public DialogueRunner dialogueRunner;
 
@@ -48,7 +47,7 @@ public class MouseRayCast : MonoBehaviour
 
         if(interactObjInfo._interactType == InteractType.StartDialogue)
         {
-            npcInteract.StartDialogue(interactObjInfo._nodeName);
+            GameManager.Instance.StartDialogue(interactObjInfo._nodeName);
         }
 
         if(interactObjInfo._interactType == InteractType.FamilyTree)
