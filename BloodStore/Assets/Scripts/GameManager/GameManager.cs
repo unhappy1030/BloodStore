@@ -121,6 +121,8 @@ public class GameManager : MonoBehaviour
                 nodeInteraction.cameraControl = cameraControl;
             }
             nodeInteraction.dialogueRunner = dialogueRunner;
+            nodeInteraction.dialogueControl = dialogueControl;
+            nodeInteraction.yarnControl = yarnControl;
         }
 
         if(resultStore != null){
@@ -147,9 +149,6 @@ public class GameManager : MonoBehaviour
         yarnControl.dialogueRunner = dialogueRunner;
         yarnControl.variableStorage = variableStorage;
         yarnControl.dialogueControl = dialogueControl;
-        if(npcInteract != null){
-            yarnControl.npcInteract = npcInteract;
-        }
         
         whitePanel.gameObject.SetActive(false);
         blackPanel.gameObject.SetActive(false);

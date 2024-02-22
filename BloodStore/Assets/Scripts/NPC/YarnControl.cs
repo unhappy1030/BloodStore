@@ -17,7 +17,6 @@ public class YarnControl : MonoBehaviour
     public MoneyControl moneyControl;
     public DialogueControl dialogueControl;
     public CameraControl cameraControl;
-    public NPCInteract npcInteract;
 
     public int targetIndex;
     public string nodeName;
@@ -53,7 +52,7 @@ public class YarnControl : MonoBehaviour
     // add SetActive false event in 'On Node Complete' of Dialogue Runner
     [YarnCommand("ChangeUIImg")]
     public void ChangeUIImg(int index){
-        Sprite sprite = npcInteract.GetSpriteForDialogueView(index);
+        Sprite sprite = dialogueControl.GetSpriteForDialogueView(index);
         lineViewUIImg.sprite = sprite;
         lineViewUIImg.gameObject.SetActive(true);
     }

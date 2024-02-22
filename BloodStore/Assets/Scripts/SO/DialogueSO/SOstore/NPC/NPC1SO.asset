@@ -21,7 +21,7 @@ MonoBehaviour:
     waitUntil: 1
     deadLine: 5
     dialogues:
-    - where: 0
+    - where: 2
       when: 1
       day: 1
       priority: 0
