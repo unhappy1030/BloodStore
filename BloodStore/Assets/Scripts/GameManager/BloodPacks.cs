@@ -2,10 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using Unity.VisualScripting;
-using UnityEngine.Assertions.Must;
-using JetBrains.Annotations;
-using System.Security.Cryptography;
+
 [System.Serializable]
 public class SaveBloodPackArray{
     public BloodPack[] arr;
@@ -18,16 +15,14 @@ public class BloodPacks : MonoBehaviour
     public SaveBloodPackArray saveArray;
     public Dictionary<string,int> categoryNum;
     public Dictionary<string, int> before, after, gap;
-    public void Save(List<BloodPack> bloodPackList){
-        Serialize();
-        string _path = Path.Combine(Application.persistentDataPath, "BloodPack.json");
+    public void Save(){
+        string _path = Application.persistentDataPath + "/BloodPack.json";
         saveArray = new();
-        saveArray.arr = bloodPackList.ToArray();
+        saveArray.arr = bloodPacks.ToArray();
         string json = JsonUtility.ToJson(saveArray);
         File.WriteAllText(_path, json);
     }
     public void SaveFile(List<BloodPack> bloodPackList, string folderName){
-        Serialize();
         string folderPath = Path.Combine(Application.persistentDataPath, folderName);
         string _path = Path.Combine(folderPath, "BloodPack.json");
         saveArray = new();
@@ -39,7 +34,7 @@ public class BloodPacks : MonoBehaviour
         File.WriteAllText(_path, json);
     }
     public BloodPacks Load(){
-        string _path = Path.Combine(Application.persistentDataPath, "BloodPack.json");
+        string _path = Application.persistentDataPath + "/BloodPack.json";
         if(File.Exists(_path)){
             string jsonData = File.ReadAllText(_path);
             saveArray = JsonUtility.FromJson<SaveBloodPackArray>(jsonData);
@@ -54,13 +49,13 @@ public class BloodPacks : MonoBehaviour
         else{
             bloodPacks = new();
         }
-        Save(bloodPacks);
+        Save();
         return this;
     }
     public BloodPacks LoadNew(){
         bloodPacks = new();
         bloodPackLinks = new();
-        Save(bloodPacks);
+        Save();
         return this;
     }
     public BloodPacks LoadFile(string folderName){
@@ -73,14 +68,14 @@ public class BloodPacks : MonoBehaviour
                 Debug.Log("NewGame Start!");
             }
             else{
-                Debug.Log("Save Data Load!");
+                Debug.Log("Save Data File Load!");
                 bloodPacks = new List<BloodPack>(saveArray.arr);
             }
         }
         else{
             bloodPacks = new();
         }
-        Save(bloodPacks);
+        Save();
         return this;
     }
     public void Serialize()
@@ -152,7 +147,8 @@ public class BloodPacks : MonoBehaviour
                 AddBloodPack(pair.female);
             }
         }
-        Save(bloodPacks);
+        Serialize();
+        Save();
     }
     public void AddBloodPack(Node node){
         if(node.isDead){
@@ -186,7 +182,8 @@ public class BloodPacks : MonoBehaviour
                 head.pack.num -= num;
                 bloodPackLinks[idx] = head;
             }
-            Save(bloodPacks);
+            Serialize();
+            Save();
         }
     }
     public int SubtractCheck(string sex ,string bloodType, string rh, int num){
