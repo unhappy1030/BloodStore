@@ -178,9 +178,14 @@ public class BloodPacks : MonoBehaviour
             }
             else{
                 num -= head.pack.num;
-                head = head.next;
-                head.pack.num -= num;
-                bloodPackLinks[idx] = head;
+                if(head.next != null){
+                    head = head.next;
+                    head.pack.num -= num;
+                    bloodPackLinks[idx] = head;
+                }
+                else{
+                    bloodPackLinks.RemoveAt(idx);
+                }
             }
             Serialize();
             Save();
