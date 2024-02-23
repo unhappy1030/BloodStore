@@ -12,6 +12,7 @@ public class PackingUI : MonoBehaviour
     public float money;
     public float yearCost = 50;
     public float addtionalCost;
+    public float totalCost;
     public TextMeshProUGUI yearTMP;
     public TextMeshProUGUI yearCostTMP;
     public TextMeshProUGUI addtionalCostTMP;
@@ -28,7 +29,7 @@ public class PackingUI : MonoBehaviour
     public void PackingConfirm(){
         tree.SavePairData();
         MoneyControl moneyControl = GameManager.Instance.gameObject.GetComponent<MoneyControl>();
-        moneyControl.CalculateMoney((yearCost * count + addtionalCost) * -1);
+        moneyControl.CalculateMoney(totalCost * -1);
         GameManager.Instance.bloodPackList.PackingResult(GameManager.Instance.pairList, count);
         tree.SaveAndChangeData();
     }
@@ -68,7 +69,16 @@ public class PackingUI : MonoBehaviour
     void SetYearTMP(){
         yearTMP.text = "< " + count.ToString() + " >";
         yearCostTMP.text = "Cost :" + (count * yearCost).ToString() + " $";
-        totalCostTMP.text = ((count * yearCost) + addtionalCost).ToString() + " $";
+        SetTotalCost();
+        totalCostTMP.text = totalCost.ToString() + " $";
+    }
+    void SetTotalCost(){
+        if(count == 0){
+            totalCost = 0;
+        }
+        else{
+            totalCost = (count * yearCost) + addtionalCost;
+        }
     }
 
     //Additional Cost Part
