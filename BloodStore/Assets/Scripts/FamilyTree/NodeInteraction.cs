@@ -102,10 +102,10 @@ public class NodeInteraction : MonoBehaviour
             if(!cameraControl.mainCam.IsBlending){
                 StartCoroutine(MoveCamera());
                 CameraZoom();
+
+                MakeSamePositionOfMainCamera();
             }
             KeyInteract();
-
-            MakeSamePositionOfMainCamera();
         }
     }
 
@@ -351,11 +351,24 @@ public class NodeInteraction : MonoBehaviour
 
         float wheel = Input.GetAxis("Mouse ScrollWheel");
         
-        float wheelSpeed = 0.3f;
+        float wheelSpeed = 0.2f;
 
         GameObject currentCam = cameraControl.cameraList[cameraControl.cameraList.Count-1];
         CinemachineVirtualCamera camScript = currentCam.GetComponent<CinemachineVirtualCamera>();
         CinemachineConfiner2D confiner = currentCam.GetComponent<CinemachineConfiner2D>();
+
+        PolygonCollider2D camCollider = cameraCollider.GetComponent<PolygonCollider2D>();
+        
+        Debug.Log("Lens Ortho size : " + camScript.m_Lens.OrthographicSize);
+
+        float camHeight = camScript.m_Lens.OrthographicSize * 2; // *** 100 = ppu
+        float camWidth = camHeight * Camera.main.aspect;
+
+        Debug.Log("CamHeight : " + camHeight);
+        Debug.Log("CamWidth : " + camWidth);
+
+        float maxWidth = camCollider.points[1].x - camCollider.points[0].x;
+        float maxHeight = camCollider.points[2].y - camCollider.points[1].y;
 
         if(wheel > 0)
         {
@@ -384,8 +397,9 @@ public class NodeInteraction : MonoBehaviour
                 camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
                 camScript.m_Follow = null;
             }
+            // camScript.m_Lens.OrthographicSize < 10
 
-            if(camScript.m_Lens.OrthographicSize < 10){
+            if(camWidth < maxWidth && camHeight < maxHeight){
                 camScript.m_Lens.OrthographicSize += wheelSpeed;
                 
                 if(confiner == null){
@@ -411,9 +425,6 @@ public class NodeInteraction : MonoBehaviour
         
         GameObject currentCam = cameraControl.cameraList[cameraControl.cameraList.Count-1];
         CinemachineVirtualCamera camScript = currentCam.GetComponent<CinemachineVirtualCamera>();
-
-        // float halfX = Camera.main.orthographicSize * 100; // *** 100 = ppu
-        // float halfY = halfX * Camera.main.aspect;
 
         float camSpeed = 0.025f * (camScript.m_Lens.OrthographicSize / 1.875f);
 
