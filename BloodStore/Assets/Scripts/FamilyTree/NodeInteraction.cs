@@ -17,6 +17,13 @@ public class NodeInteraction : MonoBehaviour
         ShowGroup
     }
 
+    public enum UIStatus{
+        None,
+        SelectCard,
+        AddChild,
+        NextDay
+    }
+
     public enum NodeInteractionStatus{
         None,
         ShowInfo,
@@ -47,6 +54,7 @@ public class NodeInteraction : MonoBehaviour
     public Image nodeImg; // assign at Inspector
 
     public NodeShowingStatus nodeShowingStatus;
+    public UIStatus uiStatus;
     public NodeInteractionStatus nodeInteractionStatus;
 
     public Group currentSelectGroup;
@@ -79,6 +87,7 @@ public class NodeInteraction : MonoBehaviour
         wasRoot = false;
         mouseMoveCheck = false;
         nodeShowingStatus = NodeShowingStatus.ShowTotal; // test
+        uiStatus = UIStatus.None;
         nodeInteractionStatus = NodeInteractionStatus.None;
         
         // ShowTotal();
@@ -135,6 +144,9 @@ public class NodeInteraction : MonoBehaviour
 
         bool isSpace = Input.GetKeyDown(KeyCode.Space);
 
+        if(nodeInteractionStatus != NodeInteractionStatus.None || uiStatus != UIStatus.None){
+            return;
+        }
 
         if(Input.anyKeyDown){
             mouseMoveCheck = false;
@@ -153,10 +165,6 @@ public class NodeInteraction : MonoBehaviour
         else if(isSpace){
             SelectShow(currentSelectGroup);
             AbleKeyInput(currentSelectGroup);
-        }
-
-        if(nodeShowingStatus == NodeShowingStatus.ShowTotal){
-            return;
         }
         
         // number
@@ -341,10 +349,15 @@ public class NodeInteraction : MonoBehaviour
             ChildButton childButton = info.GetComponent<ChildButton>();
             ChildAddUI UI = addChildUI.GetComponent<ChildAddUI>();
             UI.Active(childButton.group);
+            uiStatus = UIStatus.AddChild;
         }
     }
     
     public void CameraZoom(){
+        if(nodeInteractionStatus != NodeInteractionStatus.None || uiStatus != UIStatus.None){
+            return;
+        }
+
         if(!CameraControl.isFinish){
             return ;
         }
@@ -414,6 +427,10 @@ public class NodeInteraction : MonoBehaviour
     }
 
     public IEnumerator MoveCamera(){
+        if(nodeInteractionStatus != NodeInteractionStatus.None || uiStatus != UIStatus.None){
+            yield break;
+        }
+
         yield return new WaitForSeconds(0.1f);
 
         if(!CameraControl.isFinish){
@@ -591,6 +608,26 @@ public class NodeInteraction : MonoBehaviour
         nodeInteractionStatus = NodeInteractionStatus.SelectPair;
     }
 
+    // button
+    public void ResetNodeInteractionStatus(){
+        nodeInteractionStatus = NodeInteractionStatus.None;
+    }
+
+
+    // button
+    public void ChangeUIStatusSelectCard(){
+        uiStatus = UIStatus.SelectCard;
+    }
+
+    // button
+    public void ChangeUIStatusNextDay(){
+        uiStatus = UIStatus.NextDay;
+    }
+
+    // button
+    public void ResetUIStatus(){
+        uiStatus = UIStatus.None;
+    }
 
     void ZoomOut(){
         switch(nodeShowingStatus){
