@@ -289,7 +289,7 @@ public class NPCInteract : MonoBehaviour
             Debug.Log("Point after filtering : " + point);
         }
 
-        point = Mathf.Round(point * 100.0f)/100.0f;
+        point = (float)Math.Round(point, 2);
         
         if(point > 5){
             point = 5;
