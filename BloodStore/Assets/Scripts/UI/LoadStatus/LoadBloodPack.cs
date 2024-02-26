@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ResultBloodPack : MonoBehaviour
+public class LoadBloodPack : MonoBehaviour
 {
-    void Start()
-    {
+    void Start(){
         int i = 0;
-        Dictionary<string, int> after, gap;
-        after = GameManager.Instance.bloodPackList.after;
-        gap = GameManager.Instance.bloodPackList.gap;
+        Dictionary<string, int> data;
+        GameManager.Instance.bloodPackList.Deserialize();
+        data = GameManager.Instance.bloodPackList.ShowAllDic();
         string[] sexes = {"Male", "Female"};
         string[] bloodTypes = {"A", "B", "AB", "O"};
         string[] rhs = {"+", "-"};
@@ -18,10 +17,10 @@ public class ResultBloodPack : MonoBehaviour
             foreach(string bloodType in bloodTypes){
                 foreach(string rh in rhs){
                     string key = sex+bloodType+rh;
-                    if(after.ContainsKey(key)){
+                    if(data.ContainsKey(key)){
                         GameObject TMPObj = transform.GetChild(i).gameObject;
                         TextMeshProUGUI TMP = TMPObj.GetComponent<TextMeshProUGUI>();
-                        TMP.text = sex + "/" + bloodType + "(" + rh + ")" + " : " + after[key].ToString() + " (+" + gap[key].ToString() + ")";
+                        TMP.text = sex + "/" + bloodType + "(" + rh + ")" + " : " + data[key].ToString();
                         i++;
                     }
                 }

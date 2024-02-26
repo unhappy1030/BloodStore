@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     public Pairs pairList;
     public BloodPacks bloodPackList;
-
+    public SaveData saveData;
     private static GameManager _instance;
     public static GameManager Instance
     {
@@ -102,6 +102,7 @@ public class GameManager : MonoBehaviour
         dialogueControl = GetComponent<DialogueControl>();
         pairList = GetComponent<Pairs>();
         bloodPackList = GetComponent<BloodPacks>();
+        saveData = GetComponent<SaveData>();
 
         yarnControl = GetComponentInChildren<YarnControl>();
         dialogueRunner = GetComponentInChildren<DialogueRunner>();
