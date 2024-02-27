@@ -97,8 +97,10 @@ public class SaveUI : MonoBehaviour
             GameManager.Instance.loadfileName = folderName;
             Pairs pair = GameManager.Instance.pairList;
             BloodPacks bloodPack = GameManager.Instance.bloodPackList;
+            SaveData saveData = GameManager.Instance.saveData;
             pair.SaveFile(folderName);
             bloodPack.SaveFile(bloodPack.bloodPacks, folderName);
+            saveData.SaveFile(folderName);
             GameManager.Instance.loadfileName = folderName;
             selectedFile = null;
             saveCheckUI.SetActive(false);
@@ -195,8 +197,10 @@ public class SaveUI : MonoBehaviour
         else{
             Pairs pair = GameManager.Instance.pairList;
             BloodPacks bloodPack = GameManager.Instance.bloodPackList;
+            SaveData saveData = GameManager.Instance.saveData;
             pair.SaveFile(folderName);
             bloodPack.SaveFile(bloodPack.bloodPacks, folderName);
+            saveData.SaveFile(folderName);
             ShowFiles();
             foreach(GameObject file in files){
                 if(file.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text == folderName){

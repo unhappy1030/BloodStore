@@ -4705,7 +4705,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: FamilyTree
+          m_StringArgument: LoadStatus
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1543178256
@@ -10145,6 +10145,7 @@ MonoBehaviour:
   money: 100000
   day: 0
   loadfileName: 
+  lastSceneName: 
   isFading: 0
   whitePanel: {fileID: 8235264872758770939}
   blackPanel: {fileID: 7274410503353199737}
@@ -10162,6 +10163,7 @@ MonoBehaviour:
   resultMoney: {fileID: 0}
   pairList: {fileID: 0}
   bloodPackList: {fileID: 0}
+  saveData: {fileID: 0}
 --- !u!114 &5512024270147873474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10277,6 +10279,7 @@ GameObject:
   - component: {fileID: 2282028522190536362}
   - component: {fileID: 3649776743533420537}
   - component: {fileID: 1638104296473626067}
+  - component: {fileID: 8231815351223618967}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -11119,6 +11122,18 @@ MonoBehaviour:
   cameraControl: {fileID: 0}
   nodeInteraction: {fileID: 0}
   dialogueRunner: {fileID: 0}
+--- !u!114 &8231815351223618967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5606126677320174995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cfe2d2d5f450bb4d912ffb23690b7d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8235264872758770939
 MonoBehaviour:
   m_ObjectHideFlags: 0

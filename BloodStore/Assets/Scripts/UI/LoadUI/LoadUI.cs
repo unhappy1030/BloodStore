@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
 public class LoadUI : MonoBehaviour
 {
@@ -72,9 +73,11 @@ public class LoadUI : MonoBehaviour
             string folderPath = Path.Combine(Application.persistentDataPath, folderName);
             Pairs pair = GameManager.Instance.pairList;
             BloodPacks bloodPack = GameManager.Instance.bloodPackList;
+            SaveData saveData = GameManager.Instance.saveData;
             GameManager.Instance.loadfileName = folderName;
             pair.LoadFile(folderName);
             bloodPack.LoadFile(folderName);
+            saveData.LoadFile(folderName);
             gameObject.SetActive(false);
         }
     }
