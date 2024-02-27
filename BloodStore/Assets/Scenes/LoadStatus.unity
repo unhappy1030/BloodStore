@@ -3273,7 +3273,7 @@ GameObject:
   - component: {fileID: 1443132442}
   - component: {fileID: 1443132441}
   m_Layer: 5
-  m_Name: StartManagementButton
+  m_Name: NextSceneButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3342,7 +3342,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1443132442}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1473382007}
+        m_TargetAssemblyTypeName: StatusNextScene, Assembly-CSharp
+        m_MethodName: NextSceneLoad
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1443132442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3599,8 +3611,8 @@ GameObject:
   - component: {fileID: 1473382003}
   - component: {fileID: 1473382002}
   - component: {fileID: 1473382001}
-  - component: {fileID: 1473382005}
   - component: {fileID: 1473382006}
+  - component: {fileID: 1473382007}
   m_Layer: 5
   m_Name: NextScene
   m_TagString: Untagged
@@ -3691,19 +3703,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1473382005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1473382000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64bf3fd46c380d7459bdf489d95d67d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiControl: {fileID: 0}
 --- !u!210 &1473382006
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -3716,6 +3715,18 @@ SortingGroup:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &1473382007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473382000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5169a73f4c86274a9830865d059cb7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1659492127
 GameObject:
   m_ObjectHideFlags: 0

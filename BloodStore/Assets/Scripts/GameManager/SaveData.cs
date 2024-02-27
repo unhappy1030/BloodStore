@@ -47,6 +47,7 @@ public class SaveData : MonoBehaviour
                 SetDataListToGameManager(dataList);
             }
         }
+        Save();
     }
     public void LoadFile(string folderName){
         string folderPath = Path.Combine(Application.persistentDataPath, folderName);
@@ -62,6 +63,7 @@ public class SaveData : MonoBehaviour
                 SetDataListToGameManager(dataList);
             }
         }
+        Save();
     }
     private DataList GetDataList(){
         DataList dataList = new();
@@ -81,5 +83,6 @@ public class SaveData : MonoBehaviour
         GameManager.Instance.filterDurability = dataList.filterDurability;
         GameManager.Instance.day = dataList.day;
         GameManager.Instance.money = dataList.money;
+        GameManager.Instance.lastSceneName = dataList.SceneName;
     }
 }
