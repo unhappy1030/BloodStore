@@ -11,6 +11,9 @@ public class UIControl : MonoBehaviour
     public GameObject pauseButton;
     public GameObject pausePanel;
     public GameObject settingPanel;
+    public GameObject tutorialCheckUI;
+
+    public TutorialControl tutorialControl; // assign at inspector
 
     public static bool isPause;
 
@@ -31,6 +34,7 @@ public class UIControl : MonoBehaviour
         pauseButton.SetActive(false);
         pausePanel.SetActive(false);
         settingPanel.SetActive(false);
+        tutorialCheckUI.SetActive(false);
         alwaysOnCanvas.SetActive(true);
         fadeInOutCanvas.SetActive(true);
     }
@@ -124,6 +128,10 @@ public class UIControl : MonoBehaviour
         }
 
     }
+
+    // public void ActiveTutorialCheckUI(bool isActive){
+    //     tutorialCheckUI.SetActive(isActive);
+    // }
     
     void Pause(){
         Time.timeScale = 0f;
@@ -134,5 +142,43 @@ public class UIControl : MonoBehaviour
         Time.timeScale = 1f;
         isPause = false;
     } 
+
+    // button
+    public void GotoStart(string sceneName){
+        if(tutorialControl.CheckTutorialStatus())
+        {
+            GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(sceneName, 1f));
+        }
+        else
+        {
+            tutorialCheckUI.SetActive(true);
+        }
+    }
+
+    public void GotoStartAfterTutorialNotice(string sceneName){
+        tutorialControl.ResetTutorialStatus(true);
+        GameManager.Instance.isFirstTurotial = false;
+        tutorialCheckUI.SetActive(false);
+        GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(sceneName, 1f));
+    }
+
+    public void GotoPause()
+    {
+        status = UIControl.AlwaysOnUIStatus.Pause;
+        ControlAlwaysOnCanvasUI();
+    }
+
+    public void GoToContinue()
+    {
+        status = UIControl.AlwaysOnUIStatus.PauseButtonOn;
+        ControlAlwaysOnCanvasUI();
+    }
+
+    
+    public void GoToSetting()
+    {
+        status = UIControl.AlwaysOnUIStatus.Setting;
+        ControlAlwaysOnCanvasUI();
+    }
 
 }

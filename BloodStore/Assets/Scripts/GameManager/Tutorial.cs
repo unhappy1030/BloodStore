@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Tutorial : MonoBehaviour
 {
@@ -14,9 +15,10 @@ public class Tutorial : MonoBehaviour
 
     public bool isTutorialFinish;
 
-    void Awake(){
+    public TutorialControl tutorialControl;
+
+    void Start(){
         uiIndex = 0;
-        isTutorialFinish = false;
 
         tutorialCanvas.SetActive(false);
 
@@ -28,7 +30,17 @@ public class Tutorial : MonoBehaviour
         rightButton.SetActive(true);
         endButton.SetActive(false);
 
-        tutorialCanvas.SetActive(true);
+        if(tutorialControl.tutorialEndStatus.ContainsKey(SceneManager.GetActiveScene().name) 
+            && !tutorialControl.tutorialEndStatus[SceneManager.GetActiveScene().name])
+        {
+            isTutorialFinish = false;
+            tutorialCanvas.SetActive(true);
+        }
+        else
+        {
+            isTutorialFinish = true;
+            tutorialCanvas.SetActive(false);
+        }
     }
 
     // // left button
@@ -53,6 +65,8 @@ public class Tutorial : MonoBehaviour
 
     public void EndButton(){
         isTutorialFinish = true;
+        tutorialControl.ChangeTutorialStatus(SceneManager.GetActiveScene().name, true);
+        tutorialControl.CheckTutorialStatus();
         tutorialCanvas.SetActive(false);
     }
 

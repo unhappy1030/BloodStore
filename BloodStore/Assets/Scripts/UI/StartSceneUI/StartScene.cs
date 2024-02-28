@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,13 +8,17 @@ public class StartScene : MonoBehaviour
 {
     public float time = 4.5f;
     public CameraControl cameraControl; // assign at inspector
-    public GameObject startCanvas;
-    public GameObject gameCanvas;
+    public GameObject startCanvas; // assign at inspector
+    public GameObject gameCanvas; // assign at inspector
+    public GameObject askTutorialCanvas; // assign at inspector
+
+    public TutorialControl tutorialControl;
 
     void Start()
     {
         if(SceneManager.GetActiveScene().name == "Start")
         {
+            askTutorialCanvas.SetActive(false);
             startCanvas.SetActive(false);
             gameCanvas.SetActive(false);
             StartCoroutine(WaitUntilIntro(time));
@@ -52,6 +57,30 @@ public class StartScene : MonoBehaviour
         GameManager.Instance.bloodPackList.Save();
         GameManager.Instance.loadfileName = "";
         GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(sceneName, 1f));
+    }
+
+    // button
+    public void SetTutorialStatus(bool isTutorial){
+        tutorialControl.ResetTutorialStatus(!isTutorial);
+    }
+
+    // button
+    public void AskAndStartNewGame(string sceneName){
+        if(GameManager.Instance.isFirstTurotial)
+        {
+            askTutorialCanvas.SetActive(true);
+        }
+        else
+        {
+            tutorialControl.ResetTutorialStatus(true);
+
+            GameManager.Instance.pairList = GameManager.Instance.pairList.LoadNew();
+            GameManager.Instance.pairList.Save();
+            GameManager.Instance.bloodPackList = GameManager.Instance.bloodPackList.LoadNew();
+            GameManager.Instance.bloodPackList.Save();
+            GameManager.Instance.loadfileName = "";
+            GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(sceneName, 1f));
+        }
     }
 
 
