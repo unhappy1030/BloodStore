@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Unity.VisualScripting;
 
-public class LoadUI : MonoBehaviour
+public class LoadUIforSetting : MonoBehaviour
 {
     private EventSystem eventSystem;
     public GameObject selectedFile;
@@ -20,9 +20,6 @@ public class LoadUI : MonoBehaviour
     public TextMeshProUGUI loadCheckText;
     void Start()
     {
-        if(gameObject.activeSelf){
-            gameObject.SetActive(false);
-        }
         if(loadCheckUI.activeSelf){
             loadCheckUI.SetActive(false);
         }
