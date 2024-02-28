@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class TutorialControl : MonoBehaviour
 {
-    public Dictionary<string, bool> tutorialStatus;
+    public Dictionary<string, bool> tutorialEndStatus;
 
     public void Start()
     {
-        tutorialStatus = new()
+        tutorialEndStatus = new()
         {
             { "FamilyTree", false },
             { "ResultFamilyTree", false },
@@ -18,32 +18,32 @@ public class TutorialControl : MonoBehaviour
         };
     }
 
-    public void ResetTutorialStatus(bool isTutorial){
-        List<string> Keys = new(tutorialStatus.Keys);
+    public void ResetTutorialStatus(bool isTrue){
+        List<string> Keys = new(tutorialEndStatus.Keys);
 
-        for(int i=0; i<tutorialStatus.Count; i++){
-            tutorialStatus[Keys[i]] = !isTutorial;
+        for(int i=0; i<tutorialEndStatus.Count; i++){
+            tutorialEndStatus[Keys[i]] = isTrue;
         }
     }
 
     public void ChangeTutorialStatus(string sceneName, bool status){
-        if(!tutorialStatus.ContainsKey(sceneName)){
+        if(!tutorialEndStatus.ContainsKey(sceneName)){
             Debug.Log("There is no such key in doesTutorials...");
             return;
         }
 
-        tutorialStatus[sceneName] = status;
+        tutorialEndStatus[sceneName] = status;
     }
 
     public bool CheckTutorialStatus(){
         int count = 0;
-        foreach(bool isFinish in tutorialStatus.Values){
+        foreach(bool isFinish in tutorialEndStatus.Values){
             if(isFinish){
                 count++;
             }
         }
 
-        if(count == tutorialStatus.Count){
+        if(count == tutorialEndStatus.Count){
             GameManager.Instance.isFirstTurotial = false;
             return true;
         }

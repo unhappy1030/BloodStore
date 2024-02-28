@@ -16,10 +16,9 @@ public class StartScene : MonoBehaviour
 
     void Start()
     {
-        askTutorialCanvas.SetActive(false);
-
         if(SceneManager.GetActiveScene().name == "Start")
         {
+            askTutorialCanvas.SetActive(false);
             startCanvas.SetActive(false);
             gameCanvas.SetActive(false);
             StartCoroutine(WaitUntilIntro(time));
@@ -62,7 +61,7 @@ public class StartScene : MonoBehaviour
 
     // button
     public void SetTutorialStatus(bool isTutorial){
-        tutorialControl.ResetTutorialStatus(isTutorial);
+        tutorialControl.ResetTutorialStatus(!isTutorial);
     }
 
     // button
@@ -73,7 +72,7 @@ public class StartScene : MonoBehaviour
         }
         else
         {
-            tutorialControl.ResetTutorialStatus(false);
+            tutorialControl.ResetTutorialStatus(true);
 
             GameManager.Instance.pairList = GameManager.Instance.pairList.LoadNew();
             GameManager.Instance.pairList.Save();

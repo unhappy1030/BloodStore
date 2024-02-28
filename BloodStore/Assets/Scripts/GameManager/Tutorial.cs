@@ -30,8 +30,8 @@ public class Tutorial : MonoBehaviour
         rightButton.SetActive(true);
         endButton.SetActive(false);
 
-        if(tutorialControl.tutorialStatus.ContainsKey(SceneManager.GetActiveScene().name) 
-            && !tutorialControl.tutorialStatus[SceneManager.GetActiveScene().name])
+        if(tutorialControl.tutorialEndStatus.ContainsKey(SceneManager.GetActiveScene().name) 
+            && !tutorialControl.tutorialEndStatus[SceneManager.GetActiveScene().name])
         {
             isTutorialFinish = false;
             tutorialCanvas.SetActive(true);
