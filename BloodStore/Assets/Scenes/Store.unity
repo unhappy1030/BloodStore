@@ -1184,10 +1184,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 193522015}
-        m_TargetAssemblyTypeName: ButtonControl, Assembly-CSharp
-        m_MethodName: SceneLoad
-        m_Mode: 5
+      - m_Target: {fileID: 193522020}
+        m_TargetAssemblyTypeName: EndingSceneCheck, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1516,8 +1516,8 @@ GameObject:
   - component: {fileID: 193522018}
   - component: {fileID: 193522017}
   - component: {fileID: 193522016}
-  - component: {fileID: 193522015}
   - component: {fileID: 193522014}
+  - component: {fileID: 193522020}
   m_Layer: 5
   m_Name: StoreCanvas
   m_TagString: Untagged
@@ -1537,19 +1537,6 @@ SortingGroup:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_SortAtRoot: 0
---- !u!114 &193522015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 193522013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64bf3fd46c380d7459bdf489d95d67d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiControl: {fileID: 0}
 --- !u!114 &193522016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1633,6 +1620,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &193522020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193522013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5f9cd1cee75a434fa94ac1da916ce35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EndingScenes:
+  - Ending1
 --- !u!1 &208912105
 GameObject:
   m_ObjectHideFlags: 0
@@ -9639,6 +9640,7 @@ MonoBehaviour:
   endButton: {fileID: 1855325255}
   uiIndex: 0
   isTutorialFinish: 0
+  tutorialControl: {fileID: 0}
 --- !u!4 &1953021358
 Transform:
   m_ObjectHideFlags: 0
