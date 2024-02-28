@@ -13,8 +13,10 @@ public class LoadUI : MonoBehaviour
     private EventSystem eventSystem;
     public GameObject selectedFile;
     public List<GameObject> files;
+    public GameObject deleteCheckUI;
     public GameObject loadCheckUI;
     public List<GameObject> buttons;
+    public TextMeshProUGUI deleteCheckText;
     public TextMeshProUGUI loadCheckText;
     void Start()
     {
@@ -79,6 +81,26 @@ public class LoadUI : MonoBehaviour
             bloodPack.LoadFile(folderName);
             saveData.LoadFile(folderName);
             gameObject.SetActive(false);
+        }
+    }
+    //Delete Part
+    public void SetDeleteCheckUI(){
+        if(selectedFile != null){
+            string folderName = selectedFile.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
+            deleteCheckText.text = "Delete " + "\"" + folderName + "\"File?";
+            deleteCheckUI.SetActive(true);
+        }
+    }
+    public void DeleteFile(){
+        if(selectedFile != null){
+            string folderName = selectedFile.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
+            string folderPath = Path.Combine(Application.persistentDataPath, folderName);
+            if (Directory.Exists(folderPath))
+            {
+                Directory.Delete(folderPath, true);
+            }
+            ShowFiles();
+            deleteCheckUI.SetActive(false);
         }
     }
     //Files Update
