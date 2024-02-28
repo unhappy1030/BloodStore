@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public string lastSceneName = "";
     public bool isFading = false; 
     bool wasFade = false;
+    public bool isFirstTurotial;
 
     public Image whitePanel;
     public Image blackPanel;
@@ -42,9 +43,15 @@ public class GameManager : MonoBehaviour
 
     public ResultMoney resultMoney;
 
+    public StartScene startScene;
+
     public Pairs pairList;
     public BloodPacks bloodPackList;
     public SaveData saveData;
+
+    public TutorialControl tutorialControl;
+    public Tutorial tutorial;
+
     private static GameManager _instance;
     public static GameManager Instance
     {
@@ -99,6 +106,8 @@ public class GameManager : MonoBehaviour
         resultStore = FindObjectOfType<ResultStore>();
         resultMoney = FindObjectOfType<ResultMoney>();
         bloodSellProcess = FindObjectOfType<BloodSellProcess>();
+        tutorial = FindObjectOfType<Tutorial>();
+        startScene = FindObjectOfType<StartScene>();
 
         mouseRayCast = GetComponent<MouseRayCast>();
         moneyControl = GetComponent<MoneyControl>();
@@ -106,6 +115,7 @@ public class GameManager : MonoBehaviour
         pairList = GetComponent<Pairs>();
         bloodPackList = GetComponent<BloodPacks>();
         saveData = GetComponent<SaveData>();
+        tutorialControl = GetComponent<TutorialControl>();
 
         yarnControl = GetComponentInChildren<YarnControl>();
         dialogueRunner = GetComponentInChildren<DialogueRunner>();
@@ -148,6 +158,14 @@ public class GameManager : MonoBehaviour
         }
 
         mouseRayCast.dialogueRunner = dialogueRunner;
+
+        if(tutorial != null){
+            tutorial.tutorialControl = tutorialControl;
+        }
+        
+        if(startScene != null){
+            startScene.tutorialControl = tutorialControl;
+        }
 
         yarnControl.moneyControl = moneyControl;
         yarnControl.dialogueRunner = dialogueRunner;
