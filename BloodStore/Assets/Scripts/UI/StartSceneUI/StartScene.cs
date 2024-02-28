@@ -51,7 +51,7 @@ public class StartScene : MonoBehaviour
         GameManager.Instance.bloodPackList = GameManager.Instance.bloodPackList.LoadNew();
         GameManager.Instance.bloodPackList.Save();
         GameManager.Instance.loadfileName = "";
-        GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(sceneName, 0.25f));
+        GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(sceneName, 1f));
     }
 
 

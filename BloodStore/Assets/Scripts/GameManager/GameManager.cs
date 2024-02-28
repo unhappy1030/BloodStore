@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -157,7 +159,7 @@ public class GameManager : MonoBehaviour
         
         // Fade in
         if (wasFade){
-            StartCoroutine(FadeInUI(blackPanel, 0.01f));
+            StartCoroutine(FadeOutUI(blackPanel, 1f));
         }
     }
 
@@ -203,11 +205,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public IEnumerator FadeOutAndLoadScene(string sceneName, float speed)
+    public IEnumerator FadeOutAndLoadScene(string sceneName, float second)
     {
         if (Application.CanStreamedLevelBeLoaded(sceneName))
         {
-            yield return StartCoroutine(FadeOutUI(blackPanel, speed));
+            yield return StartCoroutine(FadeInUI(blackPanel, second));
             wasFade = true;
             SceneManager.LoadScene(sceneName);
         }
@@ -243,65 +245,103 @@ public class GameManager : MonoBehaviour
     }
 
     // Fade in & out
-    public IEnumerator FadeOutUI(Image _Image, float _fadeSpeed)
+    public IEnumerator FadeInUI(Image _Image, float _second)
     {
+        if(_second == 0){
+            Debug.Log("Second cannot be 0...");
+            yield break;
+        }
+
+        if(Time.timeScale == 0){
+            Time.timeScale = 1;
+        }
+
         isFading = true;
-        // Debug.Log("Fade out...");
         Color t_color = _Image.color;
         t_color.a = 0;
-        
+        Debug.Log("Fade In Start : " + DateTime.Now.ToString(("yyyy-MM-dd HH:mm:ss.fff")));
         _Image.gameObject.SetActive(true);
 
         while (t_color.a < 1)
         {
-            t_color.a += _fadeSpeed;
+            t_color.a += Time.deltaTime/_second;
             _Image.color = t_color;
             yield return null;
         }
-
+        
+        Debug.Log("Fade In Finish : " + DateTime.Now.ToString(("yyyy-MM-dd HH:mm:ss.fff")));
         isFading = false;
         wasFade = true;
     }
 
-    public IEnumerator FadeInUI(Image _Image, float _fadeSpeed)
+    float CalculateFadeInAlpha(float x, float s){
+        float y;
+        y = (x/s)*(x/s)*(x/s)*(x/s);
+        return y;
+    }
+
+    public IEnumerator FadeOutUI(Image _Image, float _second)
     {
+        if(_second == 0){
+            Debug.Log("Second cannot be 0...");
+            yield break;
+        }
+
         isFading = true;
-        // Debug.Log("Fade in...");
         Color t_color = _Image.color;
         t_color.a = 1;
         _Image.gameObject.SetActive(true);
+        Debug.Log("Fade Out Start : "+DateTime.Now.ToString(("yyyy-MM-dd HH:mm:ss.fff")));
+        float x = 1;
 
         while (t_color.a > 0)
-        {
-            t_color.a -= _fadeSpeed;
+        {   
+            x -= Time.deltaTime/_second;
+            t_color.a = CalculateFadeOutAlpha(x, _second);
             _Image.color = t_color;
             yield return null;
         }
-
+        
+        Debug.Log("Fade Out Finish : " + DateTime.Now.ToString(("yyyy-MM-dd HH:mm:ss.fff")));
         _Image.gameObject.SetActive(false);
 
         isFading = false;
         wasFade = false;
     }
 
-    public IEnumerator FadeOutSprite(SpriteRenderer _Sprite, float _fadeSpeed){
-        // Debug.Log("Fade out...");
+    float CalculateFadeOutAlpha(float x, float s){
+        float y;
+        y = -1 * (x/s-1)*(x/s-1)*(x/s-1)*(x/s-1) + 1;
+        return y;
+    }
+
+    public IEnumerator FadeInSprite(SpriteRenderer _Sprite, float _second){
+        // Debug.Log("Fade in...");
+        if(_second == 0){
+            Debug.Log("Second cannot be 0...");
+            yield break;
+        }
+
         Color t_color = _Sprite.color;
-        t_color.a = 0;
+        t_color.a = 1;
         
         _Sprite.gameObject.SetActive(true);
 
         while (t_color.a < 1)
         {
-            t_color.a += _fadeSpeed;
+            t_color.a -= Time.deltaTime/_second;
             _Sprite.color = t_color;
             yield return null;
         }
-        
     }
 
-    public IEnumerator FadeInSprite(SpriteRenderer _Sprite, float _fadeSpeed){
-        // Debug.Log("Fade in...");
+    public IEnumerator FadeOutSprite(SpriteRenderer _Sprite, float _second){
+        // Debug.Log("Fade out...");
+        if(_second == 0){
+            Debug.Log("Second cannot be 0...");
+            yield break;
+        }
+
         Color t_color = _Sprite.color;
         t_color.a = 1;
         
@@ -309,7 +349,7 @@ public class GameManager : MonoBehaviour
 
         while (t_color.a > 0)
         {
-            t_color.a -= _fadeSpeed;
+            t_color.a -= Time.deltaTime/_second;
             _Sprite.color = t_color;
             yield return null;
         }
