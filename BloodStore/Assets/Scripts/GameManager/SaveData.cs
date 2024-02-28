@@ -65,6 +65,14 @@ public class SaveData : MonoBehaviour
         }
         Save();
     }
+    public void SetInitialValue(){
+        GameManager.Instance.sellCount = 0;
+        GameManager.Instance.totalPoint = 0;
+        GameManager.Instance.currentAveragePoint = 0;
+        GameManager.Instance.filterDurability = 100;
+        GameManager.Instance.day = 0;
+        GameManager.Instance.money = 1000000;
+    }
     private DataList GetDataList(){
         DataList dataList = new();
         dataList.sellCount = GameManager.Instance.sellCount;
