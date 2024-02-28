@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1743,7 +1743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1969,7 +1969,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2460,7 +2460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3737,6 +3737,7 @@ GameObject:
   - component: {fileID: 1182177064}
   - component: {fileID: 1182177063}
   - component: {fileID: 1182177062}
+  - component: {fileID: 1182177067}
   m_Layer: 5
   m_Name: LoadUI
   m_TagString: Untagged
@@ -3827,7 +3828,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &1182177066
 RectTransform:
@@ -3849,6 +3850,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!210 &1182177067
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182177061}
+  m_Enabled: 1
+  m_SortingLayerID: -1694964545
+  m_SortingLayer: 1
+  m_SortingOrder: 1
+  m_SortAtRoot: 0
 --- !u!1 &1225741891
 GameObject:
   m_ObjectHideFlags: 0
@@ -5031,7 +5044,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.392}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6624,6 +6637,7 @@ GameObject:
   - component: {fileID: 1947957768}
   - component: {fileID: 1947957767}
   - component: {fileID: 1947957766}
+  - component: {fileID: 1947957769}
   m_Layer: 5
   m_Name: StartCanvas
   m_TagString: Untagged
@@ -6714,6 +6728,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!210 &1947957769
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947957764}
+  m_Enabled: 1
+  m_SortingLayerID: -1694964545
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &1975285871
 GameObject:
   m_ObjectHideFlags: 0
@@ -6726,6 +6752,7 @@ GameObject:
   - component: {fileID: 1975285874}
   - component: {fileID: 1975285873}
   - component: {fileID: 1975285872}
+  - component: {fileID: 1975285876}
   m_Layer: 0
   m_Name: GameCanvas
   m_TagString: Untagged
@@ -6816,6 +6843,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!210 &1975285876
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975285871}
+  m_Enabled: 1
+  m_SortingLayerID: -1694964545
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &1991890958
 GameObject:
   m_ObjectHideFlags: 0
@@ -7175,7 +7214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8165,7 +8204,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!1 &1556204787001322163
 GameObject:
@@ -8767,6 +8806,7 @@ GameObject:
   - component: {fileID: 1440319725732812069}
   - component: {fileID: 2645646328318452696}
   - component: {fileID: 5357904168133303498}
+  - component: {fileID: 7738942459453681683}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -9097,7 +9137,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 100
+  m_SortingOrder: 102
   m_TargetDisplay: 0
 --- !u!114 &3427438109096687184
 MonoBehaviour:
@@ -9246,7 +9286,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &3674463544093780498
 MonoBehaviour:
@@ -9357,6 +9397,7 @@ GameObject:
   - component: {fileID: 3667870721173392036}
   - component: {fileID: 761548217548351539}
   - component: {fileID: 2175798659242466239}
+  - component: {fileID: 3951427344999552022}
   m_Layer: 5
   m_Name: OnGameCanvas
   m_TagString: Untagged
@@ -9364,6 +9405,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!210 &3951427344999552022
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3951427344999552021}
+  m_Enabled: 1
+  m_SortingLayerID: -1541954891
+  m_SortingLayer: 3
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &3959603843921888191
 GameObject:
   m_ObjectHideFlags: 0
@@ -9836,7 +9889,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 100
+  m_SortingOrder: 101
   m_TargetDisplay: 0
 --- !u!224 &4986715184092945599
 RectTransform:
@@ -10213,6 +10266,7 @@ GameObject:
   - component: {fileID: 2835399543768590205}
   - component: {fileID: 7403177197886247594}
   - component: {fileID: 5594058133094090896}
+  - component: {fileID: 7403177197886247595}
   m_Layer: 5
   m_Name: AlwayOnCanvas
   m_TagString: Untagged
@@ -10808,6 +10862,7 @@ GameObject:
   - component: {fileID: 3383586162928909486}
   - component: {fileID: 6793876338757677109}
   - component: {fileID: 7142144164606264362}
+  - component: {fileID: 7344113641260339848}
   m_Layer: 0
   m_Name: FadeInOutCanvas
   m_TagString: Untagged
@@ -10815,6 +10870,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!210 &7344113641260339848
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7344113641260339847}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 2
+  m_SortAtRoot: 0
 --- !u!114 &7403177197886247594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10832,6 +10899,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!210 &7403177197886247595
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5579905471386989371}
+  m_Enabled: 1
+  m_SortingLayerID: -1541954891
+  m_SortingLayer: 3
+  m_SortingOrder: 1
+  m_SortAtRoot: 0
 --- !u!1 &7545572523845897973
 GameObject:
   m_ObjectHideFlags: 0
@@ -10919,6 +10998,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!210 &7738942459453681683
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2819715450938146345}
+  m_Enabled: 1
+  m_SortingLayerID: -1694964545
+  m_SortingLayer: 1
+  m_SortingOrder: 100
+  m_SortAtRoot: 0
 --- !u!114 &7770128616713293524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11761,8 +11852,8 @@ SceneRoots:
   - {fileID: 1099360181}
   - {fileID: 354280433}
   - {fileID: 520584418}
-  - {fileID: 250506163}
   - {fileID: 1333848592}
   - {fileID: 1628135311}
-  - {fileID: 2214255596909104193}
+  - {fileID: 250506163}
   - {fileID: 1182177066}
+  - {fileID: 2214255596909104193}
