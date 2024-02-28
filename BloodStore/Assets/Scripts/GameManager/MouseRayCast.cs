@@ -66,7 +66,7 @@ public class MouseRayCast : MonoBehaviour
 
         if (interactObjInfo._interactType == InteractType.SceneLoad)
         {
-            GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(interactObjInfo._sceneName, 0.05f));
+            GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(interactObjInfo._sceneName, 1f));
         }
     }
 

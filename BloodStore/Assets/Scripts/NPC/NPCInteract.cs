@@ -170,13 +170,13 @@ public class NPCInteract : MonoBehaviour
         npc.SetActive(true);
         
         npc.GetComponent<BoxCollider2D>().enabled = false;
-        yield return GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutSprite(npc.GetComponent<SpriteRenderer>(), 0.05f));
+        yield return GameManager.Instance.StartCoroutine(GameManager.Instance.FadeInSprite(npc.GetComponent<SpriteRenderer>(), 1f));
         npc.GetComponent<BoxCollider2D>().enabled = true;
     }
 
     IEnumerator DeActiveSprite(){
         npc.GetComponent<BoxCollider2D>().enabled = false;
-        yield return GameManager.Instance.StartCoroutine(GameManager.Instance.FadeInSprite(npc.GetComponent<SpriteRenderer>(), 0.05f));
+        yield return GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutSprite(npc.GetComponent<SpriteRenderer>(), 1f));
         npc.SetActive(false);
     }
 
