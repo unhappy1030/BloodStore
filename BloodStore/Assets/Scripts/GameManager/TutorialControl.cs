@@ -11,10 +11,10 @@ public class TutorialControl : MonoBehaviour
     {
         tutorialEndStatus = new()
         {
-            { "FamilyTree", false },
-            { "ResultFamilyTree", false },
-            { "Store", false },
-            { "ResultStore", false }
+            { "FamilyTree", true },
+            { "ResultFamilyTree", true },
+            { "Store", true },
+            { "ResultStore", true }
         };
     }
 
