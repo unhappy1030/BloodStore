@@ -43,7 +43,7 @@ public class UIControl : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (SceneManager.GetActiveScene().name == GameManager.Instance.startSceneName)
+        if (SceneManager.GetActiveScene().name == GameManager.Instance.startSceneName || SceneManager.GetActiveScene().name == "StartMenu")
         {
             status = AlwaysOnUIStatus.Nothing;
             ControlAlwaysOnCanvasUI();
