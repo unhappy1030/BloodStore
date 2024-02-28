@@ -1763,6 +1763,8 @@ MonoBehaviour:
   cameraControl: {fileID: 797086757}
   startCanvas: {fileID: 703531341}
   gameCanvas: {fileID: 1878474218}
+  askTutorialCanvas: {fileID: 0}
+  tutorialControl: {fileID: 0}
 --- !u!4 &557036905
 Transform:
   m_ObjectHideFlags: 0
@@ -2823,9 +2825,11 @@ MonoBehaviour:
   - {fileID: 1987835528}
   - {fileID: 1183040572}
   - {fileID: 662818441}
+  deleteCheckUI: {fileID: 0}
   loadCheckUI: {fileID: 120474171}
   buttons:
   - {fileID: 565742249}
+  deleteCheckText: {fileID: 0}
   loadCheckText: {fileID: 1329654206}
 --- !u!114 &885785060
 MonoBehaviour:
