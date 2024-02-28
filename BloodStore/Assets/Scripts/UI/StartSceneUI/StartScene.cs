@@ -51,6 +51,8 @@ public class StartScene : MonoBehaviour
 
     // button
     public void StartNewGame(string sceneName){
+        GameManager.Instance.saveData.SetInitialValue();
+        GameManager.Instance.saveData.Save();
         GameManager.Instance.pairList = GameManager.Instance.pairList.LoadNew();
         GameManager.Instance.pairList.Save();
         GameManager.Instance.bloodPackList = GameManager.Instance.bloodPackList.LoadNew();
@@ -74,12 +76,7 @@ public class StartScene : MonoBehaviour
         {
             tutorialControl.ResetTutorialStatus(true);
 
-            GameManager.Instance.pairList = GameManager.Instance.pairList.LoadNew();
-            GameManager.Instance.pairList.Save();
-            GameManager.Instance.bloodPackList = GameManager.Instance.bloodPackList.LoadNew();
-            GameManager.Instance.bloodPackList.Save();
-            GameManager.Instance.loadfileName = "";
-            GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(sceneName, 1f));
+            StartNewGame(sceneName);
         }
     }
 
