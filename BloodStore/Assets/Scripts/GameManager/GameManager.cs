@@ -342,13 +342,13 @@ public class GameManager : MonoBehaviour
         }
 
         Color t_color = _Sprite.color;
-        t_color.a = 1;
+        t_color.a = 0;
         
         _Sprite.gameObject.SetActive(true);
 
         while (t_color.a < 1)
         {
-            t_color.a -= Time.deltaTime/_second;
+            t_color.a += Time.deltaTime/_second;
             _Sprite.color = t_color;
             yield return null;
         }
