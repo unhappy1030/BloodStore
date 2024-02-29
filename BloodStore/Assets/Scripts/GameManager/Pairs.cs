@@ -127,6 +127,27 @@ public class Pairs : MonoBehaviour
             }
         }
     }
+    public bool CheckAllDead(){
+        bool result = true;
+        if(pairs == null || pairs.Count == 0){
+            return false;
+        }
+        foreach(Pair pair in pairs){
+            if(!pair.male.empty){
+                if(!pair.male.isDead){
+                    result = false;
+                    break;
+                }
+            }
+            if(!pair.female.empty){
+                if(!pair.female.isDead){
+                    result = false;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
     public void MakeDead(){
         foreach(Pair pair in pairs){
             if(!pair.male.empty){
