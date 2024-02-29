@@ -30,7 +30,8 @@ public class Tutorial : MonoBehaviour
         rightButton.SetActive(true);
         endButton.SetActive(false);
 
-        if(tutorialControl.tutorialEndStatus.ContainsKey(SceneManager.GetActiveScene().name) 
+        if(GameManager.Instance.isTurotial
+            && tutorialControl.tutorialEndStatus.ContainsKey(SceneManager.GetActiveScene().name) 
             && !tutorialControl.tutorialEndStatus[SceneManager.GetActiveScene().name])
         {
             isTutorialFinish = false;
@@ -43,30 +44,16 @@ public class Tutorial : MonoBehaviour
         }
     }
 
-    // // left button
-    // public void LeftButton(){
-    //     if(uiIndex - 1 < 0){
-    //         Debug.Log("UI Index cannot be negative...");
-    //         return;
-    //     }
-
-    //     uiIndex--;
-    // }
-
-    // // right button
-    // public void RightButton(){
-    //     if(uiIndex + 1 >= tutorialUI.Count){
-    //         Debug.Log("UI Index cannot be more than tutorial UI Count...");
-    //         return;
-    //     }
-
-    //     uiIndex++;
-    // }
-
+    // button
     public void EndButton(){
         isTutorialFinish = true;
         tutorialControl.ChangeTutorialStatus(SceneManager.GetActiveScene().name, true);
-        tutorialControl.CheckTutorialStatus();
+        tutorialControl.CheckTutorialEnd();
+        
+        // if(tutorialControl.isAllTutorialFinish){
+        //     GameManager.Instance.isTurotial = false;
+        // }
+
         tutorialCanvas.SetActive(false);
     }
 

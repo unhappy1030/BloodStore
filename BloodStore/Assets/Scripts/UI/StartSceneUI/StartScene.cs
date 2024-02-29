@@ -62,13 +62,32 @@ public class StartScene : MonoBehaviour
     }
 
     // button
+    public void ChoosePlayTutorial(bool isPlayTutorial){
+        if(isPlayTutorial)
+        {
+            GameManager.Instance.isTurotial = true;
+            tutorialControl.isAllTutorialFinish = false;
+            tutorialControl.ResetTutorialStatus(false);
+        }
+        else
+        {
+            GameManager.Instance.isTurotial = false;
+            tutorialControl.isAllTutorialFinish = true;
+            tutorialControl.ResetTutorialStatus(true);
+        }
+        
+        GameManager.Instance.isFirstPlay = false;
+    }
+
+
+    // button
     public void SetTutorialStatus(bool isTutorial){
         tutorialControl.ResetTutorialStatus(!isTutorial);
     }
 
     // button
     public void AskAndStartNewGame(string sceneName){
-        if(GameManager.Instance.isFirstTurotial)
+        if(GameManager.Instance.isFirstPlay)
         {
             askTutorialCanvas.SetActive(true);
         }

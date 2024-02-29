@@ -5,10 +5,13 @@ using UnityEngine;
 
 public class TutorialControl : MonoBehaviour
 {
+    public bool isAllTutorialFinish;
     public Dictionary<string, bool> tutorialEndStatus;
 
     public void Start()
     {
+        isAllTutorialFinish = true;
+
         tutorialEndStatus = new()
         {
             { "FamilyTree", true },
@@ -35,7 +38,7 @@ public class TutorialControl : MonoBehaviour
         tutorialEndStatus[sceneName] = status;
     }
 
-    public bool CheckTutorialStatus(){
+    public void CheckTutorialEnd(){
         int count = 0;
         foreach(bool isFinish in tutorialEndStatus.Values){
             if(isFinish){
@@ -44,10 +47,7 @@ public class TutorialControl : MonoBehaviour
         }
 
         if(count == tutorialEndStatus.Count){
-            GameManager.Instance.isFirstTurotial = false;
-            return true;
+            isAllTutorialFinish = true;
         }
-
-        return false;
     }
 }
