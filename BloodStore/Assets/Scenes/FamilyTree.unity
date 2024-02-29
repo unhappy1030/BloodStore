@@ -10454,6 +10454,7 @@ MonoBehaviour:
   downGroup:
   - {fileID: 0}
   cameraControl: {fileID: 0}
+  tutorial: {fileID: 2112451523}
   dialogueRunner: {fileID: 0}
   dialogueControl: {fileID: 0}
   yarnControl: {fileID: 0}

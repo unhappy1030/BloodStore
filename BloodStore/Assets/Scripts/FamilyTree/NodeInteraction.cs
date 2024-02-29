@@ -72,6 +72,7 @@ public class NodeInteraction : MonoBehaviour
     // public TreeManagerTest treeManagerTest;
 
     public CameraControl cameraControl;
+    public Tutorial tutorial; // assign at inspector
     public DialogueRunner dialogueRunner;
     public DialogueControl dialogueControl;
     public YarnControl yarnControl;
@@ -87,14 +88,8 @@ public class NodeInteraction : MonoBehaviour
         nodeShowingStatus = NodeShowingStatus.ShowTotal; // test
         uiStatus = UIStatus.None;
         nodeInteractionStatus = NodeInteractionStatus.None;
-        
-        // ShowTotal();
-        currentSelectGroup = tree.mainGroup.transform.GetChild(0).gameObject.GetComponent<Group>();
-        currentSelectGroup.highLight.SetActive(true);
-        ShowGroup(currentSelectGroup);
-        AbleKeyInput(currentSelectGroup);
 
-        StartCoroutine(StartFamilyTreeDialogues());
+        StartCoroutine(WaitUntilTutorialEnds());
     }
 
     void Update(){
@@ -114,6 +109,20 @@ public class NodeInteraction : MonoBehaviour
             }
             KeyInteract();
         }
+    }
+
+    IEnumerator WaitUntilTutorialEnds(){
+        if(GameManager.Instance.isTurotial){
+            yield return new WaitUntil(() => tutorial.isTutorialFinish);
+        }
+        
+        // ShowTotal();
+        currentSelectGroup = tree.mainGroup.transform.GetChild(0).gameObject.GetComponent<Group>();
+        currentSelectGroup.highLight.SetActive(true);
+        ShowGroup(currentSelectGroup);
+        AbleKeyInput(currentSelectGroup);
+
+        StartCoroutine(StartFamilyTreeDialogues());
     }
 
     IEnumerator StartFamilyTreeDialogues(){

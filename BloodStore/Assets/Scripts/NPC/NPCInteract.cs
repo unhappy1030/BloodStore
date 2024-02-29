@@ -26,6 +26,7 @@ public class NPCInteract : MonoBehaviour
     public YarnControl yarnControl;
     public DialogueRunner dialogueRunner;
     public BloodSellProcess bloodSellProcess; // assign at inspector
+    public Tutorial tutorial; // assign at inspector
 
     Coroutine npcCoroutine;
 
@@ -46,7 +47,7 @@ public class NPCInteract : MonoBehaviour
         bloodPackCanvas.SetActive(false);
         nextDayButton.SetActive(false);
 
-        StartCoroutine(GetStoreDialogues());
+        StartCoroutine(WaitUntilTutorialEnds());
     }
 
     private void OnDestroy()
@@ -55,6 +56,15 @@ public class NPCInteract : MonoBehaviour
             StopCoroutine(npcCoroutine);
             npcCoroutine = null;
         }
+    }
+
+    IEnumerator WaitUntilTutorialEnds(){
+        if(GameManager.Instance.isTurotial){
+            yield return new WaitUntil(() => tutorial.isTutorialFinish);
+            yield return new WaitForSeconds(1f);
+        }
+        
+        StartCoroutine(GetStoreDialogues());
     }
     
     IEnumerator GetStoreDialogues(){
