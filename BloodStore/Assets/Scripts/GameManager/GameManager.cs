@@ -24,7 +24,8 @@ public class GameManager : MonoBehaviour
     public string lastSceneName = "";
     public bool isFading = false; 
     bool wasFade = false;
-    public bool isFirstTurotial;
+    public bool isFirstPlay = true;
+    public bool isTurotial = false;
 
     public Image whitePanel;
     public Image blackPanel;

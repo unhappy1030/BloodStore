@@ -11274,7 +11274,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1333848591}
         m_TargetAssemblyTypeName: StartScene, Assembly-CSharp
-        m_MethodName: SetTutorialStatus
+        m_MethodName: ChoosePlayTutorial
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11801,7 +11801,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1333848591}
         m_TargetAssemblyTypeName: StartScene, Assembly-CSharp
-        m_MethodName: SetTutorialStatus
+        m_MethodName: ChoosePlayTutorial
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16130,7 +16130,8 @@ MonoBehaviour:
   loadfileName: 
   lastSceneName: 
   isFading: 0
-  isFirstTurotial: 1
+  isFirstPlay: 1
+  isTurotial: 0
   whitePanel: {fileID: 8235264872758770939}
   blackPanel: {fileID: 7274410503353199737}
   cameraControl: {fileID: 0}
@@ -17179,6 +17180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 256a096343a858840b3687b5edcf590f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAllTutorialFinish: 0
 --- !u!114 &8235264872758770939
 MonoBehaviour:
   m_ObjectHideFlags: 0

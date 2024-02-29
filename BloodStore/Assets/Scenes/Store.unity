@@ -5771,6 +5771,7 @@ MonoBehaviour:
   yarnControl: {fileID: 0}
   dialogueRunner: {fileID: 0}
   bloodSellProcess: {fileID: 1568789503}
+  tutorial: {fileID: 1953021357}
 --- !u!4 &1159324194
 Transform:
   m_ObjectHideFlags: 0

@@ -145,7 +145,7 @@ public class UIControl : MonoBehaviour
 
     // button
     public void GotoStart(string sceneName){
-        if(tutorialControl.CheckTutorialStatus())
+        if((GameManager.Instance.isTurotial && tutorialControl.isAllTutorialFinish) || !GameManager.Instance.isTurotial)
         {
             GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(sceneName, 1f));
         }
@@ -155,9 +155,10 @@ public class UIControl : MonoBehaviour
         }
     }
 
+    // button
     public void GotoStartAfterTutorialNotice(string sceneName){
         tutorialControl.ResetTutorialStatus(true);
-        GameManager.Instance.isFirstTurotial = false;
+        GameManager.Instance.isTurotial = false;
         tutorialCheckUI.SetActive(false);
         GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutAndLoadScene(sceneName, 1f));
     }
