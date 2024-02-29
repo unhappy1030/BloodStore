@@ -2315,7 +2315,7 @@ GameObject:
   - component: {fileID: 235814995}
   - component: {fileID: 235814994}
   m_Layer: 5
-  m_Name: CheckBackButton
+  m_Name: BackButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2868,7 +2868,6 @@ GameObject:
   - component: {fileID: 302601641}
   - component: {fileID: 302601640}
   - component: {fileID: 302601639}
-  - component: {fileID: 302601642}
   - component: {fileID: 302601643}
   m_Layer: 5
   m_Name: NextDayButton
@@ -2941,17 +2940,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 302601642}
-        m_TargetAssemblyTypeName: UIOnButton, Assembly-CSharp
-        m_MethodName: OnUI
-        m_Mode: 1
+      - m_Target: {fileID: 1828620686}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 302601643}
         m_TargetAssemblyTypeName: NextDay, Assembly-CSharp
@@ -3015,19 +3014,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 302601637}
   m_CullTransparentMesh: 1
---- !u!114 &302601642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 302601637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ea0b84ba290acb49a5744ac8e4ee3cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UI: {fileID: 1828620686}
 --- !u!114 &302601643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6043,6 +6029,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1456928732}
+        m_TargetAssemblyTypeName: NodeInteraction, Assembly-CSharp
+        m_MethodName: ResetNodeInteractionStatus
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &649555297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7548,7 +7546,6 @@ GameObject:
   - component: {fileID: 956429886}
   - component: {fileID: 956429885}
   - component: {fileID: 956429884}
-  - component: {fileID: 956429887}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -7620,10 +7617,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 956429887}
-        m_TargetAssemblyTypeName: DeactiveButton, Assembly-CSharp
-        m_MethodName: OffUI
-        m_Mode: 1
+      - m_Target: {fileID: 139006813}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7682,19 +7679,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 956429882}
   m_CullTransparentMesh: 1
---- !u!114 &956429887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 956429882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc072b7fce522f043b11dc41cb6c2903, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UI: {fileID: 139006813}
 --- !u!1 &963746954
 GameObject:
   m_ObjectHideFlags: 0
@@ -10931,7 +10915,6 @@ GameObject:
   - component: {fileID: 1482988763}
   - component: {fileID: 1482988762}
   - component: {fileID: 1482988761}
-  - component: {fileID: 1482988765}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -11029,10 +11012,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1482988765}
-        m_TargetAssemblyTypeName: DeactiveButton, Assembly-CSharp
-        m_MethodName: OffUI
-        m_Mode: 1
+      - m_Target: {fileID: 1480354485}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11091,19 +11074,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1482988759}
   m_CullTransparentMesh: 1
---- !u!114 &1482988765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1482988759}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc072b7fce522f043b11dc41cb6c2903, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UI: {fileID: 1480354485}
 --- !u!1 &1510495166
 GameObject:
   m_ObjectHideFlags: 0
@@ -16193,6 +16163,7 @@ MonoBehaviour:
   endButton: {fileID: 1917652161}
   uiIndex: 0
   isTutorialFinish: 0
+  tutorialControl: {fileID: 0}
 --- !u!4 &2112451524
 Transform:
   m_ObjectHideFlags: 0

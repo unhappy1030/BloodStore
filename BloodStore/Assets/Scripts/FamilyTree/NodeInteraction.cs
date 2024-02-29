@@ -1,13 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using TMPro;
 using Cinemachine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using Yarn.Unity;
-using System.Xml.Serialization;
+
 
 public class NodeInteraction : MonoBehaviour
 {
@@ -154,15 +152,18 @@ public class NodeInteraction : MonoBehaviour
 
         
         if(isQ){
+            OnAllGroupColliderOffAllNodeCollider();
             ZoomOut();
         }
 
         else if(isE){
+            OnAllGroupColliderOffAllNodeCollider();
             ShowGroup(currentSelectGroup);
             AbleKeyInput(currentSelectGroup);
         }
 
         else if(isSpace){
+            OnAllGroupColliderOffAllNodeCollider();
             SelectShow(currentSelectGroup);
             AbleKeyInput(currentSelectGroup);
         }
@@ -174,6 +175,7 @@ public class NodeInteraction : MonoBehaviour
                 if(downGroup != null && downGroup.Count > index-1 && downGroup[index-1] != null)
                 {
                     Debug.Log("Down : " + keyCode.ToString());
+                    OnAllGroupColliderOffAllNodeCollider();
                     SelectShow(downGroup[index-1]);
                     currentSelectGroup.highLight.SetActive(false);
                     currentSelectGroup = downGroup[index-1];
@@ -194,6 +196,7 @@ public class NodeInteraction : MonoBehaviour
         {
             if(h == -1 && leftGroup != null)
             {
+                OnAllGroupColliderOffAllNodeCollider();
                 SelectShow(leftGroup);
 
                 currentSelectGroup.highLight.SetActive(false);
@@ -204,6 +207,7 @@ public class NodeInteraction : MonoBehaviour
             }
             else if(h == 1 && rightGroup != null)
             {
+                OnAllGroupColliderOffAllNodeCollider();
                 SelectShow(rightGroup);
 
                 currentSelectGroup.highLight.SetActive(false);
@@ -219,6 +223,7 @@ public class NodeInteraction : MonoBehaviour
         {
             if(v == -1 && downGroup != null && downGroup.Count != 0)
             {
+                OnAllGroupColliderOffAllNodeCollider();
                 SelectShow(downGroup[0]);
 
                 currentSelectGroup.highLight.SetActive(false);
@@ -229,13 +234,12 @@ public class NodeInteraction : MonoBehaviour
             }
             else if(v == 1 && upGroup != null)
             {
+                OnAllGroupColliderOffAllNodeCollider();
                 SelectShow(upGroup);
 
                 currentSelectGroup.highLight.SetActive(false);
                 currentSelectGroup = upGroup;
                 currentSelectGroup.highLight.SetActive(true);
-                //전체 그룹 콜라이더 켜기 & 켜져있는 node콜라이더 끄기
-                OnAllGroupColliderOffAllNodeCollider();
                 AbleKeyInput(upGroup);
             }
             currentV = v;

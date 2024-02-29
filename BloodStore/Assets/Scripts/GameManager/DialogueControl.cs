@@ -8,7 +8,7 @@ using UnityEngine;
 public class DialogueControl : MonoBehaviour
 {
     int totalCount = 0;
-    int maxCount = 6;
+    int maxCount = 5;
     public int npcIndex = 0;
     public int count = 0;
 
@@ -136,7 +136,7 @@ public class DialogueControl : MonoBehaviour
     // must use in Store
     public void AddRandomNPC(){
         List<Sprite> normalSprites = new(normalNPCs.normalNPCSprites);
-
+        int randominit = 1, max = maxCount, day = GameManager.Instance.day;
         if(normalSprites == null || normalSprites.Count == 0){
             Debug.Log("There is no sprite in normalNpc...");
             return;
@@ -145,8 +145,27 @@ public class DialogueControl : MonoBehaviour
         if (totalCount > 4){
             return;
         }
+        else if(totalCount < 3){
+            randominit = 3 - totalCount;
+        }
+        if(day > 5 && day < 10){
+            max += 1;
+            randominit += 1;
+        }
+        else if(day >= 10 && day < 20){
+            max += 2;
+            randominit += 2;
+        }
+        else if(day >= 20 && day < 30){
+            max += 3;
+            randominit += 3;
+        }
+        if(max - totalCount + 1 <= randominit){
+            randominit = max - totalCount;
+        }
+        int addCount = UnityEngine.Random.Range(randominit, max - totalCount + 1);
 
-        int addCount = UnityEngine.Random.Range(1, maxCount - totalCount + 1);
+        Debug.Log("RandomRange : (" + randominit.ToString() + ", " + (max - totalCount + 1).ToString() + ")\n normalCount / addCount / sum :" + totalCount.ToString() + "/" + addCount.ToString() + "/" + (totalCount + addCount).ToString());
 
         ListShuffle<Sprite>(normalSprites);
 
