@@ -149,23 +149,23 @@ public class DialogueControl : MonoBehaviour
             randominit = 3 - totalCount;
         }
         if(day > 5 && day < 10){
-            max = maxCount + 1;
+            max += 1;
             randominit += 1;
         }
         else if(day >= 10 && day < 20){
-            max = maxCount + 2;
+            max += 2;
             randominit += 2;
         }
         else if(day >= 20 && day < 30){
-            max = maxCount + 3;
+            max += 3;
             randominit += 3;
         }
-        if(max - totalCount + 1 >= randominit){
+        if(max - totalCount + 1 <= randominit){
             randominit = max - totalCount;
         }
         int addCount = UnityEngine.Random.Range(randominit, max - totalCount + 1);
 
-
+        Debug.Log("RandomRange : (" + randominit.ToString() + ", " + (max - totalCount + 1).ToString() + ")\n normalCount / addCount / sum :" + totalCount.ToString() + "/" + addCount.ToString() + "/" + (totalCount + addCount).ToString());
 
         ListShuffle<Sprite>(normalSprites);
 
