@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1016262965172855765}
   - component: {fileID: 8410150185206902127}
-  - component: {fileID: 2805527880126188915}
+  - component: {fileID: 1283973300925827391}
   m_Layer: 0
   m_Name: ProfileImage
   m_TagString: Untagged
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2805527880126188915
+--- !u!114 &1283973300925827391
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,17 +94,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 893609730578207538}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc2a33aecb9d75840ac1dc1358ebb6ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d92c5f56db73404a871339739e60667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 8410150185206902127}
-  spriteList:
+  maleList:
   - {fileID: 21300000, guid: b8b64fdf458147e49bd701426c4676f8, type: 3}
-  - {fileID: 21300000, guid: c64e49b9dee4bf644b8c0653a0815094, type: 3}
-  - {fileID: 21300000, guid: 347a4eb9607d44d4aab705dd3d634da1, type: 3}
   - {fileID: 21300000, guid: 406f971375e260f4b91e4829e9ae5c56, type: 3}
   - {fileID: 21300000, guid: a07446358feccb545a309c91c781c1f0, type: 3}
   - {fileID: 21300000, guid: 8bd6b34a61bbba84f9e782cb31c36798, type: 3}
+  femaleList:
+  - {fileID: 21300000, guid: c64e49b9dee4bf644b8c0653a0815094, type: 3}
+  - {fileID: 21300000, guid: 347a4eb9607d44d4aab705dd3d634da1, type: 3}
   - {fileID: 21300000, guid: 50be812f2174d644590d9d7d3a3d6187, type: 3}
 --- !u!1 &2153867128969284356
 GameObject:
