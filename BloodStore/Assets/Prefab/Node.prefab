@@ -298,6 +298,7 @@ MonoBehaviour:
     hp: 0
     age: 0
     isDead: 0
+    profileImage: {fileID: 0}
     empty: 1
   textLabel: {fileID: 6120831331352998388}
 --- !u!1 &8611605383358798138
