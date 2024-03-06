@@ -12,6 +12,7 @@ public class Node
     public int hp;
     public int age;
     public bool isDead;
+    public Sprite profileImage;
     public Dictionary<string, string>[] type;
     public bool empty;
     public Node(){
