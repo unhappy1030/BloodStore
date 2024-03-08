@@ -67,7 +67,8 @@ public class EmptyDisplay : MonoBehaviour
             hp = nodeSO.node.hp,
             age = nodeSO.node.age,
             isDead = nodeSO.node.isDead,
-            empty = false
+            empty = false,
+            imageIdx = nodeSO.node.imageIdx,
         };
         group.pairTree.MakePair(node);
         group.pairTree.pair.isPair = true;

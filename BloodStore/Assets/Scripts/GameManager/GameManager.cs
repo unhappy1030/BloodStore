@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
     public Pairs pairList;
     public BloodPacks bloodPackList;
     public SaveData saveData;
+    public ImageLoad imageLoad;
 
     public TutorialControl tutorialControl;
     public Tutorial tutorial;
@@ -116,6 +117,7 @@ public class GameManager : MonoBehaviour
         pairList = GetComponent<Pairs>();
         bloodPackList = GetComponent<BloodPacks>();
         saveData = GetComponent<SaveData>();
+        imageLoad = GetComponent<ImageLoad>();
         tutorialControl = GetComponent<TutorialControl>();
 
         yarnControl = GetComponentInChildren<YarnControl>();

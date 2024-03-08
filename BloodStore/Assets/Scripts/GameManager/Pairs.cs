@@ -48,10 +48,12 @@ public class Pairs : MonoBehaviour
         else{
             pairs = new();
         }
+        GameManager.Instance.imageLoad.LoadImageUseCount(pairs);
         return this;
     }
     public Pairs LoadNew(){
         pairs = new();
+        GameManager.Instance.imageLoad.LoadImageUseCount(pairs);
         return this;
     }
     public Pairs LoadFile(string folderName){
@@ -71,6 +73,7 @@ public class Pairs : MonoBehaviour
         else{
             pairs = new();
         }
+        GameManager.Instance.imageLoad.LoadImageUseCount(pairs);
         Save();
         return this;
     }
@@ -301,6 +304,7 @@ public class PairTree
             isDead = false,
             empty = false,
         };
+        node.imageIdx = GameManager.Instance.imageLoad.GetSpriteIndex(node.sex);
         return node;
     }
     private string GenerateRandomName()
