@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: NodeSo
   m_EditorClassIdentifier: 
   node:
+    profileImages: {fileID: 11400000, guid: ad0b14c49db7a2045a462595df8cb1de, type: 2}
     name: Hank
     sex: Female
     bloodType:
@@ -22,4 +23,5 @@ MonoBehaviour:
     hp: 100
     age: 40
     isDead: 0
+    profileImage: {fileID: 0}
     empty: 1

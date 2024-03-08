@@ -30,6 +30,8 @@ public class SelectableCardDisplay : MonoBehaviour
         nameLabel.text = card.name;
         sexLabel.text = card.sex;
         bloodTypeLabel.text = "BloodType : " + card.bloodType[0];
+        Image image = transform.GetChild(0).GetComponent<Image>();
+        GameManager.Instance.imageLoad.SetSprite(card.sex, card.imageIdx, image);
         CheckCost(card);
     }
     public void CheckCost(SelectableCard card){

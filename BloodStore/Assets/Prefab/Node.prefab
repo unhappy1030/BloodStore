@@ -92,7 +92,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 893609730578207538}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d92c5f56db73404a871339739e60667, type: 3}
   m_Name: 
@@ -298,6 +298,7 @@ MonoBehaviour:
     hp: 0
     age: 0
     isDead: 0
+    imageIdx: 0
     empty: 1
   textLabel: {fileID: 6120831331352998388}
 --- !u!1 &8611605383358798138

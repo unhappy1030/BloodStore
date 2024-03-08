@@ -12,7 +12,7 @@ public class Node
     public int hp;
     public int age;
     public bool isDead;
-    public Dictionary<string, string>[] type;
+    public int imageIdx;
     public bool empty;
     public Node(){
         empty = true;
@@ -46,6 +46,7 @@ public class Node
         this.age = Random.Range(20, 36);
         this.isDead = false;
         this.empty = false;
+        this.imageIdx = GameManager.Instance.imageLoad.GetSpriteIndex(this.sex);
     }
 
     private string GenerateRandomName()
@@ -86,6 +87,7 @@ public class NodeSO : ScriptableObject
             age = card.age,
             isDead = card.isDead,
             empty = false,
+            imageIdx = card.imageIdx,
         };
     }
 }

@@ -13,8 +13,7 @@ public class SelectableCard
     public int age;
     public int cost;
     public bool isDead;
-
-    // public Dictionary<string,string>[] type;
+    public int imageIdx;
 
     public void SetAllRandom(){
         this.name = GenerateRandomName();
@@ -24,6 +23,7 @@ public class SelectableCard
         this.age = Random.Range(20, 36);
         this.cost = Random.Range(5, 21);
         this.isDead = false;
+        this.imageIdx = GameManager.Instance.imageLoad.GetSpriteIndex(this.sex);
     }
     private string GenerateRandomName()
     {

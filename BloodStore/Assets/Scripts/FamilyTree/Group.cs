@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting.Dependencies.NCalc;
 using System.Net;
+using Unity.VisualScripting;
 
 public class Group : MonoBehaviour
 {
@@ -105,6 +106,8 @@ public class Group : MonoBehaviour
                 inter._familyTreeType = FamilyTreeType.Node;
                 NodeDisplay nodeDisplay = display.GetComponent<NodeDisplay>();
                 nodeDisplay.SetNodeData(node);
+                SpriteRenderer spriteRenderer = display.transform.GetChild(0).GetComponent<SpriteRenderer>();
+                GameManager.Instance.imageLoad.SetSprite(node.sex, node.imageIdx, spriteRenderer);
                 nodeDisplay.MakeBoxCollider();
                 BoxCollider2D box = nodeDisplay.gameObject.GetComponent<BoxCollider2D>();
                 box.enabled = false;
