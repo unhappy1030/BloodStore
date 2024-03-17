@@ -24,6 +24,9 @@ public class BloodSellProcess : MonoBehaviour
 
     void Start(){
         notAbleFilterCanvas.SetActive(false);
+        selectBloodPackObj.enabled = true;
+        filteringObj.enabled = false;
+        
         isBloodSelected = false;
         isFiltered = false;
         isBloodSellFinish = false;
