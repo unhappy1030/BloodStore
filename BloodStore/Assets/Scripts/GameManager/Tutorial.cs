@@ -18,6 +18,10 @@ public class Tutorial : MonoBehaviour
     public TutorialControl tutorialControl;
 
     void Start(){
+        StartCoroutine(WaitUntilAllsettingsdone());
+    }
+
+    IEnumerator WaitUntilAllsettingsdone(){
         uiIndex = 0;
 
         tutorialCanvas.SetActive(false);
@@ -29,6 +33,12 @@ public class Tutorial : MonoBehaviour
         leftButton.SetActive(false);
         rightButton.SetActive(true);
         endButton.SetActive(false);
+        
+        if(GameManager.Instance.isSceneLoadEnd)
+            yield return new WaitUntil(() => !GameManager.Instance.isSceneLoadEnd);
+        yield return new WaitUntil(() => GameManager.Instance.isSceneLoadEnd);
+
+        yield return new WaitForSeconds(0.5f);
 
         if(GameManager.Instance.isTurotial
             && tutorialControl.tutorialEndStatus.ContainsKey(SceneManager.GetActiveScene().name) 

@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public string loadfileName = "";
     public string lastSceneName = "";
     public bool isFading = false;
+    public bool isSceneLoadEnd = false;
     public bool ableToFade = false;
     bool wasFade = false;
     public bool isFirstPlay = true;
@@ -226,6 +227,8 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator FadeOutAndLoadScene(string sceneName, float second)
     {
+        isFading = true;
+
         if (Application.CanStreamedLevelBeLoaded(sceneName))
         {
             yield return StartCoroutine(FadeInUI(blackPanel, second));
@@ -236,25 +239,34 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("There is no scene in build...");
         }
+        
+        isFading = false;
     }
 
+    IEnumerator FadeInAndLoadScene(){
+        yield return FadeOutUI(blackPanel, 1f);
+        isSceneLoadEnd = true;
+    }
+    
     public IEnumerator WaitUntilAbleSceneLoad(){
+        isSceneLoadEnd = false;
         blackPanel.gameObject.SetActive(true);
         
         yield return new WaitUntil(() => ableToFade);
 
         if(wasFade)
         {
-            yield return FadeOutUI(blackPanel, 1f);
+            StartCoroutine(FadeInAndLoadScene());
         }
         else
         {
             blackPanel.gameObject.SetActive(false);
+            isSceneLoadEnd = true;
         }
 
         ableToFade = false;
     }
-    
+
     public void CreateVirtualCamera(GameObject target, bool doesUSeBound, Collider2D bound, float lensOthoSize, float hold, Cinemachine.CinemachineBlendDefinition.Style style, float blendTime){
         InteractObjInfo interactObjInfo = cameraControl.gameObject.GetComponent<InteractObjInfo>();
         if(interactObjInfo == null){

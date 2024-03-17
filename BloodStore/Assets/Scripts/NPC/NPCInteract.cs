@@ -61,9 +61,9 @@ public class NPCInteract : MonoBehaviour
         
         GameManager.Instance.ableToFade = true;
 
-        if(!GameManager.Instance.isFading)
-            yield return new WaitUntil(() => GameManager.Instance.isFading);
-        yield return new WaitUntil(() => !GameManager.Instance.isFading);
+        if(GameManager.Instance.isSceneLoadEnd)
+            yield return new WaitUntil(() => !GameManager.Instance.isSceneLoadEnd);
+        yield return new WaitUntil(() => GameManager.Instance.isSceneLoadEnd);
 
         yield return new WaitForSeconds(0.5f);
         
