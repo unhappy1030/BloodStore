@@ -19,6 +19,7 @@ public class ResultStore : MonoBehaviour
     private void Start()
     {
         ChangeStoreResultTexts();
+        GameManager.Instance.ableToFade = true;
     }
 
     public void ChangeStoreResultTexts(){

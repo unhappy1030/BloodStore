@@ -122,17 +122,23 @@ public class NodeInteraction : MonoBehaviour
         yield return new WaitUntil(() => CameraControl.isFinish);
 
         GameManager.Instance.ableToFade = true;
-        yield return new WaitUntil(() => !GameManager.Instance.isFading);
         
-        StartCoroutine(WaitUntilTutorialEnds());
+        if(!GameManager.Instance.isFading)
+            yield return new WaitUntil(() => GameManager.Instance.isFading);
+        yield return new WaitUntil(() => !GameManager.Instance.isFading);
+
+        yield return new WaitForSeconds(0.5f);
+        
+        yield return StartCoroutine(WaitUntilTutorialEnds());
+
+        StartCoroutine(StartFamilyTreeDialogues());
     }
 
     IEnumerator WaitUntilTutorialEnds(){
         if(GameManager.Instance.isTurotial){
             yield return new WaitUntil(() => tutorial.isTutorialFinish);
+            yield return new WaitForSeconds(0.5f); 
         }
-
-        StartCoroutine(StartFamilyTreeDialogues());
     }
 
     IEnumerator StartFamilyTreeDialogues(){
@@ -146,7 +152,7 @@ public class NodeInteraction : MonoBehaviour
                 GameManager.Instance.StartDialogue(dialogueControl.allDialogues[dialogueControl.npcIndex].dialogueName);
                 yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
                 
-                yield return new WaitForSeconds(1.5f); 
+                yield return new WaitForSeconds(1f); 
                 dialogueControl.npcIndex++;
             }
         }
