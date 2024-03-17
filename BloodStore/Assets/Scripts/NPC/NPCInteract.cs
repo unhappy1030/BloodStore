@@ -36,18 +36,7 @@ public class NPCInteract : MonoBehaviour
     BloodSellStatus sellStatus;
 
     void Start(){
-        sellStatus = BloodSellStatus.None;
-
-        // npcs = dialogueControl.npcs; // test
-        CameraControl.targetsForYarn = new(cameraTarget);
-
-        npc.SetActive(false);
-
-        endSellProcessButton.SetActive(false);
-        bloodPackCanvas.SetActive(false);
-        nextDayButton.SetActive(false);
-
-        StartCoroutine(WaitUntilTutorialEnds());
+        StartCoroutine(WaitUntilAllsettingsdone());
     }
 
     private void OnDestroy()
@@ -58,13 +47,36 @@ public class NPCInteract : MonoBehaviour
         }
     }
 
+     IEnumerator WaitUntilAllsettingsdone(){
+        sellStatus = BloodSellStatus.None;
+
+        // npcs = dialogueControl.npcs; // test
+        CameraControl.targetsForYarn = new(cameraTarget);
+
+        npc.SetActive(false);
+
+        endSellProcessButton.SetActive(false);
+        bloodPackCanvas.SetActive(false);
+        nextDayButton.SetActive(false);
+        
+        GameManager.Instance.ableToFade = true;
+
+        if(GameManager.Instance.isSceneLoadEnd)
+            yield return new WaitUntil(() => !GameManager.Instance.isSceneLoadEnd);
+        yield return new WaitUntil(() => GameManager.Instance.isSceneLoadEnd);
+
+        yield return new WaitForSeconds(0.5f);
+        
+        yield return StartCoroutine(WaitUntilTutorialEnds());
+        
+        StartCoroutine(GetStoreDialogues());
+    }
+
     IEnumerator WaitUntilTutorialEnds(){
         if(GameManager.Instance.isTurotial){
             yield return new WaitUntil(() => tutorial.isTutorialFinish);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
         }
-        
-        StartCoroutine(GetStoreDialogues());
     }
     
     IEnumerator GetStoreDialogues(){
@@ -76,7 +88,7 @@ public class NPCInteract : MonoBehaviour
                 GameManager.Instance.StartDialogue(dialogueControl.allDialogues[dialogueControl.npcIndex].dialogueName);
                 yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
                 
-                yield return new WaitForSeconds(1.5f); 
+                yield return new WaitForSeconds(1f); 
                 dialogueControl.npcIndex++;
             }
         }

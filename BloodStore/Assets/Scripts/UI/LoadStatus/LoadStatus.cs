@@ -13,5 +13,7 @@ public class LoadStatus : MonoBehaviour
         averagePoint = (float)Mathf.Round(averagePoint * 100.0f) / 100.0f;
         pointLabel.text = "Point : " + averagePoint.ToString();
         moneyLabel.text = "Money : " + GameManager.Instance.money;
+
+        GameManager.Instance.ableToFade = true;
     }
 }

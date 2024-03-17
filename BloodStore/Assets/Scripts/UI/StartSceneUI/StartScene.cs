@@ -21,12 +21,17 @@ public class StartScene : MonoBehaviour
             askTutorialCanvas.SetActive(false);
             startCanvas.SetActive(false);
             gameCanvas.SetActive(false);
+
+            GameManager.Instance.ableToFade = true;
+            
             StartCoroutine(WaitUntilIntro(time));
         }
         else
         {
             startCanvas.SetActive(true);
             gameCanvas.SetActive(false);
+            
+            GameManager.Instance.ableToFade = true;
         }
     }
 
