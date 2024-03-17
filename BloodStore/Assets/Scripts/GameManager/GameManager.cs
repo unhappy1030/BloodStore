@@ -22,7 +22,8 @@ public class GameManager : MonoBehaviour
     public int day = 0;
     public string loadfileName = "";
     public string lastSceneName = "";
-    public bool isFading = false; 
+    public bool isFading = false;
+    public bool ableToFade = false;
     bool wasFade = false;
     public bool isFirstPlay = true;
     public bool isTurotial = false;
@@ -178,10 +179,7 @@ public class GameManager : MonoBehaviour
         whitePanel.gameObject.SetActive(false);
         blackPanel.gameObject.SetActive(false);
         
-        // Fade in
-        if (wasFade){
-            StartCoroutine(FadeOutUI(blackPanel, 1f));
-        }
+        StartCoroutine(WaitUntilAbleSceneLoad());
     }
 
     void OnSceneUnloaded(Scene currentScene)
@@ -238,6 +236,23 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("There is no scene in build...");
         }
+    }
+
+    public IEnumerator WaitUntilAbleSceneLoad(){
+        blackPanel.gameObject.SetActive(true);
+        
+        yield return new WaitUntil(() => ableToFade);
+
+        if(wasFade)
+        {
+            yield return FadeOutUI(blackPanel, 1f);
+        }
+        else
+        {
+            blackPanel.gameObject.SetActive(false);
+        }
+
+        ableToFade = false;
     }
     
     public void CreateVirtualCamera(GameObject target, bool doesUSeBound, Collider2D bound, float lensOthoSize, float hold, Cinemachine.CinemachineBlendDefinition.Style style, float blendTime){
