@@ -75,7 +75,7 @@ public class PackingUI : MonoBehaviour
     }
     void SetYearTMP(){
         yearTMP.text = count.ToString();
-        yearCostTMP.text = "Cost :" + (count * yearCost).ToString() + " $";
+        yearCostTMP.text = (count * yearCost).ToString() + " $";
         SetTotalCost();
         totalCostTMP.text = totalCost.ToString() + " $";
     }
