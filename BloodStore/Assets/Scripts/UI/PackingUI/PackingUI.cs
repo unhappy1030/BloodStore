@@ -11,11 +11,15 @@ public class PackingUI : MonoBehaviour
     public int count;
     public float money;
     public float yearCost = 50;
-    public float addtionalCost;
+    public float peopleTotalCost;
+    public int[] peopleNums = new int[]{0, 0 ,0};
+    public float[] peopleCosts = new float[]{0, 0 ,0};
     public float totalCost;
     public TextMeshProUGUI yearTMP;
     public TextMeshProUGUI yearCostTMP;
-    public TextMeshProUGUI addtionalCostTMP;
+    public TextMeshProUGUI peopleTotalCostTMP;
+    public List<TextMeshProUGUI> peopleNumsTMP;
+    public List<TextMeshProUGUI> peopleCostsTMP;
     public TextMeshProUGUI totalCostTMP;
     public GameObject treeManager;
     private TreeManager tree;
@@ -35,9 +39,9 @@ public class PackingUI : MonoBehaviour
     }
     public void SetCountUp(){
         this.money = GameManager.Instance.money;
-        addtionalCost = GetAdditionalCost();
-        if(money >= addtionalCost){
-            money -= addtionalCost;
+        peopleTotalCost = GetAdditionalCost();
+        if(money >= peopleTotalCost){
+            money -= peopleTotalCost;
             int maxCount = (int)money / (int)yearCost;
             if(maxCount > count && count < 10){
                 count++;
@@ -54,20 +58,23 @@ public class PackingUI : MonoBehaviour
     public void SetFirstValue(){
         this.money = GameManager.Instance.money;
         count = 0;
-        addtionalCost = GetAdditionalCost();
-        if(money >= addtionalCost){
-            money -= addtionalCost;
+        peopleTotalCost = GetAdditionalCost();
+        if(money >= peopleTotalCost){
+            money -= peopleTotalCost;
             count = (int)money / (int)yearCost;
             if(count > 10){
                 count = 10;
             }
         }
         SetYearTMP();
-        addtionalCostTMP.text = addtionalCost.ToString() + " $";
-
+        peopleTotalCostTMP.text = peopleTotalCost.ToString() + " $";
+        for(int i = 0; i < 3; i++){
+            peopleNumsTMP[i].text = peopleNums[i].ToString();
+            peopleCostsTMP[i].text = peopleCosts[i].ToString();
+        }
     }
     void SetYearTMP(){
-        yearTMP.text = "< " + count.ToString() + " >";
+        yearTMP.text = count.ToString();
         yearCostTMP.text = "Cost :" + (count * yearCost).ToString() + " $";
         SetTotalCost();
         totalCostTMP.text = totalCost.ToString() + " $";
@@ -77,7 +84,7 @@ public class PackingUI : MonoBehaviour
             totalCost = 0;
         }
         else{
-            totalCost = (count * yearCost) + addtionalCost;
+            totalCost = (count * yearCost) + peopleTotalCost;
         }
     }
 
@@ -108,12 +115,18 @@ public class PackingUI : MonoBehaviour
     }   
     private float GetCostByAge(int age){
         if(age >= 16 && age < 35){
+            peopleNums[0] += 1;
+            peopleCosts[0] += 5;
             return 5;
         }
         else if(age >= 35 && age < 65){
+            peopleNums[1] += 1;
+            peopleCosts[1] += 10;
             return 10;
         }
         else if(age >= 65){
+            peopleNums[2] += 1;
+            peopleCosts[2] += 15;
             return 15;
         }
         else{
