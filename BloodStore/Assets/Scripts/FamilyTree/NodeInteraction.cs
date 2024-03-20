@@ -740,5 +740,26 @@ public class NodeInteraction : MonoBehaviour
             }
         }
     }
+    Group SetFirstGroup(Group root)
+    {
+        Queue<Group> queue = new Queue<Group>();
+        queue.Enqueue(root);
+        while (queue.Count > 0)
+        {
+            Group current = queue.Dequeue();
+            if(!root.pairTree.pair.male.empty && !root.pairTree.pair.male.isDead
+            || !root.pairTree.pair.female.empty && !root.pairTree.pair.female.isDead){
+                return current;
+            }
+            if (current.childrenGroup != null)
+            {
+                foreach (Group child in current.childrenGroup)
+                {
+                    queue.Enqueue(child);
+                }
+            }
+        }
+        return root;
+    }
 }
 
