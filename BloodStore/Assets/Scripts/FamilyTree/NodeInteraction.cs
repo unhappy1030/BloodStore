@@ -78,18 +78,7 @@ public class NodeInteraction : MonoBehaviour
     public YarnControl yarnControl;
 
     void Start(){
-        // treeManagerTest = FindObjectOfType<TreeManagerTest>();
-        tree = treeManager.GetComponent<TreeManager>();
-        nodeInfoCanvas.SetActive(false);
-
-        wasNodeActived = false;
-        wasRoot = false;
-        mouseMoveCheck = false;
-        nodeShowingStatus = NodeShowingStatus.ShowTotal; // test
-        uiStatus = UIStatus.None;
-        nodeInteractionStatus = NodeInteractionStatus.None;
-
-        StartCoroutine(WaitUntilTutorialEnds());
+        StartCoroutine(WaitUntilAllsettingsdone());
     }
 
     void Update(){
@@ -97,6 +86,7 @@ public class NodeInteraction : MonoBehaviour
 
         if(!dialogueRunner.IsDialogueRunning 
             && !GameManager.Instance.isFading
+            && tutorial.isTutorialFinish
             // && !cameraControl.mainCam.IsBlending
             && !UIControl.isPause)
         {
@@ -111,18 +101,44 @@ public class NodeInteraction : MonoBehaviour
         }
     }
 
-    IEnumerator WaitUntilTutorialEnds(){
-        if(GameManager.Instance.isTurotial){
-            yield return new WaitUntil(() => tutorial.isTutorialFinish);
-        }
-        
+    IEnumerator WaitUntilAllsettingsdone(){
+        // treeManagerTest = FindObjectOfType<TreeManagerTest>();
+        tree = treeManager.GetComponent<TreeManager>();
+        nodeInfoCanvas.SetActive(false);
+
+        wasNodeActived = false;
+        wasRoot = false;
+        mouseMoveCheck = false;
+        nodeShowingStatus = NodeShowingStatus.ShowTotal; // test
+        uiStatus = UIStatus.None;
+        nodeInteractionStatus = NodeInteractionStatus.None;
+
         // ShowTotal();
         currentSelectGroup = tree.mainGroup.transform.GetChild(0).gameObject.GetComponent<Group>();
         currentSelectGroup.highLight.SetActive(true);
         ShowGroup(currentSelectGroup);
         AbleKeyInput(currentSelectGroup);
 
+        yield return new WaitUntil(() => CameraControl.isFinish);
+
+        GameManager.Instance.ableToFade = true;
+        
+        if(GameManager.Instance.isSceneLoadEnd)
+            yield return new WaitUntil(() => !GameManager.Instance.isSceneLoadEnd);
+        yield return new WaitUntil(() => GameManager.Instance.isSceneLoadEnd);
+
+        yield return new WaitForSeconds(0.5f);
+        
+        yield return StartCoroutine(WaitUntilTutorialEnds());
+
         StartCoroutine(StartFamilyTreeDialogues());
+    }
+
+    IEnumerator WaitUntilTutorialEnds(){
+        if(GameManager.Instance.isTurotial){
+            yield return new WaitUntil(() => tutorial.isTutorialFinish);
+            yield return new WaitForSeconds(0.5f); 
+        }
     }
 
     IEnumerator StartFamilyTreeDialogues(){
@@ -136,7 +152,7 @@ public class NodeInteraction : MonoBehaviour
                 GameManager.Instance.StartDialogue(dialogueControl.allDialogues[dialogueControl.npcIndex].dialogueName);
                 yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
                 
-                yield return new WaitForSeconds(1.5f); 
+                yield return new WaitForSeconds(1f); 
                 dialogueControl.npcIndex++;
             }
         }
