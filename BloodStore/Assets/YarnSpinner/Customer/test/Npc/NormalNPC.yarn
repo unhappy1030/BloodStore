@@ -5,8 +5,7 @@ position: -1,0
 <<declare $taste = "">>
 
 <<set $taste = GetBloodTaste()>>
-This is normal NPC test.
-npc: {$taste}
+Customer: {$taste}
 
 <<WaitUntilVirtualCamBlend 1>>
 <<SetIsSell DialogueSystem true>>
@@ -16,12 +15,26 @@ title: SellTest
 position: -104,0
 ---
 <<declare $price = 0>>
+<<declare $rating = 0>>
 <<set $price = GetSellPrice()>>
+<<set $rating = GetSellInfo()>>
 
 
 <<WaitUntilVirtualCamBlend 0>>
-npc: Total Point is {GetSellInfo()}
-npc: Earn {$price}
+<<if $rating >= 4>>
+    Customer: Thanks! This is really nice.
+<<elseif $rating >= 3>>
+    Customer: Thank you. It's nice.
+<<elseif $rating >= 2>>
+    Customer: I guess things didn't turn out as I had hoped.
+<<elseif $rating >= 1>>
+    Customer: This is really disappointing...
+<<else>>
+    Customer: This is really terrible...
+<<endif>>
+
+// Customer: Total Point is {GetSellInfo()}
+// Customer: Earn {$price}
 <<CalculateMoney DialogueSystem {$price}>>
 // <<if GetSellInfo() >= 2.5>>
 //     npc: more than 2.5
@@ -30,6 +43,4 @@ npc: Earn {$price}
 // <<else>>
 //     npc: something worng...
 // <<endif>>
-
-npc: end dialogue...
 ===
