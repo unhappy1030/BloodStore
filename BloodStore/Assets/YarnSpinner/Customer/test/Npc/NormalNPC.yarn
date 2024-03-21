@@ -22,11 +22,15 @@ position: -104,0
 
 <<WaitUntilVirtualCamBlend 0>>
 <<if $rating >= 4>>
-    Customer: Thanks! It is really nice.
+    Customer: Thanks! This is really nice.
 <<elseif $rating >= 3>>
+    Customer: Thank you. It's nice.
+<<elseif $rating >= 2>>
     Customer: I guess things didn't turn out as I had hoped.
-<<else>>
+<<elseif $rating >= 1>>
     Customer: This is really disappointing...
+<<else>>
+    Customer: This is really terrible...
 <<endif>>
 
 // Customer: Total Point is {GetSellInfo()}
