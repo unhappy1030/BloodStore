@@ -114,7 +114,7 @@ public class NodeInteraction : MonoBehaviour
         nodeInteractionStatus = NodeInteractionStatus.None;
 
         // ShowTotal();
-        currentSelectGroup = tree.mainGroup.transform.GetChild(0).gameObject.GetComponent<Group>();
+        currentSelectGroup = SetFirstGroup(tree.mainGroup.transform.GetChild(0).gameObject.GetComponent<Group>());
         currentSelectGroup.highLight.SetActive(true);
         ShowGroup(currentSelectGroup);
         AbleKeyInput(currentSelectGroup);
@@ -747,8 +747,8 @@ public class NodeInteraction : MonoBehaviour
         while (queue.Count > 0)
         {
             Group current = queue.Dequeue();
-            if(!root.pairTree.pair.male.empty && !root.pairTree.pair.male.isDead
-            || !root.pairTree.pair.female.empty && !root.pairTree.pair.female.isDead){
+            if((!current.pairTree.pair.male.empty && !current.pairTree.pair.male.isDead)
+            || (!current.pairTree.pair.female.empty && !current.pairTree.pair.female.isDead)){
                 return current;
             }
             if (current.childrenGroup != null)
