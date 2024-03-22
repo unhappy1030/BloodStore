@@ -11,6 +11,8 @@ public class MoneyControl : MonoBehaviour
     public float spending;
     public TextMeshProUGUI moneyText;
 
+    public MoneyUI moneyUI; // assign at inspector
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -54,7 +56,7 @@ public class MoneyControl : MonoBehaviour
         {
             spending += amount;
         }
-
+        moneyUI.StartCoroutine(moneyUI.ShowMoneyTextAnimation(amount));
         UpdateMoneyUI();
         return GameManager.Instance.money;
     }

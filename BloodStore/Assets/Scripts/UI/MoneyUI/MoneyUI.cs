@@ -40,10 +40,6 @@ public class MoneyUI : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    void Start(){
-        StartCoroutine(Test());
-
-    }
 
     IEnumerator Test(){
         yield return new WaitForSeconds(5);
