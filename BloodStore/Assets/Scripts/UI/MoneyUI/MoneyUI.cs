@@ -11,7 +11,6 @@ public class MoneyUI : MonoBehaviour
     public GameObject moneyPanel;
     public GameObject textParent;
     public GameObject moneyText;
-    public GameObject ratingText;
 
     private void OnEnable()
     {
@@ -32,22 +31,11 @@ public class MoneyUI : MonoBehaviour
         }
         
         moneyText.gameObject.SetActive(false);
-        ratingText.gameObject.SetActive(false);
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-
-    IEnumerator Test(){
-        yield return new WaitForSeconds(5);
-        StartCoroutine(ShowMoneyTextAnimation(300));
-        yield return new WaitForSeconds(2);
-        StartCoroutine(ShowMoneyTextAnimation(-300));
-        yield return new WaitForSeconds(0.5f);
-        StartCoroutine(ShowMoneyTextAnimation(-400000000));
     }
 
     public IEnumerator ShowMoneyTextAnimation(float num){
@@ -77,11 +65,4 @@ public class MoneyUI : MonoBehaviour
         newText.SetActive(false);
         Destroy(newText);
     }
-
-    // public void ShowRatingTextAnimation(float num){
-    //     ratingText.gameObject.SetActive(true);
-    //     ratingText.text = num.ToString();
-    //     ratingText.color = (num >= 2.5) ? Color.green : Color.red;
-    //     ratingText.gameObject.SetActive(false);
-    // }
 }

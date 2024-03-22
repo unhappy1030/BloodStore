@@ -27,6 +27,7 @@ public class NPCInteract : MonoBehaviour
     public DialogueRunner dialogueRunner;
     public BloodSellProcess bloodSellProcess; // assign at inspector
     public Tutorial tutorial; // assign at inspector
+    public RatingTextControl ratingTextControl; // assign at inspector
 
     Coroutine npcCoroutine;
 
@@ -141,6 +142,7 @@ public class NPCInteract : MonoBehaviour
                 GameManager.Instance.StartDialogue(yarnControl.nodeName); // tell their evaluation or end dialogue
                 yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
                 yarnControl.nodeName = "";
+                ratingTextControl.StartCoroutine(ratingTextControl.ShowRatingTextAnimation(YarnControl.sellInfo));
             }
 
             YarnControl.sellInfo = 0;
