@@ -27,9 +27,7 @@ public class MouseRayCast : MonoBehaviour
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D ray = Physics2D.Raycast(mousePos, Vector2.zero, 0f, LayerMask.GetMask("Interact"));
             
-            Debug.Log("Is Collider Null? : " + (ray.collider == null).ToString());
             if (ray.collider != null){
-                Debug.Log("Update in MouseRayCast");
                 MouseInteract(ray.collider.gameObject);
             }
         }

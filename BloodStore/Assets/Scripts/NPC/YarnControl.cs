@@ -119,10 +119,26 @@ public class YarnControl : MonoBehaviour
     // }
 
     
-    [YarnCommand("WaitUntilVirtualCamBlend")]
-    public static IEnumerator WaitUntilVirtualCamBlend(int _targetIndex){
+    [YarnCommand("WaitForFadeIn")]
+    public static IEnumerator WaitForFadeIn(){
+        yield return GameManager.Instance.FadeInUI(GameManager.Instance.blackPanel, 0.5f);
+    }
+    
+    
+    [YarnCommand("WaitForFadeOut")]
+    public static IEnumerator WaitForFadeOut(){
+        yield return GameManager.Instance.FadeOutUI(GameManager.Instance.blackPanel, 0.7f);
+    }
+
+    [YarnCommand("WaitUntilVirtualCamBlend_EaseInOut")]
+    public static IEnumerator WaitUntilVirtualCamBlend_EaseInOut(int _targetIndex){
         GameManager.Instance.CreateVirtualCamera(CameraControl.targetsForYarn[_targetIndex], false, null, 5.4f, 0.25f, Cinemachine.CinemachineBlendDefinition.Style.EaseInOut, 1f);
         yield return new WaitUntil(() => CameraControl.isFinish);
+    }
+
+    [YarnCommand("VirtualCamBlend_Cut")]
+    public void VirtualCamBlend_Cut(int _targetIndex){
+        GameManager.Instance.CreateVirtualCamera(CameraControl.targetsForYarn[_targetIndex], false, null, 5.4f, 0f, Cinemachine.CinemachineBlendDefinition.Style.Cut, 0f);
     }
     
 

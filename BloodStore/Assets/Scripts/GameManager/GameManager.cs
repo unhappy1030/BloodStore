@@ -340,7 +340,7 @@ public class GameManager : MonoBehaviour
         t_color.a = 1;
         _Image.gameObject.SetActive(true);
         Debug.Log("Fade Out Start : "+DateTime.Now.ToString(("yyyy-MM-dd HH:mm:ss.fff")));
-        float x = 1;
+        float x = _second;
 
         while (t_color.a > 0)
         {   
