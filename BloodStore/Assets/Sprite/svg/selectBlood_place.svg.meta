@@ -1,0 +1,90 @@
+fileFormatVersion: 2
+guid: 7e30ae76c32c7644995e62e5bc372e04
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: a57477913897c46af95d590f580878bd, type: 3}
+  svgType: 0
+  texturedSpriteMeshType: 0
+  svgPixelsPerUnit: 100
+  gradientResolution: 64
+  alignment: 0
+  customPivot: {x: 0, y: 0}
+  generatePhysicsShape: 0
+  viewportOptions: 0
+  preserveViewport: 0
+  advancedMode: 0
+  predefinedResolutionIndex: 1
+  targetResolution: 1080
+  resolutionMultiplier: 1
+  stepDistance: 10
+  samplingStepDistance: 100
+  maxCordDeviationEnabled: 0
+  maxCordDeviation: 1
+  maxTangentAngleEnabled: 0
+  maxTangentAngle: 5
+  keepTextureAspectRatio: 1
+  textureSize: 256
+  textureWidth: 256
+  textureHeight: 256
+  wrapMode: 0
+  filterMode: 1
+  sampleCount: 4
+  preserveSVGImageAspect: 0
+  useSVGPixelsPerUnit: 0
+  spriteData:
+    TessellationDetail: 0
+    SpriteRect:
+      name: selectBlood_placeSprite
+      originalName: 
+      pivot: {x: 0.50007755, y: 0.50005305}
+      alignment: 0
+      border: {x: 0, y: 0, z: 0, w: 0}
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1032
+        height: 1225
+      spriteID: 6c553137f1975a84ea14f2ac1abc82e8
+    PhysicsOutlines:
+    - Vertices:
+      - {x: 453.2904, y: 330.266}
+      - {x: 428.99738, y: 375.7149}
+      - {x: 399.20447, y: 419.80176}
+      - {x: 360.30328, y: 464.6565}
+      - {x: 315.6931, y: 505.66028}
+      - {x: 265.802, y: 541.25183}
+      - {x: 222.28217, y: 564.9929}
+      - {x: 171.34143, y: 585.9625}
+      - {x: 119.36603, y: 600.99866}
+      - {x: 66.73346, y: 609.7003}
+      - {x: 17.387634, y: 612.5}
+      - {x: -16.964966, y: 612.5}
+      - {x: -56.81201, y: 607.10046}
+      - {x: -112.72894, y: 602.6887}
+      - {x: -167.45465, y: 587.1267}
+      - {x: -216.68018, y: 567.4862}
+      - {x: -260.19003, y: 544.40466}
+      - {x: -307.58118, y: 512.6461}
+      - {x: -350.86163, y: 474.90112}
+      - {x: -390.9542, y: 431.46704}
+      - {x: -425.45703, y: 381.9065}
+      - {x: -450.8677, y: 335.3974}
+      - {x: -472.4254, y: 283.8722}
+      - {x: -485.5547, y: 236.54071}
+      - {x: -495.57172, y: 183.08167}
+      - {x: -498.86737, y: 123.08124}
+      - {x: -498.17932, y: -518.7621}
+      - {x: -516, y: -518.5361}
+      - {x: -516, y: -612.5}
+      - {x: 516, y: -612.5}
+      - {x: 516, y: -518.92053}
+      - {x: 497.2271, y: -519.01184}
+      - {x: 497.63068, y: 128.17072}
+      - {x: 487.1494, y: 227.94714}
+      - {x: 472.57135, y: 281.88037}
