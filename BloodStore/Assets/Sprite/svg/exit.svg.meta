@@ -8,7 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: a57477913897c46af95d590f580878bd, type: 3}
-  svgType: 0
+  svgType: 4
   texturedSpriteMeshType: 0
   svgPixelsPerUnit: 100
   gradientResolution: 64
@@ -35,20 +35,20 @@ ScriptedImporter:
   filterMode: 1
   sampleCount: 4
   preserveSVGImageAspect: 0
-  useSVGPixelsPerUnit: 0
+  useSVGPixelsPerUnit: 1
   spriteData:
     TessellationDetail: 0
     SpriteRect:
-      name: 
+      name: exitSprite
       originalName: 
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.50006205, y: 0.50009876}
       alignment: 0
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 843, y: 648, z: 817, w: 613}
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 0
-        height: 0
+        width: 3946
+        height: 1378
       spriteID: ea0ae57c41d6ffc4a88756dbebf95975
     PhysicsOutlines: []
