@@ -795,7 +795,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -57.5, y: -194}
-  m_SizeDelta: {x: 100, y: 40}
+  m_SizeDelta: {x: 0, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &79403490
 GameObject:
@@ -1108,7 +1108,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -57.5, y: -126}
-  m_SizeDelta: {x: 100, y: 40}
+  m_SizeDelta: {x: 0, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &111620885
 GameObject:
@@ -1222,7 +1222,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 250, y: 0}
-  m_SizeDelta: {x: 164.54, y: 50}
+  m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &140044626
 Animator:
@@ -1779,7 +1779,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!210 &193522014
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -2080,9 +2080,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1017178223}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -20}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &225424456
@@ -2693,9 +2693,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1455361998}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -20}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &366034363
@@ -3106,9 +3106,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 95334152}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -20}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &428762877
@@ -3475,7 +3475,7 @@ GameObject:
   - component: {fileID: 570847568}
   - component: {fileID: 570847567}
   - component: {fileID: 570847566}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: selectBlood_placeSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3491,7 +3491,7 @@ Transform:
   m_GameObject: {fileID: 570847564}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.2997, y: 2.0003, z: 0}
+  m_LocalPosition: {x: 5.2, y: 2, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3542,7 +3542,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 570847564}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -3568,7 +3568,7 @@ CompositeCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 570847564}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -3606,8 +3606,8 @@ CompositeCollider2D:
         Y: -20763072
       - X: 19902026
         Y: 5124228
-      - X: 19482774
-        Y: 9115286
+      - X: 19552088
+        Y: 8999777
       - X: 18899652
         Y: 11272615
       - X: 18128416
@@ -3675,9 +3675,9 @@ CompositeCollider2D:
     - - {x: 2.0636508, y: -2.45026}
       - {x: 2.0636504, y: -2.075942}
       - {x: 1.9885885, y: -2.0762777}
-      - {x: 1.9902024, y: 0.512424}
-      - {x: 1.9482769, y: 0.9115311}
-      - {x: 1.8899648, y: 1.127263}
+      - {x: 1.9902024, y: 0.51242393}
+      - {x: 1.9552082, y: 0.8999799}
+      - {x: 1.8899648, y: 1.1272628}
       - {x: 1.8128408, y: 1.3208057}
       - {x: 1.7156693, y: 1.5026003}
       - {x: 1.5964963, y: 1.6789488}
@@ -3788,7 +3788,7 @@ PolygonCollider2D:
       - {x: 5.1591997, y: -5.189855}
       - {x: 4.971471, y: -5.1907682}
       - {x: 4.9755063, y: 1.2810571}
-      - {x: 4.8706937, y: 2.2788215}
+      - {x: 4.888022, y: 2.2499442}
       - {x: 4.724913, y: 2.8181536}
   m_UseDelaunayMesh: 0
 --- !u!212 &570847570
@@ -4678,9 +4678,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 77491175}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -20}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &725689583
@@ -5032,75 +5032,6 @@ Transform:
   - {fileID: 752374469}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &856154378
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 856154379}
-  - component: {fileID: 856154381}
-  m_Layer: 7
-  m_Name: SelectBloodPack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &856154379
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 856154378}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.8689995, y: 0.5, z: 0}
-  m_LocalScale: {x: 1.424, y: 2.0135999, z: 0}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1707180004}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &856154381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 856154378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf504a0c7fba3554da375faa441ddc07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interactType: 4
-  _cameraMovementType: 0
-  _cameraType: 0
-  _virtualCam:
-    targets: []
-    doseUseBound: 0
-    bound: {fileID: 0}
-    lensOthoSize: 0
-    blendInfo:
-      hold: 0
-      blendIn: 0
-      blendTime: 0
-  _blendListCam:
-    subCams: []
-    doseUseBound: 0
-    bound: {fileID: 0}
-    blendInfo:
-      hold: 0
-      blendIn: 0
-      blendTime: 0
-  _nodeName: 
-  _familyTreeType: 0
-  _ui: {fileID: 281990388}
-  _isFade: 0
-  _sceneName: 
 --- !u!1 &916707383
 GameObject:
   m_ObjectHideFlags: 0
@@ -5579,7 +5510,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -90, y: -59}
-  m_SizeDelta: {x: 100, y: 40}
+  m_SizeDelta: {x: 0, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1028115940
 GameObject:
@@ -5613,9 +5544,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1433791804}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -20}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1028115942
@@ -5882,9 +5813,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1164796749}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 65, y: -20}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 130, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1057700483
@@ -6628,7 +6559,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -75, y: -135}
-  m_SizeDelta: {x: 130, y: 40}
+  m_SizeDelta: {x: 0, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1167024178
 GameObject:
@@ -6916,9 +6847,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1857603406}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -20}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1291644992
@@ -7189,7 +7120,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 30}
-  m_SizeDelta: {x: 382.24, y: 123.02}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1305795773
 MonoBehaviour:
@@ -7346,9 +7277,9 @@ RectTransform:
   m_Father: {fileID: 193522019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -0.00012207031}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1355565875
 MonoBehaviour:
@@ -7587,7 +7518,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -39, y: -59}
-  m_SizeDelta: {x: 100, y: 40}
+  m_SizeDelta: {x: 0, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1451856082
 GameObject:
@@ -7774,7 +7705,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -39, y: -135}
-  m_SizeDelta: {x: 100, y: 40}
+  m_SizeDelta: {x: 0, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1452789670
 GameObject:
@@ -8095,7 +8026,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -57.5, y: -255}
-  m_SizeDelta: {x: 100, y: 40}
+  m_SizeDelta: {x: 0, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1521381062
 GameObject:
@@ -8310,8 +8241,8 @@ MonoBehaviour:
   isFix: 0
   filteringCanvas: {fileID: 79403490}
   notAbleFilterCanvas: {fileID: 650510516}
-  selectBloodPackObj: {fileID: 0}
-  filteringObj: {fileID: 0}
+  selectBloodPackObj: {fileID: 570847569}
+  filteringObj: {fileID: 1986493971}
   moneyControl: {fileID: 0}
   bloodPackUITest: {fileID: 1167024180}
   bloodPackCount: {fileID: 2018299558}
@@ -8786,9 +8717,8 @@ Transform:
   m_Children:
   - {fileID: 2107475933}
   - {fileID: 559100697}
-  - {fileID: 856154379}
-  - {fileID: 1986493966}
   - {fileID: 570847565}
+  - {fileID: 1986493966}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1708424042
@@ -10073,7 +10003,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -57.5, y: -62}
-  m_SizeDelta: {x: 100, y: 40}
+  m_SizeDelta: {x: 0, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1883985743
 GameObject:
@@ -11397,9 +11327,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1451856088}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -20}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2116259790

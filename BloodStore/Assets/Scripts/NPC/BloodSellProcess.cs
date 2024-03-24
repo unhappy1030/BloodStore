@@ -14,8 +14,8 @@ public class BloodSellProcess : MonoBehaviour
     public GameObject filteringCanvas; // assign at inspector
     public GameObject notAbleFilterCanvas; // assign at inspector
 
-    public BoxCollider2D selectBloodPackObj;
-    public BoxCollider2D filteringObj;
+    public Collider2D selectBloodPackObj;
+    public Collider2D filteringObj;
 
     public MoneyControl moneyControl;
     public BloodPackUITest bloodPackUITest; // assign at inspector
