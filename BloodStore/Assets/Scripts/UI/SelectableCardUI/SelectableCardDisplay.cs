@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VectorGraphics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,14 +38,16 @@ public class SelectableCardDisplay : MonoBehaviour
     public void CheckCost(SelectableCard card){
         Button button = this.GetComponent<Button>();
         if(card.cost > GameManager.Instance.money){
-            button.image.color = disabledColor;
+            SVGImage svg = button.GetComponent<SVGImage>();
+            svg.color = disabledColor;
             for(int i = 0; i < gameObject.transform.childCount; i++){
                 gameObject.transform.GetChild(i).gameObject.SetActive(false);
             }
             costCheck = false;
         }
         else{
-            button.image.color = Color.white;
+            SVGImage svg = button.GetComponent<SVGImage>();
+            svg.color = Color.white;
             for(int i = 0; i < gameObject.transform.childCount; i++){
                 gameObject.transform.GetChild(i).gameObject.SetActive(true);
             }
