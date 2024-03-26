@@ -7,9 +7,11 @@ position: -1,0
 <<set $taste = GetBloodTaste()>>
 Customer: {$taste}
 
-<<WaitUntilVirtualCamBlend 1>>
+<<WaitForFadeIn>>
+<<VirtualCamBlend_Cut DialogueSystem 1>>
 <<SetIsSell DialogueSystem true>>
 <<SetNodeName DialogueSystem SellTest>>
+<<WaitForFadeOut>>
 ===
 title: SellTest
 position: -104,0
@@ -19,8 +21,10 @@ position: -104,0
 <<set $price = GetSellPrice()>>
 <<set $rating = GetSellInfo()>>
 
+<<WaitForFadeIn>>
+<<VirtualCamBlend_Cut DialogueSystem 0>>
+<<WaitForFadeOut>>
 
-<<WaitUntilVirtualCamBlend 0>>
 <<if $rating >= 4>>
     Customer: Thanks! This is really nice.
 <<elseif $rating >= 3>>
