@@ -22,7 +22,7 @@ public class ResultMoney : MonoBehaviour
         earningText.text = "Earning : " + moneyControl.earning.ToString();
         spendingText.text = "Spending : " + moneyControl.spending.ToString();
         resultText.text = "Result : " + (moneyControl.earning + moneyControl.spending).ToString();
-        currentMoneyText.text = GameManager.Instance.money.ToString();
+        currentMoneyText.text = "Current Money : " + GameManager.Instance.money.ToString();
 
         moneyControl.ResetEarnAndSpend();
     }

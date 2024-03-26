@@ -10,9 +10,8 @@ public class SelectableCardDisplay : MonoBehaviour
     
     int idx;
     public GameObject index;
-    public TextMeshProUGUI nameLabel;
-    public TextMeshProUGUI sexLabel;
-    public TextMeshProUGUI bloodTypeLabel;
+    public TextMeshProUGUI infoLabel;
+    public TextMeshProUGUI costLabel;
 
     public Color disabledColor; // 비활성화 될 때의 색상
     public bool costCheck = false; // 조건 충족 여부
@@ -28,9 +27,8 @@ public class SelectableCardDisplay : MonoBehaviour
     {
         card.SetAllRandom();
         this.idx = idx;
-        nameLabel.text = card.name;
-        sexLabel.text = card.sex;
-        bloodTypeLabel.text = "BloodType : " + card.bloodType[0];
+        infoLabel.text = card.name + "\n" + card.sex + ", " + card.bloodType[0];
+        costLabel.text = card.cost + "$";
         Image image = transform.GetChild(0).GetComponent<Image>();
         GameManager.Instance.imageLoad.SetSprite(card.sex, card.imageIdx, image);
         CheckCost(card);
@@ -38,16 +36,16 @@ public class SelectableCardDisplay : MonoBehaviour
     public void CheckCost(SelectableCard card){
         Button button = this.GetComponent<Button>();
         if(card.cost > GameManager.Instance.money){
-            SVGImage svg = button.GetComponent<SVGImage>();
-            svg.color = disabledColor;
+            Image image = button.GetComponent<Image>();
+            image.color = disabledColor;
             for(int i = 0; i < gameObject.transform.childCount; i++){
                 gameObject.transform.GetChild(i).gameObject.SetActive(false);
             }
             costCheck = false;
         }
         else{
-            SVGImage svg = button.GetComponent<SVGImage>();
-            svg.color = Color.white;
+            Image image = button.GetComponent<Image>();
+            image.color = Color.white;
             for(int i = 0; i < gameObject.transform.childCount; i++){
                 gameObject.transform.GetChild(i).gameObject.SetActive(true);
             }
