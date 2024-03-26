@@ -10,7 +10,7 @@ public class NodeDisplay : MonoBehaviour
     public void SetNodeData(Node node)
     {
         data = node;
-        textLabel.text = node.name + "(" + node.sex[0] + "/" + node.bloodType[0] + node.bloodType[1] +")";
+        textLabel.text = node.name + "(" + node.sex[0] + ")\n" + node.bloodType[0] + node.bloodType[1];
     }
     public void SetDeadData(Node node)
     {
