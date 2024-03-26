@@ -57,6 +57,7 @@ public class BloodSellProcess : MonoBehaviour
         isBloodSelected = true;
 
         bloodPackCount.SetCount();
+        bloodPackUITest.ChangeCount();
     } 
 
     public void CheckFilterAvailable(){
