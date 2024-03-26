@@ -20,7 +20,7 @@ public class ImageLoad : MonoBehaviour
         else{
             spriteRenderer.sprite = femaleProfileImageSO.images[idx].image;
         }
-        spriteRenderer.transform.localScale = new Vector2(0.6f, 0.6f);
+        spriteRenderer.transform.localScale = new Vector2(3f, 3f);
     }
     public void SetSprite(string sex ,int idx, Image image){
         if(sex == "Male"){
