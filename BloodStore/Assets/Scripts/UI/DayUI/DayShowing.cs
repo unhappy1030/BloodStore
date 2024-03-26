@@ -11,12 +11,7 @@ public class DayShowing : MonoBehaviour
     private void Start()
     {
         dayText.text = "Day " + GameManager.Instance.day.ToString();
-
-        if(SceneManager.GetActiveScene().name == "ResultFamilyTree")
-        {
-            dayText.text += " Management Start";
-        }
-        else if(SceneManager.GetActiveScene().name == "ResultStore")
+        if(SceneManager.GetActiveScene().name == "ResultStore")
         {
             dayText.text += " Closed...";
         }
