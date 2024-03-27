@@ -492,7 +492,7 @@ public class NodeInteraction : MonoBehaviour
                 mouseMoveCheck = true;
             }
         }
-        else if(mouseCamPos.x >= 1)
+        else if(mouseCamPos.x >= 0.995)
         {
             camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
             camScript.m_Follow = null;
@@ -514,7 +514,7 @@ public class NodeInteraction : MonoBehaviour
                 mouseMoveCheck = true;
             }
         }
-        else if(mouseCamPos.y >= 1)
+        else if(mouseCamPos.y >= 0.995)
         {
             camScript.m_Lens.OrthographicSize = Camera.main.orthographicSize;
             camScript.m_Follow = null;
