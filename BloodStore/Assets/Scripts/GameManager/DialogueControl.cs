@@ -172,6 +172,7 @@ public class DialogueControl : MonoBehaviour
         int index = allDialogues.Count;
 
         for(int i=0; i<addCount; i++){
+            // int randIndex = UnityEngine.Random.Range(0, normalSprites.Count);
             List<Sprite> tempSprite = new()
             {
                 normalSprites[i]

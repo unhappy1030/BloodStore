@@ -5,26 +5,31 @@ tags:
 <<declare $npc2Cond0Day2 = false>>
 
 Npc2: ...
-Npc2: You should be careful.
+Npc2: Are you a human?
+-> Yes
+    Npc2: ...Ok.
+    Npc2: I'll be back tomorrow.
+    <<set $npc2Cond0 = 1>>
+-> No
+    Npc2: ...
+    Npc2: Never mind.
+    <<set $npc2Cond0 = -1>>
+<<SetCondition DialogueSystem npc2 {$npc2Cond0}>>
 ===
 
 
-title: Npc2Cond0Day2
+title: Npc2Cond1Day2
 position: 0,0
 ---
-Npc2: Hey.
-Npc2: Do you have any weapon to protect yourself?
--> Yes
-    Npc2: ...
-    Npc2: Ok.
-    <<set $npc2Cond0 = 2>>
--> No
-    Npc2: Then, keep this.
-    Npc2: This will protect you.
-    <<set $npc2Cond0Day2 = true>>
-    <<set $npc2Cond0 = 1>>
-
-<<SetCondition DialogueSystem npc2 {$npc2Cond0}>>
+Npc2: Hello.
+Npc2: I'm back.
+Npc2: Please, don't be scared.
+Npc2: Actually... I'm humman, too.
+Npc2: Anyway, I have something to tell you.
+Npc2: But, It is not the right time...
+Npc2: ...Please wait until day 6...
+Npc2: Then I'll tell you everything.
+Npc2: Please be careful.
 ===
 
 

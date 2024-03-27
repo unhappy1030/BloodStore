@@ -14,34 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcName: npc1
   sprites:
-  - {fileID: -782193185, guid: 8a5540b24f50c984bbe6483f83260373, type: 3}
+  - {fileID: 749583470, guid: ae2eb1a04a11b534cbf52669ae54dd06, type: 3}
   startDay: 0
   conditionInfos:
   - condition: 0
-    waitUntil: 1
-    deadLine: 5
+    waitUntil: 0
+    deadLine: 0
     dialogues:
-    - where: 2
+    - where: 0
       when: 1
       day: 1
       priority: 0
       dialogueName: Npc1Cond0Day1
-    - where: 0
-      when: 0
-      day: 4
-      priority: 0
-      dialogueName: Npc1Cond0Day4
-    - where: 0
-      when: 0
-      day: 5
-      priority: 0
-      dialogueName: Npc1Cond0Day5
-  - condition: 1
-    waitUntil: 6
-    deadLine: 6
-    dialogues:
-    - where: 0
-      when: 0
-      day: 6
-      priority: 0
-      dialogueName: Npc1Cond1Day6

@@ -13,9 +13,15 @@ MonoBehaviour:
   m_Name: NormalNPCSO
   m_EditorClassIdentifier: 
   normalNPCSprites:
-  - {fileID: -1698629010, guid: d086e263ea33e5d4599a411332c8ca41, type: 3}
-  - {fileID: 1056814120, guid: d086e263ea33e5d4599a411332c8ca41, type: 3}
-  - {fileID: -952857922, guid: d086e263ea33e5d4599a411332c8ca41, type: 3}
-  - {fileID: -1698629010, guid: d086e263ea33e5d4599a411332c8ca41, type: 3}
-  - {fileID: 1056814120, guid: d086e263ea33e5d4599a411332c8ca41, type: 3}
-  - {fileID: -952857922, guid: d086e263ea33e5d4599a411332c8ca41, type: 3}
+  - {fileID: 749583470, guid: ae2eb1a04a11b534cbf52669ae54dd06, type: 3}
+  - {fileID: -1794142874, guid: e27b0aaa4a17f9e479e690bcd5430215, type: 3}
+  - {fileID: -1700320050, guid: 9590ca113d0b05643956b7f50900cc5d, type: 3}
+  - {fileID: 749583470, guid: ae2eb1a04a11b534cbf52669ae54dd06, type: 3}
+  - {fileID: -1794142874, guid: e27b0aaa4a17f9e479e690bcd5430215, type: 3}
+  - {fileID: -1700320050, guid: 9590ca113d0b05643956b7f50900cc5d, type: 3}
+  - {fileID: 749583470, guid: ae2eb1a04a11b534cbf52669ae54dd06, type: 3}
+  - {fileID: -1794142874, guid: e27b0aaa4a17f9e479e690bcd5430215, type: 3}
+  - {fileID: -1700320050, guid: 9590ca113d0b05643956b7f50900cc5d, type: 3}
+  - {fileID: 749583470, guid: ae2eb1a04a11b534cbf52669ae54dd06, type: 3}
+  - {fileID: -1794142874, guid: e27b0aaa4a17f9e479e690bcd5430215, type: 3}
+  - {fileID: -1700320050, guid: 9590ca113d0b05643956b7f50900cc5d, type: 3}
