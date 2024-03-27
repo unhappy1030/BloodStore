@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using UnityEditor.Experimental.GraphView;
-using Unity.VisualScripting.Dependencies.NCalc;
-using Unity.VisualScripting.Dependencies.Sqlite;
 [System.Serializable]
 public class SavePairArray{
     public Pair[] arr;
