@@ -55,6 +55,7 @@ public class YarnControl : MonoBehaviour
         Sprite sprite = dialogueControl.GetSpriteForDialogueView(index);
         lineViewUIImg.sprite = sprite;
         lineViewUIImg.gameObject.SetActive(true);
+        lineViewUIImg.GetComponent<Image>().enabled = true;
     }
 
     [YarnFunction("UpdateMoney")]

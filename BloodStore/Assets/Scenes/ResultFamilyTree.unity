@@ -3128,6 +3128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a32ec70f8f84d348beae55931fdd545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resultCanvas: {fileID: 1976709188}
   earningText: {fileID: 780218145}
   spendingText: {fileID: 111201039}
   resultText: {fileID: 1122254637}
@@ -5659,7 +5660,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &946719639
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8590,7 +8591,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1443132444}
+  m_TargetGraphic: {fileID: 1683331680}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -9971,7 +9972,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
