@@ -152,6 +152,7 @@ public class SaveUI : MonoBehaviour
             }
             else{
                 button.interactable = false;
+                button.gameObject.transform.GetChild(1).gameObject.SetActive(false);
             }
         }
         selectedFile = null;
