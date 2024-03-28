@@ -182,7 +182,7 @@ public class Group : MonoBehaviour
                 pairLine.transform.position = new Vector3(globalChildPos.x, globalChildPos.y, 1);
                 line.widthMultiplier = lineWidth;
                 line.material = new Material(Shader.Find("Sprites/Default"));
-                line.material.color = new Color(0,0,0, 0.7f);
+                line.material.color = new Color(0.45f,0.45f,0.45f);
                 Vector3[] points = new Vector3[4];
                 points[0] = new Vector3( globalPos.x, globalPos.y, 1);
                 points[1] = new Vector3( globalPos.x, globalPos.y - halfY - offSetY / 2, 1);

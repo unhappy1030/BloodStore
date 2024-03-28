@@ -36,7 +36,7 @@ public class ResultStore : MonoBehaviour
         earningText.text = "Earning : " + moneyControl.earning.ToString();
         spendingText.text = "Spending : " + moneyControl.spending.ToString();
         resultText.text = "Result : " + (moneyControl.earning + moneyControl.spending).ToString();
-        currentMoneyText.text = GameManager.Instance.money.ToString();
+        currentMoneyText.text = "Current Money : " + GameManager.Instance.money.ToString();
 
         float averagePoint = (GameManager.Instance.sellCount != 0) ? GameManager.Instance.totalPoint/GameManager.Instance.sellCount : 0;
         

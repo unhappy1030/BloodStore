@@ -280,8 +280,12 @@ public class BloodPacks : MonoBehaviour
         Debug.Log("ShowAllDictionary");
         Dictionary<string, int> result = new();
         foreach(BloodPackLink link in bloodPackLinks){
-            // Debug.Log(link.pack.node.sex + link.pack.node.bloodType[0] + link.pack.node.bloodType[1] + " : " + link.sum.ToString());
-            result.Add(link.pack.node.sex + link.pack.node.bloodType[0] + link.pack.node.bloodType[1], link.sum);
+            if(!result.ContainsKey(link.pack.node.sex + link.pack.node.bloodType[0] + link.pack.node.bloodType[1])){
+                result.Add(link.pack.node.sex + link.pack.node.bloodType[0] + link.pack.node.bloodType[1], link.sum);
+            }
+            else{
+                result[link.pack.node.sex + link.pack.node.bloodType[0] + link.pack.node.bloodType[1]] += link.sum;
+            }
         }
         return result;
     }
