@@ -2,113 +2,150 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+
+//오브젝트 이름 : GameManger
+
+//SerializePair를 저장
 [System.Serializable]
-public class SavePairArray{
-    public Pair[] arr;
+public class PairSerializeArray{
+    public SerializePair[] pairArray;
 }
 
-public class Pairs : MonoBehaviour
+//Pair를 저장/불러옴
+public class PairManager : MonoBehaviour
 {
-    public List<Pair> pairs = new();
-    SavePairArray saveArray = new();
+    private const string FamilyTreeFileName = "FamilyTree.json";
+
+    public List<SerializePair> serializePairList = new();
+    PairSerializeArray pairSerializeArray = new();
+
+    
+    //기능 : 플레이 중 데이터 저장
+    //파리미터 설명 : 없음
+    //반환값 설명 : 없음
     public void Save(){
-        string _path = Application.persistentDataPath + "/FamilyTree.json"; 
-        saveArray = new();
-        saveArray.arr = pairs.ToArray();
-        string json = JsonUtility.ToJson(saveArray);
-        File.WriteAllText(_path, json);
+        string path = Application.persistentDataPath + FamilyTreeFileName;
+        pairSerializeArray = new();
+        pairSerializeArray.pairArray = serializePairList.ToArray();
+        string json = JsonUtility.ToJson(pairSerializeArray);
+        File.WriteAllText(path, json);
     }
+
+    //기능 : 세이브 파일에 해당하는 폴더에 저장
+    //파리미터 설명 : 저장하려는 "세이브 파일의 이름"이 필요함(*세이브 파일의 이름 : 플레이어로 부터 입력 받은 것)
+    //반환값 설명 : 없음
     public void SaveFile(string folderName){
         string folderPath = Path.Combine(Application.persistentDataPath, folderName);
-        string _path = Path.Combine(folderPath, "FamilyTree.json");
-        saveArray = new();
-        saveArray.arr = pairs.ToArray();
-        string json = JsonUtility.ToJson(saveArray);
+        string path = Path.Combine(folderPath, FamilyTreeFileName);
+        pairSerializeArray = new();
+        pairSerializeArray.pairArray = serializePairList.ToArray();
+        string json = JsonUtility.ToJson(pairSerializeArray);
         if(!Directory.Exists(folderPath)){
             Directory.CreateDirectory(folderPath);
         }
-        File.WriteAllText(_path, json);
+        File.WriteAllText(path, json);
     }
-    public Pairs Load(){
-        string _path = Application.persistentDataPath + "/FamilyTree.json";
-        if(File.Exists(_path)){
-            string jsonData = File.ReadAllText(_path);
-            saveArray = JsonUtility.FromJson<SavePairArray>(jsonData);
-            if(saveArray == null){
+
+    //기능 : 플레이 중 데이터를 불러옴
+    //파리미터 설명 : 없음
+    //반환값 설명 : 현재 PairManager 인스턴스 자체를 반환
+//굳이 PairManager를 반환해야하는 지 점검해보기
+    public PairManager Load(){
+        string path = Application.persistentDataPath + FamilyTreeFileName;
+        if(File.Exists(path)){
+            string jsonData = File.ReadAllText(path);
+            pairSerializeArray = JsonUtility.FromJson<PairSerializeArray>(jsonData);
+            if(pairSerializeArray == null){
                 Debug.Log("NewGame Start!");
             }
             else{
                 Debug.Log("Save Data Load!");
-                pairs = new List<Pair>(saveArray.arr);
+                serializePairList = new List<SerializePair>(pairSerializeArray.pairArray);
             }
         }
         else{
-            pairs = new();
+            serializePairList = new();
         }
-        GameManager.Instance.imageLoad.LoadImageUseCount(pairs);
+        GameManager.Instance.imageLoad.LoadImageUseCount(serializePairList);
         return this;
     }
-    public Pairs LoadNew(){
-        pairs = new();
-        GameManager.Instance.imageLoad.LoadImageUseCount(pairs);
+
+    //기능 : 새게임을 시작할때 데이터 초기화
+    //파리미터 설명 : 없음
+    //반환값 설명 : 현재 PairManager 인스턴스 자체를 반환
+    public PairManager LoadNew(){
+        serializePairList = new();
+        GameManager.Instance.imageLoad.LoadImageUseCount(serializePairList);
         return this;
     }
-    public Pairs LoadFile(string folderName){
+
+    //기능 : 세이브 파일 데이터를 불러옴
+    //파리미터 설명 : 불러오려는 "세이브 파일의 이름"이 필요함(*세이브 파일의 이름 : 플레이어로 부터 입력 받은 것)
+    //반환값 설명 : 현재 PairManager 인스턴스 자체를 반환
+    public PairManager LoadFile(string folderName){
         string folderPath = Path.Combine(Application.persistentDataPath, folderName);
-        string _path = Path.Combine(folderPath, "FamilyTree.json");
+        string _path = Path.Combine(folderPath, FamilyTreeFileName);
         if(File.Exists(_path)){
             string jsonData = File.ReadAllText(_path);
-            saveArray = JsonUtility.FromJson<SavePairArray>(jsonData);
-            if(saveArray == null){
+            pairSerializeArray = JsonUtility.FromJson<PairSerializeArray>(jsonData);
+            if(pairSerializeArray == null){
                 Debug.Log("NewGame Start!");
             }
             else{
                 Debug.Log("Save Data Load!");
-                pairs = new List<Pair>(saveArray.arr);
+                serializePairList = new List<SerializePair>(pairSerializeArray.pairArray);
             }
         }
         else{
-            pairs = new();
+            serializePairList = new();
         }
-        GameManager.Instance.imageLoad.LoadImageUseCount(pairs);
+        GameManager.Instance.imageLoad.LoadImageUseCount(serializePairList);
         Save();
         return this;
     }
-    public void Serialize(PairTree pairTree)
+
+    //기능 : TreePair를 SerializePair로 직렬화
+    //파리미터 설명 : TreePair의 root 노드
+    //반환값 설명 : 없음
+    public void Serialize(TreePair treePair)
     {
-        pairs.Clear();
-        Local_SerializeAll(pairTree);
-        void Local_SerializeAll(PairTree current)
+        serializePairList.Clear();
+        Local_SerializeAll(treePair);
+        void Local_SerializeAll(TreePair current)
         {
             // 직렬화용 노드 생성, 리스트에 추가
-            pairs.Add(current.pair);
+            serializePairList.Add(current.pair);
 
-            foreach(PairTree child in current.children)
+            foreach(TreePair child in current.children)
             {
                 Local_SerializeAll(child);
             }
         }
     }
-    public PairTree Deserialize()
+
+    //기능 : SerializePair를 TreePair로 변환
+    //파리미터 설명 : 없음
+    //반환값 설명 : TreePair의 root 노드
+    public TreePair Deserialize()
     {
-        if (pairs.Count == 0) return null;
+        if (serializePairList.Count == 0) return null;
 
         int index = 0;
-        PairTree root = Local_DeserializeAll();
+        TreePair root = Local_DeserializeAll();
 
         return root;
 
         // 재귀 : 루트로부터 모든 자식들 역직렬화 및 트리 생성
-        PairTree Local_DeserializeAll()
+        TreePair Local_DeserializeAll()
         {
             int currentIndex = index;
-            PairTree current = pairs[currentIndex].Deserialize();
+            TreePair current = serializePairList[currentIndex].Deserialize();
 
             index++;
 
             // 자식이 있을 경우, 자식을 역직렬화해서 자식목록에 추가
             // 그리고 다시 그 자식에서 재귀
-            for (int i = 0; i < pairs[currentIndex].childNum; i++)
+            for (int i = 0; i < serializePairList[currentIndex].childNum; i++)
             {
                 current.AddChild(Local_DeserializeAll());
                 current.children[i].AddParent(current);
@@ -117,8 +154,12 @@ public class Pairs : MonoBehaviour
             return current;
         }
     }
+
+    //기능 : SerializePair를 TreePair로 변환
+    //파리미터 설명 : 없음
+    //반환값 설명 : TreePair의 root 노드
     public void MakeOlder(){
-        foreach(Pair pair in pairs){
+        foreach(SerializePair pair in serializePairList){
             if(!pair.male.empty){
                 pair.male.age += 10;
             }
@@ -127,12 +168,14 @@ public class Pairs : MonoBehaviour
             }
         }
     }
+
+
     public bool CheckAllDead(){
         bool result = true;
-        if(pairs == null || pairs.Count == 0){
+        if(serializePairList == null || serializePairList.Count == 0){
             return false;
         }
-        foreach(Pair pair in pairs){
+        foreach(SerializePair pair in serializePairList){
             if(!pair.male.empty){
                 if(!pair.male.isDead){
                     result = false;
@@ -149,7 +192,7 @@ public class Pairs : MonoBehaviour
         return result;
     }
     public void MakeDead(){
-        foreach(Pair pair in pairs){
+        foreach(SerializePair pair in serializePairList){
             if(!pair.male.empty){
                 if(CheckDead(pair.male.age)){
                     pair.male.isDead = true;
@@ -180,29 +223,30 @@ public class Pairs : MonoBehaviour
 
 }
 [System.Serializable]
-public class Pair
+public class SerializePair
 {
     public Node male;
     public Node female;
     public bool isPair;
     public int childNum;
-    public PairTree Deserialize(){
-        return new PairTree(this);
+    public TreePair Deserialize(){
+        return new TreePair(this);
     }
 }
-public class PairTree
+
+public class TreePair
 {
-    public Pair pair;
-    public PairTree parent;
-    public List<PairTree> children;
-    public PairTree(Pair data){
+    public SerializePair pair;
+    public TreePair parent;
+    public List<TreePair> children;
+    public TreePair(SerializePair data){
         this.children = new();
         this.pair = data;
     }
-    public void AddParent(PairTree parent){
+    public void AddParent(TreePair parent){
         this.parent = parent;
     }
-    public void AddChild(PairTree child){
+    public void AddChild(TreePair child){
         this.children.Add(child);
     }
     public string BlankNodeCheck(){
@@ -224,24 +268,24 @@ public class PairTree
                 Node node = new Node();
                 node = SetByParent();
                 if(node.sex == "Male"){
-                    Pair child = new Pair
+                    SerializePair child = new SerializePair
                     {
                         male = node,
                         female = new Node(),
                         isPair = false,
                         childNum = 0,
                     };
-                    AddChild(new PairTree(child));
+                    AddChild(new TreePair(child));
                 }
                 else{
-                    Pair child = new Pair
+                    SerializePair child = new SerializePair
                     {
                         male = new Node(),
                         female = node,
                         isPair = false,
                         childNum = 0,
                     };
-                    AddChild(new PairTree(child));
+                    AddChild(new TreePair(child));
                 }
             }
         }
@@ -264,29 +308,29 @@ public class PairTree
                 Node node = new Node();
                 node = SetByParent();
                 if(node.sex == "Male"){
-                    Pair child = new Pair
+                    SerializePair child = new SerializePair
                     {
                         male = node,
                         female = new Node(),
                         isPair = false,
                         childNum = 0,
                     };
-                    AddChild(new PairTree(child));
+                    AddChild(new TreePair(child));
                 }
                 else{
-                    Pair child = new Pair
+                    SerializePair child = new SerializePair
                     {
                         male = new Node(),
                         female = node,
                         isPair = false,
                         childNum = 0,
                     };
-                    AddChild(new PairTree(child));
+                    AddChild(new TreePair(child));
                 }
             }
         }
         if(pair.childNum != 0){
-            foreach(PairTree child in children){
+            foreach(TreePair child in children){
                 child.AddChild();
             }
         }

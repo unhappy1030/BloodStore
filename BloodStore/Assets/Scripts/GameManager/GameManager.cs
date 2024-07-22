@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
 
     public StartScene startScene;
 
-    public Pairs pairList;
+    public PairManager pairManager;
     public BloodPacks bloodPackList;
     public SaveData saveData;
     public ImageLoad imageLoad;
@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
         mouseRayCast = GetComponent<MouseRayCast>();
         moneyControl = GetComponent<MoneyControl>();
         dialogueControl = GetComponent<DialogueControl>();
-        pairList = GetComponent<Pairs>();
+        pairManager = GetComponent<PairManager>();
         bloodPackList = GetComponent<BloodPacks>();
         saveData = GetComponent<SaveData>();
         imageLoad = GetComponent<ImageLoad>();

@@ -23,7 +23,7 @@ public class PackingUI : MonoBehaviour
     public TextMeshProUGUI totalCostTMP;
     public GameObject treeManager;
     private TreeManager tree;
-    private PairTree root;
+    private TreePair root;
     void Start()
     {
         if(gameObject.activeSelf){
@@ -34,7 +34,7 @@ public class PackingUI : MonoBehaviour
         tree.SavePairData();
         MoneyControl moneyControl = GameManager.Instance.gameObject.GetComponent<MoneyControl>();
         moneyControl.CalculateMoney(totalCost * -1);
-        GameManager.Instance.bloodPackList.PackingResult(GameManager.Instance.pairList, count);
+        GameManager.Instance.bloodPackList.PackingResult(GameManager.Instance.pairManager, count);
         tree.SaveAndChangeData();
     }
     public void SetCountUp(){
@@ -94,16 +94,16 @@ public class PackingUI : MonoBehaviour
         root = tree.mainGroup.transform.GetChild(0).GetComponent<Group>().pairTree;
         return GetAdditionalCost(root);
     }
-    private float GetAdditionalCost(PairTree rootPair){
+    private float GetAdditionalCost(TreePair rootPair){
         float costSum = CheckPairCost(rootPair.pair);
         if(rootPair.pair.childNum != 0){
-            foreach(PairTree nowPair in rootPair.children){
+            foreach(TreePair nowPair in rootPair.children){
                 costSum += GetAdditionalCost(nowPair);
             }
         }
         return costSum;
     }
-    private float CheckPairCost(Pair pair){
+    private float CheckPairCost(SerializePair pair){
         float sum = 0;
         if(!pair.male.isDead){
             sum += GetCostByAge(pair.male.age);
