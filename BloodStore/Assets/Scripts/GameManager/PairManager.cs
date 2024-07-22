@@ -5,13 +5,17 @@ using System.IO;
 
 //오브젝트 이름 : GameManger
 
-//SerializePair를 저장
+/// <summary>
+/// SerializePair를 저장
+/// </summary>
 [System.Serializable]
 public class PairSerializeArray{
     public SerializePair[] pairArray;
 }
 
-//Pair를 저장/불러옴
+/// <summary>
+/// Pair를 저장/불러옴
+/// </summary>
 public class PairManager : MonoBehaviour
 {
     private const string FamilyTreeFileName = "FamilyTree.json";
@@ -20,9 +24,9 @@ public class PairManager : MonoBehaviour
     PairSerializeArray pairSerializeArray = new();
 
     
-    //기능 : 플레이 중 데이터 저장
-    //파리미터 설명 : 없음
-    //반환값 설명 : 없음
+    /// <summary>
+    /// 플레이 중 데이터 저장
+    /// </summary>
     public void Save(){
         string path = Application.persistentDataPath + FamilyTreeFileName;
         pairSerializeArray = new();
@@ -31,9 +35,10 @@ public class PairManager : MonoBehaviour
         File.WriteAllText(path, json);
     }
 
-    //기능 : 세이브 파일에 해당하는 폴더에 저장
-    //파리미터 설명 : 저장하려는 "세이브 파일의 이름"이 필요함(*세이브 파일의 이름 : 플레이어로 부터 입력 받은 것)
-    //반환값 설명 : 없음
+    /// <summary>
+    /// 세이브 파일에 해당하는 폴더에 저장
+    /// </summary>
+    /// <param name="folderName">플레이어로 부터 입력 받은 세이브 파일의 이름</param>
     public void SaveFile(string folderName){
         string folderPath = Path.Combine(Application.persistentDataPath, folderName);
         string path = Path.Combine(folderPath, FamilyTreeFileName);
@@ -46,10 +51,10 @@ public class PairManager : MonoBehaviour
         File.WriteAllText(path, json);
     }
 
-    //기능 : 플레이 중 데이터를 불러옴
-    //파리미터 설명 : 없음
-    //반환값 설명 : 현재 PairManager 인스턴스 자체를 반환
-//굳이 PairManager를 반환해야하는 지 점검해보기
+    /// <summary>
+    /// 세이브 파일에 해당하는 폴더에 저장
+    /// </summary>
+    /// <returns> 현재 PairManager 인스턴스 자체를 반환 </returns>
     public PairManager Load(){
         string path = Application.persistentDataPath + FamilyTreeFileName;
         if(File.Exists(path)){
@@ -70,18 +75,21 @@ public class PairManager : MonoBehaviour
         return this;
     }
 
-    //기능 : 새게임을 시작할때 데이터 초기화
-    //파리미터 설명 : 없음
-    //반환값 설명 : 현재 PairManager 인스턴스 자체를 반환
+    /// <summary>
+    /// 새게임을 시작할때 데이터 초기화
+    /// </summary>
+    /// <returns> 현재 PairManager 인스턴스 자체를 반환 </returns>
     public PairManager LoadNew(){
         serializePairList = new();
         GameManager.Instance.imageLoad.LoadImageUseCount(serializePairList);
         return this;
     }
 
-    //기능 : 세이브 파일 데이터를 불러옴
-    //파리미터 설명 : 불러오려는 "세이브 파일의 이름"이 필요함(*세이브 파일의 이름 : 플레이어로 부터 입력 받은 것)
-    //반환값 설명 : 현재 PairManager 인스턴스 자체를 반환
+    /// <summary>
+    /// 세이브 파일 데이터를 불러옴
+    /// </summary>
+    /// <param name="folderName">플레이어로 부터 입력 받은 세이브 파일의 이름</param>
+    /// <returns> 현재 PairManager 인스턴스 자체를 반환 </returns>
     public PairManager LoadFile(string folderName){
         string folderPath = Path.Combine(Application.persistentDataPath, folderName);
         string _path = Path.Combine(folderPath, FamilyTreeFileName);
@@ -104,9 +112,10 @@ public class PairManager : MonoBehaviour
         return this;
     }
 
-    //기능 : TreePair를 SerializePair로 직렬화
-    //파리미터 설명 : TreePair의 root 노드
-    //반환값 설명 : 없음
+    /// <summary>
+    /// TreePair를 SerializePair로 직렬화
+    /// </summary>
+    /// <param name="treePair">TreePair의 root 노드</param>
     public void Serialize(TreePair treePair)
     {
         serializePairList.Clear();
@@ -123,9 +132,10 @@ public class PairManager : MonoBehaviour
         }
     }
 
-    //기능 : SerializePair를 TreePair로 변환
-    //파리미터 설명 : 없음
-    //반환값 설명 : TreePair의 root 노드
+    /// <summary>
+    /// SerializePair를 TreePair로 변환
+    /// </summary>
+    /// <returns>TreePair의 root 노드</returns>
     public TreePair Deserialize()
     {
         if (serializePairList.Count == 0) return null;
@@ -155,9 +165,9 @@ public class PairManager : MonoBehaviour
         }
     }
 
-    //기능 : SerializePair를 TreePair로 변환
-    //파리미터 설명 : 없음
-    //반환값 설명 : TreePair의 root 노드
+    /// <summary>
+    /// 직렬화된 데이터를 사용해서 전체 사람의 나이 증가
+    /// </summary>
     public void MakeOlder(){
         foreach(SerializePair pair in serializePairList){
             if(!pair.male.empty){
@@ -169,7 +179,10 @@ public class PairManager : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// 모든 Node가 죽었는 지 확인한다
+    /// </summary>
+    /// <returns>다 죽었다면 true, 살아있는 사람이 있다면 false</returns>
     public bool CheckAllDead(){
         bool result = true;
         if(serializePairList == null || serializePairList.Count == 0){
@@ -191,6 +204,9 @@ public class PairManager : MonoBehaviour
         }
         return result;
     }
+    /// <summary>
+    /// 나이를 확인하여 확률적으로 죽은 노드로 만듦
+    /// </summary>
     public void MakeDead(){
         foreach(SerializePair pair in serializePairList){
             if(!pair.male.empty){
@@ -205,6 +221,11 @@ public class PairManager : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// 70세 이상이면 죽을 수 있고 나이가 많을수록 죽을 확률이 올라감
+    /// </summary>
+    /// <param name="age">Node의 나이</param>
+    /// <returns>죽으면 true, 살면 false</returns>
     public bool CheckDead(int age){
         if(age >= 70){
             float prob = age / 200f; 
@@ -222,6 +243,10 @@ public class PairManager : MonoBehaviour
     }
 
 }
+
+/// <summary>
+/// TreePair직렬화를 위한 class
+/// </summary>
 [System.Serializable]
 public class SerializePair
 {
@@ -229,35 +254,70 @@ public class SerializePair
     public Node female;
     public bool isPair;
     public int childNum;
+    /// <summary>
+    /// 현재 직렬화된 SerializePair를 TreePair로 바꿈
+    /// </summary>
+    /// <returns>TreePair로 바뀐 SerializePair의 값</returns>
     public TreePair Deserialize(){
         return new TreePair(this);
     }
 }
 
+/// <summary>
+/// 가계도를 Tree구조로 저장
+/// </summary>
 public class TreePair
 {
     public SerializePair pair;
     public TreePair parent;
     public List<TreePair> children;
+    /// <summary>
+    /// SerializePair의 값으로 TreePair로 바꿈
+    /// </summary>
+    /// <param name="data">SerializePair(직렬화된 Pair)</param>
     public TreePair(SerializePair data){
         this.children = new();
         this.pair = data;
     }
+
+    /// <summary>
+    /// TreePair에 부모 TreePair를 추가
+    /// </summary>
+    /// <param name="parent">부모로 지정해줄 TreePair</param>
     public void AddParent(TreePair parent){
         this.parent = parent;
     }
+
+    /// <summary>
+    /// TreePair를 자식으로 추가
+    /// </summary>
+    /// <param name="child">자식으로 추가할 TreePair</param>
     public void AddChild(TreePair child){
         this.children.Add(child);
     }
+    /// <summary>
+    /// 비어있는 노드의 남/여 판별
+    /// </summary>
+    /// <returns>비어있는 노드의 성별</returns>
     public string BlankNodeCheck(){
         return  pair.male.empty == true ? "Male" : "Female";
     }
+    /// <summary>
+    /// TreePair의 빈곳에 Node추가
+    /// </summary>
+    /// <param name="node">추가할 Node</param>
     public void MakePair(Node node){
         if(pair.male.empty == true) pair.male = node;
         else{
             pair.female = node;
         }
     }
+
+    /// <summary>
+    /// 가중치와 확룔을 통해서 자식을 추가
+    /// </summary>
+    /// <param name="weight">자식이 추가되는 확률에 곱해지는 가중치(자식이 하나 추가될때 마다 확률이 점점 감소하게 됨)</param>
+    /// <param name="probability">처음 주어지는 자식이 추가될 수 있는 확률</param>
     public void AddChildByValue(float weight, float probability){
         if(pair.isPair == true && pair.childNum == 0){ //테스트용 조건문
             pair.childNum = GetChildNum(weight, probability);
@@ -266,7 +326,7 @@ public class TreePair
             }
             for(int i = 0; i < pair.childNum; i++){
                 Node node = new Node();
-                node = SetByParent();
+                node = SetChildByParent();
                 if(node.sex == "Male"){
                     SerializePair child = new SerializePair
                     {
@@ -290,6 +350,12 @@ public class TreePair
             }
         }
     }
+    /// <summary>
+    /// 가중치와 확률을 통해서 자식의 수를 구함
+    /// </summary>
+    /// <param name="weight">자식이 추가되는 확률에 곱해지는 가중치(자식이 하나 추가될때 마다 확률이 점점 감소하게 됨)</param>
+    /// <param name="probability">처음 주어지는 자식이 추가될 수 있는 확률</param>
+    /// <returns>자식의 수</returns>
     int GetChildNum(float weight, float probability){
         int num = 0;
         float random = Random.Range(0f, 1f);
@@ -301,12 +367,15 @@ public class TreePair
         }
         return num;
     }
+    /// <summary>
+    ///   1~5 사이로 랜덤으로 자식를 생성(임의로 제작된 함수)
+    /// </summary>
     public void AddChild(){
         if(pair.isPair == true && pair.childNum == 0){ //테스트용 조건문
             pair.childNum = Random.Range(1,5);
             for(int i = 0; i < pair.childNum; i++){
                 Node node = new Node();
-                node = SetByParent();
+                node = SetChildByParent();
                 if(node.sex == "Male"){
                     SerializePair child = new SerializePair
                     {
@@ -335,11 +404,15 @@ public class TreePair
             }
         }
     }
-    private Node SetByParent(){
+    /// <summary>
+    /// 부모의 혈액형과 유전데이터로 자식 Node를 생성
+    /// </summary>
+    /// <returns>자식노드</returns>
+    private Node SetChildByParent(){
         Node node = new Node{
             name = GenerateRandomName(),
             sex = Random.Range(0, 2) == 0 ? "Male" : "Female",
-            bloodType = GenerateBloodTypeArr(),
+            bloodType = GenerateBloodTypeArray(),
             hp = 50,
             age = Random.Range(-9, 0),
             isDead = false,
@@ -348,12 +421,20 @@ public class TreePair
         node.imageIdx = GameManager.Instance.imageLoad.GetSpriteIndex(node.sex);
         return node;
     }
+    /// <summary>
+    /// 랜덤으로 이름 생성(임시적으로 제작)
+    /// </summary>
+    /// <returns>이름</returns>
     private string GenerateRandomName()
     {
         string[] names = { "Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Hank" };
         return names[Random.Range(0, names.Length)];
     }
-    private string[] GenerateBloodTypeArr()
+    /// <summary>
+    /// 부모의 혈액 유전 정보로 혈액 유전 정보 배열 생성
+    /// </summary>
+    /// <returns>문자열{혈액형, }</returns>
+    private string[] GenerateBloodTypeArray()
     {
         string BTGeno = GenerateBloodGenoType();
         string BT = GenerateBloodType(BTGeno);
