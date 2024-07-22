@@ -672,7 +672,7 @@ GameObject:
   - component: {fileID: 38817488}
   - component: {fileID: 38817489}
   m_Layer: 0
-  m_Name: Target1
+  m_Name: CameraTarget1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1213,12 +1213,12 @@ GameObject:
   - component: {fileID: 79403491}
   - component: {fileID: 79403492}
   m_Layer: 5
-  m_Name: FilteringUI
+  m_Name: FilterBloodUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &79403491
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1265,7 +1265,7 @@ GameObject:
   - component: {fileID: 81042684}
   - component: {fileID: 81042683}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1661,7 +1661,7 @@ GameObject:
   - component: {fileID: 111620888}
   - component: {fileID: 111620887}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1761,7 +1761,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 250, y: 0}
-  m_SizeDelta: {x: 0, y: 50}
+  m_SizeDelta: {x: 237, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &140044626
 Animator:
@@ -1970,73 +1970,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 150353837}
   m_CullTransparentMesh: 1
---- !u!1 &163223189
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 163223190}
-  - component: {fileID: 163223192}
-  - component: {fileID: 163223191}
-  m_Layer: 5
-  m_Name: Background
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &163223190
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 163223189}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 758839428}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1300, y: 900}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &163223191
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 163223189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef8b96895a0ec4ba685178a052544251, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 3286163911610860551, guid: 0aadcc61df7484a458f600cd429fd77b, type: 3}
-  m_PreserveAspect: 1
---- !u!222 &163223192
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 163223189}
-  m_CullTransparentMesh: 1
 --- !u!1 &166274612
 GameObject:
   m_ObjectHideFlags: 0
@@ -2055,7 +1988,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &166274613
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2354,7 +2287,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 15, y: 0}
-  m_SizeDelta: {x: 0, y: 50}
+  m_SizeDelta: {x: 226.02, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &191157289
 MonoBehaviour:
@@ -2609,7 +2542,7 @@ GameObject:
   - component: {fileID: 208912107}
   - component: {fileID: 208912106}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Panel1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3574,7 +3507,7 @@ GameObject:
   m_Component:
   - component: {fileID: 281990389}
   m_Layer: 5
-  m_Name: BloodPackUI
+  m_Name: SelectBloodPackUI_previous
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4763,7 +4696,7 @@ GameObject:
   - component: {fileID: 438526626}
   - component: {fileID: 438526627}
   m_Layer: 5
-  m_Name: Select
+  m_Name: SelectBloodPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5485,7 +5418,7 @@ GameObject:
   - component: {fileID: 559100697}
   - component: {fileID: 559100698}
   m_Layer: 0
-  m_Name: Img
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5570,7 +5503,7 @@ GameObject:
   - component: {fileID: 570847566}
   - component: {fileID: 570847567}
   m_Layer: 7
-  m_Name: selectBlood_placeSprite
+  m_Name: SelectBloodPlace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6010,7 +5943,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &625989965
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6142,7 +6075,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &650510517
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6801,7 +6734,7 @@ GameObject:
   - component: {fileID: 704205531}
   - component: {fileID: 704205530}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: Panel3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7035,7 +6968,7 @@ GameObject:
   - component: {fileID: 720948863}
   - component: {fileID: 720948862}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7601,7 +7534,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1919680233}
-  - {fileID: 163223190}
   - {fileID: 1329378990}
   - {fileID: 438526625}
   - {fileID: 1794282046}
@@ -8416,7 +8348,7 @@ GameObject:
   - component: {fileID: 1002446262}
   - component: {fileID: 1002446263}
   m_Layer: 0
-  m_Name: Block
+  m_Name: Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10082,7 +10014,7 @@ GameObject:
   - component: {fileID: 1159324194}
   - component: {fileID: 1159324193}
   m_Layer: 0
-  m_Name: NPCInteractionInfo
+  m_Name: NPC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10330,7 +10262,7 @@ GameObject:
   - component: {fileID: 1167024181}
   - component: {fileID: 1167024180}
   m_Layer: 5
-  m_Name: Select
+  m_Name: SelectBloodPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10846,7 +10778,7 @@ GameObject:
   - component: {fileID: 1224331087}
   - component: {fileID: 1224331086}
   m_Layer: 5
-  m_Name: Background
+  m_Name: ContentPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11809,7 +11741,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 80}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 266.35, y: 46.81}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1305795773
 MonoBehaviour:
@@ -11922,6 +11854,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1305795771}
   m_CullTransparentMesh: 1
+--- !u!1 &1307606920
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1307606921}
+  m_Layer: 0
+  m_Name: ------------------- UI ------------------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1307606921
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1307606920}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1329378989
 GameObject:
   m_ObjectHideFlags: 0
@@ -11935,7 +11898,7 @@ GameObject:
   - component: {fileID: 1329378992}
   - component: {fileID: 1329378991}
   m_Layer: 5
-  m_Name: CurrentCount
+  m_Name: CurrentCountPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12345,13 +12308,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 625989965}
   - {fileID: 281990389}
   - {fileID: 79403491}
   - {fileID: 650510517}
-  - {fileID: 166274613}
-  - {fileID: 2134250334}
   - {fileID: 758839428}
+  - {fileID: 2134250334}
+  - {fileID: 625989965}
+  - {fileID: 166274613}
   m_Father: {fileID: 193522019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -12634,7 +12597,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 10}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 365.86, y: 93.61}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1439427756
 MonoBehaviour:
@@ -14085,7 +14048,7 @@ GameObject:
   - component: {fileID: 1568789504}
   - component: {fileID: 1568789503}
   m_Layer: 0
-  m_Name: BloodSellProcess
+  m_Name: BloodSellProcessManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14506,7 +14469,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1697372916}
   m_Layer: 5
-  m_Name: Imgs
+  m_Name: ContentsPanels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15645,7 +15608,7 @@ GameObject:
   - component: {fileID: 1827797254}
   - component: {fileID: 1827797253}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Panel2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15923,6 +15886,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1833549101}
   m_CullTransparentMesh: 1
+--- !u!1 &1837875190
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1837875191}
+  m_Layer: 0
+  m_Name: ---------------- Camera ----------------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1837875191
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837875190}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1842019772
 GameObject:
   m_ObjectHideFlags: 0
@@ -16399,7 +16393,7 @@ GameObject:
   - component: {fileID: 1883985745}
   - component: {fileID: 1883985746}
   m_Layer: 0
-  m_Name: Img
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16767,7 +16761,7 @@ GameObject:
   - component: {fileID: 1919680235}
   - component: {fileID: 1919680234}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16841,7 +16835,7 @@ GameObject:
   - component: {fileID: 1953021358}
   - component: {fileID: 1953021357}
   m_Layer: 0
-  m_Name: Tutorial
+  m_Name: TutorialManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17023,7 +17017,7 @@ GameObject:
   - component: {fileID: 1997788226}
   - component: {fileID: 1997788225}
   m_Layer: 5
-  m_Name: Image (3)
+  m_Name: Panel4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17233,7 +17227,7 @@ GameObject:
   - component: {fileID: 2018299559}
   - component: {fileID: 2018299558}
   m_Layer: 5
-  m_Name: CurrentCount
+  m_Name: CurrentCountPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17588,6 +17582,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2064472696}
   m_CullTransparentMesh: 1
+--- !u!1 &2066531215
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2066531216}
+  m_Layer: 0
+  m_Name: ---------------- Manager ---------------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2066531216
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066531215}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2067409202
 GameObject:
   m_ObjectHideFlags: 0
@@ -17932,6 +17957,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2072125923}
   m_CullTransparentMesh: 1
+--- !u!1 &2078305141
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2078305142}
+  m_Layer: 0
+  m_Name: ----------------- Object ----------------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2078305142
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078305141}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.03587, y: -1.2551367, z: -10.029438}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2079871226
 GameObject:
   m_ObjectHideFlags: 0
@@ -18307,7 +18363,7 @@ GameObject:
   - component: {fileID: 2107475933}
   - component: {fileID: 2107475934}
   m_Layer: 0
-  m_Name: Target2
+  m_Name: CameraTarget2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18793,12 +18849,12 @@ GameObject:
   - component: {fileID: 2134250334}
   - component: {fileID: 2134250335}
   m_Layer: 5
-  m_Name: RatingTexts
+  m_Name: RatingTextUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2134250334
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18905,13 +18961,17 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1837875191}
   - {fileID: 1824524785}
   - {fileID: 832206743}
+  - {fileID: 2078305142}
   - {fileID: 1159324194}
-  - {fileID: 1568789504}
   - {fileID: 332255724}
   - {fileID: 1707180004}
-  - {fileID: 2142775524}
+  - {fileID: 1307606921}
   - {fileID: 193522019}
-  - {fileID: 1953021358}
   - {fileID: 1521381066}
+  - {fileID: 2142775524}
+  - {fileID: 2066531216}
+  - {fileID: 1568789504}
+  - {fileID: 1953021358}

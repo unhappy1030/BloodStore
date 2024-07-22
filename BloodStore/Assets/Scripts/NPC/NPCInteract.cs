@@ -142,6 +142,7 @@ public class NPCInteract : MonoBehaviour
                 GameManager.Instance.StartDialogue(yarnControl.nodeName); // tell their evaluation or end dialogue
                 yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
                 yarnControl.nodeName = "";
+                ratingTextControl.gameObject.SetActive(true);
                 ratingTextControl.StartCoroutine(ratingTextControl.ShowRatingTextAnimation(YarnControl.sellInfo));
             }
 
