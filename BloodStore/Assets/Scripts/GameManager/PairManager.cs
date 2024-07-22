@@ -433,7 +433,7 @@ public class TreePair
     /// <summary>
     /// 부모의 혈액 유전 정보로 혈액 유전 정보 배열 생성
     /// </summary>
-    /// <returns>문자열{혈액형, }</returns>
+    /// <returns>{혈액형, RH+/- , 혈액 유전 정보}</returns>
     private string[] GenerateBloodTypeArray()
     {
         string BTGeno = GenerateBloodGenoType();
@@ -441,12 +441,21 @@ public class TreePair
         string RH = Random.Range(0, 2) == 0 ? pair.male.bloodType[1] : pair.female.bloodType[1];
         return new string[] {BT, RH, BTGeno};
     }
+    /// <summary>
+    /// 혈액형 생성
+    /// </summary>
+    /// <param name="BTGeno">혈액 유전 정보</param>
+    /// <returns>혈액형</returns>
     private string GenerateBloodType(string BTGeno){
         if(BTGeno == "AB") return BTGeno;
         else{
             return BTGeno[0].ToString();
         }
     }
+    /// <summary>
+    /// 부모의 혈액 유전정보를 바탕으로 가능한 조합을 모두 구해서 랜덤으로 혈액 유전 정보 생성
+    /// </summary>
+    /// <returns>혈액 유전 정보</returns>
     private string GenerateBloodGenoType(){
         List<string> BTGenos = new List<string>();
         for(int i = 0; i < pair.male.bloodType[2].Length; i++){
@@ -458,6 +467,11 @@ public class TreePair
         return BTGenos[idx];
     }
 
+    /// <summary>
+    /// 부모의 혈액 유전 정보 조합으로 만들어진 혈액 유전정보를 맞게 고침
+    /// </summary>
+    /// <param name="BTGeno">임으로 생성된 혈액 유전 정보</param>
+    /// <returns>올바른 혈액 유전 정보</returns>
     private string FilterBloodGeno(string BTGeno){
         string newGeno;
         if(BTGeno[0] > BTGeno[1]){
