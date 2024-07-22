@@ -121,7 +121,7 @@ public class BloodPacks : MonoBehaviour
             }
         }
     }
-    public void PackingResult(Pairs pairList, int count){
+    public void PackingResult(PairManager pairList, int count){
         Load();
         Deserialize();
         ShowAll();
@@ -136,10 +136,10 @@ public class BloodPacks : MonoBehaviour
         //     Debug.Log(key + " : " + gap[key].ToString());
         // }
     }
-    public void Packing(Pairs pairList){
+    public void Packing(PairManager pairList){
         Load();
         Deserialize();
-        foreach(Pair pair in pairList.pairs){
+        foreach(SerializePair pair in pairList.serializePairList){
             if(pair.male.empty == false && pair.male.age >= 16){
                 AddBloodPack(pair.male);
             }

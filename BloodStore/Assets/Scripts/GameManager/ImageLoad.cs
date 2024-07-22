@@ -30,8 +30,8 @@ public class ImageLoad : MonoBehaviour
             image.sprite = femaleProfileImageSO.images[idx].image;
         }
     }
-    public void LoadImageUseCount(List<Pair> pairs){
-        foreach(Pair pair in pairs){
+    public void LoadImageUseCount(List<SerializePair> pairs){
+        foreach(SerializePair pair in pairs){
             if(!pair.male.empty){
                 maleUseCount[pair.male.imageIdx]++;
             }

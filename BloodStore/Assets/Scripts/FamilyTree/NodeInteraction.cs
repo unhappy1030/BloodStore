@@ -585,7 +585,7 @@ public class NodeInteraction : MonoBehaviour
             return;
         }
 
-        PairTree pairTree = group.pairTree; // 삭제
+        TreePair pairTree = group.pairTree; // 삭제
         Node node = nodeDisplay.data;
 
 

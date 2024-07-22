@@ -95,7 +95,7 @@ public class SaveUI : MonoBehaviour
         if(selectedFile != null){
             string folderName = selectedFile.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
             GameManager.Instance.loadfileName = folderName;
-            Pairs pair = GameManager.Instance.pairList;
+            PairManager pair = GameManager.Instance.pairManager;
             BloodPacks bloodPack = GameManager.Instance.bloodPackList;
             SaveData saveData = GameManager.Instance.saveData;
             pair.SaveFile(folderName);
@@ -196,7 +196,7 @@ public class SaveUI : MonoBehaviour
             description.color = Color.red;
         }
         else{
-            Pairs pair = GameManager.Instance.pairList;
+            PairManager pair = GameManager.Instance.pairManager;
             BloodPacks bloodPack = GameManager.Instance.bloodPackList;
             SaveData saveData = GameManager.Instance.saveData;
             pair.SaveFile(folderName);
