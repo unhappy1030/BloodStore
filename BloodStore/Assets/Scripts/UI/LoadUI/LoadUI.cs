@@ -73,7 +73,7 @@ public class LoadUI : MonoBehaviour
         if(selectedFile != null){
             string folderName = selectedFile.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
             string folderPath = Path.Combine(Application.persistentDataPath, folderName);
-            Pairs pair = GameManager.Instance.pairList;
+            PairManager pair = GameManager.Instance.pairManager;
             BloodPacks bloodPack = GameManager.Instance.bloodPackList;
             SaveData saveData = GameManager.Instance.saveData;
             GameManager.Instance.loadfileName = folderName;

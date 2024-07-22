@@ -8,8 +8,8 @@ using Cinemachine;
 
 public class TreeManager : MonoBehaviour
 {
-    public Pairs pairList;
-    public PairTree root;
+    public PairManager pairManager;
+    public TreePair root;
     public BloodPacks bloodPackList;
     public GameObject nodePrefab;
     public GameObject emptyPrefab;
@@ -29,10 +29,10 @@ public class TreeManager : MonoBehaviour
     void Awake()
     {
         nodeSO.node.empty = true;
-        this.pairList = GameManager.Instance.pairList;
+        this.pairManager = GameManager.Instance.pairManager;
         this.bloodPackList = GameManager.Instance.bloodPackList;
-        root = pairList.Deserialize();
-        if(pairList.pairs.Count == 0)
+        root = pairManager.Deserialize();
+        if(pairManager.serializePairList.Count == 0)
         {
             Node node = new Node();
             node.SetAllRandom();
@@ -42,14 +42,14 @@ public class TreeManager : MonoBehaviour
         MakeFamilyTree();
     }
     public void SavePairData() {
-        pairList.Serialize(root);
-        pairList.Save();
+        pairManager.Serialize(root);
+        pairManager.Save();
     }
     public void SaveAndChangeData(){
-        pairList.Serialize(root);
-        pairList.MakeOlder();
-        pairList.MakeDead();
-        pairList.Save();
+        pairManager.Serialize(root);
+        pairManager.MakeOlder();
+        pairManager.MakeDead();
+        pairManager.Save();
     }
     void SetPrefabData(){
         halfX = nodePrefab.GetComponent<SpriteRenderer>().bounds.extents.x;
@@ -177,23 +177,23 @@ public class TreeManager : MonoBehaviour
     {
         if (node.sex == "Male")
         {
-            Pair first = new Pair
+            SerializePair first = new SerializePair
             {
                 male = node,
                 female = new Node(),
                 isPair = false,
             };
-            root = new PairTree(first);
+            root = new TreePair(first);
         }
         if (node.sex == "Female")
         {
-            Pair first = new Pair
+            SerializePair first = new SerializePair
             {
                 male = new Node(),
                 female = node,
                 isPair = false,
             };
-            root = new PairTree(first);
+            root = new TreePair(first);
         }
     }
 }

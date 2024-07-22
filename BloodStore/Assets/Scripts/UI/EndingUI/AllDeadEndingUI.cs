@@ -6,7 +6,7 @@ public class AllDeadEndingUI : MonoBehaviour
 {
     void Start()
     {
-        if(GameManager.Instance.pairList.CheckAllDead()){
+        if(GameManager.Instance.pairManager.CheckAllDead()){
             gameObject.SetActive(true);
         }
         else{

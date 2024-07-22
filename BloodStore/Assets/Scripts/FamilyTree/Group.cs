@@ -8,7 +8,7 @@ using Unity.VisualScripting;
 
 public class Group : MonoBehaviour
 {
-    public PairTree pairTree;
+    public TreePair pairTree;
     public GameObject nodePrefab;//프리펩 전달 안받게 변경
     public GameObject emptyPrefab;
     public GameObject deadPrefab;
