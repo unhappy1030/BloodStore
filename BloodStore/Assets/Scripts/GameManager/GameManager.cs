@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     public ImageLoad imageLoad;
 
     public TutorialControl tutorialControl;
-    public Tutorial tutorial;
+    public TutorialManager tutorial;
 
     private static GameManager _instance;
     public static GameManager Instance
@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour
         resultStore = FindObjectOfType<ResultStore>();
         resultMoney = FindObjectOfType<ResultMoney>();
         bloodSellProcess = FindObjectOfType<BloodSellProcess>();
-        tutorial = FindObjectOfType<Tutorial>();
+        tutorial = FindObjectOfType<TutorialManager>();
         startScene = FindObjectOfType<StartScene>();
 
         mouseRayCast = GetComponent<MouseRayCast>();

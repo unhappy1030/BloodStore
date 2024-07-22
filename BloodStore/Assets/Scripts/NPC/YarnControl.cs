@@ -103,7 +103,7 @@ public class YarnControl : MonoBehaviour
     [YarnFunction("GetBloodTaste")]
     public static string GetBloodTaste(){
         string taste = "";
-        taste = NPCInteract.tasteStr;
+        taste = NPCInteract.tasteStatement;
 
         if(taste == null){
             taste = "Null...";

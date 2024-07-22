@@ -5,17 +5,24 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Yarn.Unity;
 
+/// <summary>
+/// 가게 운영 상태 나타내는 enum
+/// </summary>
 public enum BloodSellStatus{
     None,
     SelectBlood,
     Filtered
 }
 
+/// <summary>
+/// 가게 운영을 총괄
+/// : Store scene -> NPC 오브젝트
+/// </summary>
 public class NPCInteract : MonoBehaviour
 {
-    public GameObject npc; // assign at Inspector
-    public List<GameObject> cameraTarget; // assign at Inspector
-    public static string tasteStr; // static warning
+    public GameObject npcObject; // assign at Inspector
+    public List<GameObject> cameraTargetObjectList; // assign at Inspector
+    public static string tasteStatement; // static warning
 
     public GameObject endSellProcessButton; // assign at Inspector
     public GameObject bloodPackCanvas; // assign at Inspector
@@ -26,13 +33,13 @@ public class NPCInteract : MonoBehaviour
     public YarnControl yarnControl;
     public DialogueRunner dialogueRunner;
     public BloodSellProcess bloodSellProcess; // assign at inspector
-    public Tutorial tutorial; // assign at inspector
+    public TutorialManager tutorialManager; // assign at inspector
     public RatingTextControl ratingTextControl; // assign at inspector
 
     Coroutine npcCoroutine;
 
     // List<NPCSO> npcs; // get from DialogueControl
-    List<Sprite> npcSprites;
+    List<Sprite> npcSpritesList;
 
     BloodSellStatus sellStatus;
 
@@ -48,13 +55,17 @@ public class NPCInteract : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 가게 운영 시작 전 모든 세팅(UI, fade, 튜토리얼)이 끝날 때까지 기다린 후 npc 대화 시작
+    /// </summary>
+    /// <returns></returns>
      IEnumerator WaitUntilAllsettingsdone(){
         sellStatus = BloodSellStatus.None;
 
         // npcs = dialogueControl.npcs; // test
-        CameraControl.targetsForYarn = new(cameraTarget);
+        CameraControl.targetsForYarn = new(cameraTargetObjectList);
 
-        npc.SetActive(false);
+        npcObject.SetActive(false);
 
         endSellProcessButton.SetActive(false);
         bloodPackCanvas.SetActive(false);
@@ -73,13 +84,22 @@ public class NPCInteract : MonoBehaviour
         StartCoroutine(GetStoreDialogues());
     }
 
+    /// <summary>
+    /// 튜토리얼이 끝날 때까지 기다림
+    /// </summary>
+    /// <returns></returns>
     IEnumerator WaitUntilTutorialEnds(){
         if(GameManager.Instance.isTurotial){
-            yield return new WaitUntil(() => tutorial.isTutorialFinish);
+            yield return new WaitUntil(() => tutorialManager.isTutorialFinish);
             yield return new WaitForSeconds(0.5f);
         }
     }
     
+    /// <summary>
+    /// 현재 씬에서 상호작용해야 할 대화 dialogueControl에서 불러온 후 대화 시작
+    /// , 가게 시작 시 상호작용할 대화 먼저 진행 -> 가게 운영 시작
+    /// </summary>
+    /// <returns></returns>
     IEnumerator GetStoreDialogues(){
         dialogueControl.GetAllDialogues(WhereNodeStart.Store, WhenNodeStart.SceneLoad, false);
 
@@ -101,6 +121,10 @@ public class NPCInteract : MonoBehaviour
         npcCoroutine = StartCoroutine(StartCustomer());
     }
 
+    /// <summary>
+    /// 가게 손님 상호작용 총괄 코루틴
+    /// </summary>
+    /// <returns></returns>
     IEnumerator StartCustomer(){
         if(dialogueControl.count == 0){
             ReadyToMoveNextDay();
@@ -117,8 +141,7 @@ public class NPCInteract : MonoBehaviour
         // tell what they want
         yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning); // wait until dialogue ends
         
-        // if sellect sell
-        if(yarnControl.isSell){
+        if(yarnControl.isSell){ // if sellect sell
             // yield return new WaitUntil(() => YarnControl.isSelect);
             // YarnControl.isSelect = false;
             
@@ -166,43 +189,58 @@ public class NPCInteract : MonoBehaviour
         }
     }
     
-    // to InteractObjInfo
+    /// <summary>
+    /// InteractObjInfo에 대화 정보 저장
+    /// </summary>
+    /// <param name="index">현재 진행중인 대화의 index</param>
     void SetStoreDialogues(int index){
-        InteractObjInfo interactObjInfo = npc.GetComponent<InteractObjInfo>();
+        InteractObjInfo interactObjInfo = npcObject.GetComponent<InteractObjInfo>();
         if(interactObjInfo == null){
-            interactObjInfo = npc.AddComponent<InteractObjInfo>();
+            interactObjInfo = npcObject.AddComponent<InteractObjInfo>();
         }
 
         interactObjInfo._interactType = InteractType.StartDialogue;
         interactObjInfo._nodeName = dialogueControl.allDialogues[index].dialogueName;
     }
     
+    /// <summary>
+    /// 현재 npc의 혈액 취향에 대한 문장 할당, 혈액팩 요구 시 사용됨
+    /// </summary>
+    /// <param name="index">현재 진행중인 대화의 index</param>
     void GetBloodTaste(int index){
-        tasteStr = ""; // reset
-        tasteStr = dialogueControl.allDialogues[index].tasteLine;
+        tasteStatement = ""; // reset
+        tasteStatement = dialogueControl.allDialogues[index].tasteLine;
     }
 
+    /// <summary>
+    /// npc의 이미지 세팅, 이미지 로드, fade in
+    /// </summary>
+    /// <returns></returns>
     IEnumerator ActiveSprite(){
-        npcSprites = dialogueControl.allDialogues[dialogueControl.npcIndex].sprites;
+        npcSpritesList = dialogueControl.allDialogues[dialogueControl.npcIndex].sprites;
 
-        if(npcSprites == null || npcSprites.Count == 0){
+        if(npcSpritesList == null || npcSpritesList.Count == 0){
             Debug.Log("There is no sprites in index " + dialogueControl.npcIndex + " dialogue Info...");
             yield break;
         }
 
-        npc.GetComponent<SpriteRenderer>().sprite = npcSprites[0];
+        npcObject.GetComponent<SpriteRenderer>().sprite = npcSpritesList[0];
 
-        npc.SetActive(true);
+        npcObject.SetActive(true);
         
-        npc.GetComponent<Collider2D>().enabled = false;
-        yield return GameManager.Instance.StartCoroutine(GameManager.Instance.FadeInSprite(npc.GetComponent<SpriteRenderer>(), 0.35f));
-        npc.GetComponent<Collider2D>().enabled = true;
+        npcObject.GetComponent<Collider2D>().enabled = false;
+        yield return GameManager.Instance.StartCoroutine(GameManager.Instance.FadeInSprite(npcObject.GetComponent<SpriteRenderer>(), 0.35f));
+        npcObject.GetComponent<Collider2D>().enabled = true;
     }
 
+    /// <summary>
+    /// npc 이미지 fade out
+    /// </summary>
+    /// <returns></returns>
     IEnumerator DeActiveSprite(){
-        npc.GetComponent<Collider2D>().enabled = false;
-        yield return GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutSprite(npc.GetComponent<SpriteRenderer>(), 0.35f));
-        npc.SetActive(false);
+        npcObject.GetComponent<Collider2D>().enabled = false;
+        yield return GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOutSprite(npcObject.GetComponent<SpriteRenderer>(), 0.35f));
+        npcObject.SetActive(false);
     }
 
     // public void StartDialogue(string nodeName){
@@ -219,6 +257,9 @@ public class NPCInteract : MonoBehaviour
     //     }
     // }
 
+    /// <summary>
+    /// 현재 가게 운영 상태 변경
+    /// </summary>
     public void ChangeSellStatus(){
         if(bloodSellProcess.isBloodSelected){
             sellStatus = BloodSellStatus.SelectBlood;
@@ -249,6 +290,11 @@ public class NPCInteract : MonoBehaviour
     //     cameraControl.ChangeCam(interactObjInfo);
     // }   
     
+    /// <summary>
+    /// 현재 판매 결과에 따른 평점 계산
+    /// </summary>
+    /// <param name="index">현재 진행중인 npc index</param>
+    /// <returns>평점 계산 결과</returns>
     float CalculateSellInfo(int index){
         float point = 0;
 
@@ -323,6 +369,11 @@ public class NPCInteract : MonoBehaviour
         return point;
     }
     
+    /// <summary>
+    /// 현재 판매 평점에 따른 가격 계산
+    /// </summary>
+    /// <param name="sellInfo">현재 판매에 대한 평점</param>
+    /// <returns>가격 계산 결과</returns>
     float CalculatePrice(float sellInfo){        
         if(sellStatus == BloodSellStatus.None){
             return 0;
@@ -336,6 +387,9 @@ public class NPCInteract : MonoBehaviour
     }
 
     // test
+    /// <summary>
+    /// 다음날로 넘어감
+    /// </summary>
     void ReadyToMoveNextDay(){
         nextDayButton.SetActive(true);
     }

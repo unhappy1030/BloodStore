@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Tutorial : MonoBehaviour
+public class TutorialManager : MonoBehaviour
 {
     public GameObject tutorialCanvas; // assign at inspector
     public List<GameObject> tutorialUI; // assign at inspector

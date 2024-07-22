@@ -10032,8 +10032,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0429bd3ebe976eb4a92cdca3bbf3ff96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npc: {fileID: 529723172}
-  cameraTarget:
+  npcObject: {fileID: 529723172}
+  cameraTargetObjectList:
   - {fileID: 38817487}
   - {fileID: 2107475932}
   endSellProcessButton: {fileID: 625989964}
@@ -10044,7 +10044,7 @@ MonoBehaviour:
   yarnControl: {fileID: 0}
   dialogueRunner: {fileID: 0}
   bloodSellProcess: {fileID: 1568789503}
-  tutorial: {fileID: 1953021357}
+  tutorialManager: {fileID: 1953021357}
   ratingTextControl: {fileID: 2134250335}
 --- !u!4 &1159324194
 Transform:
@@ -12309,11 +12309,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 281990389}
+  - {fileID: 625989965}
   - {fileID: 79403491}
   - {fileID: 650510517}
   - {fileID: 758839428}
   - {fileID: 2134250334}
-  - {fileID: 625989965}
   - {fileID: 166274613}
   m_Father: {fileID: 193522019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
