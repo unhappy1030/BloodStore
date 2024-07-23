@@ -58,7 +58,7 @@ public class StartScene : MonoBehaviour
     public void StartNewGame(string sceneName){
         GameManager.Instance.saveData.SetInitialValue();
         GameManager.Instance.saveData.Save();
-        GameManager.Instance.pairManager = GameManager.Instance.pairManager.LoadNew();
+        GameManager.Instance.pairManager.LoadNew();
         GameManager.Instance.pairManager.Save();
         GameManager.Instance.bloodPackList = GameManager.Instance.bloodPackList.LoadNew();
         GameManager.Instance.bloodPackList.Save();

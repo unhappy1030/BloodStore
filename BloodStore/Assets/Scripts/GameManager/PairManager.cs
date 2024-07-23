@@ -78,19 +78,16 @@ public class PairManager : MonoBehaviour
     /// <summary>
     /// 새게임을 시작할때 데이터 초기화
     /// </summary>
-    /// <returns> 현재 PairManager 인스턴스 자체를 반환 </returns>
-    public PairManager LoadNew(){
+    public void LoadNew(){
         serializePairList = new();
         GameManager.Instance.imageLoad.LoadImageUseCount(serializePairList);
-        return this;
     }
 
     /// <summary>
     /// 세이브 파일 데이터를 불러옴
     /// </summary>
     /// <param name="folderName">플레이어로 부터 입력 받은 세이브 파일의 이름</param>
-    /// <returns> 현재 PairManager 인스턴스 자체를 반환 </returns>
-    public PairManager LoadFile(string folderName){
+    public void LoadFile(string folderName){
         string folderPath = Path.Combine(Application.persistentDataPath, folderName);
         string _path = Path.Combine(folderPath, FamilyTreeFileName);
         if(File.Exists(_path)){
@@ -109,7 +106,6 @@ public class PairManager : MonoBehaviour
         }
         GameManager.Instance.imageLoad.LoadImageUseCount(serializePairList);
         Save();
-        return this;
     }
 
     /// <summary>

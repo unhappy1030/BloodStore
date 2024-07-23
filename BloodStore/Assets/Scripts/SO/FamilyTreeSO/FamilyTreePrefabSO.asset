@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bab3ecd2b42994149ae4d89b3ee97617, type: 3}
+  m_Name: FamilyTreePrefabSO
+  m_EditorClassIdentifier: 
+  treePrefab:
+    nodePrefab: {fileID: 8718197429054370660, guid: 9a016da12926ff64b84de69d29d683e4, type: 3}
+    emptyNodePrefab: {fileID: 8718197429054370660, guid: 3b736b6025e4f464ebba10c9000fb0f0, type: 3}
+    deadNodePrefab: {fileID: 8027437025007009207, guid: ccea8f6a950447a4497c2ac053ac8bf0, type: 3}
+    childButtonOnPrefab: {fileID: 3364876195097649735, guid: 8e63d875ba2986943871af4694a1adc6, type: 3}
+    childButtonOffPrefab: {fileID: 931226082578005030, guid: 1bcbffe7ae9edc641bb3f2d90f143be6, type: 3}
+    highLightPrefab: {fileID: 6445684365966835310, guid: 6fc7f1ff3ccee6b44ace2e9dff969b36, type: 3}
