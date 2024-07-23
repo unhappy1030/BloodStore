@@ -4146,8 +4146,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1568789503}
-        m_TargetAssemblyTypeName: BloodSellProcess, Assembly-CSharp
-        m_MethodName: FixMachine
+        m_TargetAssemblyTypeName: BloodSellProcessManager, Assembly-CSharp
+        m_MethodName: FixMachineBTN
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6009,8 +6009,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1568789503}
-        m_TargetAssemblyTypeName: BloodSellProcess, Assembly-CSharp
-        m_MethodName: EndBloodProcess
+        m_TargetAssemblyTypeName: BloodSellProcessManager, Assembly-CSharp
+        m_MethodName: EndBloodProcessBTN
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14066,15 +14066,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b3fa14806409fa46852e2b44effcb29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newColor: {r: 0.51919544, g: 0.56443244, b: 0.8415094, a: 1}
+  fixingStatusColor: {r: 0.49275184, g: 0.5551101, b: 0.6679245, a: 0.44313726}
   isBloodSelected: 0
   isFiltered: 0
   isBloodSellFinish: 0
-  isFix: 0
-  filteringCanvas: {fileID: 79403490}
-  notAbleFilterCanvas: {fileID: 650510516}
-  selectBloodPackObj: {fileID: 570847567}
-  filteringObj: {fileID: 1986493971}
+  isMachineFixing: 0
+  filterBloodUI: {fileID: 79403490}
+  notAbleFilterUI: {fileID: 650510516}
+  selectBloodPlaceCollider: {fileID: 570847567}
+  filterMachineCollider: {fileID: 1986493971}
   moneyControl: {fileID: 0}
   bloodPackUITest: {fileID: 438526626}
   bloodPackCount: {fileID: 1329378992}
@@ -14996,8 +14996,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1568789503}
-        m_TargetAssemblyTypeName: BloodSellProcess, Assembly-CSharp
-        m_MethodName: SelectBlood
+        m_TargetAssemblyTypeName: BloodSellProcessManager, Assembly-CSharp
+        m_MethodName: SelectBloodBTN
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

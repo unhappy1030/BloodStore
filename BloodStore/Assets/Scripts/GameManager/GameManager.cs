@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
     public DialogueRunner dialogueRunner;
     public InMemoryVariableStorage variableStorage;
     public ResultStore resultStore;
-    public BloodSellProcess bloodSellProcess;
+    public BloodSellProcessManager bloodSellProcess;
 
     public ResultMoney resultMoney;
 
@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
         nodeInteraction = FindObjectOfType<NodeInteraction>();
         resultStore = FindObjectOfType<ResultStore>();
         resultMoney = FindObjectOfType<ResultMoney>();
-        bloodSellProcess = FindObjectOfType<BloodSellProcess>();
+        bloodSellProcess = FindObjectOfType<BloodSellProcessManager>();
         tutorial = FindObjectOfType<TutorialManager>();
         startScene = FindObjectOfType<StartScene>();
 

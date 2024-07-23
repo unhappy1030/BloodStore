@@ -32,7 +32,7 @@ public class NPCInteract : MonoBehaviour
     public DialogueControl dialogueControl;
     public YarnControl yarnControl;
     public DialogueRunner dialogueRunner;
-    public BloodSellProcess bloodSellProcess; // assign at inspector
+    public BloodSellProcessManager bloodSellProcess; // assign at inspector
     public TutorialManager tutorialManager; // assign at inspector
     public RatingTextControl ratingTextControl; // assign at inspector
 
@@ -388,7 +388,7 @@ public class NPCInteract : MonoBehaviour
 
     // test
     /// <summary>
-    /// 다음날로 넘어감
+    /// 모든 과정 끝난 후 다음날로 넘어가는 버튼 활성화
     /// </summary>
     void ReadyToMoveNextDay(){
         nextDayButton.SetActive(true);

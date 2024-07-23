@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BloodFiltering : MonoBehaviour
 {
-    public BloodSellProcess bloodSellProcess; // assign at inspector
+    public BloodSellProcessManager bloodSellProcess; // assign at inspector
 
     void Start(){
         gameObject.SetActive(false);
