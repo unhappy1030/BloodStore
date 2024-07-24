@@ -19,3 +19,9 @@ MonoBehaviour:
     childButtonOnPrefab: {fileID: 3364876195097649735, guid: 8e63d875ba2986943871af4694a1adc6, type: 3}
     childButtonOffPrefab: {fileID: 931226082578005030, guid: 1bcbffe7ae9edc641bb3f2d90f143be6, type: 3}
     highLightPrefab: {fileID: 6445684365966835310, guid: 6fc7f1ff3ccee6b44ace2e9dff969b36, type: 3}
+    nodeHalfLength: []
+    pairOffSetLength:
+    - 1.2
+    - 1.2
+    nodeOffset: 0.2
+    pairLength: 0

@@ -44,8 +44,8 @@ public class ValueButton : MonoBehaviour
             Group group = UI.group;
             group.pairTree.AddChildByValue(weight, probability);
             UI.DeActive();
-            group.button.SetActive(false);
-            group.buttonOff.SetActive(true);
+            group.childButtonOn.SetActive(false);
+            group.childButtonOff.SetActive(true);
         }
     }
 }

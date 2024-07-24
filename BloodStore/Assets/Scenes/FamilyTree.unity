@@ -7046,6 +7046,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pairManager: {fileID: 0}
   bloodPackList: {fileID: 0}
+  familyTreePrefabSO: {fileID: 11400000, guid: 8afbf05995afd734f8471df1a2417698, type: 2}
   nodePrefab: {fileID: 8718197429054370660, guid: 9a016da12926ff64b84de69d29d683e4, type: 3}
   emptyPrefab: {fileID: 8718197429054370660, guid: 3b736b6025e4f464ebba10c9000fb0f0, type: 3}
   deadPrefab: {fileID: 8027437025007009207, guid: ccea8f6a950447a4497c2ac053ac8bf0, type: 3}

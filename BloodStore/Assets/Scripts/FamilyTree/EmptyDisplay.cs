@@ -31,7 +31,7 @@ public class EmptyDisplay : MonoBehaviour
     public void ChangeConfirmed(){
         MakePair();
         if(group.pairTree.pair.male.age < 60){
-            group.button.SetActive(true);
+            group.childButtonOn.SetActive(true);
         }
         group.selectedCard.SetActive(false);
         ChangeDisplay(nodeSO.node.sex);
@@ -44,18 +44,18 @@ public class EmptyDisplay : MonoBehaviour
     }
     void ChangeDisplay(string sex){
         if(sex == "Male"){
-            group.leftDisplay = group.CreateNode(group.pairTree.pair.male);
-            group.leftDisplay.transform.parent = group.transform;
-            group.leftDisplay.transform.position = this.transform.position;
-            group.leftDisplay.GetComponent<BoxCollider2D>().enabled = true;
-            group.leftDisplay.transform.SetAsFirstSibling();
+            group.leftNode = group.CreateNode(group.pairTree.pair.male);
+            group.leftNode.transform.parent = group.transform;
+            group.leftNode.transform.position = this.transform.position;
+            group.leftNode.GetComponent<BoxCollider2D>().enabled = true;
+            group.leftNode.transform.SetAsFirstSibling();
         }
         else{
-            group.rightDisplay = group.CreateNode(group.pairTree.pair.female);
-            group.rightDisplay.transform.parent = group.transform;
-            group.rightDisplay.transform.position = this.transform.position;
-            group.rightDisplay.GetComponent<BoxCollider2D>().enabled = true;
-            group.rightDisplay.transform.SetAsFirstSibling();
+            group.rightNode = group.CreateNode(group.pairTree.pair.female);
+            group.rightNode.transform.parent = group.transform;
+            group.rightNode.transform.position = this.transform.position;
+            group.rightNode.GetComponent<BoxCollider2D>().enabled = true;
+            group.rightNode.transform.SetAsFirstSibling();
         }
         Destroy(gameObject);
     }
