@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7de505699410be64eb516109f8cd8324, type: 3}
+  m_Name: MaleProfileImageSO
+  m_EditorClassIdentifier: 
+  images:
+  - image: {fileID: 21300000, guid: a304e6e12ff3c3a4981749721fa0402b, type: 3}
+  - image: {fileID: 21300000, guid: cee92d9ecc393a24e9aeae8c264e2e5e, type: 3}
+  - image: {fileID: 21300000, guid: c12d609491e15bc4ba0361694b8e969b, type: 3}
+  - image: {fileID: 21300000, guid: 13bdaee190ee49f46a22ca24426ed92f, type: 3}
+  - image: {fileID: 21300000, guid: 72a359f04b5dd4549b6e0c7d46f1d327, type: 3}
+  - image: {fileID: 21300000, guid: 3ce3d7dfc4f582e498c08ac1476af9e9, type: 3}
+  - image: {fileID: 21300000, guid: 20b74212f00bcee46a1bd4930509e2f6, type: 3}
+  - image: {fileID: 21300000, guid: 3eaba45f443bcd740b889bf3685f8c30, type: 3}
+  - image: {fileID: 21300000, guid: 801b603927a4d0a48b8e83ea7563b07c, type: 3}
+  - image: {fileID: 21300000, guid: e3a3babba1adc084cb2fe2a81a570d0a, type: 3}
+  - image: {fileID: 21300000, guid: 6e553f2b210d8ed418e99c9e622029ea, type: 3}

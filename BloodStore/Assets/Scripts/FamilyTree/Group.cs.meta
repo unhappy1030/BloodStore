@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 5afc129053fc25240bd156f86fd17d9a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - familyTreePrefabSO: {fileID: 11400000, guid: 8afbf05995afd734f8471df1a2417698, type: 2}
+  - selectedCard: {instanceID: 0}
+  - leftDisplay: {instanceID: 0}
+  - rightDisplay: {instanceID: 0}
+  - button: {instanceID: 0}
+  - buttonOff: {instanceID: 0}
+  - highLight: {instanceID: 0}
+  - parentGroup: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

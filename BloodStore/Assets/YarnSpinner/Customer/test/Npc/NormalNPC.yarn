@@ -1,5 +1,50 @@
 ﻿title: Normal
 tags:
+position: -1,0
 ---
-This is normal NPC test.
+<<declare $taste = "">>
+
+<<set $taste = GetBloodTaste()>>
+Customer: {$taste}
+
+<<WaitForFadeIn>>
+<<VirtualCamBlend_Cut DialogueSystem 1>>
+<<SetIsSell DialogueSystem true>>
+<<SetNodeName DialogueSystem SellTest>>
+<<WaitForFadeOut>>
+===
+title: SellTest
+position: -104,0
+---
+<<declare $price = 0>>
+<<declare $rating = 0>>
+<<set $price = GetSellPrice()>>
+<<set $rating = GetSellInfo()>>
+
+<<WaitForFadeIn>>
+<<VirtualCamBlend_Cut DialogueSystem 0>>
+<<WaitForFadeOut>>
+
+<<if $rating >= 4>>
+    Customer: Thanks! This is really nice.
+<<elseif $rating >= 3>>
+    Customer: Thank you. It's nice.
+<<elseif $rating >= 2>>
+    Customer: I guess things didn't turn out as I had hoped.
+<<elseif $rating >= 1>>
+    Customer: This is really disappointing...
+<<else>>
+    Customer: This is really terrible...
+<<endif>>
+
+// Customer: Total Point is {GetSellInfo()}
+// Customer: Earn {$price}
+<<CalculateMoney DialogueSystem {$price}>>
+// <<if GetSellInfo() >= 2.5>>
+//     npc: more than 2.5
+// <<elseif GetSellInfo() >= 0>>
+//     npc: less than 2.5
+// <<else>>
+//     npc: something worng...
+// <<endif>>
 ===

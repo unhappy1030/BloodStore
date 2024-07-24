@@ -48,3 +48,6 @@ TagManager:
   - name: AlwaysOn
     uniqueID: 592011183
     locked: 0
+  - name: GameManager
+    uniqueID: 2753012405
+    locked: 0
