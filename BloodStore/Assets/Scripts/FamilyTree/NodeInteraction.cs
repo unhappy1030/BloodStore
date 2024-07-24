@@ -585,7 +585,7 @@ public class NodeInteraction : MonoBehaviour
             return;
         }
 
-        TreePair pairTree = group.pairTree; // 삭제
+        TreePair pairTree = group.treePair; // 삭제
         Node node = nodeDisplay.data;
 
 
@@ -747,8 +747,8 @@ public class NodeInteraction : MonoBehaviour
         while (queue.Count > 0)
         {
             Group current = queue.Dequeue();
-            if((!current.pairTree.pair.male.empty && !current.pairTree.pair.male.isDead)
-            || (!current.pairTree.pair.female.empty && !current.pairTree.pair.female.isDead)){
+            if((!current.treePair.pair.male.empty && !current.treePair.pair.male.isDead)
+            || (!current.treePair.pair.female.empty && !current.treePair.pair.female.isDead)){
                 return current;
             }
             if (current.childGroupList != null)

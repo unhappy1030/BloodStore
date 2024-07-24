@@ -11,15 +11,15 @@ public class EmptyDisplay : MonoBehaviour
     }
 
     public void SetNode(GameObject checkPairUI, GameObject noticeUI){
-        if(!group.pairTree.pair.male.empty && !group.pairTree.pair.male.isDead && group.pairTree.pair.male.age >= 20){
-            if(group.pairTree.BlankNodeCheck() == nodeSO.node.sex && !nodeSO.node.empty){
+        if(!group.treePair.pair.male.empty && !group.treePair.pair.male.isDead && group.treePair.pair.male.age >= 20){
+            if(group.treePair.BlankNodeCheck() == nodeSO.node.sex && !nodeSO.node.empty){
                 CheckPair checkPair = checkPairUI.GetComponent<CheckPair>();
                 checkPair.ConfirmCheck(this);
                 return ;
             }
         }
-        else if(!group.pairTree.pair.female.empty && !group.pairTree.pair.female.isDead && group.pairTree.pair.female.age >= 20){
-            if(group.pairTree.BlankNodeCheck() == nodeSO.node.sex && !nodeSO.node.empty){
+        else if(!group.treePair.pair.female.empty && !group.treePair.pair.female.isDead && group.treePair.pair.female.age >= 20){
+            if(group.treePair.BlankNodeCheck() == nodeSO.node.sex && !nodeSO.node.empty){
                 CheckPair checkPair = checkPairUI.GetComponent<CheckPair>();
                 checkPair.ConfirmCheck(this);
                 return ;
@@ -30,7 +30,7 @@ public class EmptyDisplay : MonoBehaviour
     }
     public void ChangeConfirmed(){
         MakePair();
-        if(group.pairTree.pair.male.age < 60){
+        if(group.treePair.pair.male.age < 60){
             group.childButtonOn.SetActive(true);
         }
         group.selectedCard.SetActive(false);
@@ -44,14 +44,14 @@ public class EmptyDisplay : MonoBehaviour
     }
     void ChangeDisplay(string sex){
         if(sex == "Male"){
-            group.leftNode = group.CreateNode(group.pairTree.pair.male);
+            group.leftNode = group.CreateNode(group.treePair.pair.male);
             group.leftNode.transform.parent = group.transform;
             group.leftNode.transform.position = this.transform.position;
             group.leftNode.GetComponent<BoxCollider2D>().enabled = true;
             group.leftNode.transform.SetAsFirstSibling();
         }
         else{
-            group.rightNode = group.CreateNode(group.pairTree.pair.female);
+            group.rightNode = group.CreateNode(group.treePair.pair.female);
             group.rightNode.transform.parent = group.transform;
             group.rightNode.transform.position = this.transform.position;
             group.rightNode.GetComponent<BoxCollider2D>().enabled = true;
@@ -70,11 +70,11 @@ public class EmptyDisplay : MonoBehaviour
             empty = false,
             imageIdx = nodeSO.node.imageIdx,
         };
-        group.pairTree.MakePair(node);
-        group.pairTree.pair.isPair = true;
+        group.treePair.MakePair(node);
+        group.treePair.pair.isPair = true;
         nodeSO.node.empty = true;
     }
     void DeleteNode(){
-        group.pairTree.pair.isPair = false;
+        group.treePair.pair.isPair = false;
     }
 }

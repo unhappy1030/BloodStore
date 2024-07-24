@@ -54,10 +54,12 @@ public class TreeManager : MonoBehaviour
     /// 가계도 그리기
     /// </summary>
     void MakeFamilyTree(){
-        MakeMainGroupObject();
-        Group rootGroup = RootDisplay();
-        MakeChildren(rootGroup);
-        MakeCenter(rootGroup);
+        mainGroup = new GameObject("MainGroup");
+        // Group rootGroup = RootDisplay();
+        // MakeChildren(rootGroup);
+        // MakeCenter(rootGroup);
+        Group rootGroup = CreateAllGroupObject(root);
+        SetAllGroupPosition(rootGroup);
         // Debug.Log("X : " + rootGroup.groupPos.x.ToString() + "  Y : " + rootGroup.groupPos.y.ToString());
         mainGroup.transform.position = rootGroup.groupPosition;
         rootGroup.transform.parent = mainGroup.transform;
@@ -68,12 +70,64 @@ public class TreeManager : MonoBehaviour
         rootGroup.FamilyLine();
         MakeLine(rootGroup);
     }
-    /// <summary>
-    /// "MainGroup"을 이름으로 하는 가계도 전체를 자식 오브젝트로하는 GameObject 생성
-    /// </summary>
-    void MakeMainGroupObject(){
-        mainGroup = new GameObject("MainGroup");
+    Group CreateAllGroupObject(TreePair treePair){
+        Group now = CreateGroupObject(treePair);
+        if(now.treePair.pair.childNum != 0){
+            now.childGroupList = new();
+            for(int i = 0; i < now.treePair.pair.childNum; i++){
+                Group group = CreateAllGroupObject(now.treePair.children[i]);
+                group.parentGroup = now;
+                now.childGroupList.Add(group);
+            }
+        }
+        return now;
     }
+    Group CreateGroupObject(TreePair treePair){
+        GameObject groupObject = new GameObject("Group");
+        InteractObjInfo inter = groupObject.AddComponent<InteractObjInfo>();
+        inter._interactType = InteractType.FamilyTree;
+        inter._familyTreeType = FamilyTreeType.Group;
+        groupObject.layer = LayerMask.NameToLayer("Interact");
+        Group group = groupObject.AddComponent<Group>();
+        group.familyTreePrefabSO = this.familyTreePrefabSO;
+        group.SetValues(addChildSO);
+        group.SetUI(selectedCard);
+        group.MakeBoxCollider();
+        group.highLight = Instantiate(familyTreePrefabSO.treePrefab.highLightPrefab, new Vector2(0, 0), Quaternion.identity);
+        group.highLight.transform.localScale = new Vector3(familyTreePrefabSO.treePrefab.pairLength, familyTreePrefabSO.treePrefab.nodeHalfLength[1] * 2);
+        group.highLight.transform.SetParent(groupObject.transform);
+        group.highLight.SetActive(false);
+        group.treePair = treePair;
+        group.groupPosition = new Vector2(0, 0);
+        group.transform.position = group.groupPosition;
+        group.leftNodePosition =  group.groupPosition + new Vector2(-1 * (familyTreePrefabSO.treePrefab.nodeHalfLength[0] + (familyTreePrefabSO.treePrefab.nodeOffset / 2)), 0);
+        group.rightNodePosition = group.groupPosition + new Vector2(familyTreePrefabSO.treePrefab.nodeHalfLength[0] + (familyTreePrefabSO.treePrefab.nodeOffset / 2), 0);
+        group.DisplayNodes();
+        group.leftNode.transform.parent = group.transform;
+        group.rightNode.transform.parent = group.transform;
+        group.MakeChildButton();
+        return group;
+    }
+
+    void SetAllGroupPosition(Group parentGroup){
+        if(parentGroup.treePair.pair.childNum != 0){
+            List<Vector2> posList = MakeChildPosList(parentGroup.groupPosition, parentGroup.treePair.pair.childNum);
+            for(int i = 0; i < parentGroup.treePair.pair.childNum; i++){
+                Group group = parentGroup.childGroupList[i];
+                if(posList[i].y >= lastY && posList[i].x <= lastX){
+                    lastX += familyTreePrefabSO.treePrefab.unit;
+                    posList[i] = new Vector2(lastX, posList[i].y);
+                }
+                lastX = posList[i].x;
+                lastY = posList[i].y;
+                group.groupPosition = posList[i];
+                group.transform.position = group.groupPosition;
+                SetAllGroupPosition(group);
+            }
+        }
+        MakeCenter(parentGroup);
+    }
+
     /// <summary>
     /// GroupObject를 생성
     /// </summary>
@@ -102,7 +156,7 @@ public class TreeManager : MonoBehaviour
     /// <returns></returns>
     Group RootDisplay(){
         Group group = MakeGroupObject();
-        group.pairTree = root;
+        group.treePair = root;
         group.groupPosition = new Vector2(0, 0);
         group.transform.position = group.groupPosition;
         group.leftNodePosition =  group.groupPosition + new Vector2(-1 * (familyTreePrefabSO.treePrefab.nodeHalfLength[0] + (familyTreePrefabSO.treePrefab.nodeOffset / 2)), 0);
@@ -115,12 +169,12 @@ public class TreeManager : MonoBehaviour
     }
 
     void MakeChildren(Group rootGroup){
-        if(rootGroup.pairTree.pair.childNum != 0){
+        if(rootGroup.treePair.pair.childNum != 0){
             rootGroup.childGroupList = new();
-            List<Vector2> posList = MakeChildPosList(rootGroup.groupPosition, rootGroup.pairTree.pair.childNum);
-            for(int i = 0; i < rootGroup.pairTree.pair.childNum; i++){
+            List<Vector2> posList = MakeChildPosList(rootGroup.groupPosition, rootGroup.treePair.pair.childNum);
+            for(int i = 0; i < rootGroup.treePair.pair.childNum; i++){
                 Group group = MakeGroupObject();
-                group.pairTree = rootGroup.pairTree.children[i];
+                group.treePair = rootGroup.treePair.children[i];
                 if(posList[i].y >= lastY && posList[i].x <= lastX){
                     // Debug.Log("Move");
                     lastX += familyTreePrefabSO.treePrefab.unit;
@@ -146,14 +200,14 @@ public class TreeManager : MonoBehaviour
         }
     }
     void MakeCenter(Group group){
-        if(group.pairTree.pair.childNum != 0){
+        if(group.treePair.pair.childNum != 0){
             group.groupPosition = new Vector2((group.childGroupList[0].groupPosition.x + group.childGroupList[group.childGroupList.Count - 1].groupPosition.x) / 2, group.groupPosition.y);
             group.transform.position = group.groupPosition;
         }
     }
     
     void MakeParentMainGroup(Group rootGroup){      //DFS 중복
-        if(rootGroup.pairTree.pair.childNum != 0){
+        if(rootGroup.treePair.pair.childNum != 0){
             foreach(Group group in rootGroup.childGroupList){
                 group.transform.parent = mainGroup.transform;
                 // group.CameraSetting();
@@ -162,7 +216,7 @@ public class TreeManager : MonoBehaviour
         }
     }
     void MakeLine(Group rootGroup){                 //DFS 중복
-        if(rootGroup.pairTree.pair.childNum != 0){
+        if(rootGroup.treePair.pair.childNum != 0){
             foreach(Group group in rootGroup.childGroupList){
                 group.PairLine();
                 group.FamilyLine();

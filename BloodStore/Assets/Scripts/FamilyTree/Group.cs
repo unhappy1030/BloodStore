@@ -5,7 +5,7 @@ using System.Linq;
 
 public class Group : MonoBehaviour
 {
-    public TreePair pairTree;
+    public TreePair treePair;
     public FamilyTreePrefabSO familyTreePrefabSO;
     public GameObject selectedCard;
     public Vector2 groupPosition;
@@ -55,9 +55,9 @@ public class Group : MonoBehaviour
         this.selectedCard = selectedCard;
     }
     public Group DisplayNodes(){
-        leftNode = CreateNode(pairTree.pair.male);
+        leftNode = CreateNode(treePair.pair.male);
         leftNode.transform.position = leftNodePosition;
-        rightNode = CreateNode(pairTree.pair.female);
+        rightNode = CreateNode(treePair.pair.female);
         rightNode.transform.position = rightNodePosition;
         return this;
     }
@@ -191,7 +191,7 @@ public class Group : MonoBehaviour
         box.size = spriteSize;
         childButtonOn.transform.parent = transform;
         childButtonOff.transform.parent = transform;
-        if(pairTree.pair.isPair && pairTree.pair.childNum == 0 && pairTree.pair.male.age < 60 && pairTree.pair.male.age < 60){
+        if(treePair.pair.isPair && treePair.pair.childNum == 0 && treePair.pair.male.age < 60 && treePair.pair.male.age < 60){
             childButtonOn.SetActive(true);
         }
     }
