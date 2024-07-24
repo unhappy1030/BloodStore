@@ -42,10 +42,10 @@ public class ValueButton : MonoBehaviour
             moneyControl.CalculateMoney(cost * -1);
             ChildAddUI UI = addChildUI.GetComponent<ChildAddUI>();
             Group group = UI.group;
-            group.pairTree.AddChildByValue(weight, probability);
+            group.treePair.AddChildByValue(weight, probability);
             UI.DeActive();
-            group.button.SetActive(false);
-            group.buttonOff.SetActive(true);
+            group.childButtonOn.SetActive(false);
+            group.childButtonOff.SetActive(true);
         }
     }
 }

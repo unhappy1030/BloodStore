@@ -91,7 +91,7 @@ public class PackingUI : MonoBehaviour
     //Additional Cost Part
     private float GetAdditionalCost(){
         tree = treeManager.GetComponent<TreeManager>();
-        root = tree.mainGroup.transform.GetChild(0).GetComponent<Group>().pairTree;
+        root = tree.mainGroup.transform.GetChild(0).GetComponent<Group>().treePair;
         return GetAdditionalCost(root);
     }
     private float GetAdditionalCost(TreePair rootPair){
