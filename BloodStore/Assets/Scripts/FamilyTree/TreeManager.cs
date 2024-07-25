@@ -62,6 +62,11 @@ public class TreeManager : MonoBehaviour
         mainGroup.transform.position =new Vector2(0, 0);
         MakeLine(rootGroup);
     }
+    /// <summary>
+    /// 모든 Group오브젝트를 생성
+    /// </summary>
+    /// <param name="treePair">Group오브젝트에 저장될 treePair</param>
+    /// <returns>마지막으로 RootGroup을 반환</returns>
     Group CreateAllGroupObject(TreePair treePair){
         Group now = CreateGroupObject(treePair);
         if(now.treePair.pair.childNum != 0){
@@ -74,6 +79,11 @@ public class TreeManager : MonoBehaviour
         }
         return now;
     }
+    /// <summary>
+    /// 하나의 Group오브젝트를 생성 및 반환
+    /// </summary>
+    /// <param name="treePair">Group오브젝트에 저장될 treePair</param>
+    /// <returns>초기 설정이 된 Group반환</returns>
     Group CreateGroupObject(TreePair treePair){
         GameObject groupObject = new GameObject("Group");
         InteractObjInfo inter = groupObject.AddComponent<InteractObjInfo>();
@@ -100,7 +110,10 @@ public class TreeManager : MonoBehaviour
         group.MakeChildButton();
         return group;
     }
-
+    /// <summary>
+    /// 생성된 모든 Group을 순회하며 Group위치 지정
+    /// </summary>
+    /// <param name="parentGroup">순환을 위한 rootGroup</param>
     void SetAllGroupPosition(Group parentGroup){
         if(parentGroup.treePair.pair.childNum != 0){
             List<Vector2> posList = MakeChildPosList(parentGroup.groupPosition, parentGroup.treePair.pair.childNum);
@@ -119,6 +132,12 @@ public class TreeManager : MonoBehaviour
         }
         SetPositionCenter(parentGroup);
     }
+    /// <summary>
+    /// 부모 좌표를 통해서 자식들의 좌표 리스트를 반환
+    /// </summary>
+    /// <param name="rootPos">부모 Group의 좌표</param>
+    /// <param name="childNum">자식의 수</param>
+    /// <returns>자식들의 좌표 리스트를 반환</returns>
     List<Vector2> MakeChildPosList(Vector2 rootPos, int childNum){
         List<Vector2> posList = new();
         float startPoint = rootPos.x;
@@ -128,13 +147,20 @@ public class TreeManager : MonoBehaviour
         }
         return posList;
     }
-
+    /// <summary>
+    /// 부모 Group을 자식 Group들의 중앙으로 위치 변경
+    /// </summary>
+    /// <param name="group">부모 Group</param>
     void SetPositionCenter(Group group){
         if(group.treePair.pair.childNum != 0){
             group.groupPosition = new Vector2((group.childGroupList[0].groupPosition.x + group.childGroupList[group.childGroupList.Count - 1].groupPosition.x) / 2, group.groupPosition.y);
             group.transform.position = group.groupPosition;
         }
     }
+    /// <summary>
+    ///  모든 Group 오브젝트를 MainGroup의 하위로 지정
+    /// </summary>
+    /// <param name="parentGroup"> Root Group(트리 순회를 위한) </param>
     void MakeParentMainGroup(Group parentGroup){  
         parentGroup.transform.parent = mainGroup.transform;    //DFS 중복
         if(parentGroup.treePair.pair.childNum != 0){
@@ -143,6 +169,10 @@ public class TreeManager : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// 모든 Group 오브젝트의 가계도에 맞는 선을 그림
+    /// </summary>
+    /// <param name="parentGroup"> Root Group(트리 순회를 위한) </param>
     void MakeLine(Group parentGroup){                 //DFS 중복
         parentGroup.PairLine();
         parentGroup.FamilyLine();
