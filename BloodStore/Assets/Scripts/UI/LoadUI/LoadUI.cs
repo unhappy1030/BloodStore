@@ -20,12 +20,6 @@ public class LoadUI : MonoBehaviour
     public TextMeshProUGUI loadCheckText;
     void Start()
     {
-        if(gameObject.activeSelf){
-            gameObject.SetActive(false);
-        }
-        if(loadCheckUI.activeSelf){
-            loadCheckUI.SetActive(false);
-        }
         MakeButtonsOff();
         ShowFiles();
         eventSystem = FindObjectOfType<EventSystem>();

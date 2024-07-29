@@ -15512,7 +15512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b07f6329f4ef4846a237c07fcbe999f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pairs: []
+  serializePairList: []
 --- !u!224 &1706408144394351461
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17410,7 +17410,7 @@ MonoBehaviour:
   bloodSellProcess: {fileID: 0}
   resultMoney: {fileID: 0}
   startScene: {fileID: 0}
-  pairList: {fileID: 0}
+  pairManager: {fileID: 0}
   bloodPackList: {fileID: 0}
   saveData: {fileID: 0}
   imageLoad: {fileID: 0}

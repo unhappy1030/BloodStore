@@ -8,10 +8,6 @@ public class ChildAddUI : MonoBehaviour
     public GameObject A;
     public GameObject B;
     public GameObject C;
-    void Start()
-    {
-        gameObject.SetActive(false);
-    }
     public void Active(Group group){
         this.group = group;
         ValueButton aValue = A.GetComponent<ValueButton>();
