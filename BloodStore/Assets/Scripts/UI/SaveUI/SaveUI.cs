@@ -22,18 +22,6 @@ public class SaveUI : MonoBehaviour
     public TMP_InputField fileNameInput;
     void Start()
     {
-        if(gameObject.activeSelf){
-            gameObject.SetActive(false);
-        }
-        if(deleteCheckUI.activeSelf){
-            deleteCheckUI.SetActive(false);
-        }
-        if(saveCheckUI.activeSelf){
-            saveCheckUI.SetActive(false);
-        }
-        if(addNewFileUI.activeSelf){
-            addNewFileUI.SetActive(false);
-        }
         MakeButtonsOff();
         ShowFiles();
         eventSystem = FindObjectOfType<EventSystem>();

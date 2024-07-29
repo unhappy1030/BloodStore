@@ -24,12 +24,6 @@ public class PackingUI : MonoBehaviour
     public GameObject treeManager;
     private TreeManager tree;
     private TreePair root;
-    void Start()
-    {
-        if(gameObject.activeSelf){
-            gameObject.SetActive(false);
-        }
-    }
     public void PackingConfirm(){
         tree.SavePairData();
         MoneyControl moneyControl = GameManager.Instance.gameObject.GetComponent<MoneyControl>();
