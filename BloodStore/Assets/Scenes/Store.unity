@@ -11970,7 +11970,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9af86fc6ad0a8e4e97d3d4acd654cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textList: []
+  textList:
+  - {fileID: 739068328}
+  - {fileID: 279676228}
+  - {fileID: 2116498191}
+  - {fileID: 1172546156}
+  - {fileID: 758511269}
+  - {fileID: 272911649}
+  - {fileID: 1001046882}
+  - {fileID: 2067409204}
 --- !u!222 &1329378993
 CanvasRenderer:
   m_ObjectHideFlags: 0
