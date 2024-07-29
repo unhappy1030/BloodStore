@@ -278,9 +278,9 @@ public class NodeInteraction : MonoBehaviour
         upGroup = null;
         downGroup = null;
         
-        if(newGroup.childrenGroup != null && newGroup.childrenGroup.Count != 0){
-            downGroup = newGroup.childrenGroup;
-            direction[3] = newGroup.childrenGroup.Count;
+        if(newGroup.childGroupList != null && newGroup.childGroupList.Count != 0){
+            downGroup = newGroup.childGroupList;
+            direction[3] = newGroup.childGroupList.Count;
         }
 
         if(newGroup.parentGroup != null){
@@ -290,9 +290,9 @@ public class NodeInteraction : MonoBehaviour
 
         if(newGroup.parentGroup != null){
             Group parent = newGroup.parentGroup;
-            if(parent.childrenGroup != null && parent.childrenGroup.Count > 1){
+            if(parent.childGroupList != null && parent.childGroupList.Count > 1){
                 int siblingIndex = 0;
-                foreach(Group sibling in parent.childrenGroup){
+                foreach(Group sibling in parent.childGroupList){
                     if(newGroup == sibling){
                         break;
                     }
@@ -301,13 +301,13 @@ public class NodeInteraction : MonoBehaviour
 
                 if(siblingIndex > 0)
                 {
-                    leftGroup = parent.childrenGroup[siblingIndex - 1];
+                    leftGroup = parent.childGroupList[siblingIndex - 1];
                     direction[1] = 1;
                 }
                 
-                if(siblingIndex < parent.childrenGroup.Count - 1)
+                if(siblingIndex < parent.childGroupList.Count - 1)
                 {
-                    rightGroup = parent.childrenGroup[siblingIndex + 1];
+                    rightGroup = parent.childGroupList[siblingIndex + 1];
                     direction[2] = 1;
                 }
             }
@@ -319,7 +319,7 @@ public class NodeInteraction : MonoBehaviour
     void SelectShow(Group group){
         if(nodeShowingStatus == NodeShowingStatus.ShowFamily)
         {
-            if(group.childrenGroup != null && group.childrenGroup.Count != 0)
+            if(group.childGroupList != null && group.childGroupList.Count != 0)
             {
                 ShowFamily(group);
             }
@@ -545,11 +545,11 @@ public class NodeInteraction : MonoBehaviour
         List<GameObject> familyTarget = new();
         familyTarget.Add(_parent.gameObject);
 
-        if(_parent.childrenGroup == null || _parent.childrenGroup.Count == 0){
+        if(_parent.childGroupList == null || _parent.childGroupList.Count == 0){
             return;
         }
         
-        foreach(Group child in _parent.childrenGroup){
+        foreach(Group child in _parent.childGroupList){
             familyTarget.Add(child.gameObject);
         }
 
@@ -585,7 +585,7 @@ public class NodeInteraction : MonoBehaviour
             return;
         }
 
-        TreePair pairTree = group.pairTree; // 삭제
+        TreePair pairTree = group.treePair; // 삭제
         Node node = nodeDisplay.data;
 
 
@@ -661,7 +661,7 @@ public class NodeInteraction : MonoBehaviour
     void ZoomOut(){
         switch(nodeShowingStatus){
             case NodeShowingStatus.ShowGroup:
-                if(currentSelectGroup.childrenGroup != null && currentSelectGroup.childrenGroup.Count != 0)
+                if(currentSelectGroup.childGroupList != null && currentSelectGroup.childGroupList.Count != 0)
                 {
                     ShowFamily(currentSelectGroup);
                     AbleKeyInput(currentSelectGroup);
@@ -711,8 +711,8 @@ public class NodeInteraction : MonoBehaviour
                 collider.enabled = false;
             }
         }
-        if(rootGroup.childrenGroup != null){
-            foreach(Group group in rootGroup.childrenGroup){
+        if(rootGroup.childGroupList != null){
+            foreach(Group group in rootGroup.childGroupList){
                 boxCollider = group.GetComponent<BoxCollider2D>();
                 boxCollider.enabled = true;
                 nodeColliders = group.GetComponentsInChildren<BoxCollider2D>();
@@ -726,8 +726,8 @@ public class NodeInteraction : MonoBehaviour
         }
     }
     void OnAllGroupColliderOffAllNodeCollider(Group rootGroup){
-        if(rootGroup.childrenGroup != null){
-            foreach(Group group in rootGroup.childrenGroup){
+        if(rootGroup.childGroupList != null){
+            foreach(Group group in rootGroup.childGroupList){
                 BoxCollider2D boxCollider = group.GetComponent<BoxCollider2D>();
                 boxCollider.enabled = true;
                 BoxCollider2D[] nodeColliders = group.GetComponentsInChildren<BoxCollider2D>();
@@ -747,13 +747,13 @@ public class NodeInteraction : MonoBehaviour
         while (queue.Count > 0)
         {
             Group current = queue.Dequeue();
-            if((!current.pairTree.pair.male.empty && !current.pairTree.pair.male.isDead)
-            || (!current.pairTree.pair.female.empty && !current.pairTree.pair.female.isDead)){
+            if((!current.treePair.pair.male.empty && !current.treePair.pair.male.isDead)
+            || (!current.treePair.pair.female.empty && !current.treePair.pair.female.isDead)){
                 return current;
             }
-            if (current.childrenGroup != null)
+            if (current.childGroupList != null)
             {
-                foreach (Group child in current.childrenGroup)
+                foreach (Group child in current.childGroupList)
                 {
                     queue.Enqueue(child);
                 }
