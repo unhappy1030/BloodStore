@@ -72,7 +72,7 @@ public class NodeInteraction : MonoBehaviour
     // public TreeManagerTest treeManagerTest;
 
     public CameraControl cameraControl;
-    public Tutorial tutorial; // assign at inspector
+    public TutorialManager tutorial; // assign at inspector
     public DialogueRunner dialogueRunner;
     public DialogueControl dialogueControl;
     public YarnControl yarnControl;
