@@ -38,6 +38,15 @@ public class Node
             return 100;
         }
     }
+    public void ChangeMentalScore(int value){
+        mentalScore += value;
+        if(mentalScore < 0){
+            mentalScore = 0;
+        }
+        if(mentalScore > 100){
+            mentalScore = 100;
+        }
+    }
     public void SetAllRandom()
     {
         this.name = GenerateRandomName();
