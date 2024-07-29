@@ -22,7 +22,7 @@ public class BloodSellProcessManager : MonoBehaviour
 
     public MoneyControl moneyControl;
     public BloodPackUITest bloodPackUITest; // assign at inspector
-    public BloodPackCount bloodPackCount; // assign at inspector
+    public BloodPackCountControl bloodPackCount; // assign at inspector
     
 
     void Start(){
