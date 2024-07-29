@@ -11,6 +11,7 @@ public class Node
     public string[] bloodType;
     public int hp;
     public int age;
+    public int mentalScore;
     public bool isDead;
     public int imageIdx;
     public bool empty;
@@ -44,6 +45,7 @@ public class Node
         this.bloodType = GenerateRandomBloodType();
         this.hp = 100;
         this.age = Random.Range(20, 36);
+        this.mentalScore = 60;
         this.isDead = false;
         this.empty = false;
         this.imageIdx = GameManager.Instance.imageLoad.GetSpriteIndex(this.sex);
@@ -85,6 +87,7 @@ public class NodeSO : ScriptableObject
             bloodType = card.bloodType,
             hp = card.hp,
             age = card.age,
+            mentalScore = 60,
             isDead = card.isDead,
             empty = false,
             imageIdx = card.imageIdx,

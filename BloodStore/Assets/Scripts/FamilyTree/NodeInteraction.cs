@@ -622,7 +622,7 @@ public class NodeInteraction : MonoBehaviour
         texts[2].text = "Age : " + node.age;
         texts[3].text = "BloodType : " + node.bloodType[1] + node.bloodType[2];
         texts[4].text = "HP : " + node.hp;
-        texts[5].text = "Type : " + "None";
+        texts[5].text = "MentalScore : " + node.mentalScore;
     }
 
     void SelectPair(EmptyDisplay emptyNode){

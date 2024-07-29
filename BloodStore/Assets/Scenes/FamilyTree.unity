@@ -1474,7 +1474,7 @@ GameObject:
   - component: {fileID: 173013764}
   - component: {fileID: 173013763}
   m_Layer: 5
-  m_Name: Type
+  m_Name: MentalScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
