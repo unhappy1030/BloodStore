@@ -320,6 +320,9 @@ public class TreePair
             if(pair.childNum > 5){
                 pair.childNum = 5;
             }
+            ChangeParentMentalScore(pair.childNum);
+            Debug.Log("Male MentalScore : " + pair.male.mentalScore);
+            Debug.Log("Female MentalScore : " + pair.female.mentalScore);
             for(int i = 0; i < pair.childNum; i++){
                 Node node = new Node();
                 node = SetChildByParent();
@@ -345,6 +348,20 @@ public class TreePair
                 }
             }
         }
+    }
+    public void ChangeParentMentalScore(int childNum){
+        int value = 0;
+        if(childNum == 0){
+            value = -5;
+        }
+        else if(childNum > 1 && childNum <= 3){
+            value = 2 + childNum;
+        }
+        else if(childNum > 3){
+            value = -5 - childNum;
+        }
+        pair.male.ChangeMentalScore(value);
+        pair.female.ChangeMentalScore(value);
     }
     /// <summary>
     /// 가중치와 확률을 통해서 자식의 수를 구함
@@ -411,6 +428,7 @@ public class TreePair
             bloodType = GenerateBloodTypeArray(),
             hp = 50,
             age = Random.Range(-9, 0),
+            mentalScore = 60,
             isDead = false,
             empty = false,
         };
