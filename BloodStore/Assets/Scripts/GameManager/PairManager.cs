@@ -238,6 +238,17 @@ public class PairManager : MonoBehaviour
         }
     }
 
+    public void UpdateMentalScore(){
+        foreach(SerializePair pair in serializePairList){
+            if(pair.isPair){
+                if(pair.childNum >= 3){
+                    pair.male.ChangeMentalScore(-5);
+                    pair.female.ChangeMentalScore(-5);
+                }
+            }
+        }
+    }
+
 }
 
 /// <summary>
@@ -354,11 +365,8 @@ public class TreePair
         if(childNum == 0){
             value = -5;
         }
-        else if(childNum > 1 && childNum <= 3){
+        else if(childNum > 1 && childNum < 3){
             value = 2 + childNum;
-        }
-        else if(childNum > 3){
-            value = -5 - childNum;
         }
         pair.male.ChangeMentalScore(value);
         pair.female.ChangeMentalScore(value);

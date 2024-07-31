@@ -48,6 +48,7 @@ public class TreeManager : MonoBehaviour
         pairManager.Serialize(root);
         pairManager.MakeOlder();
         pairManager.MakeDead();
+        pairManager.UpdateMentalScore();
         pairManager.Save();
     }
     /// <summary>
