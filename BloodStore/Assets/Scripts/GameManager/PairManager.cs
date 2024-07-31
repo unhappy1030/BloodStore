@@ -167,10 +167,10 @@ public class PairManager : MonoBehaviour
     public void MakeOlder(){
         foreach(SerializePair pair in serializePairList){
             if(!pair.male.empty){
-                pair.male.age += 10;
+                pair.male.age += 5;
             }
             if(!pair.female.empty){
-                pair.female.age += 10;
+                pair.female.age += 5;
             }
         }
     }
@@ -242,8 +242,31 @@ public class PairManager : MonoBehaviour
         foreach(SerializePair pair in serializePairList){
             if(pair.isPair){
                 if(pair.childNum >= 3){
-                    pair.male.ChangeMentalScore(-5);
-                    pair.female.ChangeMentalScore(-5);
+                    pair.male.ChangeMentalScore(-5 - pair.childNum);
+                    pair.female.ChangeMentalScore(-5 - pair.childNum);
+                }
+            }
+        }
+    }
+
+    public void SuicideByMentalScore(){
+        float prob = 0.3f; 
+        float rand;
+        foreach(SerializePair pair in serializePairList){
+            if(!pair.male.empty){
+                if(pair.male.mentalScore <= 30){
+                    rand = Random.Range(0f,1f);
+                    if(rand <= prob){
+                        pair.male.isDead = true;
+                    }
+                }
+            }
+            if(!pair.female.empty){
+                if(pair.female.mentalScore <= 30){
+                    rand = Random.Range(0f,1f);
+                    if(rand <= prob){
+                        pair.female.isDead = true;
+                    }
                 }
             }
         }
