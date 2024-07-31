@@ -167,10 +167,10 @@ public class PairManager : MonoBehaviour
     public void MakeOlder(){
         foreach(SerializePair pair in serializePairList){
             if(!pair.male.empty){
-                pair.male.age += 10;
+                pair.male.age += 5;
             }
             if(!pair.female.empty){
-                pair.female.age += 10;
+                pair.female.age += 5;
             }
         }
     }
@@ -235,6 +235,40 @@ public class PairManager : MonoBehaviour
         }
         else{
             return false;
+        }
+    }
+
+    public void UpdateMentalScore(){
+        foreach(SerializePair pair in serializePairList){
+            if(pair.isPair){
+                if(pair.childNum >= 3){
+                    pair.male.ChangeMentalScore(-5 - pair.childNum);
+                    pair.female.ChangeMentalScore(-5 - pair.childNum);
+                }
+            }
+        }
+    }
+
+    public void SuicideByMentalScore(){
+        float prob = 0.3f; 
+        float rand;
+        foreach(SerializePair pair in serializePairList){
+            if(!pair.male.empty){
+                if(pair.male.mentalScore <= 30){
+                    rand = Random.Range(0f,1f);
+                    if(rand <= prob){
+                        pair.male.isDead = true;
+                    }
+                }
+            }
+            if(!pair.female.empty){
+                if(pair.female.mentalScore <= 30){
+                    rand = Random.Range(0f,1f);
+                    if(rand <= prob){
+                        pair.female.isDead = true;
+                    }
+                }
+            }
         }
     }
 
@@ -320,6 +354,9 @@ public class TreePair
             if(pair.childNum > 5){
                 pair.childNum = 5;
             }
+            ChangeParentMentalScore(pair.childNum);
+            Debug.Log("Male MentalScore : " + pair.male.mentalScore);
+            Debug.Log("Female MentalScore : " + pair.female.mentalScore);
             for(int i = 0; i < pair.childNum; i++){
                 Node node = new Node();
                 node = SetChildByParent();
@@ -345,6 +382,17 @@ public class TreePair
                 }
             }
         }
+    }
+    public void ChangeParentMentalScore(int childNum){
+        int value = 0;
+        if(childNum == 0){
+            value = -5;
+        }
+        else if(childNum > 1 && childNum < 3){
+            value = 2 + childNum;
+        }
+        pair.male.ChangeMentalScore(value);
+        pair.female.ChangeMentalScore(value);
     }
     /// <summary>
     /// 가중치와 확률을 통해서 자식의 수를 구함
@@ -411,6 +459,7 @@ public class TreePair
             bloodType = GenerateBloodTypeArray(),
             hp = 50,
             age = Random.Range(-9, 0),
+            mentalScore = 60,
             isDead = false,
             empty = false,
         };

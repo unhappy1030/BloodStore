@@ -66,6 +66,7 @@ public class EmptyDisplay : MonoBehaviour
             bloodType = nodeSO.node.bloodType,
             hp = nodeSO.node.hp,
             age = nodeSO.node.age,
+            mentalScore = nodeSO.node.mentalScore,
             isDead = nodeSO.node.isDead,
             empty = false,
             imageIdx = nodeSO.node.imageIdx,

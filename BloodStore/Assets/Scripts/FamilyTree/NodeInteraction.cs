@@ -401,13 +401,13 @@ public class NodeInteraction : MonoBehaviour
 
         PolygonCollider2D camCollider = cameraCollider.GetComponent<PolygonCollider2D>();
         
-        Debug.Log("Lens Ortho size : " + camScript.m_Lens.OrthographicSize);
+        // Debug.Log("Lens Ortho size : " + camScript.m_Lens.OrthographicSize);
 
         float camHeight = camScript.m_Lens.OrthographicSize * 2; // *** 100 = ppu
         float camWidth = camHeight * Camera.main.aspect;
 
-        Debug.Log("CamHeight : " + camHeight);
-        Debug.Log("CamWidth : " + camWidth);
+        // Debug.Log("CamHeight : " + camHeight);
+        // Debug.Log("CamWidth : " + camWidth);
 
         float maxWidth = camCollider.points[1].x - camCollider.points[0].x;
         float maxHeight = camCollider.points[2].y - camCollider.points[1].y;
@@ -622,7 +622,7 @@ public class NodeInteraction : MonoBehaviour
         texts[2].text = "Age : " + node.age;
         texts[3].text = "BloodType : " + node.bloodType[1] + node.bloodType[2];
         texts[4].text = "HP : " + node.hp;
-        texts[5].text = "Type : " + "None";
+        texts[5].text = "MentalScore : " + node.mentalScore;
     }
 
     void SelectPair(EmptyDisplay emptyNode){
