@@ -9,7 +9,7 @@ public class BloodTypeGameManager : MonoBehaviour
     public List<GameObject> deckList; // assign at inspector
     public TextMeshProUGUI nextCardText; // assign at inspector
 
-    public List<MinigameDeck> deckStatusList;
+    public List<List<MinigameDeck>> deckStatusList;
     public MinigameDeck previousDeck;
     public MinigameDeck currentDeck;
     string randomBloodType;
@@ -52,10 +52,13 @@ public class BloodTypeGameManager : MonoBehaviour
         }
         nextCardText.text = "";
         
-        deckStatusList = new List<MinigameDeck>();
-        for(int i=0; i<9; i++){
-            MinigameDeck newMDeck = new MinigameDeck(i, false, false, "", deckList[i]);
-            deckStatusList.Add(newMDeck);
+        deckStatusList = new List<List<MinigameDeck>>();
+        for(int i=0; i<3; i++){
+            deckStatusList.Add(new List<MinigameDeck>());
+            for(int j=0; j<3; j++){
+                MinigameDeck newMDeck = new MinigameDeck(i, j, false, false, "", deckList[i*3+j]);
+                deckStatusList[i].Add(newMDeck);
+            }
         }
 
         previousDeck = null;
@@ -78,7 +81,7 @@ public class BloodTypeGameManager : MonoBehaviour
 
         if(previousDeck != null){
             PutOnTheDeck();
-            CheckDeckStatus(previousDeck.index, randomBloodType);
+            CheckDeckStatus(previousDeck.indexs, randomBloodType);
             randomBloodType = MakeRandomBloodType();
             nextCardText.text = randomBloodType;
             previousDeck = null;
@@ -89,17 +92,17 @@ public class BloodTypeGameManager : MonoBehaviour
 
     bool isGameEnd(){
         if(isMakeOneLine(0, 4, 8) || isMakeOneLine(1, 4, 7) || isMakeOneLine(2, 4, 6) || isMakeOneLine(3, 4, 5)){
-            isPlayerWin = deckStatusList[4].isPlayer;
+            isPlayerWin = deckStatusList[1][1].isPlayer;
             return true;
         }
 
         if(isMakeOneLine(0, 3, 6) || isMakeOneLine(0, 1, 2)){
-            isPlayerWin = deckStatusList[0].isPlayer;
+            isPlayerWin = deckStatusList[0][0].isPlayer;
             return true;
         }
 
         if(isMakeOneLine(6, 7, 8) || isMakeOneLine(2, 5, 8)){
-            isPlayerWin = deckStatusList[8].isPlayer;
+            isPlayerWin = deckStatusList[2][2].isPlayer;
             return true;
         }
 
@@ -107,8 +110,8 @@ public class BloodTypeGameManager : MonoBehaviour
     }
 
     bool isMakeOneLine(int i1, int i2, int i3){
-        if(deckStatusList[i2].isFilled && deckStatusList[i1].isFilled && deckStatusList[i3].isFilled
-        && deckStatusList[i1].isPlayer == deckStatusList[i3].isPlayer && deckStatusList[i3].isPlayer == deckStatusList[i2].isPlayer){
+        if(deckStatusList[i2/3][i2%3].isFilled && deckStatusList[i1/3][i1%3].isFilled && deckStatusList[i3/3][i3%3].isFilled
+        && deckStatusList[i1/3][i1%3].isPlayer == deckStatusList[i3/3][i3%3].isPlayer && deckStatusList[i3/3][i3%3].isPlayer == deckStatusList[i2/3][i2%3].isPlayer){
             return true;
         }
 
@@ -132,17 +135,34 @@ public class BloodTypeGameManager : MonoBehaviour
 
     void ChangeMouseCursor(){
         bool isOutOfDeck = true;
-        foreach(MinigameDeck deck in deckStatusList){
-            if(deck.isFilled)
-                continue;
-            RectTransform rectTransform = deck.realObject.GetComponent<RectTransform>();
-            Vector2 localMousePosition = rectTransform.InverseTransformPoint(Input.mousePosition);
-            if(rectTransform.rect.Contains(localMousePosition)){
-                currentDeck = deck;
-                isOutOfDeck = false;
-                break;
+        for(int i=0; i<3; i++){
+            for(int j=0; j<3; j++){
+                MinigameDeck deck = deckStatusList[i][j];
+
+                if(deck.isFilled)
+                    continue;
+                
+                RectTransform rectTransform = deck.realObject.GetComponent<RectTransform>();
+                Vector2 localMousePosition = rectTransform.InverseTransformPoint(Input.mousePosition);
+                if(rectTransform.rect.Contains(localMousePosition)){
+                    currentDeck = deck;
+                    isOutOfDeck = false;
+                    break;
+                }
             }
         }
+
+        // foreach(MinigameDeck deck in deckStatusList){
+        //     if(deck.isFilled)
+        //         continue;
+        //     RectTransform rectTransform = deck.realObject.GetComponent<RectTransform>();
+        //     Vector2 localMousePosition = rectTransform.InverseTransformPoint(Input.mousePosition);
+        //     if(rectTransform.rect.Contains(localMousePosition)){
+        //         currentDeck = deck;
+        //         isOutOfDeck = false;
+        //         break;
+        //     }
+        // }
 
         if(isOutOfDeck){
             if(previousDeck != null){
@@ -170,35 +190,74 @@ public class BloodTypeGameManager : MonoBehaviour
         previousDeck.bloodType = randomBloodType;
     }
 
-    void CheckDeckStatus(int newDeckIndex, string newBloodType){
+    void CheckDeckStatus(int[] idxs, string newBloodType){
+        if(idxs[0] > 0 && deckStatusList[idxs[0]-1][idxs[1]].isFilled)
+        {
+            MinigameDeck upDeck = deckStatusList[idxs[0]-1][idxs[1]];
+
+            if(!isAbleToGiveBlood(newBloodType, upDeck.bloodType)){
+                upDeck.ChangeText("", new Color32(0,0,0,255));
+                upDeck.isFilled = false;
+            }
+        }
+
+        if(idxs[1] > 0 && deckStatusList[idxs[0]][idxs[1]-1].isFilled)
+        {
+            MinigameDeck leftDeck = deckStatusList[idxs[0]][idxs[1]-1];
+
+            if(!isAbleToGiveBlood(newBloodType, leftDeck.bloodType)){
+                leftDeck.ChangeText("", new Color32(0,0,0,255));
+                leftDeck.isFilled = false;
+            }
+        }
+
+        if(idxs[0] < 2 && deckStatusList[idxs[0]+1][idxs[1]].isFilled)
+        {
+            MinigameDeck downDeck = deckStatusList[idxs[0]+1][idxs[1]];
+
+            if(!isAbleToGiveBlood(newBloodType, downDeck.bloodType)){
+                downDeck.ChangeText("", new Color32(0,0,0,255));
+                downDeck.isFilled = false;
+            }
+        }
+
+        if(idxs[1] < 2 && deckStatusList[idxs[0]][idxs[1]+1].isFilled)
+        {
+            MinigameDeck rightDeck = deckStatusList[idxs[0]][idxs[1]+1];
+
+            if(!isAbleToGiveBlood(newBloodType, rightDeck.bloodType)){
+                rightDeck.ChangeText("", new Color32(0,0,0,255));
+                rightDeck.isFilled = false;
+            }
+        }
         
-        if(newDeckIndex - 3 >= 0 && deckStatusList[newDeckIndex-3].isFilled){
-            if(!isAbleToGiveBlood(newBloodType, deckStatusList[newDeckIndex-3].bloodType)){
-                deckStatusList[newDeckIndex-3].ChangeText("", new Color32(0,0,0,255));
-                deckStatusList[newDeckIndex-3].isFilled = false;
-            }
-        }
+        // if(idxs - 3 >= 0 && deckStatusList[idxs-3].isFilled){
+        //     if(!isAbleToGiveBlood(newBloodType, deckStatusList[idxs-3].bloodType)){
+        //         deckStatusList[idxs-3].ChangeText("", new Color32(0,0,0,255));
+        //         deckStatusList[idxs-3].isFilled = false;
+        //     }
+        // }
 
-        if(newDeckIndex-1 >=0 && (newDeckIndex-1)/3 == newDeckIndex/3 && deckStatusList[newDeckIndex-1].isFilled){
-            if(!isAbleToGiveBlood(newBloodType, deckStatusList[newDeckIndex-1].bloodType)){
-                deckStatusList[newDeckIndex-1].ChangeText("", new Color32(0,0,0,255));
-                deckStatusList[newDeckIndex-1].isFilled = false;
-            }
-        }
+        // if(idxs-1 >=0 && (idxs-1)/3 == idxs/3 && deckStatusList[idxs-1].isFilled){
+        //     if(!isAbleToGiveBlood(newBloodType, deckStatusList[idxs-1].bloodType)){
+        //         deckStatusList[idxs-1].ChangeText("", new Color32(0,0,0,255));
+        //         deckStatusList[idxs-1].isFilled = false;
+        //     }
+        // }
 
-        if((newDeckIndex+1)/3 == newDeckIndex/3 && deckStatusList[newDeckIndex+1].isFilled){
-            if(!isAbleToGiveBlood(newBloodType, deckStatusList[newDeckIndex+1].bloodType)){
-                deckStatusList[newDeckIndex+1].ChangeText("", new Color32(0,0,0,255));
-                deckStatusList[newDeckIndex+1].isFilled = false;
-            }
-        }
+        // if((idxs+1)/3 == idxs/3 && deckStatusList[idxs+1].isFilled){
+        //     if(!isAbleToGiveBlood(newBloodType, deckStatusList[idxs+1].bloodType)){
+        //         deckStatusList[idxs+1].ChangeText("", new Color32(0,0,0,255));
+        //         deckStatusList[idxs+1].isFilled = false;
+        //     }
+        // }
 
-        if(newDeckIndex + 3 < 9 && deckStatusList[newDeckIndex+1].isFilled){
-            if(!isAbleToGiveBlood(newBloodType, deckStatusList[newDeckIndex+3].bloodType)){
-                deckStatusList[newDeckIndex+3].ChangeText("", new Color32(0,0,0,255));
-                deckStatusList[newDeckIndex+3].isFilled = false;
-            }
-        }
+        // if(idxs + 3 < 9 && deckStatusList[idxs+1].isFilled){
+        //     if(!isAbleToGiveBlood(newBloodType, deckStatusList[idxs+3].bloodType)){
+        //         deckStatusList[idxs+3].ChangeText("", new Color32(0,0,0,255));
+        //         deckStatusList[idxs+3].isFilled = false;
+        //     }
+        // }
     }
 
     bool isAbleToGiveBlood(string newBloodType, string currentBloodType){
@@ -258,7 +317,7 @@ public class BloodTypeGameManager : MonoBehaviour
 
 [Serializable]
 public class MinigameDeck{
-    public int index;
+    public int[] indexs;
     public bool isFilled;
     public bool isPlayer;
     public string bloodType;
@@ -269,8 +328,10 @@ public class MinigameDeck{
         ;
     }
 
-    public MinigameDeck(int index, bool isFilled, bool isPlayer, string bloodType, GameObject realObject){
-        this.index = index;
+    public MinigameDeck(int x, int y, bool isFilled, bool isPlayer, string bloodType, GameObject realObject){
+        this.indexs = new int[2];
+        this.indexs[0] = x;
+        this.indexs[1] = y;
         this.isFilled = isFilled;
         this.isPlayer = isPlayer;
         this.bloodType = bloodType;
