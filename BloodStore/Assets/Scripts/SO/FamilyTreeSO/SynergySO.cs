@@ -9,7 +9,8 @@ public static class SynergyName{
             "Weakness",
             "Doctor",
             "Religion",
-            "Albino"
+            "Albino",
+            "None"
         };
 }
 
