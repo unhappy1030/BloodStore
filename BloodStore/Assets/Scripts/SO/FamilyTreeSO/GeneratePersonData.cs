@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class GeneratePersonData
 {
-    private static readonly float[] weights = { 0.2f, 0.2f, 0.2f, 0.1f, 0.1f, 0.05f };
+    private static readonly float[] weights = { 0.2f, 0.2f, 0.2f, 0.1f, 0.1f, 0.05f, 0.3f};
 
     public static string GenerateRandomName()
     {
