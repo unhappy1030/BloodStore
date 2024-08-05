@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Synergy{
-    public List<string> synergyName;
-    public Dictionary<string, int> synergyDict;
-    public Synergy(){
-        synergyName = new List<string>{
+public static class SynergyName{
+    public static readonly List<string> names  = new List<string>{
             "Business",
             "Healthiness",
             "Weakness",
@@ -14,8 +11,14 @@ public class Synergy{
             "Religion",
             "Albino"
         };
+}
+
+[System.Serializable]
+public class Synergy{
+    public Dictionary<string, int> synergyDict;
+    public Synergy(){
         synergyDict = new();
-        foreach(string syn in synergyName){
+        foreach(string syn in SynergyName.names){
             synergyDict.Add(syn, 0);
         }
     }
