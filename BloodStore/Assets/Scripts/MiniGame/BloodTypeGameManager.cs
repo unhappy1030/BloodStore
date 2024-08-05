@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using TMPro;
 using System;
 
@@ -16,12 +14,29 @@ public class BloodTypeGameManager : MonoBehaviour
     public MinigameDeck currentDeck;
     string randomBloodType;
     bool isPlayerTurn;
+    bool isPlayerWin;
 
 
     /// <summary>
     /// 판과 패 초기화
     /// </summary>
     void Start(){
+        StartCoroutine(MiniGame());
+    }
+
+    IEnumerator MiniGame(){
+        SetGame();
+        yield return StartCoroutine(SetTurn());
+        while(!isGameEnd()){
+            yield return StartCoroutine(PlayOneTurn());
+        }
+        if(isPlayerWin)
+            Debug.Log("Player Win!");
+        else
+            Debug.Log("Player lose!");
+    }
+
+    void SetGame(){
         if(deckList == null || deckList.Count == 0){
             Debug.Log("deck texts list is empty...");
             return;
@@ -47,26 +62,73 @@ public class BloodTypeGameManager : MonoBehaviour
         currentDeck = null;
         randomBloodType = MakeRandomBloodType();
         nextCardText.text = randomBloodType;
-        isPlayerTurn = true;
+        isPlayerWin = false;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    void Update(){
-        if(Input.GetMouseButtonDown(0)){
-            if(previousDeck != null){
-                PutOnTheDeck();
-                CheckDeckStatus(previousDeck.index, randomBloodType);
-                randomBloodType = MakeRandomBloodType();
-                nextCardText.text = randomBloodType;
-                previousDeck = null;
-                currentDeck = null;
-                isPlayerTurn = !isPlayerTurn;
-            }
-        }
-        ChangeMouseCursor();
+    IEnumerator SetTurn(){
+        isPlayerTurn = (UnityEngine.Random.value < 0.5f);
+        yield return null;
     }
+
+    IEnumerator PlayOneTurn(){
+        while(!Input.GetMouseButtonDown(0)){
+            ChangeMouseCursor();
+            yield return null;
+        }
+
+        if(previousDeck != null){
+            PutOnTheDeck();
+            CheckDeckStatus(previousDeck.index, randomBloodType);
+            randomBloodType = MakeRandomBloodType();
+            nextCardText.text = randomBloodType;
+            previousDeck = null;
+            currentDeck = null;
+            isPlayerTurn = !isPlayerTurn;
+        }
+    }
+
+    bool isGameEnd(){
+        if(isMakeOneLine(0, 4, 8) || isMakeOneLine(1, 4, 7) || isMakeOneLine(2, 4, 6) || isMakeOneLine(3, 4, 5)){
+            isPlayerWin = deckStatusList[4].isPlayer;
+            return true;
+        }
+
+        if(isMakeOneLine(0, 3, 6) || isMakeOneLine(0, 1, 2)){
+            isPlayerWin = deckStatusList[0].isPlayer;
+            return true;
+        }
+
+        if(isMakeOneLine(6, 7, 8) || isMakeOneLine(2, 5, 8)){
+            isPlayerWin = deckStatusList[8].isPlayer;
+            return true;
+        }
+
+        return false;
+    }
+
+    bool isMakeOneLine(int i1, int i2, int i3){
+        if(deckStatusList[i2].isFilled && deckStatusList[i1].isFilled && deckStatusList[i3].isFilled
+        && deckStatusList[i1].isPlayer == deckStatusList[i3].isPlayer && deckStatusList[i3].isPlayer == deckStatusList[i2].isPlayer){
+            return true;
+        }
+
+        return false;
+    }
+
+    // void Update(){
+    //     if(Input.GetMouseButtonDown(0)){
+    //         if(previousDeck != null){
+    //             PutOnTheDeck();
+    //             CheckDeckStatus(previousDeck.index, randomBloodType);
+    //             randomBloodType = MakeRandomBloodType();
+    //             nextCardText.text = randomBloodType;
+    //             previousDeck = null;
+    //             currentDeck = null;
+    //             isPlayerTurn = !isPlayerTurn;
+    //         }
+    //     }
+    //     ChangeMouseCursor();
+    // }
 
     void ChangeMouseCursor(){
         bool isOutOfDeck = true;
