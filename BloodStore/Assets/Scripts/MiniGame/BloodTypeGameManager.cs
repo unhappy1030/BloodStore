@@ -155,20 +155,41 @@ public class BloodTypeGameManager : MonoBehaviour
     }
 
     string MakeRandomBloodType(){
-        int randomInt = UnityEngine.Random.Range(0, 4);
-        string bloodtype;
-        if(randomInt == 0){
-            bloodtype = "A+";
-        }
-        else if(randomInt == 1){
-            bloodtype = "B+";
-        }
-        else if(randomInt == 2){
-            bloodtype = "AB+";
+        float[] bloodtypeRate = {0.38f, 0.1f, 0.03f, 0.49f}; // A B AB O
+        float randomPoint = UnityEngine.Random.value;
+
+        int index = -1;
+        if(randomPoint == 1){
+            index = bloodtypeRate.Length - 1;
         }
         else{
+            float cumulativeProb = 0f;
+            for(int i=0; i<bloodtypeRate.Length; i++){
+                cumulativeProb += bloodtypeRate[i];
+                if(randomPoint < cumulativeProb){
+                    index = i;
+                    break;
+                }
+            }
+        }
+
+        string bloodtype;
+        if(index == 0){
+            bloodtype = "A+";
+        }
+        else if(index == 1){
+            bloodtype = "B+";
+        }
+        else if(index == 2){
+            bloodtype = "AB+";
+        }
+        else if(index == 3){
             bloodtype = "O+";
         }
+        else{
+            bloodtype = "ERROR";
+        }
+
         return bloodtype;
     }
 }
