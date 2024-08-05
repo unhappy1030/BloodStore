@@ -13,30 +13,10 @@ public class Node
     public int mentalScore;
     public bool isDead;
     public int imageIdx;
-    public int synId;
+    public int synergyCode;
     public bool empty;
     public Node(){
         empty = true;
-    }
-    public int GetMaxHp(){
-        if(age > 0 && age < 10){
-            return 50;
-        }
-        else if(age >= 10 && age < 20){
-            return 75;
-        }
-        else if(age >= 65 && age < 75){
-            return 75;
-        }
-        else if(age >= 75 && age < 85){
-            return 65;
-        }
-        else if(age >= 85){
-            return 50;
-        }
-        else{
-            return 100;
-        }
     }
     public void ChangeMentalScore(int value){
         mentalScore += value;
