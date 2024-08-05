@@ -5,7 +5,6 @@ using UnityEngine;
 public class Synergy{
     public List<string> synergyName;
     public Dictionary<string, int> synergyDict;
-    private readonly float[] weights = { 0.2f, 0.2f, 0.2f, 0.1f, 0.1f, 0.05f };
     public Synergy(){
         synergyName = new List<string>{
             "Business",
@@ -19,28 +18,6 @@ public class Synergy{
         foreach(string syn in synergyName){
             synergyDict.Add(syn, 0);
         }
-    }
-    public int GetRandomSynergyCode()
-    {
-        float totalWeight = 0f;
-
-        foreach (float weight in weights)
-        {
-            totalWeight += weight;
-        }
-        float randomValue = Random.Range(0, totalWeight);
-
-        // 랜덤 값에 따른 숫자 선택
-        float cumulativeWeight = 0f;
-        for (int i = 0; i < weights.Length; i++)
-        {
-            cumulativeWeight += weights[i];
-            if (randomValue < cumulativeWeight)
-            {
-                return i;
-            }
-        }
-        return weights.Length - 1;
     }
 }
 

@@ -29,38 +29,16 @@ public class Node
     }
     public void SetAllRandom()
     {
-        this.name = GenerateRandomName();
+        this.name = GeneratePersonData.GenerateRandomName();
         this.sex = Random.Range(0, 2) == 0 ? "Male" : "Female";
-        this.bloodType = GenerateRandomBloodType();
+        this.bloodType = GeneratePersonData.GenerateRandomBloodType();
         this.hp = 100;
         this.age = Random.Range(20, 36);
         this.mentalScore = 60;
         this.isDead = false;
         this.empty = false;
         this.imageIdx = GameManager.Instance.imageLoad.GetSpriteIndex(this.sex);
-    }
-
-    private string GenerateRandomName()
-    {
-        string[] names = { "Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Hank" };
-        return names[Random.Range(0, names.Length)];
-    }
-
-    private string[] GenerateRandomBloodType()
-    {
-        string[] bloodTypes = { "A", "B", "AB", "O" };
-        string bloodType = bloodTypes[Random.Range(0, bloodTypes.Length)];
-        string RH = Random.Range(0, 2) == 0 ? "+" : "-";
-        string bloodGenoType = GenerateRandomBloodGenoType(bloodType);
-        return new string[] {bloodType, RH, bloodGenoType};
-    }
-    private string GenerateRandomBloodGenoType(string bloodType){
-        if(bloodType == "O") return "OO";
-        else if(bloodType == "AB") return "AB";
-        else{
-            string bloodGenoType = Random.Range(0, 2) == 0 ? bloodType + bloodType : bloodType + "O";
-            return bloodGenoType;
-        }
+        this.synergyCode = GeneratePersonData.GenerateSynergyCode();
     }
 }
 
@@ -80,6 +58,7 @@ public class NodeSO : ScriptableObject
             isDead = card.isDead,
             empty = false,
             imageIdx = card.imageIdx,
+            synergyCode = card.synergyCode
         };
     }
 }

@@ -15,38 +15,18 @@ public class SelectableCard
     public bool isDead;
     public int imageIdx;
 
+    public int synergyCode;
+
     public void SetAllRandom(){
-        this.name = GenerateRandomName();
+        this.name = GeneratePersonData.GenerateRandomName();
         this.sex = Random.Range(0, 2) == 0 ? "Male" : "Female";
-        this.bloodType = GenerateRandomBloodType();
+        this.bloodType = GeneratePersonData.GenerateRandomBloodType();
         this.hp = 100;
         this.age = Random.Range(20, 36);
         this.cost = Random.Range(5, 21);
         this.isDead = false;
         this.imageIdx = GameManager.Instance.imageLoad.GetSpriteIndex(this.sex);
-    }
-    private string GenerateRandomName()
-    {
-        string[] names = { "Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Hank" };
-        return names[Random.Range(0, names.Length)];
-    }
-
-    // 랜덤 혈액형 생성 예시
-    private string[] GenerateRandomBloodType()
-    {
-        string[] bloodTypes = { "A", "B", "AB", "O" };
-        string bloodType = bloodTypes[Random.Range(0, bloodTypes.Length)];
-        string RH = Random.Range(0, 2) == 0 ? "+" : "-";
-        string bloodGenoType = GenerateRandomBloodGenoType(bloodType);
-        return new string[] {bloodType, RH, bloodGenoType};
-    }
-    private string GenerateRandomBloodGenoType(string bloodType){
-        if(bloodType == "O") return "OO";
-        else if(bloodType == "AB") return "AB";
-        else{
-            string bloodGenoType = Random.Range(0, 2) == 0 ? bloodType + bloodType : bloodType + "O";
-            return bloodGenoType;
-        }
+        this.synergyCode = GeneratePersonData.GenerateSynergyCode();
     }
 }
 [CreateAssetMenu(fileName = "SelectableCardSo", menuName = "Scriptable Object/SelectableCardSo")]
