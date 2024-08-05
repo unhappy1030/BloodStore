@@ -7,13 +7,13 @@ public class Node
 {
     public string name;
     public string sex;
-
     public string[] bloodType;
     public int hp;
     public int age;
     public int mentalScore;
     public bool isDead;
     public int imageIdx;
+    public int synId;
     public bool empty;
     public Node(){
         empty = true;
