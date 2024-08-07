@@ -91,6 +91,24 @@ public class BloodTypeGameManager : MonoBehaviour
     }
 
     bool isGameEnd(){
+        int playerCount = 0;
+        int enemyCount = 0;
+        for(int i=0; i<3; i++){
+            for(int j=0; j<3; j++){
+                if(deckStatusList[i][j].isFilled){
+                    if(deckStatusList[i][j].isPlayer)
+                        playerCount++;
+                    else
+                        enemyCount++;
+                }
+            }
+        }
+
+        if(playerCount+enemyCount == 9){
+            isPlayerWin = (playerCount > enemyCount);
+            return true;
+        }
+
         if(isMakeOneLine(0, 4, 8) || isMakeOneLine(1, 4, 7) || isMakeOneLine(2, 4, 6) || isMakeOneLine(3, 4, 5)){
             isPlayerWin = deckStatusList[1][1].isPlayer;
             return true;
