@@ -623,6 +623,7 @@ public class NodeInteraction : MonoBehaviour
         texts[3].text = "BloodType : " + node.bloodType[1] + node.bloodType[2];
         texts[4].text = "HP : " + node.hp;
         texts[5].text = "MentalScore : " + node.mentalScore;
+        texts[6].text = "Synergy : " + SynergyName.names[node.synergyCode];
     }
 
     void SelectPair(EmptyDisplay emptyNode){

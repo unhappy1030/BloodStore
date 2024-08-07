@@ -461,6 +461,7 @@ public class TreePair
             age = Random.Range(-9, 0),
             mentalScore = 60,
             isDead = false,
+            synergyCode = GetSynergyCodeByParent(),
             empty = false,
         };
         node.imageIdx = GameManager.Instance.imageLoad.GetSpriteIndex(node.sex);
@@ -526,5 +527,24 @@ public class TreePair
             newGeno = BTGeno;
         }
         return newGeno;
+    }
+
+    private int GetSynergyCodeByParent(){
+        float[] weights = new float[]{0.3f, 0.3f, 0.4f};
+        List<int> synCodes = new List<int>{pair.male.synergyCode, pair.female.synergyCode, 6};
+        Debug.Log("Male Code : " + synCodes[0]);
+        Debug.Log("feMale Code : " + synCodes[1]);
+        float randomValue = Random.Range(0, 1f);
+        Debug.Log("Random Value : " + randomValue);
+        float cumulativeWeight = 0f;
+        for (int i = 0; i < weights.Length; i++)
+        {
+            cumulativeWeight += weights[i];
+            if (randomValue < cumulativeWeight)
+            {
+                return synCodes[i];
+            }
+        }
+        return 2;
     }
 }
