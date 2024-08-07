@@ -8,6 +8,7 @@ public class BloodTypeGameManager : MonoBehaviour
 {
     public List<GameObject> deckList; // assign at inspector
     public TextMeshProUGUI nextCardText; // assign at inspector
+    public GameObject gameResultObj; // assign at inspector
 
     public List<List<MinigameDeck>> deckStatusList;
     public MinigameDeck previousDeck;
@@ -30,10 +31,16 @@ public class BloodTypeGameManager : MonoBehaviour
         while(!isGameEnd()){
             yield return StartCoroutine(PlayOneTurn());
         }
+
+        gameResultObj.SetActive(true);
+        TextMeshProUGUI gameResultText = gameResultObj.GetComponentInChildren<TextMeshProUGUI>();
         if(isPlayerWin)
-            Debug.Log("Player Win!");
+            gameResultText.text = "You Win!";
         else
-            Debug.Log("Player lose!");
+            gameResultText.text = "You lose!";
+        
+        yield return new WaitForSeconds(2);
+        gameResultObj.SetActive(false);
     }
 
     void SetGame(){
@@ -45,12 +52,17 @@ public class BloodTypeGameManager : MonoBehaviour
             Debug.Log("Next hand text is empty...");
             return;
         }
+        if(gameResultObj == null){
+            Debug.Log("Game result object is empty...");
+            return;
+        }
 
         foreach(GameObject deck in deckList){
             TextMeshProUGUI text = deck.transform.GetComponentInChildren<TextMeshProUGUI>();
             text.text = "";
         }
         nextCardText.text = "";
+        gameResultObj.SetActive(false);
         
         deckStatusList = new List<List<MinigameDeck>>();
         for(int i=0; i<3; i++){
