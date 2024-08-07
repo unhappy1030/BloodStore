@@ -14,20 +14,35 @@ public static class SynergyName{
         };
 }
 
-[System.Serializable]
-public class Synergy{
-    public Dictionary<string, int> synergyDict;
-    public Synergy(){
-        synergyDict = new();
-        foreach(string syn in SynergyName.names){
-            synergyDict.Add(syn, 0);
-        }
-    }
-}
-
-
 [CreateAssetMenu(fileName = "SynergySO", menuName = "Scriptable Object/SynergySO")]
 public class SynergySO : ScriptableObject
 {
-    public Synergy synergy = new();
+    public List<int> synergyList;
+    private void OnEnable() {
+        synergyList = new List<int>{0, 0, 0, 0, 0, 0, 0};
+    }
+    public void SetSynergyList(TreePair root){
+        if(!root.pair.male.empty){
+            synergyList[root.pair.male.synergyCode]++;
+        }
+        if(!root.pair.female.empty){
+            synergyList[root.pair.female.synergyCode]++;
+        }
+        if(root.pair.childNum != 0){
+            foreach(TreePair now in root.children){
+                SetSynergyList(now);
+            }
+        }
+    }
+    public void SetSynergyList(List<SerializePair> serializePairList){
+        synergyList = new List<int>{0, 0, 0, 0, 0, 0, 0};
+        foreach(SerializePair serializePair in serializePairList){
+            if(!serializePair.male.empty){
+            synergyList[serializePair.male.synergyCode]++;
+        }
+        if(!serializePair.female.empty){
+            synergyList[serializePair.female.synergyCode]++;
+        }
+        }
+    }
 }

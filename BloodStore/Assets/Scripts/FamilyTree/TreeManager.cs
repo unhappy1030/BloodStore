@@ -33,6 +33,7 @@ public class TreeManager : MonoBehaviour
             AddFirstNode(node);
         }
         MakeFamilyTree();
+        GameManager.Instance.synergySO.SetSynergyList(root);
     }
     /// <summary>
     /// 현재 TreePair의 root를 통해서 전체 트리를 직렬화 하여 저장
@@ -51,6 +52,7 @@ public class TreeManager : MonoBehaviour
         pairManager.UpdateMentalScore();
         pairManager.SuicideByMentalScore();
         pairManager.Save();
+        GameManager.Instance.synergySO.SetSynergyList(pairManager.serializePairList);
     }
     /// <summary>
     /// 가계도 그리기

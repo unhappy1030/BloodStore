@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
 
     public PairManager pairManager;
     public BloodPacks bloodPackList;
+    public SynergySO synergySO;
     public SaveData saveData;
     public ImageLoad imageLoad;
 

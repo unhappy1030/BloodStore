@@ -68,12 +68,14 @@ public class EmptyDisplay : MonoBehaviour
             age = nodeSO.node.age,
             mentalScore = nodeSO.node.mentalScore,
             isDead = nodeSO.node.isDead,
+            synergyCode = nodeSO.node.synergyCode,
             empty = false,
             imageIdx = nodeSO.node.imageIdx,
         };
         group.treePair.MakePair(node);
         group.treePair.pair.isPair = true;
         nodeSO.node.empty = true;
+        GameManager.Instance.synergySO.synergyList[node.synergyCode]++;
     }
     void DeleteNode(){
         group.treePair.pair.isPair = false;
