@@ -18,8 +18,10 @@ public static class SynergyName{
 public class SynergySO : ScriptableObject
 {
     public List<int> synergyList;
+    public List<int> synergyEffect;
     private void OnEnable() {
         synergyList = new List<int>{0, 0, 0, 0, 0, 0, 0};
+        synergyEffect = new List<int>{0, 0, 0, 0, 0, 0, 0};
     }
     public void SetSynergyList(TreePair root){
         if(!root.pair.male.empty){
@@ -43,6 +45,31 @@ public class SynergySO : ScriptableObject
         if(!serializePair.female.empty){
             synergyList[serializePair.female.synergyCode]++;
         }
+        }
+    }
+    public void SetSynergyEffect(){
+        synergyEffect = new List<int>{0, 0, 0, 0, 0, 0, 0};
+        for(int i = 0; i < synergyList.Count; i++){
+            switch(i){
+                case 0:
+                    if(synergyList[i] >= 25){
+                        synergyEffect[i] = 30;
+                    }
+                    else if(synergyEffect[i] >= )
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
