@@ -40,35 +40,30 @@ public class SynergySO : ScriptableObject
         synergyList = new List<int>{0, 0, 0, 0, 0, 0, 0};
         foreach(SerializePair serializePair in serializePairList){
             if(!serializePair.male.empty){
-            synergyList[serializePair.male.synergyCode]++;
-        }
-        if(!serializePair.female.empty){
-            synergyList[serializePair.female.synergyCode]++;
-        }
+                synergyList[serializePair.male.synergyCode]++;
+            }
+            if(!serializePair.female.empty){
+                synergyList[serializePair.female.synergyCode]++;
+            }
         }
     }
     public void SetSynergyEffect(){
         synergyEffect = new List<int>{0, 0, 0, 0, 0, 0, 0};
-        for(int i = 0; i < synergyList.Count; i++){
-            switch(i){
-                case 0:
-                    if(synergyList[i] >= 25){
-                        synergyEffect[i] = 30;
-                    }
-                    else if(synergyEffect[i] >= )
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                default:
-                    break;
+        if(synergyList[5] >= 20){
+            synergyEffect[5] = 10;
+        }
+        else if(synergyEffect[5] >= 10){
+            synergyEffect[5] = 5;
+        }
+        for(int i = 0; i < synergyList.Count - 2; i++){
+            if(synergyList[i] + synergyEffect[5] >= 20){
+                synergyEffect[i] = 3;
+            }
+            else if(synergyList[i] + synergyEffect[5] >= 10){
+                synergyEffect[i] = 2;
+            }
+            else if(synergyList[i] + synergyEffect[5] >= 5){
+                synergyEffect[i] = 1;
             }
         }
     }

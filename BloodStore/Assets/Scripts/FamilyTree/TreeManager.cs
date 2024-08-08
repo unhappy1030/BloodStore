@@ -34,6 +34,7 @@ public class TreeManager : MonoBehaviour
         }
         MakeFamilyTree();
         GameManager.Instance.synergySO.SetSynergyList(root);
+        GameManager.Instance.synergySO.SetSynergyEffect();
     }
     /// <summary>
     /// 현재 TreePair의 root를 통해서 전체 트리를 직렬화 하여 저장
