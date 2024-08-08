@@ -13,9 +13,9 @@ public class BloodTypeGameManager : MonoBehaviour
     public List<List<MinigameDeck>> deckStatusList;
     public MinigameDeck previousDeck;
     public MinigameDeck currentDeck;
-    string randomBloodType;
-    bool isPlayerTurn;
-    bool isPlayerWin;
+    public string randomBloodType;
+    public bool isPlayerTurn;
+    public bool isPlayerWin;
 
 
     /// <summary>
@@ -93,7 +93,7 @@ public class BloodTypeGameManager : MonoBehaviour
 
         if(previousDeck != null){
             PutOnTheDeck();
-            CheckDeckStatus(previousDeck.indexs, randomBloodType);
+            CheckDeckStatus(deckStatusList, previousDeck.indexs, randomBloodType);
             randomBloodType = MakeRandomBloodType();
             nextCardText.text = randomBloodType;
             previousDeck = null;
@@ -148,21 +148,6 @@ public class BloodTypeGameManager : MonoBehaviour
         return false;
     }
 
-    // void Update(){
-    //     if(Input.GetMouseButtonDown(0)){
-    //         if(previousDeck != null){
-    //             PutOnTheDeck();
-    //             CheckDeckStatus(previousDeck.index, randomBloodType);
-    //             randomBloodType = MakeRandomBloodType();
-    //             nextCardText.text = randomBloodType;
-    //             previousDeck = null;
-    //             currentDeck = null;
-    //             isPlayerTurn = !isPlayerTurn;
-    //         }
-    //     }
-    //     ChangeMouseCursor();
-    // }
-
     void ChangeMouseCursor(){
         bool isOutOfDeck = true;
         for(int i=0; i<3; i++){
@@ -181,18 +166,6 @@ public class BloodTypeGameManager : MonoBehaviour
                 }
             }
         }
-
-        // foreach(MinigameDeck deck in deckStatusList){
-        //     if(deck.isFilled)
-        //         continue;
-        //     RectTransform rectTransform = deck.realObject.GetComponent<RectTransform>();
-        //     Vector2 localMousePosition = rectTransform.InverseTransformPoint(Input.mousePosition);
-        //     if(rectTransform.rect.Contains(localMousePosition)){
-        //         currentDeck = deck;
-        //         isOutOfDeck = false;
-        //         break;
-        //     }
-        // }
 
         if(isOutOfDeck){
             if(previousDeck != null){
@@ -220,10 +193,10 @@ public class BloodTypeGameManager : MonoBehaviour
         previousDeck.bloodType = randomBloodType;
     }
 
-    void CheckDeckStatus(int[] idxs, string newBloodType){
-        if(idxs[0] > 0 && deckStatusList[idxs[0]-1][idxs[1]].isFilled)
+    public void CheckDeckStatus(List<List<MinigameDeck>> targetList, int[] idxs, string newBloodType){
+        if(idxs[0] > 0 && targetList[idxs[0]-1][idxs[1]].isFilled)
         {
-            MinigameDeck upDeck = deckStatusList[idxs[0]-1][idxs[1]];
+            MinigameDeck upDeck = targetList[idxs[0]-1][idxs[1]];
 
             if(!isAbleToGiveBlood(newBloodType, upDeck.bloodType)){
                 upDeck.ChangeText("", new Color32(0,0,0,255));
@@ -231,9 +204,9 @@ public class BloodTypeGameManager : MonoBehaviour
             }
         }
 
-        if(idxs[1] > 0 && deckStatusList[idxs[0]][idxs[1]-1].isFilled)
+        if(idxs[1] > 0 && targetList[idxs[0]][idxs[1]-1].isFilled)
         {
-            MinigameDeck leftDeck = deckStatusList[idxs[0]][idxs[1]-1];
+            MinigameDeck leftDeck = targetList[idxs[0]][idxs[1]-1];
 
             if(!isAbleToGiveBlood(newBloodType, leftDeck.bloodType)){
                 leftDeck.ChangeText("", new Color32(0,0,0,255));
@@ -241,9 +214,9 @@ public class BloodTypeGameManager : MonoBehaviour
             }
         }
 
-        if(idxs[0] < 2 && deckStatusList[idxs[0]+1][idxs[1]].isFilled)
+        if(idxs[0] < 2 && targetList[idxs[0]+1][idxs[1]].isFilled)
         {
-            MinigameDeck downDeck = deckStatusList[idxs[0]+1][idxs[1]];
+            MinigameDeck downDeck = targetList[idxs[0]+1][idxs[1]];
 
             if(!isAbleToGiveBlood(newBloodType, downDeck.bloodType)){
                 downDeck.ChangeText("", new Color32(0,0,0,255));
@@ -251,43 +224,15 @@ public class BloodTypeGameManager : MonoBehaviour
             }
         }
 
-        if(idxs[1] < 2 && deckStatusList[idxs[0]][idxs[1]+1].isFilled)
+        if(idxs[1] < 2 && targetList[idxs[0]][idxs[1]+1].isFilled)
         {
-            MinigameDeck rightDeck = deckStatusList[idxs[0]][idxs[1]+1];
+            MinigameDeck rightDeck = targetList[idxs[0]][idxs[1]+1];
 
             if(!isAbleToGiveBlood(newBloodType, rightDeck.bloodType)){
                 rightDeck.ChangeText("", new Color32(0,0,0,255));
                 rightDeck.isFilled = false;
             }
         }
-        
-        // if(idxs - 3 >= 0 && deckStatusList[idxs-3].isFilled){
-        //     if(!isAbleToGiveBlood(newBloodType, deckStatusList[idxs-3].bloodType)){
-        //         deckStatusList[idxs-3].ChangeText("", new Color32(0,0,0,255));
-        //         deckStatusList[idxs-3].isFilled = false;
-        //     }
-        // }
-
-        // if(idxs-1 >=0 && (idxs-1)/3 == idxs/3 && deckStatusList[idxs-1].isFilled){
-        //     if(!isAbleToGiveBlood(newBloodType, deckStatusList[idxs-1].bloodType)){
-        //         deckStatusList[idxs-1].ChangeText("", new Color32(0,0,0,255));
-        //         deckStatusList[idxs-1].isFilled = false;
-        //     }
-        // }
-
-        // if((idxs+1)/3 == idxs/3 && deckStatusList[idxs+1].isFilled){
-        //     if(!isAbleToGiveBlood(newBloodType, deckStatusList[idxs+1].bloodType)){
-        //         deckStatusList[idxs+1].ChangeText("", new Color32(0,0,0,255));
-        //         deckStatusList[idxs+1].isFilled = false;
-        //     }
-        // }
-
-        // if(idxs + 3 < 9 && deckStatusList[idxs+1].isFilled){
-        //     if(!isAbleToGiveBlood(newBloodType, deckStatusList[idxs+3].bloodType)){
-        //         deckStatusList[idxs+3].ChangeText("", new Color32(0,0,0,255));
-        //         deckStatusList[idxs+3].isFilled = false;
-        //     }
-        // }
     }
 
     bool isAbleToGiveBlood(string newBloodType, string currentBloodType){
@@ -367,7 +312,8 @@ public class MinigameDeck{
         this.bloodType = bloodType;
         this.realObject = realObject;
 
-        realText = realObject.GetComponentInChildren<TextMeshProUGUI>();
+        if(realObject != null)
+            realText = realObject.GetComponentInChildren<TextMeshProUGUI>();
     }
 
     public void ChangeText(string content){
