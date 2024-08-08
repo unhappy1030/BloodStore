@@ -532,6 +532,9 @@ public class TreePair
     private int GetSynergyCodeByParent(){
         float[] weights = new float[]{0.3f, 0.3f, 0.4f};
         List<int> synCodes = new List<int>{pair.male.synergyCode, pair.female.synergyCode, 6};
+        if(pair.male.synergyCode == 5 || pair.female.synergyCode == 5){
+            weights = new float[]{0.5f, 0.5f, 0};
+        }
         float randomValue = Random.Range(0, 1f);
         float cumulativeWeight = 0f;
         for (int i = 0; i < weights.Length; i++)
