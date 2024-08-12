@@ -23,6 +23,10 @@ public class SynergySO : ScriptableObject
         synergyList = new List<int>{0, 0, 0, 0, 0, 0, 0};
         synergyEffect = new List<int>{0, 0, 0, 0, 0, 0, 0};
     }
+    public void initialize(){
+        synergyList = new List<int>{0, 0, 0, 0, 0, 0, 0};
+        synergyEffect = new List<int>{0, 0, 0, 0, 0, 0, 0};
+    }
     public void SetSynergyList(TreePair root){
         if(!root.pair.male.empty){
             synergyList[root.pair.male.synergyCode]++;
@@ -37,7 +41,6 @@ public class SynergySO : ScriptableObject
         }
     }
     public void SetSynergyList(List<SerializePair> serializePairList){
-        synergyList = new List<int>{0, 0, 0, 0, 0, 0, 0};
         foreach(SerializePair serializePair in serializePairList){
             if(!serializePair.male.empty){
                 synergyList[serializePair.male.synergyCode]++;
@@ -48,7 +51,6 @@ public class SynergySO : ScriptableObject
         }
     }
     public void SetSynergyEffect(){
-        synergyEffect = new List<int>{0, 0, 0, 0, 0, 0, 0};
         if(synergyList[5] >= 20){
             synergyEffect[5] = 10;
         }

@@ -33,6 +33,7 @@ public class TreeManager : MonoBehaviour
             AddFirstNode(node);
         }
         MakeFamilyTree();
+        GameManager.Instance.synergySO.initialize();
         GameManager.Instance.synergySO.SetSynergyList(root);
         GameManager.Instance.synergySO.SetSynergyEffect();
     }

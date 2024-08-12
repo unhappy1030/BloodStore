@@ -457,13 +457,14 @@ public class TreePair
             name = GenerateRandomName(),
             sex = Random.Range(0, 2) == 0 ? "Male" : "Female",
             bloodType = GenerateBloodTypeArray(),
-            hp = 50,
             age = Random.Range(-9, 0),
             mentalScore = 60,
             isDead = false,
             synergyCode = GetSynergyCodeByParent(),
             empty = false,
         };
+        node.maxHp = GeneratePersonData.SetMaxHp(node.synergyCode);
+        node.hp = node.maxHp;
         node.imageIdx = GameManager.Instance.imageLoad.GetSpriteIndex(node.sex);
         return node;
     }
