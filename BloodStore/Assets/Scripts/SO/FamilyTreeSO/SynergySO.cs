@@ -69,4 +69,16 @@ public class SynergySO : ScriptableObject
             }
         }
     }
+
+    public void BusinessEffect(){
+        if(synergyEffect[0] == 3){
+            GameManager.Instance.money *= 1.15f;
+        }
+        else if(synergyEffect[0] == 2){
+            GameManager.Instance.money *= 1.1f;
+        }
+        else if(synergyEffect[0] == 1){
+            GameManager.Instance.money *= 1.05f;
+        }
+    }
 }
