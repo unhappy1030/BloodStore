@@ -10,23 +10,24 @@ public class SelectableCard
     public string sex;
     public string[] bloodType;
     public int hp;
+    public int maxHp;
     public int age;
     public int cost;
     public bool isDead;
     public int imageIdx;
-
     public int synergyCode;
 
     public void SetAllRandom(){
-        this.name = GeneratePersonData.GenerateRandomName();
-        this.sex = Random.Range(0, 2) == 0 ? "Male" : "Female";
-        this.bloodType = GeneratePersonData.GenerateRandomBloodType();
-        this.hp = 100;
-        this.age = Random.Range(20, 36);
-        this.cost = Random.Range(5, 21);
-        this.isDead = false;
-        this.imageIdx = GameManager.Instance.imageLoad.GetSpriteIndex(this.sex);
-        this.synergyCode = GeneratePersonData.GenerateSynergyCode();
+        name = GeneratePersonData.GenerateRandomName();
+        sex = Random.Range(0, 2) == 0 ? "Male" : "Female";
+        bloodType = GeneratePersonData.GenerateRandomBloodType();
+        age = Random.Range(20, 36);
+        cost = Random.Range(5, 21);
+        isDead = false;
+        imageIdx = GameManager.Instance.imageLoad.GetSpriteIndex(sex);
+        synergyCode = GeneratePersonData.GenerateSynergyCode();
+        maxHp = GeneratePersonData.SetMaxHp(synergyCode);
+        hp = maxHp;
     }
 }
 [CreateAssetMenu(fileName = "SelectableCardSo", menuName = "Scriptable Object/SelectableCardSo")]

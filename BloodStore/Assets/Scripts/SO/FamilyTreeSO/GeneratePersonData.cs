@@ -50,4 +50,16 @@ public static class GeneratePersonData
         }
         return weights.Length - 1;
     }
+
+    public static int SetMaxHp(int synergyCode){
+        if(synergyCode == 1){
+            return 120;
+        }
+        else if(synergyCode == 2){
+            return 60;
+        }
+        else{
+            return 100;
+        }
+    }
 }
