@@ -28,6 +28,15 @@ public class Node
             mentalScore = 100;
         }
     }
+    public void ChangeHp(int value){
+        hp += value;
+        if(hp < 0){
+            hp = 0;
+        }
+        if(hp > maxHp){
+            hp = maxHp;
+        }
+    }
     public void SetAllRandom()
     {
         name = GeneratePersonData.GenerateRandomName();

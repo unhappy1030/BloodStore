@@ -81,4 +81,36 @@ public class SynergySO : ScriptableObject
             GameManager.Instance.money *= 1.05f;
         }
     }
+
+    public void HealthinessEffect(TreePair root){
+        if(!root.pair.male.empty){
+            Node tmp = root.pair.male;
+            if(synergyEffect[1] == 3){
+                tmp.ChangeHp(15);
+            }
+            else if(synergyEffect[1] == 2){
+                tmp.ChangeHp(10);
+            }
+            else if(synergyEffect[1] == 1){
+                tmp.ChangeHp(5);
+            }
+        }
+        if(!root.pair.female.empty){
+            Node tmp = root.pair.female;
+            if(synergyEffect[1] == 3){
+                tmp.ChangeHp(15);
+            }
+            else if(synergyEffect[1] == 2){
+                tmp.ChangeHp(10);
+            }
+            else if(synergyEffect[1] == 1){
+                tmp.ChangeHp(5);
+            }
+        }
+        if(root.pair.childNum != 0){
+            foreach(TreePair now in root.children){
+                HealthinessEffect(now);
+            }
+        }
+    }
 }
