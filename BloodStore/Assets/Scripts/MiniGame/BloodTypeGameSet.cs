@@ -13,30 +13,10 @@ public class BloodTypeGameSet
     public bool isPlayerWin;
 
     public BloodTypeGameSet(){
-        ResetDeckList();
+        playerDeck = new string[3,3];
+        computerDeck = new string[3,3];
         SetNextRandomBloodType();
         isPlayerWin = false;
-    }
-
-    public void ResetDeckList(){
-        playerDeck = new string[3,3];
-        computerDeck = new string[3,3];
-    }
-
-    public void CopyDeckList(string[,] newPlayerDeck, string[,] newComputerDeck){
-        playerDeck = new string[3,3];
-        for(int i=0; i<3; i++){
-            for(int j=0; j<3; j++){
-                playerDeck[i,j] = newPlayerDeck[i,j];
-            }
-        }
-
-        computerDeck = new string[3,3];
-        for(int i=0; i<3; i++){
-            for(int j=0; j<3; j++){
-                computerDeck[i,j] = newComputerDeck[i,j];
-            }
-        }
     }
 
     public void PutOnTheDeck(int[] idxs){
@@ -46,74 +26,44 @@ public class BloodTypeGameSet
             PutOnComputerDeck(idxs, currentBloodtype);
     }
 
-    public void PutOnPlayerDeck(int[] idxs, string bloodtype){
+    void PutOnPlayerDeck(int[] idxs, string bloodtype){
         playerDeck[idxs[0], idxs[1]] = bloodtype;
-        CheckDeckStatus(playerDeck, idxs, bloodtype);
-        CheckDeckStatus(computerDeck, idxs, bloodtype);
+        RemoveBloodClot(playerDeck, idxs, bloodtype);
+        RemoveBloodClot(computerDeck, idxs, bloodtype);
     }
 
-    public void PutOnComputerDeck(int[] idxs, string bloodtype){
+    void PutOnComputerDeck(int[] idxs, string bloodtype){
         computerDeck[idxs[0], idxs[1]] = bloodtype;
-        CheckDeckStatus(playerDeck, idxs, bloodtype);
-        CheckDeckStatus(computerDeck, idxs, bloodtype);
+        RemoveBloodClot(playerDeck, idxs, bloodtype);
+        RemoveBloodClot(computerDeck, idxs, bloodtype);
     }
 
-    void CheckDeckStatus(string[,] targetDeck, int[] idxs, string newBloodType){
-        // Player
-        if(idxs[0] > 0 && playerDeck[idxs[0]-1, idxs[1]] != null) // up
+    void RemoveBloodClot(string[,] targetDeck, int[] idxs, string newBloodType){
+        if(idxs[0] > 0 && targetDeck[idxs[0]-1, idxs[1]] != null) // up
         {
-            if(!IsAbleToGiveBlood(newBloodType, playerDeck[idxs[0]-1, idxs[1]])){
-                playerDeck[idxs[0]-1, idxs[1]] = null;
+            if(!IsAbleToGiveBlood(newBloodType, targetDeck[idxs[0]-1, idxs[1]])){
+                targetDeck[idxs[0]-1, idxs[1]] = null;
             }
         }
 
-        if(idxs[0] < 2 && playerDeck[idxs[0]+1, idxs[1]] != null) // down
+        if(idxs[0] < 2 && targetDeck[idxs[0]+1, idxs[1]] != null) // down
         {
-            if(!IsAbleToGiveBlood(newBloodType, playerDeck[idxs[0]+1, idxs[1]])){
-                playerDeck[idxs[0]+1, idxs[1]] = null;
+            if(!IsAbleToGiveBlood(newBloodType, targetDeck[idxs[0]+1, idxs[1]])){
+                targetDeck[idxs[0]+1, idxs[1]] = null;
             }
         }
         
-        if(idxs[1] < 2 && playerDeck[idxs[0], idxs[1]+1] != null) // right
+        if(idxs[1] < 2 && targetDeck[idxs[0], idxs[1]+1] != null) // right
         {
-            if(!IsAbleToGiveBlood(newBloodType, playerDeck[idxs[0],idxs[1]+1])){
-                playerDeck[idxs[0],idxs[1]+1] = null;
+            if(!IsAbleToGiveBlood(newBloodType, targetDeck[idxs[0],idxs[1]+1])){
+                targetDeck[idxs[0],idxs[1]+1] = null;
             }
         }
 
-        if(idxs[1] > 0 && playerDeck[idxs[0], idxs[1]-1] != null) // left
+        if(idxs[1] > 0 && targetDeck[idxs[0], idxs[1]-1] != null) // left
         {
-            if(!IsAbleToGiveBlood(newBloodType, playerDeck[idxs[0], idxs[1]-1])){
-                playerDeck[idxs[0], idxs[1]-1] = null;
-            }
-        }
-
-        // Computer
-        if(idxs[0] > 0 && computerDeck[idxs[0]-1, idxs[1]] != null) // up
-        {
-            if(!IsAbleToGiveBlood(newBloodType, computerDeck[idxs[0]-1, idxs[1]])){
-                computerDeck[idxs[0]-1, idxs[1]] = null;
-            }
-        }
-
-        if(idxs[0] < 2 && computerDeck[idxs[0]+1, idxs[1]] != null) // down
-        {
-            if(!IsAbleToGiveBlood(newBloodType, computerDeck[idxs[0]+1, idxs[1]])){
-                computerDeck[idxs[0]+1, idxs[1]] = null;
-            }
-        }
-        
-        if(idxs[1] < 2 && computerDeck[idxs[0], idxs[1]+1] != null) // right
-        {
-            if(!IsAbleToGiveBlood(newBloodType, computerDeck[idxs[0],idxs[1]+1])){
-                computerDeck[idxs[0],idxs[1]+1] = null;
-            }
-        }
-
-        if(idxs[1] > 0 && computerDeck[idxs[0], idxs[1]-1] != null) // left
-        {
-            if(!IsAbleToGiveBlood(newBloodType, computerDeck[idxs[0], idxs[1]-1])){
-                computerDeck[idxs[0], idxs[1]-1] = null;
+            if(!IsAbleToGiveBlood(newBloodType, targetDeck[idxs[0], idxs[1]-1])){
+                targetDeck[idxs[0], idxs[1]-1] = null;
             }
         }
     }
@@ -176,7 +126,7 @@ public class BloodTypeGameSet
         return bloodtype;
     }
 
-    public bool IsFilled(int[] idxs){
+    public bool IsAnyDeckFilled(int[] idxs){
         return (playerDeck[idxs[0], idxs[1]] != null || computerDeck[idxs[0], idxs[1]] != null);
     }
 
@@ -213,22 +163,22 @@ public class BloodTypeGameSet
     }
 
     bool IsMakeOneLine(string[,] targetDeck){
-        if(IsMakeOneLine(targetDeck, 0, 4, 8) || IsMakeOneLine(targetDeck, 1, 4, 7) || IsMakeOneLine(targetDeck, 2, 4, 6) || IsMakeOneLine(targetDeck, 3, 4, 5)){
+        if(IsAllFilled(targetDeck, 0, 4, 8) || IsAllFilled(targetDeck, 1, 4, 7) || IsAllFilled(targetDeck, 2, 4, 6) || IsAllFilled(targetDeck, 3, 4, 5)){
             return true;
         }
 
-        if(IsMakeOneLine(targetDeck, 0, 3, 6) || IsMakeOneLine(targetDeck, 0, 1, 2)){
+        if(IsAllFilled(targetDeck, 0, 3, 6) || IsAllFilled(targetDeck, 0, 1, 2)){
             return true;
         }
 
-        if(IsMakeOneLine(targetDeck, 6, 7, 8) || IsMakeOneLine(targetDeck, 2, 5, 8)){
+        if(IsAllFilled(targetDeck, 6, 7, 8) || IsAllFilled(targetDeck, 2, 5, 8)){
             return true;
         }
 
         return false;
     }
 
-    bool IsMakeOneLine(string[,] targetDeck, int i1, int i2, int i3){
+    bool IsAllFilled(string[,] targetDeck, int i1, int i2, int i3){
         return (targetDeck[i2/3, i2%3] != null && targetDeck[i1/3, i1%3] != null && targetDeck[i3/3, i3%3] != null);
     }
 

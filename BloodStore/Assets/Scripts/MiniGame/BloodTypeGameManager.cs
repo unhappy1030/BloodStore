@@ -27,16 +27,7 @@ public class BloodTypeGameManager : MonoBehaviour
         while(!gameSetStatus.IsGameEnd()){
             yield return StartCoroutine(PlayOneTurn());
         }
-
-        gameResultObj.SetActive(true);
-        TextMeshProUGUI gameResultText = gameResultObj.GetComponentInChildren<TextMeshProUGUI>();
-        if(gameSetStatus.isPlayerWin)
-            gameResultText.text = "You Win!";
-        else
-            gameResultText.text = "You lose!";
-        
-        yield return new WaitForSeconds(2);
-        gameResultObj.SetActive(false);
+        yield return StartCoroutine(EndGame());
     }
 
     void SetGame(){
@@ -86,7 +77,7 @@ public class BloodTypeGameManager : MonoBehaviour
             int targetIdx = deckObjList.IndexOf(previousDeck);
             int[] idxs = new int[2]{targetIdx/3, targetIdx%3};
             gameSetStatus.PutOnTheDeck(idxs);
-            ChangeTextStatus();
+            UpdateTextStatus();
 
             gameSetStatus.SetNextRandomBloodType();
             nextCardText.text = gameSetStatus.currentBloodtype;
@@ -96,7 +87,7 @@ public class BloodTypeGameManager : MonoBehaviour
         }
     }
 
-    void ChangeTextStatus(){
+    void UpdateTextStatus(){
         for(int i=0; i<deckObjList.Count; i++){
             int[] idxs = new int[2]{i/3, i%3};
             if(gameSetStatus.playerDeck[idxs[0], idxs[1]] != null){
@@ -117,7 +108,7 @@ public class BloodTypeGameManager : MonoBehaviour
             GameObject deck = deckObjList[i];
             int[] idxs = new int[]{i/3, i%3};
 
-            if(gameSetStatus.IsFilled(idxs))
+            if(gameSetStatus.IsAnyDeckFilled(idxs))
                 continue;
             
             RectTransform rectTransform = deck.GetComponent<RectTransform>();
@@ -156,5 +147,17 @@ public class BloodTypeGameManager : MonoBehaviour
         TextMeshProUGUI targetText = target.GetComponentInChildren<TextMeshProUGUI>();
         targetText.color = textColor;
         targetText.text = content;
+    }
+
+    IEnumerator EndGame(){
+        gameResultObj.SetActive(true);
+        TextMeshProUGUI gameResultText = gameResultObj.GetComponentInChildren<TextMeshProUGUI>();
+        if(gameSetStatus.isPlayerWin)
+            gameResultText.text = "You Win!";
+        else
+            gameResultText.text = "You lose!";
+        
+        yield return new WaitForSeconds(2);
+        gameResultObj.SetActive(false);
     }
 }
