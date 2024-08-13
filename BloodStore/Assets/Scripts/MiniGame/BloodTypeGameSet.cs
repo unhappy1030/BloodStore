@@ -18,6 +18,23 @@ public class BloodTypeGameSet
         SetNextRandomBloodType();
         isPlayerWin = false;
     }
+    public BloodTypeGameSet(BloodTypeGameSet targetSet){
+        playerDeck = new string[3,3];
+        for(int i=0; i<3; i++){
+            for(int j=0; j<3; j++){
+                playerDeck[i,j] = targetSet.playerDeck[i,j];
+            }
+        }
+        computerDeck = new string[3,3];
+        for(int i=0; i<3; i++){
+            for(int j=0; j<3; j++){
+                computerDeck[i,j] = targetSet.computerDeck[i,j];
+            }
+        }
+        currentBloodtype = targetSet.currentBloodtype;
+        isPlayerTurn = targetSet.isPlayerTurn;
+        isPlayerWin = targetSet.isPlayerWin;
+    }
 
     public void PutOnTheDeck(int[] idxs){
         if(isPlayerTurn)
@@ -180,6 +197,30 @@ public class BloodTypeGameSet
 
     bool IsAllFilled(string[,] targetDeck, int i1, int i2, int i3){
         return (targetDeck[i2/3, i2%3] != null && targetDeck[i1/3, i1%3] != null && targetDeck[i3/3, i3%3] != null);
+    }
+
+    public int CountOfTwoDots(string[,] targetDeck){
+        int count = 0;
+        if(CountOfDots(targetDeck, 0, 1, 2) == 2) count++;
+        if(CountOfDots(targetDeck, 3, 4, 5) == 2) count++;
+        if(CountOfDots(targetDeck, 6, 7, 8) == 2) count++;
+        if(CountOfDots(targetDeck, 0, 3, 6) == 2) count++;
+        if(CountOfDots(targetDeck, 1, 4, 7) == 2) count++;
+        if(CountOfDots(targetDeck, 2, 5, 8) == 2) count++;
+        if(CountOfDots(targetDeck, 0, 4, 8) == 2) count++;
+        if(CountOfDots(targetDeck, 2, 4, 6) == 2) count++;
+        return count;
+    }
+
+    int CountOfDots(string[,] targetDeck, int i1, int i2, int i3){
+        int count = 0;
+        if(targetDeck[i1/3, i1%3] != null)
+            count++;
+        if(targetDeck[i2/3, i2%3] != null)
+            count++;
+        if(targetDeck[i3/3, i3%3] != null)
+            count++;
+        return count;
     }
 
     public void ChangeTurn(){
