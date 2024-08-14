@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System.Globalization;
-using Unity.VisualScripting;
 
 public class ResultStore : MonoBehaviour
 {
@@ -16,6 +14,8 @@ public class ResultStore : MonoBehaviour
     public TextMeshProUGUI pointText; // assign at inspector
 
     public MoneyControl moneyControl;
+
+    public SynergySO synergySO;
 
     private void Start()
     {
@@ -33,7 +33,9 @@ public class ResultStore : MonoBehaviour
 
 
     public void ChangeStoreResultTexts(){
-        earningText.text = "Earning : " + moneyControl.earning.ToString();
+        float synergyEarning = synergySO.WeaknessEffect(moneyControl.earning);
+        moneyControl.CalculateMoney(synergyEarning);
+        earningText.text = "Earning : " + moneyControl.earning.ToString() + "(+" + synergyEarning.ToString()+ ")";
         spendingText.text = "Spending : " + moneyControl.spending.ToString();
         resultText.text = "Result : " + (moneyControl.earning + moneyControl.spending).ToString();
         currentMoneyText.text = "Current Money : " + GameManager.Instance.money.ToString();

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public static class SynergyName{
@@ -111,6 +112,19 @@ public class SynergySO : ScriptableObject
             foreach(TreePair now in root.children){
                 HealthinessEffect(now);
             }
+        }
+    }
+
+    public float WeaknessEffect(float earning){
+        switch(synergyEffect[2]){
+            case 3:
+                return earning * 0.3f;
+            case 2:
+                return earning * 0.15f;
+            case 1:
+                return earning * 0.1f;
+            default:
+                return 0f;
         }
     }
 }

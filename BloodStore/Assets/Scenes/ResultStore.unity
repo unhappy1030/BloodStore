@@ -1208,6 +1208,7 @@ MonoBehaviour:
   currentMoneyText: {fileID: 762315400}
   pointText: {fileID: 170897539}
   moneyControl: {fileID: 0}
+  synergySO: {fileID: 11400000, guid: 5b51f17a4f762964ba2930076bb927bd, type: 2}
 --- !u!4 &179950106
 Transform:
   m_ObjectHideFlags: 0
