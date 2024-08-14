@@ -37,7 +37,7 @@ public class BloodtypeGameAI : MonoBehaviour
         BloodTypeGameSet newGameSet = new BloodTypeGameSet(gameSet);
         newGameSet.PutOnTheDeck(idxs);
         if(newGameSet.IsGameEnd()){
-            totalScore += (newGameSet.isPlayerTurn) ? -10000 : 10000;
+            totalScore += (newGameSet.isPlayerWin) ? -10000 : 10000;
             return totalScore;
         }
 
@@ -61,7 +61,7 @@ public class BloodtypeGameAI : MonoBehaviour
         for(int i=0; i<3; i++){
             for(int j=0; j<3; j++){
                 int[] nullIdxs = new int[2]{i,j};
-                if(newGameSet.IsAnyDeckFilled(nullIdxs))
+                if(!newGameSet.IsAnyDeckFilled(nullIdxs))
                     allOfNullIdxs.Add(nullIdxs);
             }
         }
