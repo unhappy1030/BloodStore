@@ -1144,7 +1144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59790b2aa7f2afb4ba4239f7792a07bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deckList:
+  deckObjList:
   - {fileID: 434521496}
   - {fileID: 1395555921}
   - {fileID: 259182317}
@@ -1156,18 +1156,8 @@ MonoBehaviour:
   - {fileID: 1769714598}
   nextCardText: {fileID: 1331875287}
   gameResultObj: {fileID: 1513789750}
-  previousDeck:
-    indexs: 
-    isFilled: 0
-    isPlayer: 0
-    bloodType: 
-    realObject: {fileID: 0}
-  currentDeck:
-    indexs: 
-    isFilled: 0
-    isPlayer: 0
-    bloodType: 
-    realObject: {fileID: 0}
+  previousDeck: {fileID: 0}
+  currentDeck: {fileID: 0}
 --- !u!4 &561422226
 Transform:
   m_ObjectHideFlags: 0

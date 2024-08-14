@@ -199,27 +199,77 @@ public class BloodTypeGameSet
         return (targetDeck[i2/3, i2%3] != null && targetDeck[i1/3, i1%3] != null && targetDeck[i3/3, i3%3] != null);
     }
 
-    public int CountOfTwoDots(string[,] targetDeck){
+    public int CountOfTwoDotsInPlayerDeck(){
         int count = 0;
-        if(CountOfDots(targetDeck, 0, 1, 2) == 2) count++;
-        if(CountOfDots(targetDeck, 3, 4, 5) == 2) count++;
-        if(CountOfDots(targetDeck, 6, 7, 8) == 2) count++;
-        if(CountOfDots(targetDeck, 0, 3, 6) == 2) count++;
-        if(CountOfDots(targetDeck, 1, 4, 7) == 2) count++;
-        if(CountOfDots(targetDeck, 2, 5, 8) == 2) count++;
-        if(CountOfDots(targetDeck, 0, 4, 8) == 2) count++;
-        if(CountOfDots(targetDeck, 2, 4, 6) == 2) count++;
+        List<int> nullIdxsForRow = new List<int>();
+        List<int> nullIdxsForColon = new List<int>();
+
+        for(int i=0; i<3; i++){ // 행 & 열
+            nullIdxsForRow.Clear();
+            nullIdxsForColon.Clear();
+            for(int j=0; j<3; j++){
+                if(playerDeck[i,j] == null)
+                    nullIdxsForRow.Add(i);
+                if(playerDeck[j,i] == null)
+                    nullIdxsForColon.Add(j);
+            }
+            if(nullIdxsForRow.Count == 1 && computerDeck[i,nullIdxsForRow[0]] == null)
+                count++;
+            if(nullIdxsForColon.Count == 1 && computerDeck[nullIdxsForColon[0],i] == null)
+                count++;
+        }
+
+        if(computerDeck[2,2] == null && playerDeck[0,0] != null && playerDeck[1,1] != null 
+            || computerDeck[1,1] == null && playerDeck[0,0] != null && playerDeck[2,2] != null
+            || computerDeck[0,0] == null && playerDeck[1,1] != null && playerDeck[2,2] != null)
+        {
+            count++;
+        }
+
+        if(computerDeck[0,2] == null && playerDeck[2,0] != null && playerDeck[1,1] != null 
+            || computerDeck[1,1] == null && playerDeck[2,0] != null && playerDeck[0,2] != null
+            || computerDeck[2,0] == null && playerDeck[1,1] != null && playerDeck[0,2] != null)
+        {
+            count++;
+        }
+
         return count;
     }
 
-    int CountOfDots(string[,] targetDeck, int i1, int i2, int i3){
+    public int CountOfTwoDotsInComputerDeck(){
         int count = 0;
-        if(targetDeck[i1/3, i1%3] != null)
+        List<int> nullIdxsForRow = new List<int>();
+        List<int> nullIdxsForColon = new List<int>();
+
+        for(int i=0; i<3; i++){ // 행 & 열
+            nullIdxsForRow.Clear();
+            nullIdxsForColon.Clear();
+            for(int j=0; j<3; j++){
+                if(computerDeck[i,j] == null)
+                    nullIdxsForRow.Add(i);
+                if(computerDeck[j,i] == null)
+                    nullIdxsForColon.Add(j);
+            }
+            if(nullIdxsForRow.Count == 1 && playerDeck[i,nullIdxsForRow[0]] == null)
+                count++;
+            if(nullIdxsForColon.Count == 1 && playerDeck[nullIdxsForColon[0],i] == null)
+                count++;
+        }
+
+        if(playerDeck[2,2] == null && computerDeck[0,0] != null && computerDeck[1,1] != null 
+            || playerDeck[1,1] == null && computerDeck[0,0] != null && computerDeck[2,2] != null
+            || playerDeck[0,0] == null && computerDeck[1,1] != null && computerDeck[2,2] != null)
+        {
             count++;
-        if(targetDeck[i2/3, i2%3] != null)
+        }
+
+        if(playerDeck[0,2] == null && computerDeck[2,0] != null && computerDeck[1,1] != null 
+            || playerDeck[1,1] == null && computerDeck[2,0] != null && computerDeck[0,2] != null
+            || playerDeck[2,0] == null && computerDeck[1,1] != null && computerDeck[0,2] != null)
+        {
             count++;
-        if(targetDeck[i3/3, i3%3] != null)
-            count++;
+        }
+
         return count;
     }
 

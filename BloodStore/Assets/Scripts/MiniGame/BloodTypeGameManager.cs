@@ -9,6 +9,7 @@ public class BloodTypeGameManager : MonoBehaviour
     public List<GameObject> deckObjList; // assign at inspector
     public TextMeshProUGUI nextCardText; // assign at inspector
     public GameObject gameResultObj; // assign at inspector
+    public BloodtypeGameAI gameAI; // assign at inspector
 
     public BloodTypeGameSet gameSetStatus;
     public GameObject previousDeck;
@@ -25,7 +26,10 @@ public class BloodTypeGameManager : MonoBehaviour
         SetGame();
         yield return StartCoroutine(SetTurn());
         while(!gameSetStatus.IsGameEnd()){
-            yield return StartCoroutine(PlayOneTurn());
+            if(gameSetStatus.isPlayerTurn)
+                yield return StartCoroutine(PlayerTurn());
+            else
+                yield return StartCoroutine(ComputerTurn());
         }
         yield return StartCoroutine(EndGame());
     }
@@ -67,7 +71,7 @@ public class BloodTypeGameManager : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator PlayOneTurn(){
+    IEnumerator PlayerTurn(){
         while(!Input.GetMouseButtonDown(0)){
             ChangeMouseCursor();
             yield return null;
@@ -85,6 +89,23 @@ public class BloodTypeGameManager : MonoBehaviour
             previousDeck = null;
             currentDeck = null;
         }
+    }
+
+    IEnumerator ComputerTurn(){
+        gameAI.isCalculationFinished = false;
+        int[] idxs = gameAI.FindOptimalIndex(gameSetStatus);
+        yield return new WaitUntil(() => gameAI.isCalculationFinished);
+        yield return new WaitForSeconds(0.7f);
+        gameAI.isCalculationFinished = false;
+        gameSetStatus.PutOnTheDeck(idxs);
+        UpdateTextStatus();
+
+        gameSetStatus.SetNextRandomBloodType();
+        nextCardText.text = gameSetStatus.currentBloodtype;
+        gameSetStatus.ChangeTurn();
+        previousDeck = null;
+        currentDeck = null;
+        Debug.Log("Idx : {" + idxs[0] + "," + idxs[1] + "} / " + gameSetStatus.currentBloodtype);
     }
 
     void UpdateTextStatus(){
